@@ -61,9 +61,7 @@ export default function Home() {
         </div>
         <h1 className="text-4xl">Roey Biran</h1>
         <p className="text-base">
-          Visual Communications Designer & Developer (
-          <a href="https://developer.apple.com/documentation/appkit">Cocoa</a> +
-          Web)
+          Visual Communications Designer & Developer. Into macOS + Web.
         </p>
         <p className="text-base" style={{ fontWeight: 700 }}>
           More stuff – soon.
