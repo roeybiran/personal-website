@@ -54,7 +54,7 @@ export default function Home() {
         <div className="image-wrapper">
           <Image
             src={"/roey-biran.jpg"}
-            alt="roey biran’s memoji"
+            alt="roey biran"
             width={573}
             height={573}
           />
