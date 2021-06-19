@@ -49,7 +49,6 @@ export default function Home() {
       <Head>
         <title>Roey Biran</title>
         <meta name="description" content="Roey Biran’s personal website" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <StyledHeader>
         <div className="image-wrapper">
@@ -62,7 +61,9 @@ export default function Home() {
         </div>
         <h1 className="text-4xl">Roey Biran</h1>
         <p className="text-base">
-          Visual Communications Designer & Developer (Cocoa + Web)
+          Visual Communications Designer & Developer (
+          <a href="https://developer.apple.com/documentation/appkit">Cocoa</a> +
+          Web)
         </p>
         <p className="text-base" style={{ fontWeight: 700 }}>
           More stuff – soon.
