@@ -49,6 +49,7 @@ export default function Home() {
       <Head>
         <title>Roey Biran</title>
         <meta name="description" content="Roey Biran’s personal website" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <StyledHeader>
         <div className="image-wrapper">
