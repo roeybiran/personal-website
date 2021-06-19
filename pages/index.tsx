@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
-import tokens from "../styles/tokens";
 import Image from "next/image";
+import tokens from "../styles/tokens";
 
 const StyledHeader = styled.header`
   height: 100vh;
@@ -43,26 +43,28 @@ const StyledHeader = styled.header`
   }
 `;
 
+const name = "Roey Biran";
+const description =
+  "Visual Communications Designer & Developer. Into macOS + Web.";
+
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Roey Biran</title>
-        <meta name="description" content="Roey Biran’s personal website" />
+        <title>{`${name}`}</title>
+        <meta name="description" content={`${name}’s personal website`} />
       </Head>
       <StyledHeader>
         <div className="image-wrapper">
           <Image
             src={"/roey-biran.jpg"}
-            alt="roey biran"
+            alt={`${name}`}
             width={573}
             height={573}
           />
         </div>
-        <h1 className="text-4xl">Roey Biran</h1>
-        <p className="text-base">
-          Visual Communications Designer & Developer. Into macOS + Web.
-        </p>
+        <h1 className="text-4xl">{`${name}`}</h1>
+        <p className="text-base">{description}</p>
         <p className="text-base" style={{ fontWeight: 700 }}>
           More stuff – soon.
         </p>
