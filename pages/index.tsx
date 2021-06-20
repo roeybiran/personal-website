@@ -4,29 +4,39 @@ import Image from "next/image";
 import tokens from "../styles/tokens";
 
 const StyledHeader = styled.header`
+  --bg-color: #fdf6e3;
+  --text-color: #657b83;
+  --link-color: #268bd2;
+
+  @media (prefers-color-scheme: dark) {
+    --bg-color: #002b36;
+    --text-color: #839496;
+  }
+
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: ${tokens.colors.gray[800]};
   gap: ${tokens.spacing[4]};
-  margin: 0 auto;
   padding: ${tokens.spacing[4]};
+  margin: 0 auto;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
 
   > p {
     text-align: center;
   }
 
   a {
-    color: ${tokens.colors.blue[600]};
+    color: var(--link-color);
     text-decoration: underline;
-    transition: color 0.2s ease;
-  }
 
-  a:hover {
-    color: ${tokens.colors.gray[800]};
+    :hover {
+      text-decoration-style: double;
+    }
   }
 
   .image-wrapper {
