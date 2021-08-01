@@ -1,55 +1,27 @@
 import Head from "next/head";
 import styled from "styled-components";
 import Image from "next/image";
-import tokens from "../styles/tokens";
+import avatar from "../public/avatar.jpg";
 
-const StyledHeader = styled.header`
-  --bg-color: #fdf6e3;
-  --text-color: #657b83;
-  --link-color: #268bd2;
-
-  @media (prefers-color-scheme: dark) {
-    --bg-color: #002b36;
-    --text-color: #839496;
-  }
-
-  height: 100vh;
-  width: 100vw;
+const Wrapper = styled.div`
+  min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: ${tokens.spacing[4]};
-  padding: ${tokens.spacing[4]};
-  margin: 0 auto;
 
-  background-color: var(--bg-color);
-  color: var(--text-color);
-
-  > p {
-    text-align: center;
-  }
-
-  a {
-    color: var(--link-color);
-    text-decoration: underline;
-
-    :hover {
-      text-decoration-style: double;
-    }
-  }
-
-  .image-wrapper {
+  .image-container {
     max-width: 128px;
-    img {
-      clip-path: circle(50% at 50% 50%);
-    }
+  }
+
+  .image-container img {
+    clip-path: circle(50% at 50% 50%);
   }
 
   .links {
+    list-style: none;
     display: flex;
-    gap: ${tokens.spacing[4]};
-    flex-wrap: wrap;
+    gap: var(--s0);
   }
 `;
 
@@ -64,26 +36,27 @@ export default function Home() {
         <title>{`${name}`}</title>
         <meta name="description" content={`${name}’s personal website`} />
       </Head>
-      <StyledHeader>
-        <div className="image-wrapper">
-          <Image
-            src={"/roey-biran.jpg"}
-            alt={`${name}`}
-            width={573}
-            height={573}
-          />
-        </div>
-        <h1 className="text-4xl">{`${name}`}</h1>
-        <p className="text-base">{description}</p>
-        <p className="text-base" style={{ fontWeight: 700 }}>
-          More stuff – soon.
-        </p>
-        <div className="links">
-          <a href="https://github.com/roeybiran">GitHub</a>
-          <a href="mailto:roeybiran@icloud.com">Mail</a>
-          <a href="https://twitter.com/roeybiran">Twitter</a>
-        </div>
-      </StyledHeader>
+      <Wrapper>
+        <header className="stack center">
+          <div className="image-container">
+            <Image src={avatar} alt={`${name}`} />
+          </div>
+          <h1>{name}</h1>
+          <p>{description}</p>
+          <p style={{ fontWeight: 700 }}>More stuff – soon.</p>
+          <ul className="links">
+            <li>
+              <a href="https://github.com/roeybiran">GitHub</a>
+            </li>
+            <li>
+              <a href="mailto:roeybiran@icloud.com">Mail</a>
+            </li>
+            <li>
+              <a href="https://twitter.com/roeybiran">Twitter</a>
+            </li>
+          </ul>
+        </header>
+      </Wrapper>
     </>
   );
 }
