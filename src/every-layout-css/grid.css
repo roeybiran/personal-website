@@ -1,0 +1,23 @@
+.grid {
+	/* The space (grid-gap) between the grid children / cells */
+	--_space: var(--space, 1rem);
+
+	display: grid;
+	grid-gap: var(--_space);
+}
+
+@supports (width: min(250px, 100%)) {
+	.grid {
+		/* The minimum value for the min() function */
+		--_minimum: var(--minimum, 250px);
+
+		/* the fit mode */
+		--_fit: var(--fit, auto-fit);
+
+		grid-template-columns:
+			repeat(
+				var(--_fit),
+				minmax(min(var(--_minimum), 100%), 1fr)
+			);
+	}
+}

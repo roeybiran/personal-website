@@ -1,0 +1,44 @@
+.home {
+	.intro {
+		* {
+			font-size: var(--step-0);
+		}
+		// max-width: 30ch;
+		margin-block-end: var(--space-m);
+	}
+
+	.card-inner {
+		background-color: var(--bg-2nd-color);
+		padding: var(--space-m);
+
+		text-align: center;
+		// inline-size: min(30ch, 100%);
+		aspect-ratio: 1;
+		border-radius: 10%;
+
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: center;
+		align-items: center;
+		margin-inline: auto;
+
+		.icon {
+			opacity: 0.9;
+		}
+
+		.nimg-container {
+			inline-size: clamp(128px, 33vw, 256px);
+			aspect-ratio: 1;
+			margin-inline: inherit;
+			pointer-events: none;
+		}
+
+		a {
+			font-size: var(--step-2);
+		}
+
+		p {
+			font-size: var(--step--1);
+		}
+	}
+}

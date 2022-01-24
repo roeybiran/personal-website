@@ -1,0 +1,21 @@
+.switcher {
+	/* The container width at which the component switches between a horizontal and vertical layout */
+	--_threshold: var(--threshold, 30rem);
+
+	/* The space (margin) between the (child) elements */
+	--_space: var(--space, 1.5rem);
+
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--_space);
+}
+
+.switcher > * {
+	flex-grow: 1;
+	flex-basis: calc((var(--_threshold) - 100%) * 999);
+}
+
+/* The maximum number of elements allowed to appear in the horizontal configuration */
+.switcher > .cutoff ~ * {
+	flex-basis: 100%;
+}

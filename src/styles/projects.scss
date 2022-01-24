@@ -1,0 +1,51 @@
+.projects {
+	h1 {
+		font-size: var(--step-2);
+	}
+
+	a {
+		text-decoration: none;
+		color: unset;
+	}
+
+	.project-card {
+		overflow: hidden;
+		border-radius: var(--step--2);
+		background-color: var(--slate3);
+		display: flex;
+		flex-direction: column-reverse;
+
+		.text {
+			flex-grow: 1;
+			padding: var(--space-s);
+		}
+
+		p {
+			font-size: var(--step--1);
+			color: var(--text2-color);
+		}
+
+		.project-type {
+			font-size: var(--step--2);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+	}
+
+	.nimg-container {
+		min-inline-size: 100%;
+		aspect-ratio: 16/9;
+		opacity: 0.9;
+		pointer-events: none;
+	}
+
+	.cluster li {
+		font-size: var(--step--2);
+		border: 1px solid var(--border-color);
+		padding: var(--space-3xs) var(--space-2xs);
+		color: var(--text2-color);
+		border-radius: 4px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+}

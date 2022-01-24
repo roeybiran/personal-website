@@ -1,0 +1,85 @@
+:root {
+	--max-content-width: 1920px;
+	font-family: 'IBM Plex Sans', sans-serif;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+a {
+	color: var(--link-color);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-weight: 400;
+}
+
+/* extract to a reusable reset? */
+* {
+	margin: 0;
+	padding: 0;
+	overflow-wrap: break-word;
+	line-height: calc(2px + 2ex + 2px);
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+cite {
+	font-size: unset;
+}
+
+* {
+	font-size: var(--step-0);
+}
+
+p,
+li,
+dt,
+dd {
+	line-height: 1.4;
+}
+
+p {
+}
+
+#__next {
+	min-block-size: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	flex-grow: 1;
+	padding-inline: var(--space-m);
+	margin-block: var(--space-m);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.nimg-container {
+	position: relative;
+}
+
+.sr-only:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.end-mark::after {
+	content: '⌘';
+	padding-block-start: var(--space-l);
+	font-size: var(--step-0);
+	display: flex;
+	justify-content: center;
+}

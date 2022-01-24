@@ -1,0 +1,33 @@
+.cover {
+	/* The minimum height of the parent element, before it grows to accommodate its content */
+	--_min-height: var(--min-height, 100vh);
+
+	/* The minimum space between and around the child elements */
+	--_space: var(--space, 1rem);
+
+	display: flex;
+	flex-direction: column;
+	min-height: var(--_min-height);
+	padding: var(--_space);
+}
+
+/* Whether to remove the padding from the parent element */
+.cover.no-pad {
+	padding: 0;
+}
+
+.cover > * {
+	margin-block: var(--_space);
+}
+
+.cover > :first-child:not(.centered) {
+	margin-block-start: 0;
+}
+
+.cover > :last-child:not(.centered) {
+	margin-block-end: 0;
+}
+
+.cover > .centered {
+	margin-block: auto;
+}

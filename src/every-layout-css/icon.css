@@ -1,0 +1,15 @@
+.icon > :first-child {
+	inline-size: 0.75em;
+	block-size: 0.75em;
+}
+
+.icon.spaced {
+	display: inline-flex;
+	align-items: baseline;
+}
+
+.icon.spaced > :first-child {
+	--_space: var(--space, 1rem);
+
+	margin-inline-end: var(--_space);
+}

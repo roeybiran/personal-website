@@ -1,0 +1,21 @@
+.editorial {
+	// font-size: var(--step-0);
+	max-inline-size: min(60ch, 100%);
+
+	ul {
+		padding-inline-start: var(--space-l);
+		list-style: disc outside;
+	}
+
+	> * + * {
+		margin-block-start: var(--space-xs);
+	}
+
+	:where(h2, h3, h4) {
+		font-size: var(--step-1);
+	}
+
+	> * + :where(h2, h3, h4) {
+		margin-block-start: var(--space-m);
+	}
+}
