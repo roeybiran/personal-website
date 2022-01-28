@@ -11,7 +11,7 @@ import If from '../../If';
 export default function app({
 	data,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-	const { title, subtitle, icon, app_store_badge, github, content } = data;
+	const { title, subtitle, icon, app_store, github, content } = data;
 	return (
 		<div className="app-page">
 			<DefaultHead title={title} description={subtitle} />
@@ -23,8 +23,15 @@ export default function app({
 					<Image src={icon} alt="" width={256} height={256} />
 					<h1>{title}</h1>
 					<p>{subtitle}</p>
-					<If this={app_store_badge}>
-						<div dangerouslySetInnerHTML={{ __html: app_store_badge! }} />
+					<If this={app_store}>
+						<a href={app_store!}>
+							<Image
+								src="/app_store_badge.svg"
+								width={165}
+								height={40}
+								alt="App Store badge"
+							/>
+						</a>
 					</If>
 					<If this={github}>
 						<a href={github!}>Source on GitHub</a>

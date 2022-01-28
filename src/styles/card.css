@@ -18,7 +18,7 @@
 .card:hover,
 .card:focus-within {
 	/* transform: translateY(-10px); */
-	box-shadow: 0 0 0 2px var(--slate8);
+	box-shadow: 0 0 0 3px var(--blue7);
 }
 
 .card a:focus {

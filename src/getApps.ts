@@ -9,7 +9,7 @@ export type App = {
 		subtitle: string;
 		github?: string;
 		icon: string;
-		app_store_badge?: string;
+		app_store?: string;
 	};
 	content: string;
 };
