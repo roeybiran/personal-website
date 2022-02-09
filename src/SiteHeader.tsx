@@ -26,7 +26,7 @@ export default function SiteHeader() {
 						<Image src={memoji} alt={'Memoji of Roey Biran'} />
 					</div>
 					<div>
-						<h1>Roey Biran</h1>
+						<p>Roey Biran</p>
 						<p>Developer + Designer</p>
 					</div>
 				</div>

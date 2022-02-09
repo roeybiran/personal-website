@@ -22,7 +22,7 @@
 		flex-shrink: 0;
 		flex-grow: 1;
 
-		p {
+		p:nth-child(2) {
 			color: var(--text2-color);
 		}
 	}

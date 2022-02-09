@@ -11,12 +11,10 @@ export default function Home(
 	return (
 		<div className="home">
 			<DefaultHead title="Home" />
-			<h1 className="sr-only">Roey Biran</h1>
-			<div className="intro center and-text">
-				<p className="">
-					Graduate visual communications designer and indie developer. My apps:
-				</p>
-			</div>
+			<h1 className="sr-only">Home Page</h1>
+			<p className="intro center and-text">
+				Graduate visual communications designer and indie developer. My apps:
+			</p>
 			<div className="center">
 				<UL
 					iterable={props.data}
