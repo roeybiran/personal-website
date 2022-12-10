@@ -1,9 +1,10 @@
 ---
 title: Graduates’ Exhibition
 subtitle: The official website of my school’s department graduation exhibition.
-github: roeybiran/hitviscom-graduates-2021
-url: https://hitviscom-graduates-2021.vercel.app
 date: 2021-08-10
+links:
+  - github: roeybiran/hitviscom-graduates-2021
+  - url: https://hitviscom-graduates-2021.vercel.app
 type: Website
 responsibilities:
   - Code

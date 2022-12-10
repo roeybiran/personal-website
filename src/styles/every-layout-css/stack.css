@@ -9,7 +9,7 @@
 }
 
 .stack > * + * {
-	margin-block-start: var(--space, 1.5rem);
+	margin-block-start: var(--space, var(--size-3));
 }
 
 .stack.recursive * {
@@ -17,7 +17,7 @@
 }
 
 .stack.recursive * + * {
-	margin-block-start: var(--space, 1.5rem);
+	margin-block-start: var(--space, var(--size-3));
 }
 
 .stack.split-after:only-child {

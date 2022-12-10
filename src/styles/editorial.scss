@@ -1,21 +1,33 @@
 .editorial {
-	// font-size: var(--step-0);
-	max-inline-size: min(60ch, 100%);
+	// max-inline-size: min(60ch, 100%);
 
 	ul {
-		padding-inline-start: var(--space-l);
+		padding-inline-start: var(--size-5);
 		list-style: disc outside;
 	}
 
 	> * + * {
-		margin-block-start: var(--space-xs);
+		margin-block-start: var(--size-3);
 	}
 
-	:where(h2, h3, h4) {
-		font-size: var(--step-1);
+	h2,
+	h3,
+	h4 {
+		margin-block-start: var(--size-6);
+		font-weight: var(--font-weight-7);
 	}
+}
 
-	> * + :where(h2, h3, h4) {
-		margin-block-start: var(--space-m);
-	}
+.mixed-bleed {
+	display: grid;
+	grid-template-columns: 1fr min(60ch, 100%) 1fr;
+}
+
+.mixed-bleed > * {
+	grid-column: 2;
+}
+
+.mixed-bleed > :where(img, figure, iframe) {
+	inline-size: 100%;
+	grid-column: 1/-1;
 }

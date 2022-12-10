@@ -1,44 +1,53 @@
 .home {
 	.intro {
-		* {
-			font-size: var(--step-0);
-		}
-		// max-width: 30ch;
-		margin-block-end: var(--space-m);
+		font-size: var(--font-size-3);
 	}
 
-	.card-inner {
+	.app-card {
 		background-color: var(--bg-2nd-color);
-		padding: var(--space-m);
+		padding: var(--size-8);
 
 		text-align: center;
-		// inline-size: min(30ch, 100%);
-		aspect-ratio: 1;
-		border-radius: 10%;
+		border-radius: var(--radius-3);
 
 		display: flex;
+		inline-size: 100%;
 		flex-direction: column-reverse;
-		justify-content: center;
-		align-items: center;
 		margin-inline: auto;
 
-		.icon {
-			opacity: 0.9;
+		.title-container {
+			display: grid;
+			grid-template-areas: "main";
+			justify-content: center;
+			align-items: flex-start;
+
+			> * {
+				grid-area: main;
+			}
 		}
 
-		.nimg-container {
+		.title-container small {
+			justify-self: flex-end;
+			translate: 125%;
+			// display: flex;
+			// align-items: center;
+			// justify-content: center;
+			// gap: var(--size-2);
+			// position: absolute;
+			// inset-inline-end: 0;
+			// inset-block-start: 0;
+		}
+
+		.next-img-container {
 			inline-size: clamp(128px, 33vw, 256px);
 			aspect-ratio: 1;
 			margin-inline: inherit;
 			pointer-events: none;
 		}
 
-		a {
-			font-size: var(--step-2);
-		}
-
-		p {
-			font-size: var(--step--1);
+		.app-name {
+			font-size: var(--font-size-4);
+			font-weight: var(--font-weight-7);
 		}
 	}
 }

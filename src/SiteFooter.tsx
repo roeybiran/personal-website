@@ -1,7 +1,10 @@
 export default function SiteFooter() {
 	return (
 		<footer className="site-footer">
-			<div className="center and-text intrinsic">
+			<div
+				className="center and-text intrinsic stack"
+				style={{ "--space": "var(--size-1)" }}
+			>
 				<ul className="links cluster">
 					<li>
 						<a href="https://github.com/roeybiran">GitHub</a>
@@ -14,7 +17,7 @@ export default function SiteFooter() {
 					</li>
 				</ul>
 				<p className="copyright">
-					Copyright © Roey Biran, {new Date().getFullYear()}
+					Made with ❤️ by Roey Biran, Copyright © {new Date().getFullYear()}
 				</p>
 			</div>
 		</footer>

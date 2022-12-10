@@ -1,6 +1,6 @@
 .cluster {
 	/* The space (margin) between each of the clustered elements */
-	--_space: var(--space, 1rem);
+	--_space: var(--space, var(--size-1));
 
 	/* The justify-content value (for horizontal alignment) */
 	--_justify: var(--justify, flex-start);

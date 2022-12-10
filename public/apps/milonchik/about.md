@@ -1,8 +1,9 @@
 ---
 title: Milonchik
-subtitle: Fast and light Hebrew–English dictionary for your Mac
+subtitle: Fast and light Hebrew–English dictionary
 github: roeybiran/milonchik
 app_store: https://apps.apple.com/il/app/milonchik/id1534607376?mt=12
+platforms: macOS
 ---
 
 ## Features

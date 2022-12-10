@@ -1,48 +1,50 @@
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import DefaultHead from '../DefaultHead';
-import getApps from '../getApps';
-import { UL } from '../List';
+import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import DefaultHead from "../DefaultHead";
+import getApps from "../server/getApps";
 
 export default function Home(
 	props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
 	return (
-		<div className="home">
+		<>
 			<DefaultHead title="Home" />
 			<h1 className="sr-only">Home Page</h1>
-			<p className="intro center and-text">
-				Graduate visual communications designer and indie developer. My apps:
-			</p>
-			<div className="center">
-				<UL
-					iterable={props.data}
-					keyedBy={'title'}
-					content={(appData) => (
-						<div className="card-inner card">
-							<div>
-								<h2>
-									<Link href={appData.slug}>
-										<a>{appData.title}</a>
-									</Link>
-								</h2>
-								<p>{appData.subtitle}</p>
+			<div className="home stack">
+				<p className="intro center and-text">
+					Visual communications designer and developer. Check out my apps:
+				</p>
+				<div className="center">
+					<ul className="stack">
+						{props.data.map(({ title, slug, subtitle, icon }) => (
+							<div key={title} className="card card-ui app-card">
+								<div>
+									<div className="title-container">
+										<h2>
+											<Link className="app-name" href={slug}>
+												{title}
+											</Link>
+										</h2>
+										<small className="chip orange">New</small>
+									</div>
+									<p className="app-subtitle">{subtitle}</p>
+								</div>
+								<div className="next-img-container">
+									<Image
+										className="icon"
+										src={icon}
+										alt={`Icon of ${title}`}
+										width={1024}
+										height={1024}
+									/>
+								</div>
 							</div>
-							<div className="nimg-container">
-								<Image
-									className="icon"
-									src={appData.icon}
-									alt={`Icon of ${appData.title}`}
-									layout="fill"
-									objectFit="contain"
-								/>
-							</div>
-						</div>
-					)}
-				/>
+						))}
+					</ul>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

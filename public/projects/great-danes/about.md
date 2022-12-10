@@ -1,8 +1,9 @@
 ---
 title: Great Danes
-subtitle: Mid-century design masterpieces from Denmark. My B. Design graduation project.
-github: roeybiran/great-danes-site
-url: https://great-danes.roeybiran.com
+subtitle: Mid-century design masterpieces from Denmark. My graduation project.
+links:
+  - github: roeybiran/great-danes-site
+  - url: https://great-danes.roeybiran.com
 date: 2021-07-19
 type: Website
 responsibilities:

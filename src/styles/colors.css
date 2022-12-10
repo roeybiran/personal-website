@@ -1,100 +1,105 @@
+/* https://www.radix-ui.com/docs/colors/palette-composition/the-scales#sand
+		1 - App background
+		2 - Subtle background
+		3 - UI element background
+		4 - Hovered UI element background
+		5 - Active / Selected UI element background
+		6 - Subtle borders and separators
+		7 - UI element border and focus rings
+		8 - Hovered UI element border
+		9 - Solid backgrounds
+		10 - Hovered solid backgrounds
+		11 - Low-contrast text
+		12 - High-contrast text
+	*/
+
 :root {
-	/* slate12 */
-	--text-color: hsl(206 24% 9%);
-	/* slate11 */
-	--text2-color: hsl(206 6% 43.5%);
-	/* slate1 */
-	--bg-color: white;
-	/* slate2 */
-	--bg-2nd-color: hsl(210 16.7% 97.6%);
-	/* blue11 */
-	--link-color: hsl(211 100% 43.2%);
-	/* slate6 */
-	--border-color: hsl(208 11.3% 88.9%);
+	--text-color: var(--slate12);
+	--text2-color: var(--slate11);
+	--bg-color: var(--slate1);
+	--bg-2nd-color: var(--slate2);
+	--link-color: var(--blue11);
+	--border-color: var(--slate6);
 
-	--slate3: hsl(209 13.3% 95.3%);
-	--slate4: hsl(209 12.2% 93.2%);
-	--slate8: hsl(205 10.7% 78%);
-	--slate9: hsl(206 6% 56.1%);
+	--slate1: hsl(206, 30%, 98.8%);
+	--slate2: hsl(210, 16.7%, 97.6%);
+	--slate3: hsl(209, 13.3%, 95.3%);
+	--slate4: hsl(209, 12.2%, 93.2%);
+	--slate5: hsl(208, 11.7%, 91.1%);
+	--slate6: hsl(208, 11.3%, 88.9%);
+	--slate7: hsl(207, 11.1%, 85.9%);
+	--slate8: hsl(205, 10.7%, 78%);
+	--slate9: hsl(206, 6%, 56.1%);
+	--slate10: hsl(206, 5.8%, 52.3%);
+	--slate11: hsl(206, 6%, 43.5%);
+	--slate12: hsl(206, 24%, 9%);
 
-	--blue5: hsl(209 95% 90.1%);
-	--blue7: hsl(208 77.5% 76.9%);
-	--blue8: hsl(206 81.9% 65.3%);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		/* slate12 */
-		--text-color: hsl(210 6% 93%);
-		/* slate11 */
-		--text2-color: hsl(206 6% 63%);
-
-		/* slate1 */
-		--bg-color: hsl(200 7% 8.8%);
-		/* slate2 */
-		--bg-2nd-color: hsl(195 7.1% 11%);
-		/* blue12 */
-		--link-color: hsl(210 100% 66.1%);
-		/* slate6 */
-		--border-color: hsl(201 6.2% 20.5%);
-
-		--slate4: hsl(198 6.6% 15.8%);
-		--slate3: hsl(197 6.8% 13.6%);
-		--slate8: hsl(207 5.6% 31.6%);
-		--slate9: hsl(206 6% 43.9%);
-
-		--blue7: hsl(211 85.1% 27.4%);
-		--blue5: hsl(213 71.2% 20.2%);
-		--blue8: hsl(211 89.7% 34.1%);
-	}
-}
-
-.slate {
-	--slate1: hsl(206 30% 98.8%);
-
-	--slate5: hsl(208 11.7% 91.1%);
-
-	--slate7: hsl(207 11.1% 85.9%);
-
-	--slate10: hsl(206 5.8% 52.3%);
-	--slate11: hsl(206 6% 43.5%);
-	--slate12: ;
-}
-
-.slateDark {
-	--slate1: hsl(200 7% 8.8%);
-
-	--slate5: hsl(199 6.4% 17.9%);
-
-	--slate7: hsl(203 6% 24.3%);
-
-	--slate10: hsl(206 5.2% 49.5%);
-	--slate11: hsl(206 6% 63%);
-}
-
-.blue {
 	--blue1: hsl(206 100% 99.2%);
 	--blue2: hsl(210 100% 98%);
 	--blue3: hsl(209 100% 96.5%);
 	--blue4: hsl(210 98.8% 94%);
+	--blue5: hsl(209 95% 90.1%);
 	--blue6: hsl(209 81.2% 84.5%);
-
+	--blue7: hsl(208 77.5% 76.9%);
+	--blue8: hsl(206 81.9% 65.3%);
 	--blue9: hsl(206 100% 50%);
 	--blue10: hsl(208 100% 47.3%);
 	--blue11: hsl(211 100% 43.2%);
 	--blue12: hsl(211 100% 15%);
+
+	--orange1: hsl(24, 70%, 99%);
+	--orange2: hsl(24, 83.3%, 97.6%);
+	--orange3: hsl(24, 100%, 95.3%);
+	--orange4: hsl(25, 100%, 92.2%);
+	--orange5: hsl(25, 100%, 88.2%);
+	--orange6: hsl(25, 100%, 82.8%);
+	--orange7: hsl(24, 100%, 75.3%);
+	--orange8: hsl(24, 94.5%, 64.3%);
+	--orange9: hsl(24, 94%, 50%);
+	--orange10: hsl(24, 100%, 46.5%);
+	--orange11: hsl(24, 100%, 37%);
+	--orange12: hsl(15, 60%, 17%);
 }
 
-.blueDark {
-	--blue1: hsl(212 35% 9.2%);
-	--blue2: hsl(216 50% 11.8%);
-	--blue3: hsl(214 59.4% 15.3%);
-	--blue4: hsl(214 65.8% 17.9%);
+@media (prefers-color-scheme: dark) {
+	:root {
+		--blue1: hsl(212 35% 9.2%);
+		--blue2: hsl(216 50% 11.8%);
+		--blue3: hsl(214 59.4% 15.3%);
+		--blue4: hsl(214 65.8% 17.9%);
+		--blue5: hsl(213 71.2% 20.2%);
+		--blue6: hsl(212 77.4% 23.1%);
+		--blue7: hsl(211 85.1% 27.4%);
+		--blue8: hsl(211 89.7% 34.1%);
+		--blue9: hsl(206 100% 50%);
+		--blue10: hsl(209 100% 60.6%);
+		--blue11: hsl(210 100% 66.1%);
+		--blue12: hsl(206 98% 95.8%);
 
-	--blue6: hsl(212 77.4% 23.1%);
+		--slate1: hsl(200, 7%, 8.8%);
+		--slate2: hsl(195, 7.1%, 11%);
+		--slate3: hsl(197, 6.8%, 13.6%);
+		--slate4: hsl(198, 6.6%, 15.8%);
+		--slate5: hsl(199, 6.4%, 17.9%);
+		--slate6: hsl(201, 6.2%, 20.5%);
+		--slate7: hsl(203, 6%, 24.3%);
+		--slate8: hsl(207, 5.6%, 31.6%);
+		--slate9: hsl(206, 6%, 43.9%);
+		--slate10: hsl(206, 5.2%, 49.5%);
+		--slate11: hsl(206, 6%, 63%);
+		--slate12: hsl(210, 6%, 93%);
 
-	--blue9: hsl(206 100% 50%);
-	--blue10: hsl(209 100% 60.6%);
-	--blue11: hsl(210 100% 66.1%);
-	--blue12: hsl(206 98% 95.8%);
+		--orange1: hsl(30, 70%, 7.2%);
+		--orange2: hsl(28, 100%, 8.4%);
+		--orange3: hsl(26, 91.1%, 11.6%);
+		--orange4: hsl(25, 88.3%, 14.1%);
+		--orange5: hsl(24, 87.6%, 16.6%);
+		--orange6: hsl(24, 88.6%, 19.8%);
+		--orange7: hsl(24, 92.4%, 24%);
+		--orange8: hsl(25, 100%, 29%);
+		--orange9: hsl(24, 94%, 50%);
+		--orange10: hsl(24, 100%, 58.5%);
+		--orange11: hsl(24, 100%, 62.2%);
+		--orange12: hsl(24, 97%, 93.2%);
+	}
 }

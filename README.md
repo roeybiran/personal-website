@@ -1,3 +1,3 @@
-# Personal Website
+# personal-website
 
-Built with Next.js, deployed to Vercel.
+Built with Next.js.

@@ -1,9 +1,9 @@
 ---
 title: PotatO’Clock
 subtitle: Battle sedentariness with the help of a friendly potato.
-github: roeybiran/potatoclock
+links:
+  - github: roeybiran/potatoclock
 date: 2021-02-01
-url:
 type: macOS App
 responsibilities:
   - Code

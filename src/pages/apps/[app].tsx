@@ -2,28 +2,27 @@ import type {
 	GetStaticPropsContext,
 	GetStaticPaths,
 	InferGetStaticPropsType,
-} from 'next';
-import getApps from '../../getApps';
-import Image from 'next/image';
-import DefaultHead from '../../DefaultHead';
-import If from '../../If';
+} from "next";
+import getApps from "../../server/getApps";
+import Image from "next/image";
+import DefaultHead from "../../DefaultHead";
+import If from "../../utils/If";
 
 export default function app({
 	data,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
 	const { title, subtitle, icon, app_store, github, content } = data;
 	return (
-		<div className="app-page">
+		<>
 			<DefaultHead title={title} description={subtitle} />
-			<div
-				className="stack recursive"
-				style={{ '--space': 'var(--space-2xs)' }}
-			>
-				<div className="center intrinsic and-text">
+			<div className="app-page">
+				<div className="stack center intrinsic and-text">
 					<Image src={icon} alt="" width={256} height={256} />
-					<h1>{title}</h1>
-					<p>{subtitle}</p>
-					<If this={app_store}>
+					<div>
+						<h1>{title}</h1>
+						<p className="subtitle">{subtitle}</p>
+					</div>
+					{app_store && (
 						<a href={app_store!}>
 							<Image
 								src="/app_store_badge.svg"
@@ -32,17 +31,15 @@ export default function app({
 								alt="App Store badge"
 							/>
 						</a>
-					</If>
-					<If this={github}>
-						<a href={github!}>Source on GitHub</a>
-					</If>
+					)}
+					{github && <a href={github!}>Source on GitHub</a>}
 				</div>
+				<div
+					className="editorial mixed-bleed"
+					dangerouslySetInnerHTML={{ __html: content }}
+				/>
 			</div>
-			<div
-				className="editorial center"
-				dangerouslySetInnerHTML={{ __html: content }}
-			/>
-		</div>
+		</>
 	);
 }
 

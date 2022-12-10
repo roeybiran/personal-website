@@ -1,8 +1,9 @@
 ---
 title: Let’s Ski!
 subtitle: A ski lover’s experiment in creative coding and big data parsing.
-github: roeybiran/lets-ski
-url: https://lets-ski.roeybiran.com
+links:
+  - github: roeybiran/lets-ski
+  - url: https://lets-ski.roeybiran.com
 date: 2020-06-10
 type: Website
 responsibilities:

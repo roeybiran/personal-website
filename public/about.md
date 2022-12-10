@@ -2,4 +2,8 @@
 title: About
 ---
 
-I’m a graduate visual communications designer and self–taught indie developer. I’m interested in building macOS apps, websites and web apps, automation, crafting well–formed APIs, and creating excellent user experiences. I have a great passion for fine typography and icon design. I’m also an avid self–learner and a voracious reader.
+I’m a graduate visual communications designer and self–taught developer, currently employed as a front–end developer at [Anchor](https://www.sayanchor.com/).
+
+Outside work, I’m passionate about crafting macOS applications, typography, icon design, architecture, industrial design, and art.
+
+This website is [open source](https://github.com/roeybiran/personal-website).

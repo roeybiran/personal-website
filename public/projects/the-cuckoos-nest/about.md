@@ -2,8 +2,8 @@
 title: The Cuckoo’s Nest
 subtitle: VR reincarnation of the escape scene from Miloš Forman’s 1975 film, <cite>One Flew Over the Cuckoo’s Nest</cite>.
 date: 2020-07-14
-github:
-url: https://masaryk-square-exhibition.s3.eu-central-1.amazonaws.com/index.html#
+links:
+  - url: https://masaryk-square-exhibition.s3.eu-central-1.amazonaws.com/index.html#
 type: Unity Game
 responsibilities:
   - Code

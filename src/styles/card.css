@@ -1,7 +1,6 @@
 /* CARD */
 .card {
 	position: relative;
-	transition: transform 0.6s ease 0s, box-shadow 0.3s ease 0s;
 }
 
 .card a {
@@ -10,18 +9,22 @@
 }
 
 .card a::after {
-	content: '';
+	content: "";
 	position: absolute;
 	inset: 0;
 }
 
-.card:hover,
-.card:focus-within {
+.card-ui {
+	transition: transform 0.6s ease 0s, box-shadow 0.3s ease 0s;
+}
+
+.card-ui:hover,
+.card-ui:focus-within {
 	/* transform: translateY(-10px); */
 	box-shadow: 0 0 0 3px var(--blue7);
 }
 
-.card a:focus {
+.card-ui a:focus {
 	text-decoration: none;
 	outline: none;
 }

@@ -1,6 +1,6 @@
-import matter from 'gray-matter';
-import { marked } from 'marked';
-import { readFileSync } from 'fs';
+import matter from "gray-matter";
+import { marked } from "marked";
+import { readFileSync } from "fs";
 
 export default function parseMarkdownFile(path: string) {
 	const md = readFileSync(path);
