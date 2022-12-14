@@ -1,5 +1,3 @@
 {
-	"files.exclude": {
-		"**/*.css": true
-	}
+	"explorer.excludeGitIgnore": true
 }
