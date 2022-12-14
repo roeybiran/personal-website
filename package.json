@@ -2,7 +2,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "npm run sass && remix build",
+    "build": "sass app/sass:app/styles && remix build",
     "dev": "concurrently \"npm run sass\" \"remix dev --port 4001\"",
     "sass": "sass --watch app/sass:app/styles",
     "typecheck": "tsc -b"
