@@ -1,0 +1,25 @@
+.project-card {
+	border-radius: var(--radius-3);
+	border: 1px solid var(--slate6);
+	background-color: var(--slate3);
+	display: flex;
+	flex-direction: column-reverse;
+
+	.text {
+		flex-grow: 1;
+		padding: var(--size-3);
+	}
+
+	p {
+		color: var(--text2-color);
+	}
+}
+
+.next-img-container {
+	border-start-start-radius: inherit;
+	border-start-end-radius: inherit;
+	background-image: linear-gradient(var(--blue6) 1px, transparent 1px),
+		linear-gradient(to right, var(--blue6) 1px, var(--blue2) 1px);
+	background-size: 20px 20px;
+	background-repeat: repeat;
+}

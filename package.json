@@ -1,29 +1,33 @@
 {
-	"name": "personal-website",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@types/glob": "^8.0.0",
-		"@types/marked": "^4.0.7",
-		"glob": "^8.0.3",
-		"gray-matter": "^4.0.3",
-		"marked": "^4.2.4",
-		"next": "^13.0.6",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"sanitize.css": "^13.0.0"
-	},
-	"devDependencies": {
-		"@types/node": "^18.11.11",
-		"@types/react": "^18.0.26",
-		"eslint": "^8.29.0",
-		"eslint-config-next": "^13.0.6",
-		"sass": "^1.56.1",
-		"typescript": "^4.9.3"
-	}
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "concurrently \"npm run sass\" \"remix dev --port 4001\"",
+    "sass": "sass --watch app/sass:app/styles",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "@remix-run/node": "^1.8.2",
+    "@remix-run/react": "^1.8.2",
+    "@remix-run/vercel": "^1.8.2",
+    "@vercel/node": "^2.6.2",
+    "react": "^18.2.0",
+    "react-datocms": "^4.0.7",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.8.2",
+    "@remix-run/eslint-config": "^1.8.2",
+    "@remix-run/serve": "^1.8.2",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.27.0",
+    "sass": "^1.56.2",
+    "typescript": "^4.8.4"
+  },
+  "engines": {
+    "node": ">=14"
+  }
 }

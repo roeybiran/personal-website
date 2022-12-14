@@ -1,0 +1,134 @@
+@use "site-header";
+@use "site-footer";
+
+@use "colors";
+@use "editorial";
+@use "card";
+
+@use "_layout/cluster";
+@use "_layout/grid";
+@use "_layout/center";
+@use "_layout/stack";
+@use "_layout/sidebar";
+@use "_layout/icon";
+
+:root {
+	max-inline-size: 1024px;
+	margin-inline: auto;
+	padding-inline: var(--size-5);
+	font-family: "IBM Plex Sans", sans-serif;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+body {
+	min-block-size: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	overflow-wrap: break-word;
+	line-height: calc(2px + 2ex + 2px);
+}
+
+a {
+	color: var(--link-color);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-weight: 400;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+cite {
+	font-size: unset;
+}
+
+/* // :where(*) {
+// 	font-size: var(--font-size-1);
+// } */
+
+main {
+	flex-grow: 1;
+	padding-block: var(--size-3);
+	display: flex;
+	flex-direction: column;
+}
+
+.next-img-container {
+	position: relative;
+}
+
+.sr-only:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+@mixin uppercased {
+	font-size: var(--font-size-0);
+	text-transform: uppercase;
+	letter-spacing: var(--font-letterspacing-4);
+}
+
+.uppercased {
+	@include uppercased();
+}
+
+.chip {
+	@include uppercased();
+	display: inline;
+
+	color: var(--slate11);
+	background-color: var(--slate3);
+	border: 1px solid var(--slate7);
+
+	font-size: var(--font-size-00);
+	text-align: center;
+	border-radius: var(--radius-2);
+	padding: var(--size-1);
+
+	inline-size: max-content;
+}
+
+.ctaButton {
+	color: var(--blue12);
+	background-color: var(--blue2);
+	text-decoration: none;
+	padding: var(--size-2) var(--size-3);
+	border-radius: var(--radius-3);
+	border: 1px solid var(--blue7);
+}
+
+.ctaButton:hover {
+	border-color: var(--blue8);
+	background-color: var(--blue4);
+}
+
+.ctaButton:active {
+	background-color: var(--blue5);
+}
+
+.chip.orange {
+	color: var(--orange11);
+	background-color: var(--orange3);
+	border-color: var(--orange7);
+}
+
+.icon.chip {
+	font-size: var(--font-size-0);
+}

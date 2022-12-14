@@ -1,0 +1,31 @@
+.next-img-container {
+	// aspect-ratio: 16/9;
+
+	img {
+		max-block-size: 25vh;
+		object-fit: cover;
+	}
+}
+
+h1 {
+	font-size: var(--font-size-5);
+}
+
+.subtitle {
+	color: var(--text2-color);
+}
+
+.cluster {
+	--justify: flex-start;
+	margin-block-start: var(--size-1);
+}
+
+dt {
+	margin-block-start: var(--size-2);
+	font-weight: var(--font-weight-7);
+}
+
+iframe {
+	inline-size: 100%;
+	aspect-ratio: 16/9;
+}
