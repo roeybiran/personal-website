@@ -1,6 +1,7 @@
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Image } from "react-datocms";
+import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
 import { metaTagsFragment, responsiveImageFragment } from "~/lib/fragments";
 import styles from "~/styles/projects.css";
@@ -75,8 +76,8 @@ export default function Projects() {
 								</div>
 							</div>
 
-							<figure className="next-img-container">
-								<Image data={responsiveImage} />
+							<figure className="image-container">
+								<PNGImage data={responsiveImage} />
 							</figure>
 						</li>
 					)

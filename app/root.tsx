@@ -12,7 +12,7 @@ import {
 	ScrollRestoration,
 	useLoaderData,
 } from "@remix-run/react";
-import { Image } from "react-datocms";
+import PNGImage from "./components/PNGImage";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import datoRequest from "./lib/datoRequest";
@@ -95,7 +95,7 @@ export default function App() {
 			<body>
 				<SiteHeader
 					menu={menu}
-					avatar={<Image data={responsiveImage} />}
+					avatar={<PNGImage data={responsiveImage} />}
 					name={name}
 					tagline={tagline}
 				/>

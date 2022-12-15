@@ -65,7 +65,7 @@ main {
 	flex-direction: column;
 }
 
-.next-img-container {
+.image-container {
 	position: relative;
 }
 
@@ -97,12 +97,18 @@ main {
 	background-color: var(--slate3);
 	border: 1px solid var(--slate7);
 
-	font-size: var(--font-size-00);
+	font-size: var(--font-size-0);
 	text-align: center;
 	border-radius: var(--radius-2);
 	padding: var(--size-1);
 
 	inline-size: max-content;
+}
+
+.chip.orange {
+	color: var(--orange11);
+	background-color: var(--orange3);
+	border-color: var(--orange7);
 }
 
 .ctaButton {
@@ -123,12 +129,10 @@ main {
 	background-color: var(--blue5);
 }
 
-.chip.orange {
-	color: var(--orange11);
-	background-color: var(--orange3);
-	border-color: var(--orange7);
-}
-
 .icon.chip {
 	font-size: var(--font-size-0);
+}
+
+.app-card img[role="presentation"] {
+	visibility: hidden;
 }

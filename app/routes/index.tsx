@@ -5,6 +5,7 @@ import type {
 } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Image, toRemixMeta } from "react-datocms";
+import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
 import { metaTagsFragment, responsiveImageFragment } from "~/lib/fragments";
 import styles from "~/styles/apps.css";
@@ -79,8 +80,8 @@ export default function Index() {
 								</div>
 								<p className="app-subtitle">{subtitle}</p>
 							</div>
-							<div className="next-img-container">
-								<Image data={responsiveImage} />
+							<div className="image-container">
+								<PNGImage data={responsiveImage} />
 							</div>
 						</li>
 					)

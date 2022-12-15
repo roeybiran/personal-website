@@ -1,10 +1,6 @@
-.next-img-container {
-	// aspect-ratio: 16/9;
-
-	img {
-		max-block-size: 25vh;
-		object-fit: cover;
-	}
+.image-container img {
+	max-block-size: 25vh;
+	object-fit: cover;
 }
 
 h1 {
@@ -17,12 +13,17 @@ h1 {
 
 .cluster {
 	--justify: flex-start;
-	margin-block-start: var(--size-1);
 }
 
 dt {
 	margin-block-start: var(--size-2);
 	font-weight: var(--font-weight-7);
+}
+
+dd:has(.chip),
+dd.chip {
+	display: block;
+	margin-block-start: var(--size-1);
 }
 
 iframe {

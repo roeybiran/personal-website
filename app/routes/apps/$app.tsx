@@ -6,6 +6,7 @@ import type {
 import { useLoaderData } from "@remix-run/react";
 import { Image, toRemixMeta } from "react-datocms";
 import IconButton from "~/components/IconButton";
+import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
 import { metaTagsFragment, responsiveImageFragment } from "~/lib/fragments";
 import styles from "~/styles/app.css";
@@ -76,7 +77,7 @@ export default function App() {
 			<div className="stack">
 				<div className="stack center intrinsic and-text">
 					<div className="app-icon">
-						<Image data={icon} />
+						<PNGImage data={icon} />
 					</div>
 					<div>
 						<h1>{title}</h1>

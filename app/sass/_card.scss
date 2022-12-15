@@ -18,8 +18,7 @@
 	transition: transform 0.6s ease 0s, box-shadow 0.3s ease 0s;
 	box-shadow: var(--shadow-2);
 
-	img {
-		// z-index: -1;
+	.image-container {
 		pointer-events: none;
 	}
 }

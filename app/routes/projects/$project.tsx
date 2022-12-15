@@ -65,7 +65,7 @@ export default function Project() {
 
 	return (
 		<div className="stack">
-			<figure className="next-img-container">
+			<figure className="image-container">
 				<Image data={project.cover.responsiveImage} />
 			</figure>
 			<div
