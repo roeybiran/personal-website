@@ -12,16 +12,16 @@ import { metaTagsFragment, responsiveImageFragment } from "~/lib/fragments";
 import styles from "~/styles/app.css";
 
 export const loader: LoaderFunction = async ({ params: { app: appSlug } }) => {
-	const { app } = await datoRequest(`
+	return await datoRequest(`
 	{
-		app(filter: {slug: {eq: "${appSlug}"}})
-		{
-			_seoMetaTags {
-				...metaTagsFragment
-			}
+		app(filter: {slug: {eq: "${appSlug}"}}) {
 			title
 			subtitle
-			content(markdown: true)
+			body(markdown: true)
+			seo: _seoMetaTags {
+				... metaTagsFragment
+			}
+
 			price
 			appStoreId
 			gumroadId
@@ -48,28 +48,32 @@ export const loader: LoaderFunction = async ({ params: { app: appSlug } }) => {
 	${metaTagsFragment}
 	${responsiveImageFragment}
 	`);
-
-	return app;
 };
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export const meta: MetaFunction = ({ data }) => toRemixMeta(data._seoMetaTags);
+export const meta: MetaFunction = ({
+	data: {
+		app: { seo },
+	},
+}) => toRemixMeta(seo);
 
 export default function App() {
 	const data = useLoaderData();
 
 	const {
-		title,
-		subtitle,
-		icon: { responsiveImage: icon },
-		primaryFeatures,
-		secondaryFeatures,
-		content,
-		price,
-		appStoreId,
-		gumroadId,
-		sourceCode,
+		app: {
+			title,
+			subtitle,
+			icon: { responsiveImage: icon },
+			primaryFeatures,
+			secondaryFeatures,
+			body,
+			price,
+			appStoreId,
+			gumroadId,
+			sourceCode,
+		},
 	} = data;
 
 	return (
@@ -130,10 +134,10 @@ export default function App() {
 						</div>
 					)}
 				</div>
-				{content && (
+				{body && (
 					<div
 						className="editorial center"
-						dangerouslySetInnerHTML={{ __html: content }}
+						dangerouslySetInnerHTML={{ __html: body }}
 					/>
 				)}
 				{primaryFeatures.length > 0 && (

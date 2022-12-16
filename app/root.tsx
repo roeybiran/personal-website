@@ -10,6 +10,7 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useCatch,
 	useLoaderData,
 } from "@remix-run/react";
 import PNGImage from "./components/PNGImage";
@@ -45,46 +46,43 @@ export const meta: MetaFunction = () => ({
 });
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-	const {
-		about: {
-			name,
-			tagline,
-			memoji: { responsiveImage },
-			contact,
-			footerNotice,
-		},
-	} = await datoRequest(`
-		{
-			about {
-				name
-				tagline
-				memoji {
-					responsiveImage {
-						...responsiveImageFragment
-					}
+	return await datoRequest(`
+	{
+		header {
+			title
+			subtitle
+			memoji {
+				responsiveImage {
+					...responsiveImageFragment
 				}
-				contact {
-					label
-					url
-				}
-				footerNotice
+			}
+			navigation {
+				key
+				value
 			}
 		}
-		${responsiveImageFragment}
+		footer {
+			copyright
+			contactLinks {
+				key
+				value
+			}
+		}
+	}
+	${responsiveImageFragment}
 	`);
-
-	return { name, tagline, responsiveImage, contact, footerNotice };
 };
 
-const menu = [
-	["/", "Apps"],
-	["/projects", "Projects"],
-	["/about", "About"],
-];
-
 export default function App() {
-	const { name, tagline, responsiveImage, contact, footerNotice } =
-		useLoaderData<typeof loader>();
+	const {
+		header: {
+			title,
+			subtitle,
+			memoji: { responsiveImage },
+			navigation,
+		},
+		footer: { copyright, contactLinks },
+	} = useLoaderData<typeof loader>();
 
 	return (
 		<html lang="en">
@@ -94,18 +92,38 @@ export default function App() {
 			</head>
 			<body>
 				<SiteHeader
-					menu={menu}
+					menu={navigation}
 					avatar={<PNGImage data={responsiveImage} />}
-					name={name}
-					tagline={tagline}
+					header={title}
+					subheader={subtitle}
 				/>
 				<main>
 					<Outlet />
 				</main>
-				<SiteFooter links={contact} notice={footerNotice} />
+				<SiteFooter links={contactLinks} notice={copyright} />
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />
+			</body>
+		</html>
+	);
+}
+
+export function CatchBoundary() {
+	const caught = useCatch();
+
+	return (
+		<html lang="en">
+			<head>
+				<title>{caught.statusText}</title>
+				<Meta />
+				<Links />
+			</head>
+			<body>
+				<h1>
+					{caught.statusText} ({caught.status})
+				</h1>
+				<Scripts />
 			</body>
 		</html>
 	);

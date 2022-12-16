@@ -20,19 +20,20 @@ export const loader: LoaderFunction = async ({
 	{
 		project(filter: {slug: {eq: "${projectSlug}"}}) {
 			title
-			excerpt
+			subtitle
+			body(markdown: true)
+			seo: _seoMetaTags {
+				... metaTagsFragment
+			}
+
 			date
 			cover {
 				responsiveImage {
 					...responsiveImageFragment
 				}
 			}
-			text(markdown: true)
 			stack
 			responsibilities
-			_seoMetaTags {
-				...metaTagsFragment
-			}
 			projectType
 			links {
 				key
@@ -58,7 +59,7 @@ export const loader: LoaderFunction = async ({
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export const meta: MetaFunction = ({ data }) => toRemixMeta(data._seoMetaTags);
+export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
 
 export default function Project() {
 	const project = useLoaderData();
@@ -137,7 +138,7 @@ export default function Project() {
 				<section className="stack">
 					<div
 						className="editorial"
-						dangerouslySetInnerHTML={{ __html: project.text }}
+						dangerouslySetInnerHTML={{ __html: project.body }}
 					/>
 				</section>
 			</div>

@@ -22,3 +22,16 @@ export const metaTagsFragment = `
     tag
   }
 `;
+
+export const pageFragment = `
+  fragment pageFragment on PageRecord {
+    header
+    subheader
+    body(markdown: true)
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+  }
+`;

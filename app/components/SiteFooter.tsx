@@ -2,7 +2,7 @@ export default function SiteFooter({
 	links,
 	notice,
 }: {
-	links: { label: string; url: string }[];
+	links: { key: string; value: string }[];
 	notice: string;
 }) {
 	return (
@@ -12,9 +12,9 @@ export default function SiteFooter({
 				style={{ "--space": "var(--size-1)" }}
 			>
 				<ul className="links cluster">
-					{links.map(({ label, url }) => (
-						<li key={url}>
-							<a href={url}>{label}</a>
+					{links.map(({ key, value }) => (
+						<li key={value}>
+							<a href={value}>{key}</a>
 						</li>
 					))}
 				</ul>

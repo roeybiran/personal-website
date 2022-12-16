@@ -1,34 +1,31 @@
+import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { toRemixMeta } from "react-datocms";
+import Page from "~/components/Page";
 import datoRequest from "~/lib/datoRequest";
+import { pageFragment } from "~/lib/fragments";
 
 export const loader = async () => {
-	const {
-		about: { text, title },
-	} = await datoRequest(`
+	return await datoRequest(`
 	{
-		about {
-			title
-			text(markdown: true)
+		page(filter: {slug: {eq: "about"}}) {
+			... pageFragment
 		}
 	}
+	${pageFragment}
 	`);
-
-	return {
-		text,
-		title,
-	};
 };
 
-export default function About() {
-	const { text, title } = useLoaderData<typeof loader>();
+export const meta: MetaFunction = ({
+	data: {
+		page: { seo },
+	},
+}) => toRemixMeta(seo);
 
-	return (
-		<>
-			<h1 className="sr-only">{title}</h1>
-			<div
-				className="editorial center"
-				dangerouslySetInnerHTML={{ __html: text }}
-			/>
-		</>
-	);
+export default function AboutPage() {
+	const {
+		page: { header, subheader, body },
+	} = useLoaderData<typeof loader>();
+
+	return <Page header={header} subheader={subheader} body={body} />;
 }
