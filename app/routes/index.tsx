@@ -9,9 +9,9 @@ import Page from "~/components/Page";
 import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
 import { pageFragment, responsiveImageFragment } from "~/lib/fragments";
-import styles from "~/styles/apps.css";
+import styles from "~/styles/home.css";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
 	return await datoRequest(`
 	{
 		page(filter: {slug: {eq: ""}}) {
@@ -26,6 +26,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 							... responsiveImageFragment
 						}
 					}
+					new
 				}
 			}
 		}

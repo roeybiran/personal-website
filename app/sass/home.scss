@@ -32,7 +32,7 @@
 	}
 
 	.image-container {
-		inline-size: clamp(128px, 33vw, 256px);
+		inline-size: min(100%, 256px);
 		margin-inline: inherit;
 	}
 
