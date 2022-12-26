@@ -13,27 +13,26 @@ import styles from "~/styles/projects.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export const meta: MetaFunction = ({
-	data: {
-		page: { seo },
-	},
-}) => toRemixMeta(seo);
+export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
 
 export const loader: LoaderFunction = async () => {
-	const response = await datoRequest(`
+	const { page } = await datoRequest(`
 	{
 		page(filter: {slug: {eq: "projects"}}) {
 			... pageFragment
-		}
-		allProjects(orderBy: date_DESC) {
-			title
-			subtitle
-			slug
-			responsibilities
-			projectType
-			icon {
-				responsiveImage {
-					...responsiveImageFragment
+			archive {
+				... on ProjectRecord {
+					title
+					subtitle
+					slug
+					responsibilities
+					projectType
+					date
+					icon {
+						responsiveImage {
+							...responsiveImageFragment
+						}
+					}
 				}
 			}
 		}
@@ -43,19 +42,19 @@ export const loader: LoaderFunction = async () => {
 	`);
 
 	return {
-		...response,
-		allProjects: response.allProjects.map((p) => ({
-			...p,
-			responsibilities: p.responsibilities.split(", "),
-		})),
+		...page,
+		archive: page.archive
+			.map((p) => ({
+				...p,
+				date: new Date(p.date),
+				responsibilities: p.responsibilities.split(", "),
+			}))
+			.sort(({ date: a }, { date: b }) => b - a),
 	};
 };
 
 export default function ProjectsPage() {
-	const {
-		page: { header, subheader, body },
-		allProjects,
-	} = useLoaderData();
+	const { header, subheader, body, archive } = useLoaderData();
 
 	return (
 		<Page
@@ -70,7 +69,7 @@ export default function ProjectsPage() {
 						"--fit": "auto-fill",
 					}}
 				>
-					{allProjects.map(
+					{archive.map(
 						({
 							title,
 							subtitle,

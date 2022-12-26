@@ -46,13 +46,23 @@ h3 {
 
 .price {
 	font-size: var(--font-size-3);
-
-	small {
-		vertical-align: super;
-	}
 }
 
 .secondary-features {
 	list-style: disc;
 	padding-inline-start: var(--size-5);
+}
+
+.technical-info {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-1);
+	align-items: center;
+	flex-wrap: wrap;
+	text-align: start;
+
+	li {
+		font-size: var(--font-size-0);
+		color: var(--text2-color);
+	}
 }

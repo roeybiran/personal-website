@@ -54,10 +54,6 @@ cite {
 	font-size: unset;
 }
 
-/* // :where(*) {
-// 	font-size: var(--font-size-1);
-// } */
-
 main {
 	flex-grow: 1;
 	padding-block: var(--size-3);
@@ -85,17 +81,13 @@ main {
 	letter-spacing: var(--font-letterspacing-4);
 }
 
-.uppercased {
-	@include uppercased();
-}
-
-.chip {
+@mixin chip($color) {
 	@include uppercased();
 	display: inline;
 
-	color: var(--slate11);
-	background-color: var(--slate3);
-	border: 1px solid var(--slate7);
+	color: var(--#{$color}11);
+	background-color: var(--#{$color}3);
+	border: 1px solid var(--#{$color}7);
 
 	font-size: var(--font-size-0);
 	text-align: center;
@@ -105,10 +97,17 @@ main {
 	inline-size: max-content;
 }
 
+.uppercased {
+	@include uppercased();
+}
+
+.chip {
+	@include chip(slate);
+}
+
 .chip.orange {
-	color: var(--orange11);
-	background-color: var(--orange3);
-	border-color: var(--orange7);
+	@include chip(green);
+	font-size: var(--font-size-00);
 }
 
 .ctaButton {
@@ -116,7 +115,9 @@ main {
 	background-color: var(--blue2);
 	text-decoration: none;
 	padding: var(--size-2) var(--size-3);
-	border-radius: var(--radius-3);
+	block-size: 40px;
+	min-inline-size: 48px;
+	border-radius: var(--radius-2);
 	border: 1px solid var(--blue7);
 }
 
@@ -127,10 +128,6 @@ main {
 
 .ctaButton:active {
 	background-color: var(--blue5);
-}
-
-.icon.chip {
-	font-size: var(--font-size-0);
 }
 
 .app-card img[role="presentation"] {

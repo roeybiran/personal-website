@@ -9,10 +9,11 @@ import Page from "~/components/Page";
 import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
 import { pageFragment, responsiveImageFragment } from "~/lib/fragments";
+import getMonthDifference from "~/lib/getMonthDifference";
 import styles from "~/styles/home.css";
 
 export const loader: LoaderFunction = async () => {
-	return await datoRequest(`
+	const { page } = await datoRequest(`
 	{
 		page(filter: {slug: {eq: ""}}) {
 			... pageFragment
@@ -26,7 +27,7 @@ export const loader: LoaderFunction = async () => {
 							... responsiveImageFragment
 						}
 					}
-					new
+					releaseDate
 				}
 			}
 		}
@@ -34,20 +35,26 @@ export const loader: LoaderFunction = async () => {
 	${pageFragment}
 	${responsiveImageFragment}
 	`);
+
+	return {
+		...page,
+		archive: page.archive
+			.map((app) => {
+				const releaseDate = new Date(app.releaseDate);
+				const now = new Date();
+				const isNewApp = getMonthDifference(releaseDate, now) <= 2;
+				return { ...app, releaseDate, isNewApp };
+			})
+			.sort(({ releaseDate: a }, { releaseDate: b }) => b - a),
+	};
 };
 
-export const meta: MetaFunction = ({
-	data: {
-		page: { seo },
-	},
-}) => toRemixMeta(seo);
+export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function HomePage() {
-	const {
-		page: { header, subheader, body, archive },
-	} = useLoaderData();
+	const { header, subheader, body, archive } = useLoaderData();
 
 	return (
 		<Page
@@ -62,7 +69,7 @@ export default function HomePage() {
 							subtitle,
 							slug,
 							icon: { responsiveImage },
-							new: isNew,
+							isNewApp,
 						}) => (
 							<li key={title} className="card card-ui app-card">
 								<div>
@@ -72,7 +79,9 @@ export default function HomePage() {
 												{title}
 											</Link>
 										</h2>
-										{isNew && <small className="chip orange">New</small>}
+										{isNewApp && (
+											<small className="chip orange new">New!</small>
+										)}
 									</div>
 									<p className="app-subtitle">{subtitle}</p>
 								</div>
