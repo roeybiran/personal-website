@@ -1,0 +1,19 @@
+.ctaButton {
+	color: var(--blue12);
+	background-color: var(--blue2);
+	text-decoration: none;
+	padding: var(--size-2) var(--size-3);
+	block-size: 40px;
+	min-inline-size: 48px;
+	border-radius: var(--radius-2);
+	border: 1px solid var(--blue7);
+}
+
+.ctaButton:hover {
+	border-color: var(--blue8);
+	background-color: var(--blue4);
+}
+
+.ctaButton:active {
+	background-color: var(--blue5);
+}
