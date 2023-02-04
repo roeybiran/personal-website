@@ -1,9 +1,11 @@
 export default function SiteFooter({
 	links,
 	notice,
+	body,
 }: {
 	links: { key: string; value: string }[];
 	notice: string;
+	body: string;
 }) {
 	return (
 		<footer className="site-footer">
@@ -19,6 +21,7 @@ export default function SiteFooter({
 					))}
 				</ul>
 				<p className="copyright">{notice}</p>
+				<p dangerouslySetInnerHTML={{ __html: body }} />
 			</div>
 		</footer>
 	);

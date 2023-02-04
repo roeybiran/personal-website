@@ -46,8 +46,20 @@ export const meta: MetaFunction = () => ({
 });
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-	return await datoRequest(`
+	const {
+		header: {
+			title,
+			subtitle,
+			memoji: { responsiveImage },
+		},
+		allPages,
+		footer: { copyright, contactLinks, body },
+	} = await datoRequest(`
 	{
+		allPages(orderBy: order_ASC) {
+			header
+			slug
+		}
 		header {
 			title
 			subtitle
@@ -56,12 +68,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 					...responsiveImageFragment
 				}
 			}
-			navigation {
-				key
-				value
-			}
 		}
 		footer {
+			body(markdown: true)
 			copyright
 			contactLinks {
 				key
@@ -71,17 +80,30 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 	}
 	${responsiveImageFragment}
 	`);
+
+	return {
+		title,
+		subtitle,
+		responsiveImage,
+		navigation: allPages.map(({ header, slug }) => ({
+			header,
+			slug,
+		})),
+		copyright,
+		contactLinks,
+		footerBody: body,
+	};
 };
 
 export default function App() {
 	const {
-		header: {
-			title,
-			subtitle,
-			memoji: { responsiveImage },
-			navigation,
-		},
-		footer: { copyright, contactLinks },
+		title,
+		subtitle,
+		responsiveImage,
+		navigation,
+		copyright,
+		contactLinks,
+		footerBody,
 	} = useLoaderData<typeof loader>();
 
 	return (
@@ -92,7 +114,7 @@ export default function App() {
 			</head>
 			<body>
 				<SiteHeader
-					menu={navigation}
+					navigation={navigation}
 					avatar={<PNGImage data={responsiveImage} />}
 					header={title}
 					subheader={subtitle}
@@ -100,7 +122,7 @@ export default function App() {
 				<main>
 					<Outlet />
 				</main>
-				<SiteFooter links={contactLinks} notice={copyright} />
+				<SiteFooter links={contactLinks} notice={copyright} body={footerBody} />
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />

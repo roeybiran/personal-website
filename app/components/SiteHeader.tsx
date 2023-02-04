@@ -4,11 +4,16 @@ import React from "react";
 type Props = {
 	header: string;
 	subheader: string;
-	menu: { key: string; value: string }[];
+	navigation: { header: string; slug: string }[];
 	avatar: React.ReactNode;
 };
 
-export default function SiteHeader({ header, subheader, menu, avatar }: Props) {
+export default function SiteHeader({
+	header,
+	subheader,
+	navigation: menu,
+	avatar,
+}: Props) {
 	return (
 		<header className="site-header">
 			<div className="masthead card">
@@ -20,9 +25,9 @@ export default function SiteHeader({ header, subheader, menu, avatar }: Props) {
 			</div>
 			<nav>
 				<ul>
-					{menu.map(({ key, value }) => (
-						<li key={value}>
-							<NavLink to={value}>{key}</NavLink>
+					{menu.map(({ header, slug }) => (
+						<li key={slug}>
+							<NavLink to={slug}>{header}</NavLink>
 						</li>
 					))}
 				</ul>
