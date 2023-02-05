@@ -34,15 +34,23 @@
 		}
 
 		@media (pointer: coarse) {
-			li {
+			a {
+				display: grid;
+				place-content: center;
 				min-inline-size: var(--size-8);
 				min-block-size: var(--size-8);
 				padding-inline: var(--size-3);
-				display: grid;
-				place-content: center;
 				background-color: var(--slate2);
 				border-radius: var(--radius-3);
 				border: 1px solid var(--slate6);
+			}
+
+			a[aria-current="page"] {
+				border-color: var(--blue7);
+			}
+
+			a:active {
+				background-color: var(--slate6);
 			}
 
 			li::before {

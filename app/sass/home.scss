@@ -1,19 +1,30 @@
 .home {
-	h2 {
-	}
-
 	.editorial {
-		font-size: var(--font-size-2);
+		> p:first-of-type,
+		h2:first-of-type + p {
+			text-align: center;
+		}
+
+		> p:first-of-type {
+			font-size: var(--font-size-1);
+			color: var(--slate11);
+		}
+
+		h2:first-of-type + p {
+			font-size: var(--font-size-4);
+		}
 
 		h2:first-of-type {
 			margin-block-start: 0;
 			font-size: var(--font-size-7);
 			text-align: center;
 
-			background: var(--gradient-2);
+			background: var(--gradient-13);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
+
+		font-size: var(--font-size-1);
 	}
 
 	.memoji-container {
