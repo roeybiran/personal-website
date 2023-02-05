@@ -1,43 +1,22 @@
-.intro {
-	font-size: var(--font-size-3);
-}
+.home {
+	h2 {
+	}
 
-.app-card {
-	background-color: var(--bg-2nd-color);
-	border: 1px solid var(--slate6);
-	padding: var(--size-8);
+	.editorial {
+		font-size: var(--font-size-2);
 
-	text-align: center;
-	border-radius: var(--radius-3);
+		h2:first-of-type {
+			margin-block-start: 0;
+			font-size: var(--font-size-7);
+			text-align: center;
 
-	display: flex;
-	inline-size: 100%;
-	flex-direction: column-reverse;
-	margin-inline: auto;
-
-	.title-container {
-		display: grid;
-		grid-template-areas: "main";
-		justify-content: center;
-		align-items: flex-start;
-
-		> * {
-			grid-area: main;
+			background: var(--gradient-2);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
 		}
 	}
 
-	.title-container small {
-		justify-self: flex-end;
-		translate: 125%;
-	}
-
-	.image-container {
-		inline-size: min(100%, 256px);
-		margin-inline: inherit;
-	}
-
-	.app-name {
-		font-size: var(--font-size-4);
-		font-weight: var(--font-weight-7);
+	.memoji-container {
+		max-inline-size: var(--size-13);
 	}
 }

@@ -10,7 +10,7 @@ import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
 import { pageFragment, responsiveImageFragment } from "~/lib/fragments";
 import getMonthDifference from "~/lib/getMonthDifference";
-import styles from "~/styles/home.css";
+import styles from "~/styles/apps.css";
 
 export const loader: LoaderFunction = async () => {
 	const { page } = await datoRequest(`

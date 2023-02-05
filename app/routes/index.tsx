@@ -5,22 +5,26 @@ import type {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { toRemixMeta } from "react-datocms";
-import Page from "~/components/Page";
+import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
-import { pageFragment } from "~/lib/fragments";
+import { pageFragment, responsiveImageFragment } from "~/lib/fragments";
 import styles from "~/styles/home.css";
 
 export const loader: LoaderFunction = async () => {
-	const { page } = await datoRequest(`
+	return await datoRequest(`
 	{
+		allUploads(filter: {filename: {matches: {caseSensitive: true, pattern: "hello-memoji"}}}) {
+			responsiveImage {
+				...responsiveImageFragment
+			}
+		}
 		page(filter: {slug: {eq: ""}}) {
 			... pageFragment
 		}
 	}
 	${pageFragment}
+	${responsiveImageFragment}
 	`);
-
-	return { ...page };
 };
 
 export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
@@ -28,7 +32,21 @@ export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function HomePage() {
-	const { header, subheader, body } = useLoaderData();
+	const {
+		page: { header, subheader, body },
+		allUploads: [{ responsiveImage }],
+	} = useLoaderData();
 
-	return <Page header={header} subheader={subheader} body={body} />;
+	return (
+		<div className="home center intrinsic">
+			<div className="stack">
+				<div className="center intrinsic memoji-container">
+					<PNGImage data={responsiveImage} />
+				</div>
+				<h1 className="sr-only">{header}</h1>
+				{subheader && <p>{subheader}</p>}
+				<div className="editorial" dangerouslySetInnerHTML={{ __html: body }} />
+			</div>
+		</div>
+	);
 }
