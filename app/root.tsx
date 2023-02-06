@@ -7,6 +7,7 @@ import {
 	Links,
 	LiveReload,
 	Meta,
+	NavLink,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
@@ -132,19 +133,31 @@ export default function App() {
 }
 
 export function CatchBoundary() {
-	const caught = useCatch();
+	const { statusText, status } = useCatch();
 
 	return (
 		<html lang="en">
 			<head>
-				<title>{caught.statusText}</title>
+				<title>
+					Error {status}: {statusText}
+				</title>
 				<Meta />
 				<Links />
 			</head>
 			<body>
-				<h1>
-					{caught.statusText} ({caught.status})
-				</h1>
+				<div className="not-found">
+					<div className="center intrinsic and-text stack recursive">
+						<img
+							className="memoji-404"
+							src="https://www.datocms-assets.com/88073/1675637882-memoji-404.png"
+							alt=""
+						/>
+						<h1>{`${status}: ${statusText}`}</h1>
+						<NavLink to="/" className="ctaButton">
+							Return Home
+						</NavLink>
+					</div>
+				</div>
 				<Scripts />
 			</body>
 		</html>

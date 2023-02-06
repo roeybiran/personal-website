@@ -1,10 +1,4 @@
 .project-card {
-	border-radius: var(--radius-3);
-	border: 1px solid var(--slate6);
-	background-color: var(--slate3);
-	display: flex;
-	flex-direction: column-reverse;
-
 	.text {
 		flex-grow: 1;
 		padding: var(--size-3);

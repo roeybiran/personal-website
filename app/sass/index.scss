@@ -77,3 +77,18 @@ main {
 	white-space: nowrap;
 	width: 1px;
 }
+
+.not-found {
+	display: grid;
+	place-content: center;
+	block-size: 100vh;
+
+	.card-ui {
+		text-align: center;
+		padding: var(--size-6);
+	}
+
+	.memoji-404 {
+		inline-size: var(--size-13);
+	}
+}

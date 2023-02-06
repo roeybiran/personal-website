@@ -66,3 +66,31 @@ h3 {
 		color: var(--text2-color);
 	}
 }
+
+.app-nav {
+	padding-block: var(--size-2);
+	display: flex;
+	align-items: center;
+	gap: var(--size-3);
+	inset-block-start: 0;
+	position: sticky;
+
+	li:first-of-type {
+		margin-inline-end: auto;
+	}
+
+	.app-home {
+		display: flex;
+		align-items: center;
+		gap: var(--size-1);
+	}
+
+	.icon-container {
+		inline-size: var(--size-5);
+		block-size: var(--size-5);
+	}
+
+	ul {
+		display: contents;
+	}
+}

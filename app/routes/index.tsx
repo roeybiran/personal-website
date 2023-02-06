@@ -1,9 +1,11 @@
 import type {
+	ErrorBoundaryComponent,
 	LinksFunction,
 	LoaderFunction,
 	MetaFunction,
 } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useCatch, useLoaderData } from "@remix-run/react";
+import type { CatchBoundaryComponent } from "@remix-run/react/dist/routeModules";
 import { toRemixMeta } from "react-datocms";
 import PNGImage from "~/components/PNGImage";
 import datoRequest from "~/lib/datoRequest";
@@ -50,3 +52,21 @@ export default function HomePage() {
 		</div>
 	);
 }
+
+// export const CatchBoundary: CatchBoundaryComponent = () => {
+// 	const { data, status, statusText } = useCatch();
+
+// 	return (
+// 		<div>
+// 			<p>{statusText}</p>
+// 		</div>
+// 	);
+// };
+
+// export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+// 	return (
+// 		<div>
+// 			<p>{error.message}</p>
+// 		</div>
+// 	);
+// };

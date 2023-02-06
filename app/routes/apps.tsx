@@ -53,7 +53,7 @@ export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export default function HomePage() {
+export default function AppsPage() {
 	const { header, subheader, body, archive } = useLoaderData();
 
 	return (
