@@ -1,0 +1,48 @@
+.app-nav {
+	padding-block: var(--size-2);
+	background-color: var(--slate1);
+	display: flex;
+	align-items: center;
+	gap: var(--size-3);
+	inset-block-start: 0;
+	position: sticky;
+	z-index: 1;
+
+	li:first-of-type {
+		margin-inline-end: auto;
+	}
+
+	a {
+		text-decoration: none;
+		color: var(--slate12);
+	}
+
+	a[aria-current="page"] {
+		font-weight: 700;
+	}
+
+	.app-home {
+		display: flex;
+		align-items: center;
+		gap: var(--size-1);
+	}
+
+	.icon-container {
+		inline-size: var(--size-5);
+		block-size: var(--size-5);
+	}
+
+	ul {
+		display: contents;
+	}
+
+	.purchase-button {
+		text-align: center;
+
+		// text-transform: uppercase;
+		color: white;
+		background-color: hsl(211 100% 43.2%);
+		border-radius: var(--radius-3);
+		padding: var(--size-1) var(--size-3);
+	}
+}
