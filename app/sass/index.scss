@@ -2,7 +2,7 @@
 @use "site-footer";
 
 @use "colors";
-@use "editorial";
+@use "prose";
 @use "card";
 @use "chip";
 @use "button";
@@ -35,6 +35,10 @@ body {
 	padding: 0;
 	overflow-wrap: break-word;
 	line-height: calc(2px + 2ex + 2px);
+}
+
+p {
+	line-height: 1.5;
 }
 
 a {

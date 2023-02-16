@@ -106,7 +106,7 @@ export default function App() {
 				</div>
 				{body && (
 					<div
-						className="editorial center"
+						className="prose center"
 						dangerouslySetInnerHTML={{ __html: body }}
 					/>
 				)}

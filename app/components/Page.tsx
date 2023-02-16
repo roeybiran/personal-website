@@ -12,10 +12,7 @@ export default function Page({ header, subheader, body, archive }: PageProps) {
 				<h1 className="sr-only">{header}</h1>
 				{subheader && <p>{subheader}</p>}
 				{body && (
-					<div
-						className="editorial"
-						dangerouslySetInnerHTML={{ __html: body }}
-					/>
+					<div className="prose" dangerouslySetInnerHTML={{ __html: body }} />
 				)}
 			</div>
 			{archive}

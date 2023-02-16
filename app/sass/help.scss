@@ -1,5 +1,33 @@
 .details-inner {
-	padding: var(--size-3);
+	padding: var(--size-5);
 	background-color: var(--slate3);
-	border-radius: var(--radius-2);
+	border-radius: var(--radius-1);
+}
+
+details > summary {
+	border-block-end: var(--border-style);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	list-style: none;
+}
+
+details > summary::after {
+	content: "＋";
+	margin-inline-start: auto;
+	transition: rotate 0.3s ease;
+}
+
+details[open] > summary::after {
+	rotate: 45deg;
+}
+
+details > summary::-webkit-details-marker {
+	display: none;
+}
+
+details > summary + * {
+	margin-block-start: var(--size-3);
+	padding: var(--size-3);
+	background-color: var(--sand2);
 }

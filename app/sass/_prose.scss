@@ -1,4 +1,4 @@
-.editorial {
+.prose {
 	max-inline-size: min(60ch, 100%);
 
 	ul {
@@ -15,6 +15,10 @@
 	h4 {
 		margin-block-start: var(--size-6);
 		font-weight: var(--font-weight-7);
+	}
+
+	li + li {
+		margin-block-start: var(--size-1);
 	}
 }
 

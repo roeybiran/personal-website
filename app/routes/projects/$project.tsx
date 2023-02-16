@@ -137,7 +137,7 @@ export default function Project() {
 				</aside>
 				<section className="stack">
 					<div
-						className="editorial"
+						className="prose"
 						dangerouslySetInnerHTML={{ __html: project.body }}
 					/>
 				</section>

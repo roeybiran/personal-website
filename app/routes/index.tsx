@@ -47,7 +47,7 @@ export default function HomePage() {
 				</div>
 				<h1 className="sr-only">{header}</h1>
 				{subheader && <p>{subheader}</p>}
-				<div className="editorial" dangerouslySetInnerHTML={{ __html: body }} />
+				<div className="prose" dangerouslySetInnerHTML={{ __html: body }} />
 			</div>
 		</div>
 	);
