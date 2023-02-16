@@ -21,7 +21,7 @@ export default function SiteFooter({
 					))}
 				</ul>
 				<p className="copyright">{notice}</p>
-				<p dangerouslySetInnerHTML={{ __html: body }} />
+				<span dangerouslySetInnerHTML={{ __html: body }} />
 			</div>
 		</footer>
 	);

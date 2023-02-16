@@ -4,7 +4,7 @@
 	border-radius: var(--radius-1);
 }
 
-details > summary {
+summary {
 	border-block-end: var(--border-style);
 	cursor: pointer;
 	display: flex;
@@ -12,7 +12,11 @@ details > summary {
 	list-style: none;
 }
 
-details > summary::after {
+summary > span {
+	max-inline-size: 45ch;
+}
+
+summary::after {
 	content: "＋";
 	margin-inline-start: auto;
 	transition: rotate 0.3s ease;
@@ -22,11 +26,11 @@ details[open] > summary::after {
 	rotate: 45deg;
 }
 
-details > summary::-webkit-details-marker {
+summary::-webkit-details-marker {
 	display: none;
 }
 
-details > summary + * {
+summary + * {
 	margin-block-start: var(--size-3);
 	padding: var(--size-3);
 	background-color: var(--sand2);
