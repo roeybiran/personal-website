@@ -4,6 +4,7 @@ import type {
 	MetaFunction,
 } from "@remix-run/node";
 import { useLoaderData, useLocation } from "@remix-run/react";
+import { useEffect } from "react";
 import { toRemixMeta } from "react-datocms";
 import datoRequest from "~/lib/datoRequest";
 
@@ -42,21 +43,17 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function Page() {
 	const { title, faq } = useLoaderData();
-	const { hash } = useLocation();
+	// const { hash } = useLocation();
 
 	return (
 		<div className="mixed-bleed">
-			<div className="stack">
-				<h1 className="sr-only">{title} Help</h1>
+			<h1 className="sr-only">{title} Help</h1>
+			<section className="stack">
 				<h2>FAQ</h2>
-				<ul className="stack">
+				<ul className="stack" id="faq">
 					{faq.map(({ question: q, answer: a, id }) => (
 						<li key={q}>
-							<details
-								className="stack"
-								id={id}
-								open={hash.slice(1) === id || undefined}
-							>
+							<details className="stack" id={id} open>
 								<summary>
 									<span dangerouslySetInnerHTML={{ __html: q }} />
 								</summary>
@@ -68,7 +65,7 @@ export default function Page() {
 						</li>
 					))}
 				</ul>
-			</div>
+			</section>
 		</div>
 	);
 }
