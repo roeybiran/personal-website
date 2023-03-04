@@ -1,0 +1,105 @@
+.app-nav {
+  border-block-end: 1px solid var(--border-color);
+  padding-block-end: var(--size-3);
+
+  background-color: var(--slate1);
+  display: flex;
+  align-items: center;
+  gap: var(--size-3);
+  inset-block-start: 0;
+  position: sticky;
+  z-index: 1;
+
+  li:first-of-type {
+    margin-inline-end: auto;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--slate12);
+  }
+
+  .app-home {
+    display: flex;
+    align-items: center;
+    gap: var(--size-1);
+  }
+
+  .icon-container {
+    inline-size: var(--size-5);
+    block-size: var(--size-5);
+  }
+
+  ul {
+    display: contents;
+  }
+
+  .purchase-button {
+    text-align: center;
+
+    // text-transform: uppercase;
+    color: white;
+    background-color: hsl(211 100% 43.2%);
+    border-radius: var(--radius-3);
+    padding: var(--size-1) var(--size-3);
+  }
+}
+
+h1 {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-7);
+}
+
+h2 {
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-7);
+}
+
+h3 {
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-7);
+}
+
+.subtitle {
+  font-size: var(--font-size-3);
+  color: var(--text2-color);
+}
+
+.main .prose > p:first-child {
+  font-size: var(--font-size-3);
+}
+
+section {
+  padding-block: var(--size-5);
+}
+
+section + section {
+  border-block-start: 1px dashed var(--slate7);
+}
+
+.app-icon {
+  max-inline-size: 256px;
+}
+
+.primary-feature {
+  max-inline-size: 60ch;
+
+  img {
+    border-radius: var(--radius-2);
+  }
+}
+
+.price {
+  font-size: var(--font-size-3);
+}
+
+.secondary-features {
+  list-style: disc;
+  padding-inline-start: var(--size-5);
+}
+
+.technical-info {
+  max-inline-size: 45ch;
+  font-size: var(--font-size-0);
+  color: var(--text2-color);
+}

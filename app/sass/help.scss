@@ -1,37 +1,54 @@
-.details-inner {
-	padding: var(--size-5);
-	background-color: var(--slate3);
-	border-radius: var(--radius-1);
+.help-nav {
+  border-block-end: 1px solid var(--border-color);
+  padding-block: var(--size-3);
+  margin-block-end: var(--size-3);
+}
+
+/* FAQ */
+
+.prose .faq {
+  list-style: none;
+  padding-inline: 0;
+}
+
+.prose .faq > li + li {
+  margin-block-start: var(--size-5);
 }
 
 summary {
-	border-block-end: var(--border-style);
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	list-style: none;
+  border-block-end: var(--border-style);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  list-style: none;
 }
 
 summary > span {
-	max-inline-size: 45ch;
+  max-inline-size: 45ch;
 }
 
 summary::after {
-	content: "＋";
-	margin-inline-start: auto;
-	transition: rotate 0.3s ease;
-}
-
-details[open] > summary::after {
-	rotate: 45deg;
+  content: "＋";
+  margin-inline-start: auto;
+  transition: rotate 0.3s ease;
 }
 
 summary::-webkit-details-marker {
-	display: none;
+  display: none;
 }
 
 summary + * {
-	margin-block-start: var(--size-3);
-	padding: var(--size-3);
-	background-color: var(--sand2);
+  margin-block-start: var(--size-3);
+  padding: var(--size-3);
+  background-color: var(--sand2);
+}
+
+details[open] > summary::after {
+  rotate: 45deg;
+}
+
+.details-inner {
+  padding: var(--size-5);
+  background-color: var(--slate3);
+  border-radius: var(--radius-1);
 }

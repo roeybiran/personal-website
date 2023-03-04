@@ -1,40 +1,42 @@
 import type {
-	LinksFunction,
-	LoaderFunction,
-	MetaFunction,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
 } from "@remix-run/node";
-import { useLoaderData, useLocation } from "@remix-run/react";
-import { useEffect } from "react";
+import { NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { toRemixMeta } from "react-datocms";
 import datoRequest from "~/lib/datoRequest";
-
 import styles from "~/styles/help.css";
 
 export const loader: LoaderFunction = async ({ params: { app: appSlug } }) => {
-	const {
-		app: { title, faq },
-	} = await datoRequest(`
+  const {
+    app: { userGuide, faq },
+  } = await datoRequest(`
 	{
 		app(filter: {slug: {eq: "${appSlug}"}}) {
-			title
-			faq {
+			userGuide
+      faq {
 				question
-				answer(markdown: true)
+				answer
 			}
 		}
 	}`);
-	return {
-		title,
-		faq: faq.map(({ question, answer }) => ({
-			question,
-			answer,
-			id: question
-				.toLowerCase()
-				.replace(/\s/g, "_")
-				.replace(/\W/g, "")
-				.replace(/_/g, "-"),
-		})),
-	};
+
+  const links = [];
+
+  if (userGuide) {
+    links.push({ label: "User Guide", url: "" });
+  }
+
+  if (faq) {
+    links.push({ label: "FAQ", url: "faq" });
+  }
+
+  return links.length > 0
+    ? {
+        links,
+      }
+    : undefined;
 };
 
 export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
@@ -42,30 +44,25 @@ export const meta: MetaFunction = ({ data: { seo } }) => toRemixMeta(seo);
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function Page() {
-	const { title, faq } = useLoaderData();
-	// const { hash } = useLocation();
+  const { links } = useLoaderData();
 
-	return (
-		<div className="mixed-bleed">
-			<h1 className="sr-only">{title} Help</h1>
-			<section className="stack">
-				<h2>FAQ</h2>
-				<ul className="stack" id="faq">
-					{faq.map(({ question: q, answer: a, id }) => (
-						<li key={q}>
-							<details className="stack" id={id} open>
-								<summary>
-									<span dangerouslySetInnerHTML={{ __html: q }} />
-								</summary>
-								<div
-									className="details-inner prose"
-									dangerouslySetInnerHTML={{ __html: a }}
-								/>
-							</details>
-						</li>
-					))}
-				</ul>
-			</section>
-		</div>
-	);
+  return (
+    <div>
+      {links && (
+        <nav className="help-nav">
+          <ul
+            className="cluster"
+            style={{ "--justify": "flex-end", "--space": "var(--size-3)" }}
+          >
+            {links.map(({ label, url }) => (
+              <li key={url}>
+                <NavLink to={url}>{label}</NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+      <Outlet />
+    </div>
+  );
 }
