@@ -1,0 +1,31 @@
+---
+import Root from "../layouts/Root.astro";
+---
+
+<Root title="Home">
+	<h1 class="sr-only">Home</h1>
+	<div class="root">
+		<div class="center intrinsic and-text">
+			<div class="text">
+				<p>
+					Hello, my name’s Roey and this is my personal home page.<br />
+					I’m a designer and front–end developer. I enjoy crafting quality <a
+						href="/apps">macOS applications</a
+					> on the side. I’m also passionate about industrial design, typography,
+					architecture, and art.
+				</p>
+			</div>
+		</div>
+	</div>
+</Root>
+
+<style>
+	.root {
+		margin-block: var(--size-3);
+		padding-inline: var(--bleed);
+	}
+
+	.text {
+		max-inline-size: 60ch;
+	}
+</style>

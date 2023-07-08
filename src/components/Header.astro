@@ -1,0 +1,55 @@
+---
+import memoji from "~/assets/memoji.png";
+---
+
+<header>
+	<div class="avatar card cluster" style="--space:var(--size-2)">
+		<img
+			src={memoji.src}
+			width={memoji.width}
+			height={memoji.height}
+			alt="Roey Biran’s Memoji"
+		/>
+		<div class="vstack" style="--space:0">
+			<a class="name" href="/">Roey Biran</a>
+			<small>Designer + Developer</small>
+		</div>
+	</div>
+	<nav>
+		<ul class="cluster" style="--space:var(--size-2)">
+			<li><a href="/">Home</a></li>
+			<li><a href="/apps">Apps</a></li>
+			<li><a href="/projects">Projects</a></li>
+		</ul>
+	</nav>
+</header>
+<style>
+	header {
+		padding-inline: var(--bleed);
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--size-3);
+	}
+
+	.avatar {
+		margin-inline-end: auto;
+	}
+
+	img {
+		inline-size: var(--size-7);
+		block-size: auto;
+		object-fit: contain;
+		background: var(--gradient-22);
+		border-radius: var(--radius-round);
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	header a.name,
+	header a.name:visited {
+		color: var(--text-1);
+		font-weight: var(--bold);
+	}
+</style>

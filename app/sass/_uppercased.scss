@@ -1,9 +1,0 @@
-@mixin uppercased {
-	font-size: var(--font-size-0);
-	text-transform: uppercase;
-	letter-spacing: var(--font-letterspacing-4);
-}
-
-.uppercased {
-	@include uppercased();
-}

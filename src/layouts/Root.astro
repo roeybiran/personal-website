@@ -1,0 +1,69 @@
+---
+import "open-props/open-props.min.css";
+import "sanitize.css";
+import "sanitize.css/forms.css";
+import "sanitize.css/typography.css";
+
+import "@fontsource-variable/inter";
+
+import "../styles/theme.css";
+import "../styles/card.scss";
+import "../styles/theme.css";
+import "../styles/reset.css";
+import "../styles/prose.scss";
+import "../styles/content-app.scss";
+import "../styles/content-help.scss";
+
+import "../styles/layout/center.css";
+import "../styles/layout/grid.css";
+import "../styles/layout/cluster.css";
+import "../styles/layout/vstack.css";
+
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+export interface Props {
+	title: string;
+	openGraphImage?: string;
+	description?: string;
+}
+
+const {
+	title,
+	description = "Roey Biran’s Personal Home Page",
+	openGraphImage = "og.jpg",
+} = Astro.props;
+const name = "Roey Biran";
+const suffixedTitle = `${title} — ${name}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+
+		<meta property="og:title" content={title} />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content={`${Astro.url.origin}/${openGraphImage}`} />
+		<meta property="og:url" content={Astro.url} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image:alt" content={title} />
+
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={name} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<title>{suffixedTitle}</title>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,0 +1,52 @@
+h1 {
+  font-weight: var(--font-weight-4);
+}
+
+small {
+  font-size: unset;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+p,
+pre,
+blockquote,
+q,
+pre,
+code,
+dl,
+dt,
+dd,
+small,
+figure {
+  margin: 0;
+  padding: 0;
+  font-size: unset;
+  font-weight: unset;
+}
+
+ul {
+  padding: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  block-size: auto;
+  max-inline-size: 100%;
+  display: block;
+}
+
+iframe {
+  block-size: auto;
+  max-inline-size: 100%;
+}

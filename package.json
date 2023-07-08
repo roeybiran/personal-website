@@ -1,33 +1,28 @@
 {
-  "private": true,
-  "sideEffects": false,
+  "name": "personal-website",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "build": "sass app/sass:app/styles && remix build",
-    "dev": "concurrently \"npm run sass\" \"remix dev --port 4001\"",
-    "sass": "sass --watch app/sass:app/styles",
-    "typecheck": "tsc -b"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@remix-run/node": "^1.8.2",
-    "@remix-run/react": "^1.8.2",
-    "@remix-run/vercel": "^1.8.2",
-    "@vercel/node": "^2.6.2",
-    "react": "^18.2.0",
-    "react-datocms": "^4.0.7",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@remix-run/dev": "^1.8.2",
-    "@remix-run/eslint-config": "^1.8.2",
-    "@remix-run/serve": "^1.8.2",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.8",
-    "concurrently": "^7.6.0",
-    "eslint": "^8.27.0",
-    "sass": "^1.56.2",
-    "typescript": "^4.8.4"
-  },
-  "engines": {
-    "node": ">=14"
+    "@fontsource-variable/inter": "^5.0.4",
+    "@microflash/remark-figure-caption": "^1.0.0",
+    "astro": "^2.7.2",
+    "install": "^0.13.0",
+    "normalize.css": "^8.0.1",
+    "npm": "^9.8.0",
+    "open-props": "^1.5.10",
+    "remark-definition-list": "^1.2.0",
+    "remark-parse": "^10.0.2",
+    "remark-rehype": "^10.1.0",
+    "remark-unwrap-images": "^3.0.1",
+    "sanitize.css": "^13.0.0",
+    "sass": "^1.63.6",
+    "unified": "^10.1.2"
   }
 }

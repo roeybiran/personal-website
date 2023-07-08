@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import Page from "../layouts/Page.astro";
+import AppCard from "../components/AppCard.astro";
+
+const posts = await getCollection("apps");
+---
+
+<Page title="Apps">
+	<ul class="cards">
+		{
+			posts.map(({ data, slug }) => (
+				<li>
+					<AppCard slug={`./apps/${slug}`} {...data} />
+				</li>
+			))
+		}
+	</ul>
+</Page>
+
+<style>
+	.cards {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--bleed);
+
+		margin-block: var(--bleed);
+		padding-inline: var(--bleed);
+		list-style: none;
+	}
+
+	.cards > * {
+		flex-grow: 1;
+		flex-basis: 60ch;
+	}
+</style>

@@ -1,0 +1,151 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import Root from "../../layouts/Root.astro";
+import { Image } from "astro:assets";
+import Page from "../../layouts/Page.astro";
+
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const entries = await getCollection("projects");
+  return entries.map((entry) => ({
+    params: { project: entry.slug },
+    props: { entry },
+  }));
+}
+// 2. When it's time to render, you can get the entry directly from the prop
+const entry = Astro.props.entry as CollectionEntry<"projects">;
+const { Content } = await entry.render();
+
+const {
+  data: {
+    title,
+    image,
+    type,
+    responsibilities,
+    links,
+    date,
+    stack,
+    subtitle,
+    press,
+  },
+} = entry;
+
+const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  day: undefined,
+  month: "short",
+  year: "numeric",
+});
+---
+
+<Page title={title}>
+  <div class="root">
+    <figure class="cover">
+      <Image fetchpriority="high" src={image} alt={title} />
+    </figure>
+    <div class="below-fold">
+      <aside>
+        <dl>
+          <dt>Date</dt>
+          <dd>{dateFormatter.format(date)}</dd>
+          <dt>Type</dt>
+          <dd>{type}</dd>
+          <dt>Links</dt>
+          <dd>
+            <ul class="url-list">
+              {
+                links.map(({ url, label }) => (
+                  <li>
+                    <a href={url}>{label}</a>
+                  </li>
+                ))
+              }
+            </ul>
+          </dd>
+          {
+            press && (
+              <>
+                <dt>Press</dt>
+                <dd>
+                  <ul class="url-list">
+                    {press.map(({ url, label }) => (
+                      <li>
+                        <a href={url}>{label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </>
+            )
+          }
+          <dt>Responsibilities</dt>
+          <dd>
+            <ul>
+              {responsibilities.map((r) => <li>{r}</li>)}
+            </ul>
+          </dd>
+          <dt>Stack</dt>
+          <dd>
+            <ul>
+              {stack.map((s) => <li>{s}</li>)}
+            </ul>
+          </dd>
+        </dl>
+      </aside>
+      <div class="content center prose">
+        <Content />
+      </div>
+    </div>
+  </div>
+</Page>
+
+<style lang="scss">
+  h1 {
+    font-weight: var(--bold);
+  }
+
+  .cover img {
+    inline-size: 100%;
+    block-size: 33vh;
+    object-fit: cover;
+  }
+
+  .content {
+    max-inline-size: 60ch;
+  }
+
+  .below-fold {
+    margin-block: var(--size-3);
+    padding-inline: var(--bleed);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  aside {
+    font-size: var(--font-size-0);
+
+    ul {
+      list-style: none;
+    }
+
+    ul:not(.url-list) li {
+      margin-block-start: var(--size-1);
+      inline-size: max-content;
+      background-color: var(--surface-3);
+      padding-inline: var(--size-2);
+      border-radius: var(--radius-1);
+    }
+
+    dt {
+      font-weight: var(--bold);
+    }
+
+    dd + dt {
+      margin-block-start: var(--size-2);
+    }
+
+    dd {
+      color: var(--text-2);
+    }
+  }
+</style>

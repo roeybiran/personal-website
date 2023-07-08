@@ -1,0 +1,35 @@
+.card {
+  position: relative;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a:visited {
+    color: inherit;
+  }
+
+  a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.card-ui {
+  outline: 1px solid transparent;
+  outline-offset: 8px;
+  transition: outline-color 0.3s ease 0s, outline-offset 0.3s ease 0s;
+}
+
+.card-ui:focus-within {
+  // box-shadow: 0 0 0 3px var(--blue7);
+  outline-color: var(--blue-7);
+  outline-offset: 0px;
+}
+
+.card-ui a:focus {
+  text-decoration: none;
+  outline: none;
+}

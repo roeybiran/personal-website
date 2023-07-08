@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import Page from "../layouts/Page.astro";
+import Image from "astro/components/Image.astro";
+
+const posts = await getCollection("projects");
+---
+
+<Page title="Projects">
+	<ul class="cards grid">
+		{
+			posts.map(({ data: { title, subtitle, image, type }, slug }) => (
+				<li class="card">
+					<div class="card-inner">
+						<div class="vstack center and-text" style="--space:0">
+							<small class="uppercased">{type}</small>
+							<a href={`./projects/${slug}`}>{title}</a>
+						</div>
+						<Image src={image} alt={title} />
+					</div>
+				</li>
+			))
+		}
+	</ul>
+</Page>
+
+<style>
+	.cards {
+		margin: var(--size-6);
+		list-style: none;
+	}
+
+	.card {
+		border-radius: var(--radius-3);
+		background-color: var(--surface-2);
+		display: grid;
+		place-content: center;
+		padding: var(--size-6);
+
+	}
+
+	.card-inner {
+		display: flex;
+		flex-direction: column;
+		gap: var(--size-3);
+	}
+
+	.card small {
+		color: var(--text-2);
+		font-size: var(--font-size-00);
+	}
+
+	a {
+		white-space: nowrap;
+	}
+
+	img {
+		pointer-events: none;
+		aspect-ratio: var(--ratio-widescreen);
+		object-fit: cover;
+		opacity: 0.8;
+		border-radius: var(--radius-1);
+		box-shadow: var(--shadow-2);
+	}
+</style>
