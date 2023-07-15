@@ -54,7 +54,7 @@ Traverse the most complex of menu bar hierarchies with just a few keystrokes: Fi
 
 ![navigation](./navigation.jpg)
 
-### The rule editor
+### Powerful rule editor
 
 Create incredibly intricate rules using an intuitive interface, and never see an irrelevant menu item again.
 
