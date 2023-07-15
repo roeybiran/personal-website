@@ -12,4 +12,11 @@ export default defineConfig({
   experimental: {
     assets: true,
   },
+  vite: {
+    server: {
+      watch: {
+        ignored: ['**/.DS_Store']
+      }
+    }
+  }
 });

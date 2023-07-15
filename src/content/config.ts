@@ -6,6 +6,7 @@ const apps = defineCollection({
     z.object({
       title: z.string(),
       subtitle: z.string(),
+      tagline: z.string().optional(),
       icon: image(),
       iconAlt: z.string(),
       cover: image().optional(),

@@ -1,6 +1,7 @@
 ---
 title: Finbar
 subtitle: Supercharged menu bar search
+tagline: Menu bar searching you didn’t know you wanted.
 icon: ./icon.png
 cover: ./cover.png
 iconAlt: Finbar’s app icon
@@ -14,60 +15,50 @@ openGraphImage: finbar-og.jpg
 price: 9.99
 ---
 
-**Finbar** puts the entirety of the frontmost application’s [menu bar](https://developer.apple.com/design/human-interface-guidelines/components/system-experiences/the-menu-bar) at your disposal. With blazing–fast performance, fantastic fuzzy search capabilities and smart caching, you’ll unleash a new level of productivity by having immediate access to every single command a given application has to offer. It’s like having your very own [command palette](https://capiche.com/e/consumer-dev-tools-command-palette), in every app.
+**Finbar** reimagines your Mac’s [built–in menu bar search](https://support.apple.com/en-us/guide/mac-help/hlpvw003/13.0/mac/13.0) with great features such as fuzzy filtering and tracking of recently selected menu items — without sacrificing an ounce of speed. With Finbar, you’ll unlock the menu bar’s true potential as a native, ubiqtuous [command palette](https://capiche.com/e/consumer-dev-tools-command-palette).
 
-## Highlights
+## Features
 
-<div class="features">
+### Blazing–Fast
 
-<div>
-
-### Fast
+Finbar is designed to do one thing, and do it well. **Built exclusively with native Apple technologies**, it’ll retrieve your desired menu item in no time. And when not in use, it awaits patiently in its own little spot in the menu bar, taking virtually no resources.
 
 <video src="https://res.cloudinary.com/roeybiran/video/upload/f_auto:video,q_auto/fast_fgeio4" controls loop muted playsinline autoplay ></video>
 
-Finbar is designed to do one thing, and do it well. **Built exclusively with native Apple technologies**, it’ll retrieve your desired menu item lightning–fast. And when not in use, it awaits patiently in its own little spot in the menu bar, taking virtually no resources.
-
-</div>
-
-<div>
-
-### Smart
-
-<video src="https://res.cloudinary.com/roeybiran/video/upload/f_auto:video,q_auto/u2rqypzaegh7h6xsaygf" controls loop muted playsinline autoplay ></video>
+### It got brains, too
 
 Finbar remembers every menu item you’ve selected, gradually accumulating a list of your favorite menu items. This list stays relevant across launches, and even when menu items have a dynamic, varying title.
 
-</div>
+<video src="https://res.cloudinary.com/roeybiran/video/upload/f_auto:video,q_auto/u2rqypzaegh7h6xsaygf" controls loop muted playsinline autoplay ></video>
 
-<div>
-
-### Expert Navigator
-
-![navigation](./navigation.jpg)
+### Conqueror of menu bars
 
 Traverse even the most complex of menu bars with just a few keystrokes: Finbar turns every menu bar into a browsable outline, just like the Finder does for your file system. Plus, selecting menu items containing other items will scope the search just to the nested items.
 
-</div>
+![navigation](./navigation.jpg)
 
-<div>
+### The menu bar, according to you
 
-### Configurable
+Utilize Finbar’s powerful rule editor to create incredibly intricate rule configurations, and never see an irrelevant menu item again.
 
 ![the rule editor](./rule-editor.jpg)
 
-Tailor search results exactly to your needs. Exclude menu items by properties like **title**, **path** and **depth**, or by the owning application. Combine rules to create endlessly intricate configurations, and never see an irrelevant menu item again.
+### Bring your own (menu items)
 
-</div>
-
-<div>
-
-### Extensible
+Finbar will automatically pick up any shell scripts or AppleScript files placed inside a special folder and integrate them with the rest of the menu bar.
 
 ![scripts](./scripts.jpg)
 
-Any `shell` or `AppleScript` scripts placed inside a specially–designated folder will be integrated with the rest of the menu items — essentially a way for you to extend the menu bar with custom “menu items” of your own.
+## About
 
-</div>
+### Why I built it
 
-</div>
+For a long time, I was a devout user of the Mac’s built–in menu bar search feature myself. While it is undoubtedly a great feature, I started to feel there’s a lot to be desired with the way it currently works, specifically:
+
+- It can get slow. In addition to menu items, it searches for topics in the app’s “help books”.
+- No fuzzy searching.
+- It doesn’t remember your recently used items.
+- It offers no control over excluding specific menu items from search results.
+- It doesn’t search the “” menu item by default, with no way of changing that.
+
+All of these (and then some) persuaded me to start building Finbar. My incentive at first was to scratch my own itch, but I soon realized there’re others who might find the app useful. Once I decided to release it for public use, it turned into a labor of love where I carefully considered every facet of engineering, UI and UX — first and foremost to make a compelling product worthy of the macOS standard, and also for my own challenge and enjoyment.
