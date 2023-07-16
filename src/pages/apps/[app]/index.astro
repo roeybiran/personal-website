@@ -132,8 +132,10 @@ const formatter = new Intl.NumberFormat(undefined, {
   }
 
   .tagline {
+    text-align: center;
     font-size: var(--font-size-6);
     margin-block-end: var(--size-3);
+    padding-inline: var(--bleed);
   }
 
   .icon {
@@ -159,7 +161,7 @@ const formatter = new Intl.NumberFormat(undefined, {
 
     img {
       margin-inline: auto;
-      max-inline-size: var(--size-15);
+      inline-size: min(100%, var(--size-15));
       object-fit: cover;
       object-position: top;
     }

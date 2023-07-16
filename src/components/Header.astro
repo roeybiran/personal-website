@@ -2,40 +2,44 @@
 import memoji from "~/assets/memoji.png";
 ---
 
-<header>
-	<div class="avatar card cluster" style="--space:var(--size-2)">
+<header class="header">
+	<div class="header__leading">
 		<img
+			class="header__avatar"
 			src={memoji.src}
 			width={memoji.width}
 			height={memoji.height}
 			alt="Roey Biran’s Memoji"
 		/>
-		<div class="vstack" style="--space:0">
-			<a class="name" href="/">Roey Biran</a>
-			<small>Designer + Developer</small>
+		<div class="header__text">
+			<a class="header__name" href="/">Roey Biran</a>
+			<small class="header__subtitle">Designer + Developer</small>
 		</div>
 	</div>
-	<nav>
-		<ul class="cluster" style="--space:var(--size-2)">
-			<li><a href="/">Home</a></li>
-			<li><a href="/apps">Apps</a></li>
-			<li><a href="/projects">Projects</a></li>
+	<nav class="nav">
+		<ul class="nav__list">
+			<li><a class="nav__link" href="/">Home</a></li>
+			<li><a class="nav__link" href="/apps">Apps</a></li>
+			<li><a class="nav__link" href="/projects">Projects</a></li>
 		</ul>
 	</nav>
 </header>
 <style>
-	header {
+	.header {
 		padding-inline: var(--bleed);
 		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
 		gap: var(--size-3);
 	}
 
-	.avatar {
+	.header__leading {
+		display: flex;
+		gap: var(--size-2);
 		margin-inline-end: auto;
 	}
 
-	img {
+	.header__avatar {
 		inline-size: var(--size-7);
 		block-size: auto;
 		object-fit: contain;
@@ -43,13 +47,24 @@ import memoji from "~/assets/memoji.png";
 		border-radius: var(--radius-round);
 	}
 
-	a {
+	.header__name {
 		text-decoration: none;
-	}
-
-	header a.name,
-	header a.name:visited {
 		color: var(--text-1);
 		font-weight: var(--bold);
 	}
+
+	.header__name, .header_subtitle {
+		display: block;
+	}
+
+	.nav__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--size-3);
+	}
+
+	.nav__link {
+		text-decoration: none;
+	}
+
 </style>
