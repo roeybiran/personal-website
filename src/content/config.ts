@@ -21,6 +21,7 @@ const apps = defineCollection({
       purchasePolicy: z.string().optional(),
       sourceCode: z.string().url().optional(),
       openGraphImage: z.string().optional(),
+      productHuntEmbed: z.string().optional(),
     }),
 });
 

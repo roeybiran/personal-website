@@ -34,6 +34,7 @@ const {
     purchaseURL,
     purchasePolicy,
     openGraphImage,
+    productHuntEmbed,
   },
 } = entry;
 
@@ -95,6 +96,9 @@ const formatter = new Intl.NumberFormat(undefined, {
           </div>
         </div>
       </div>
+      <div class="product-hunt-wrapper">
+        {productHuntEmbed && <Fragment set:html={productHuntEmbed}/>}
+      </div>
       <div class="prose prose-layout content-app">
         <Content />
       </div>
@@ -103,6 +107,10 @@ const formatter = new Intl.NumberFormat(undefined, {
 </Page>
 
 <style lang="scss">
+  .product-hunt-wrapper {
+    display: flex;
+    justify-content: center;
+  }
   h2 {
 
   }

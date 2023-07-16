@@ -12,6 +12,7 @@ downloadURL: https://f002.backblazeb2.com/file/roeybiran/finbar/latest/Finbar.dm
 purchaseURL: https://roeybiran.gumroad.com/l/mgpnr
 purchasePolicy: One time purchase, no in–app purchases.
 openGraphImage: finbar-og.jpg
+productHuntEmbed: '<a href="https://www.producthunt.com/posts/finbar?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-finbar" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=404865&theme=light" alt="Finbar - Supercharged&#0032;menu&#0032;bar&#0032;search&#0032;for&#0032;your&#0032;Mac | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>'
 price: 9.99
 ---
 
@@ -19,10 +20,10 @@ price: 9.99
 
 Yes, your Mac’s built–in menu bar search capabilities, and in fact, I was a devout user of this feature myself for a long time. While perfectly serviceable right out of the box, I started to feel there’s a lot to be desired with the way it currently works. Here’s a non–exhaustive list:
 
-- It has no fuzzy searching.
-- In addition to menu items, it searches for topics in the app’s “help books”, and this can hinder performance significantly.
-- It doesn’t remember your recently used items.
-- It offers no control over excluding or including specific menu items from search results (for example, the “” menu item is never searched — with no way of changing that).
+- No fuzzy searching.
+- It searches for topics in the app’s “help books” in addition to menu items, and this can hinder performance significantly.
+- It doesn’t remember your recently selected menu items.
+- It offers no control over excluding or including specific menu items from search results. For example, the “” menu item is never searched, and good luck with changing that.
 
 These omissions became even more evident as [command palettes](https://capiche.com/e/consumer-dev-tools-command-palette) gained popularity as a graphical user interface pattern, and many apps started to include their own. All of this persuaded me to start building Finbar. My incentive at first was to scratch my own itch, but I soon realized there’re others who might find the app useful. Once I decided to release it for public use, I went all–in with the goal of crafting [the best, most beautiful macOS app](https://daringfireball.net/linked/2020/03/20/mac-assed-mac-apps) I can.
 
