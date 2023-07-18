@@ -64,7 +64,6 @@ const formatter = new Intl.NumberFormat(undefined, {
     <div class="below-fold vstack">
       <div class="center intrinsic and-text">
         <div class="vstack" style="--space:var(--size-2)">
-
           <div>
             <div
               class="cluster download-bar"
@@ -97,11 +96,12 @@ const formatter = new Intl.NumberFormat(undefined, {
         </div>
       </div>
       <div class="product-hunt-wrapper">
-        {productHuntEmbed && <Fragment set:html={productHuntEmbed}/>}
+        {productHuntEmbed && <Fragment set:html={productHuntEmbed} />}
       </div>
       <div class="prose prose-layout content-app">
         <Content />
       </div>
+
     </div>
   </div>
 </Page>
@@ -112,7 +112,6 @@ const formatter = new Intl.NumberFormat(undefined, {
     justify-content: center;
   }
   h2 {
-
   }
 
   .root {

@@ -72,3 +72,4 @@ Finbar will automatically pick up any shell scripts or AppleScript files placed 
 - Can be launched quickly from anywhere using a global keyboard shortcut.
 - Shows menu item shortcuts.
 - Shows menu item “mark characters” (usually, a checkmark).
+- Tabular interface: columns can be reordered and resized to your liking.

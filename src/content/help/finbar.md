@@ -50,13 +50,13 @@ A use case for this feature is to activate Finbar from a specialized automation 
 
 ## Troubleshooting
 
-### If you can’t find a specific menu item or any menu items at all
+### If you can’t find a specific menu item, or any menu items at all
 
 First, try finding the desired menu item with the Mac’s standard search feature first. If this fails, it’s likely that the app has a non–standard implementation of the menu bar (for example, menu items lack the standard attributes Finbar uses for searching). It would be best to report this to the app’s developer, but you could also contact me about it and we’ll try to find a workaround.
 
 If you did manage to find what you’ve been looking for using the regular search feature, it’s a problem within Finbar and I‘d appreciate it if you’d notify me about it.
 
-### If selecting a menu item choosing does nothing
+### If selecting a menu item does nothing
 
 First, find and **select (with the keyboard)** the desired menu item using the Mac’s regular menu bar search feature. If this does nothing as well, the problem is most likely with the target app itself — some apps implement the menu bar clicking mechanisms in a non–standard way. Consider reporting this to the app’s developer.
 
