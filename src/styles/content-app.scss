@@ -15,7 +15,9 @@
     border-block-start: var(--border);
     padding-block-start: var(--size-3);
     font-size: var(--font-size-6);
-    line-height: var(--font-lineheight-1);
+    line-height: var(--font-lineheight-0);
+    text-align: center;
+    margin-block-end: var(--size-3);
   }
 
   img {

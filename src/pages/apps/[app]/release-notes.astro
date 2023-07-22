@@ -5,15 +5,14 @@ import { getEntry } from "astro:content";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
-  const collection = await getCollection("help");
+  const collection = await getCollection("release-notes");
   return collection.map((entry) => ({
     params: { app: entry.slug },
     props: { entry },
   }));
 }
 // 2. When it's time to render, you can get the entry directly from the prop
-const entry: CollectionEntry<"help"> = Astro.props.entry;
-const { Content } = await entry.render();
+const entry: CollectionEntry<"release-notes"> = Astro.props.entry;
 
 const {
   data: {
@@ -22,10 +21,12 @@ const {
 } = entry;
 
 const appEntry = await getEntry("apps", appSlug);
+
+const { Content } = await entry.render();
 ---
 
-<AppPage pageTitleSuffix='Help' appSlug={appSlug} appEntry={appEntry}>
-  <div class="prose prose-layout content-help">
+<AppPage pageTitleSuffix="Release Notes" appSlug={appSlug} appEntry={appEntry}>
+  <div class="prose prose-layout content-release-notes">
     <Content />
   </div>
 </AppPage>

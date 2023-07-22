@@ -1,5 +1,6 @@
 :root {
-  font-family: "Inter Variable", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter Variable",
+    var(--font-sans);
   color: var(--text-1);
   background-color: var(--surface-1);
 

@@ -4,27 +4,27 @@ import Root from "../layouts/Root.astro";
 import memoji404 from "~/assets/404.png";
 ---
 
-<Root title="Error: 404">
-    <div class="root">
-        <div class="center intrinsic and-text">
-            <Image src={memoji404} alt="A pondering memoji of Roey Biran" />
-            <div class="vstack">
-                <p>Error 404: Not Found</p>
-                <a class="btn-primary" href="/">Go Back Home</a>
-            </div>
-        </div>
-    </div>
+<Root pageTitle="Error: Page Not Found">
+  <div class="page-404">
+    <Image class:list="page-404__image" src={memoji404} alt="" />
+    <h1 class="page-404__title">This page can’t be found.</h1>
+    <p><a href="/">Click here</a> to go back to the home page.</p>
+  </div>
 </Root>
 
 <style>
-    .root {
-        padding: var(--bleed);
-    }
-    p {
-        font-size: var(--font-size-4);
-    }
+  .page-404 {
+    padding: var(--bleed);
+    text-align: center;
+  }
 
-    img {
-        max-inline-size: var(--size-13);
-    }
+  .page-404__title {
+    font-size: var(--font-size-4);
+    font-weight: var(--bold);
+  }
+
+  .page-404__image {
+    margin-inline: auto;
+    max-inline-size: var(--size-13);
+  }
 </style>

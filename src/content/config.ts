@@ -1,27 +1,30 @@
-import { z, defineCollection } from "astro:content";
+import { z, defineCollection, reference } from "astro:content";
 
 const apps = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
-      title: z.string(),
-      subtitle: z.string(),
-      icon: image(),
-      iconAlt: z.string(),
+      sparkleAppcastURL: z.string().url().optional(),
       cover: image().optional(),
       dateReleased: z.date(),
+      downloadURL: z.string(),
+      help: reference("help").optional(),
+      releaseNotes: reference("release-notes").optional(),
+      icon: image(),
+      iconAlt: z.string(),
+      openGraphImage: z.string().optional(),
+      platform: z.literal("macOS"),
+      price: z.number().optional(),
+      productHuntEmbed: z.string().optional(),
+      purchasePolicy: z.string().optional(),
+      purchaseURL: z.string().url().optional(),
+      sourceCode: z.string().url().optional(),
+      subtitle: z.string(),
       systemRequirements: z.union([
         z.literal("Big Sur"),
         z.literal("Monterey"),
       ]),
-      platform: z.literal("macOS"),
-      downloadURL: z.string(),
-      price: z.number().optional(),
-      purchaseURL: z.string().url().optional(),
-      purchasePolicy: z.string().optional(),
-      sourceCode: z.string().url().optional(),
-      openGraphImage: z.string().optional(),
-      productHuntEmbed: z.string().optional(),
+      title: z.string(),
     }),
 });
 
@@ -66,10 +69,23 @@ const projects = defineCollection({
     }),
 });
 
-const help = defineCollection({ type: "content" });
+const help = defineCollection({
+  type: "content",
+  schema: z.object({
+    app: reference("apps"),
+  }),
+});
+
+const releaseNotes = defineCollection({
+  type: "content",
+  schema: z.object({
+    app: reference("apps"),
+  }),
+});
 
 export const collections = {
   apps,
   projects,
   help,
+  'release-notes': releaseNotes,
 };

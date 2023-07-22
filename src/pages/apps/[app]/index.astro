@@ -2,39 +2,37 @@
 import { CollectionEntry, getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import Page from "../../../layouts/Page.astro";
+import AppPage from "../../../layouts/AppPage.astro";
 
 export async function getStaticPaths() {
-  const appsEntries = await getCollection("apps");
-  return appsEntries.map((entry) => ({
+  const collection = await getCollection("apps");
+  return collection.map((entry) => ({
     params: { app: entry.slug },
     props: { entry },
   }));
 }
 
-// https://www.apple.com/macos/photos/
-// https://www.apple.com/imovie/
-// https://www.apple.com/pages/
-// https://www.apple.com/numbers/
-// https://www.apple.com/keynote/
-
 const entry = Astro.props.entry as CollectionEntry<"apps">;
 const { Content } = await entry.render();
 
 const {
+  slug,
   data: {
-    title,
-    subtitle,
     cover,
+    downloadURL,
+    help,
     icon,
     iconAlt,
-    downloadURL,
-    platform,
-    systemRequirements,
-    price,
-    purchaseURL,
-    purchasePolicy,
     openGraphImage,
+    platform,
+    price,
     productHuntEmbed,
+    purchasePolicy,
+    purchaseURL,
+    releaseNotes,
+    subtitle,
+    systemRequirements,
+    title,
   },
 } = entry;
 
@@ -44,7 +42,12 @@ const formatter = new Intl.NumberFormat(undefined, {
 });
 ---
 
-<Page title={title} description={subtitle} openGraphImage={openGraphImage}>
+<AppPage
+  appEntry={entry}
+  appSlug={slug}
+  description={subtitle}
+  openGraphImage={openGraphImage}
+>
   <div class="root">
     <div class="above-fold">
       <div class="images">
@@ -101,10 +104,9 @@ const formatter = new Intl.NumberFormat(undefined, {
       <div class="prose prose-layout content-app">
         <Content />
       </div>
-
     </div>
   </div>
-</Page>
+</AppPage>
 
 <style lang="scss">
   .product-hunt-wrapper {
@@ -141,6 +143,7 @@ const formatter = new Intl.NumberFormat(undefined, {
   .tagline {
     text-align: center;
     font-size: var(--font-size-6);
+    line-height: var(--font-lineheight-0);
     margin-block-end: var(--size-3);
     padding-inline: var(--bleed);
   }

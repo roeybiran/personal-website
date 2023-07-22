@@ -1,6 +1,8 @@
 ---
-title: Finbar Help
+app: "finbar"
 ---
+
+# Finbar Help
 
 ## User Guide
 
@@ -8,19 +10,13 @@ title: Finbar Help
 
 Finbar’s rule editor uses the Mac’s standard interface for editing rules and thus would work as you’d expect. There’re however a few special considerations to take into account when matching by the following criteria:
 
-- Menu item’s path: Path components should be separated with a backslash (\\). **For example,** to exclude Safari’s “View > Translation” menu item, specify the path as  “View\Translation” (without the quotes).
-- Menu item’s index: The index in question refers to the menu item’s position among its neighboring menu items inside a given menu. The first menu item in that menu would have an index of 1. Note that separators between menu items should also be included in the count. **For example,** to exclude Safari’s “Edit > Cut” menu item, specify an index of 4 (because it follows the “Undo“ and “Redo” menu item, and a separator).
-- Menu item’s depth: Menu bar items have a depth of 0, and each submenu increases that depth by 1. **For example,** to exclude Safari’s “File > Export > Bookmarks…” menu item, specify a depth of 2.
+1. _Menu item’s path_: Path components should be separated with a backslash (\\). **For example,** to exclude Safari’s “View > Translation” menu item, specify the path as “View\Translation” (without the quotes).
+2. _Menu item’s index_: The index in question refers to the menu item’s position among its neighboring menu items inside a given menu. The first menu item in that menu would have an index of 1. Note that separators between menu items should also be included in the count. **For example,** to exclude Safari’s “Edit > Cut” menu item, specify an index of 4 (that’s because it follows 3 menu items — “Undo“, “Redo”, and a separator).
+3. _Menu item’s depth_: Menu bar items have a depth of 0, and each submenu increases that depth by 1. **For example,** to exclude Safari’s “File > Export > Bookmarks…” menu item, specify a depth of 2.
 
 ### Command–line Interface
 
-Finbar includes an executable tool offering a command–line interface to some of its basic functionalities. The tool is located within the application bundle:
-
-```shell
-Finbar.app/Contents/MacOS/finbar-cli
-```
-
-For usage instructions and help, run:
+Finbar includes an executable tool offering a command–line interface to some of its basic functionalities. It’s located within the application bundle, at the following path: **Finbar.app/Contents/MacOS/finbar-cli**. For usage instructions and help, run:
 
 ```shell
 finbar-cli -h
@@ -28,7 +24,7 @@ finbar-cli -h
 
 ### Adding Scripts
 
-Any valid script — that is, any text file with an interpreter directive (or [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))) supported by your system — can be used to extend Finbar.
+Any valid script — that is, any text file with an interpreter directive (or [shebang](<https://en.wikipedia.org/wiki/Shebang_(Unix)>)) supported by your system — can be used to extend Finbar.
 
 To add a script:
 

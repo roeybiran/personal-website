@@ -1,4 +1,9 @@
 .content-help {
+  h1 {
+    font-size: var(--font-size-6);
+    text-align: center;
+  }
+
   h2 {
     font-size: var(--font-size-4);
     font-weight: var(--bold);
@@ -7,5 +12,9 @@
 
   h3 {
     font-size: var(--font-size-3);
+  }
+
+  .astro-code {
+    padding: var(--size-2);
   }
 }

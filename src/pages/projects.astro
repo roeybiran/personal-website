@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
-import Image from "astro/components/Image.astro";
+import { Image } from "astro:assets";
 
 const posts = await getCollection("projects");
 ---
 
-<Page title="Projects">
+<Page pageTitle="Projects">
 	<ul class="cards grid">
 		{
 			posts.map(({ data: { title, subtitle, image, type }, slug }) => (

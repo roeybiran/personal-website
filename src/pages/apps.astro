@@ -6,7 +6,7 @@ import AppCard from "../components/AppCard.astro";
 const posts = await getCollection("apps");
 ---
 
-<Page title="Apps">
+<Page pageTitle="Apps">
 	<ul class="cards">
 		{
 			posts.map(({ data, slug }) => (
