@@ -71,10 +71,10 @@ a:hover {
   text-decoration: none;
 }
 
-header a,
-header a:visited,
-header,
-footer {
+/* header a,
+header a:visited, */
+.header,
+.footer {
   color: var(--text-2);
   font-size: var(--font-size-0);
 }

@@ -9,7 +9,7 @@ import memoji from "~/assets/memoji.png";
 			src={memoji.src}
 			width={memoji.width}
 			height={memoji.height}
-			alt="Roey Biran’s Memoji"
+			alt=""
 		/>
 		<div class="header__text">
 			<a class="header__name" href="/">Roey Biran</a>
@@ -40,6 +40,7 @@ import memoji from "~/assets/memoji.png";
 	}
 
 	.header__avatar {
+		align-self: center;
 		inline-size: var(--size-7);
 		block-size: auto;
 		object-fit: contain;
@@ -47,7 +48,7 @@ import memoji from "~/assets/memoji.png";
 		border-radius: var(--radius-round);
 	}
 
-	.header__name {
+	.header__name, .header__name:visited {
 		text-decoration: none;
 		color: var(--text-1);
 		font-weight: var(--bold);
@@ -63,7 +64,8 @@ import memoji from "~/assets/memoji.png";
 		gap: var(--size-3);
 	}
 
-	.nav__link {
+	.nav__link, .nav__link:visited {
+		color: var(--text-2);
 		text-decoration: none;
 	}
 
