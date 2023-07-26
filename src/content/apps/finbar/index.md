@@ -21,7 +21,7 @@ title: Finbar
 
 **Finbar** reimagines the Mac’s [built–in menu bar search](https://support.apple.com/en-us/guide/mac-help/hlpvw003/13.0/mac/13.0) with great features such as fuzzy filtering and tracking of recently selected menu items — without sacrificing an ounce of speed. With Finbar, you’ll unlock the menu bar’s true potential as a native, ubiquitous [command palette](https://capiche.com/e/consumer-dev-tools-command-palette).
 
-Yes, your Mac’s built–in menu bar search capabilities, and in fact, I was a devout user of this feature myself for a long time. While quite serviceable right out of the box, I started to feel there’s a lot to be desired with the way it currently works. Here’s a non–exhaustive list:
+Yes, your Mac has built–in menu bar search capabilities, and in fact, I was a devout user of this feature myself for a long time. While quite serviceable right out of the box, I started to feel there’s a lot to be desired with the way it currently works. Here’s a non–exhaustive list:
 
 - No fuzzy searching.
 - It searches for topics in the app’s “help books” in addition to menu items, and this can hinder performance significantly.
