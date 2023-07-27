@@ -2,10 +2,10 @@
 import type { CollectionEntry } from "astro:content";
 import Root, { Props as RootProps } from "./Root.astro";
 
-interface Props extends Omit<RootProps, 'pageTitle'> {
+interface Props extends Omit<RootProps, "pageTitle"> {
   appEntry: CollectionEntry<"apps">;
   appSlug: string;
-  pageTitleSuffix?: string
+  pageTitleSuffix?: string;
 }
 
 const {
@@ -26,7 +26,9 @@ const pathnames = [
   .filter((p) => p)
   .map((p) => ({ ...p, current: p?.href == Astro.url.pathname }));
 
-const pageTitle = [title, Astro.props.pageTitleSuffix ?? ""].filter((x) => x).join(": ");
+const pageTitle = [title, Astro.props.pageTitleSuffix ?? ""]
+  .filter((x) => x)
+  .join(": ");
 ---
 
 <Root {...Astro.props} pageTitle={pageTitle}>
@@ -45,29 +47,3 @@ const pageTitle = [title, Astro.props.pageTitleSuffix ?? ""].filter((x) => x).jo
   </nav>
   <slot />
 </Root>
-
-<style>
-  .app-nav {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--size-3);
-    padding: var(--size-2) var(--bleed);
-    border-block-end: var(--border);
-  }
-
-  .app-nav-link[aria-current="page"] {
-    font-weight: var(--bold);
-  }
-
-  .app-nav-link,
-  .app-nav-link:visited {
-    font-size: var(--font-size-0);
-    color: var(--text-1);
-    text-decoration: none;
-  }
-
-  .app-nav-link:first-child {
-    margin-inline-end: auto;
-  }
-</style>

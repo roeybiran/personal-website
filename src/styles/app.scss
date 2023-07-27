@@ -1,0 +1,176 @@
+@use "sr-only.scss";
+@use "layout/center";
+@use "layout/stack";
+@use "buttons";
+@use "prose";
+
+.app-page__content,
+.content-help,
+.release-notes {
+  padding: var(--bleed);
+}
+
+.app-page__content {
+  @include stack.stack;
+}
+
+.product-hunt-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.app__above-fold {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app__above-fold-images {
+  display: grid;
+}
+
+.app__above-fold-images > * {
+  grid-area: 1/1;
+}
+
+.app__icon-wrapper {
+  justify-self: center;
+  align-self: flex-end;
+  z-index: 1;
+}
+
+.app__icon {
+  margin-block-start: calc(-1 * var(--size-6));
+  max-inline-size: var(--size-12);
+}
+
+.app__tagline {
+  text-align: center;
+  font-size: var(--font-size-6);
+  line-height: var(--font-lineheight-0);
+  margin-block-end: var(--size-3);
+  padding-inline: var(--bleed);
+}
+
+.download-bar,
+.buy-button {
+  display: flex;
+  gap: var(--size-2);
+  align-items: center;
+}
+
+.download-bar {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.buy-button,
+.try-button {
+  @include buttons.button--primary;
+}
+
+.try-button,
+.try-button:active,
+.try-button:hover {
+  background-color: transparent;
+  border-color: var(--link);
+  color: var(--link);
+}
+
+.buy-button__price {
+  font-size: var(--font-size-0);
+  color: var(--apl-blue);
+  background-color: white;
+  padding-inline: var(--size-1);
+  border-radius: var(--radius-3);
+}
+
+.app__technicals {
+  --space: var(--size-2);
+  @include center.center($intrinsic: true, $and-text: true);
+  @include stack.stack;
+}
+
+.app__purchasePolicy,
+.app__sys-reqs {
+  display: block;
+  font-size: var(--font-size-0);
+  color: var(--text-2);
+}
+
+.app__cover {
+  inline-size: 100%;
+  -webkit-mask: linear-gradient(to top, transparent 0%, black 50%);
+  mask: linear-gradient(to top, transparent 0%, black 50%);
+
+  margin-inline: auto;
+  inline-size: min(100%, var(--size-15));
+  object-fit: cover;
+  object-position: top;
+}
+
+.app__prose {
+  @include prose.prose;
+  @include prose.prose-layout;
+
+  p:first-of-type {
+    font-size: var(--font-size-4);
+  }
+
+  h2,
+  h3 {
+    border-block-start: var(--border);
+    padding-block-start: var(--size-3);
+  }
+
+  h3 {
+    border-block-start: var(--border);
+    padding-block-start: var(--size-3);
+    font-size: var(--font-size-6);
+    line-height: var(--font-lineheight-0);
+    text-align: center;
+    margin-block-end: var(--size-3);
+  }
+
+  img {
+    max-inline-size: 60ch;
+    margin-inline: auto;
+  }
+}
+
+.astro-code {
+  padding: var(--size-2);
+}
+
+.release-notes {
+  @include prose.prose;
+  @include prose.prose-layout;
+
+  h2:first-of-type {
+    margin-block-start: 0;
+  }
+
+  h2:not(:first-of-type) {
+    padding-block-start: var(--size-3);
+    border-block-start: var(--border);
+  }
+}
+
+.release-notes,
+.content-help {
+  h1 {
+    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
+    border-block-end: var(--border);
+    margin-block-end: var(--size-1);
+  }
+
+  h2 {
+    font-size: var(--font-size-6);
+    line-height: var(--font-lineheight-1);
+  }
+
+  h3 {
+    line-height: var(--font-lineheight-1);
+  }
+}

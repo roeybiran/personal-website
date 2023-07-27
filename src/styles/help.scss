@@ -1,0 +1,46 @@
+@use "prose";
+
+.content-help {
+  @include prose.prose;
+  @include prose.prose-layout;
+
+  h3 {
+    font-size: var(--font-size-4);
+    margin-block: var(--size-8) var(--size-2);
+  }
+
+  h2:not(:first-of-type) {
+    padding-block-start: var(--size-3);
+    margin-block-start: var(--size-6);
+    border-block-start: var(--border);
+  }
+
+  #table-of-contents {
+    font-size: var(--font-size-1);
+    // border-block-end: var(--border);
+    // margin-block: 0 var(--size-2);
+    // padding-block-end: var(--size-2);
+
+    & + ul {
+      padding: 0;
+    }
+
+    & + ul,
+    & + ul ul {
+      margin: 0;
+      list-style: none;
+    }
+
+    & + ul li {
+      margin-block-start: var(--size-1);
+    }
+
+    & + ul a {
+      text-decoration: none;
+    }
+
+    & + ul a:visited {
+      color: var(--link);
+    }
+  }
+}

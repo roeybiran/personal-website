@@ -20,19 +20,19 @@ const {
   },
 } = entry;
 
-const appEntry = await getEntry("apps", appSlug);
-
 const { Content } = await entry.render();
+
+const appEntry = await getEntry("apps", appSlug);
+const pageTitleSuffix = "Release Notes";
 ---
 
-<AppPage pageTitleSuffix="Release Notes" appSlug={appSlug} appEntry={appEntry}>
-  <div class="prose prose-layout content-release-notes">
+<AppPage
+  pageTitleSuffix={pageTitleSuffix}
+  appSlug={appSlug}
+  appEntry={appEntry}
+>
+  <div class="release-notes">
+    <h1>{appEntry.data.title} {pageTitleSuffix}</h1>
     <Content />
   </div>
 </AppPage>
-
-<style lang="scss">
-  .root {
-    margin-block: var(--size-3);
-  }
-</style>

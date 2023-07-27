@@ -1,3 +1,0 @@
-.vstack > * + * {
-  margin-block-start: var(--space, var(--size-3));
-}

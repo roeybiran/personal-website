@@ -1,12 +1,11 @@
 import { defineConfig } from "astro/config";
+import remarkToc from "remark-toc";
 import remarkUnwrapImages from "remark-unwrap-images";
-
-//https://github.com/Nevenall/remark-containers
 
 export default defineConfig({
   site: "https://roeybiran.com",
   markdown: {
-    remarkPlugins: [remarkUnwrapImages],
+    remarkPlugins: [remarkToc, remarkUnwrapImages],
   },
   experimental: {
     assets: true,
@@ -14,8 +13,8 @@ export default defineConfig({
   vite: {
     server: {
       watch: {
-        ignored: ['**/.DS_Store']
-      }
-    }
-  }
+        ignored: ["**/.DS_Store"],
+      },
+    },
+  },
 });

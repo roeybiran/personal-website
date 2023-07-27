@@ -2,8 +2,6 @@
 app: 'finbar'
 ---
 
-# Finbar Release Notes
-
 ## v1.7.3
 
 ### What’s New
