@@ -2,6 +2,14 @@
 import type { CollectionEntry } from "astro:content";
 import Root, { Props as RootProps } from "./Root.astro";
 
+// style inspirations
+// https://www.apple.com/macos/photos/
+// https://www.apple.com/imovie/
+// https://www.apple.com/pages/
+// https://www.apple.com/numbers/
+// https://www.apple.com/keynote/
+// https://www.pixelmator.com/pro/
+
 interface Props extends Omit<RootProps, "pageTitle"> {
   appEntry: CollectionEntry<"apps">;
   appSlug: string;

@@ -6,7 +6,7 @@ app: "finbar"
 
 ## User Guide
 
-### Editing Rules
+### Using the Rule Editor
 
 Finbar’s rule editor uses the Mac’s standard interface for this purpose and thus would work as you’d expect. There’re however a few special considerations to take into account when matching by the following criteria:
 

@@ -1,9 +1,3 @@
 # Personal Website
 
 [roeybiran.com](https://roeybiran.com)
-
-// <https://www.apple.com/macos/photos/>
-// <https://www.apple.com/imovie/>
-// <https://www.apple.com/pages/>
-// <https://www.apple.com/numbers/>
-// <https://www.apple.com/keynote/>
