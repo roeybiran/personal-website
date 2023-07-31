@@ -32,37 +32,37 @@ These omissions became even more evident as [command palettes](https://capiche.c
 
 ## Highlights
 
-### Blazing fast
+### Blazing Fast
 
 Finbar is designed to do one thing, and do it well. **Built exclusively with native Apple technologies**, it’ll retrieve your desired menu item in no time. And when not in use, it awaits patiently in its own little spot in the menu bar, taking virtually no resources.
 
 <video src="https://res.cloudinary.com/roeybiran/video/upload/f_auto:video,q_auto/fast_fgeio4" controls loop muted playsinline ></video>
 
-### Fuzzy search
+### Fuzzy Search
 
 Find the menu item you were looking for faster and with minimal typing, all while eschewing tiresome memorization of its title.
 
 ![fuzzy searching](./fuzzy-search.jpg)
 
-### Adapts to your habits
+### Adapts to Your Habits
 
 Finbar remembers every menu item you’ve selected, gradually accumulating a list of your favorite menu items. This list stays relevant across launches, and even when menu items have a dynamic, varying title.
 
 <video src="https://res.cloudinary.com/roeybiran/video/upload/f_auto:video,q_auto/u2rqypzaegh7h6xsaygf" controls loop muted playsinlin ></video>
 
-### Navigate like a pro
+### Navigate Menus Like a Pro
 
 Traverse the most complex of menu bar hierarchies with just a few keystrokes: Finbar turns every menu bar into a browsable outline, just like the Finder does for your file system. And selecting menu items containing other items will scope the search just to those nested items.
 
 ![navigation](./navigation.jpg)
 
-### Powerful rule editor
+### Create Powerful Rules
 
 Create incredibly intricate rules using the Mac’s tried and true rule editing interface (a world first for menu items!), and never see an irrelevant menu item again.
 
 ![the rule editor](./rule-editor.jpg)
 
-### Extend with custom scripts
+### Extend with Custom Scripts
 
 Finbar will automatically pick up any shell scripts or AppleScript files placed inside a designated folder and integrate them with the rest of the menu bar, essentially a way for you to add “menu items” of your own.
 

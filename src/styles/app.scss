@@ -173,4 +173,12 @@
   h3 {
     line-height: var(--font-lineheight-1);
   }
+
+  :not(#table-of-contents) + * li {
+    padding-inline-start: var(--size-2);
+  }
+}
+
+#table-of-contents {
+  display: none;
 }

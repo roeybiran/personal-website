@@ -1,5 +1,6 @@
 ---
 app: "finbar"
+title: ""
 ---
 
 ## Table of Contents
@@ -8,7 +9,7 @@ app: "finbar"
 
 ### Using the Rule Editor
 
-Finbar’s rule editor uses the Mac’s standard interface for this purpose and thus would work as you’d expect. There’re however a few special considerations to take into account when matching by the following criteria:
+Finbar’s rule editor uses the Mac’s standard rule editing component, and thus would work as you’d expect (for a primer on macOS rule editors, see [this Apple support article](https://support.apple.com/en-gb/guide/mac-help/mh15155/mac)). There’re however a few special considerations to take into account when matching by the following criteria, which are unique to Finbar:
 
 1. _Menu item’s path_: Path components should be separated with a backslash (\\). **For example,** to exclude Safari’s “View > Translation” menu item, specify the path as “View\Translation” (without the quotes).
 2. _Menu item’s index_: The index in question refers to the menu item’s position among its neighboring menu items inside a given menu. The first menu item in that menu would have an index of 1. Note that separators between menu items should also be included in the count. **For example,** to exclude Safari’s “Edit > Cut” menu item, specify an index of 4 (that’s because it follows 3 menu items — “Undo“, “Redo”, and a separator).
