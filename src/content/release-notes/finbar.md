@@ -1,8 +1,7 @@
 ---
-app: 'finbar'
+app: "finbar"
+title: ""
 ---
-
-# Finbar: Release Notes
 
 ## 1.8.2
 
