@@ -10,20 +10,22 @@ title: ""
 ### How Searching Works
 
 In Finbar, every menu item is matched by its title, while nested menu items below a certain depth are also matched by the title of their containing menu item. This is similar to how the built–in menu bar searching operates. For those nested menu items, their title will be preceded by the one of its parent. Accordingly, the respective parent’s title will not be shown in the location column.
+
 ### Searching vs. Browsing
 
-Finbar operates in two implicit “modes” — searching and browsing. The app enters searching mode whenever you type something in search field. Appropriately, you return to browsing mode by clearing the search field. 
+Finbar operates in two implicit “modes” — searching and browsing. The app enters searching mode whenever you type something in search field. Appropriately, you return to browsing mode by clearing the search field.
 
 The differences between these two modes are as follows:
 
 | Searching | Browsing |
 | --------- | ------- |
 | Items are a flat list | Items are a browsable outline |
-| Titles for nested items are preceded by their container’s title | Titles aren’t modified |
+| Nested menu items’ titles are preceded by the parent’s title | All titles shown as they are |
 
 When activating a “container” menu item, you enter a new, scoped context that can be further browsed or searched, and the same differences noted above apply.
 
 There’s another special ”mode” worth mentioning — it’s Finbar’s initial view when you activate the app or when the search field is empty and you’re not in a scoped context. In this mixed ”mode”, some items (like recents) may have their title preceded by their container’s title, but some items are also browsable, like an outline.
+
 ### Using the Rule Editor
 
 Finbar’s rule editor uses the Mac’s **standard** rule editing component and thus would work as you’d expect (for a primer on macOS rule editors, see [this Apple support article](https://support.apple.com/en-gb/guide/mac-help/mh15155/mac)). There’re however a few special considerations to take into account when matching by the following criteria, which are unique to Finbar:

@@ -177,6 +177,21 @@
   :not(#table-of-contents) + * li {
     padding-inline-start: var(--size-2);
   }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th {
+    background-color: var(--surface-3);
+  }
+
+  th,
+  td {
+    border: var(--border);
+    padding: var(--size-1);
+    vertical-align: baseline;
+  }
 }
 
 #table-of-contents {
