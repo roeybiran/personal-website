@@ -2,6 +2,20 @@
 app: 'finbar'
 ---
 
+# Finbar: Release Notes
+
+## 1.8.2
+
+### Bug Fixes
+
+- Fixed a bug where `finbar-cli` would not honor the passed `--predicate` argument.
+
+## 1.8.1
+
+### Bug Fixes
+
+- Fixed a bug where `finbar-cli` would ignore the `--v2` flag passed to it.
+
 ## 1.8
 
 ### **Important message to `finbar-cli` users!**
@@ -10,8 +24,9 @@ Usage of the `list` subcommand in its current form is deprecated and will cease 
 
 ### What’s New
 
+- The main window can now be freely resized (down to a minimum size).
 - Filtering through the items list is now faster.
-- Refined the way menu items are searched and displayed. [Read more about this change here]().
+- Refined the way menu items are searched and displayed. [Read more about this change here](https://www.roeybiran.com/apps/finbar/help#how-searching-works).
 - The help button under the rule editor now links directly to the relevant section in the user guide.
 - Options menu:
   - Changed item order slightly.
