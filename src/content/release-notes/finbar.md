@@ -2,7 +2,31 @@
 app: 'finbar'
 ---
 
-## v1.7.3
+## 1.8
+
+### **Important message to `finbar-cli` users!**
+
+Usage of the `list` subcommand in its current form is deprecated and will cease to work soon. Run `finbar-cli list -h` to learn more about this change and make the necessary changes to your scripts as soon as you can.
+
+### What’s New
+
+- Filtering through the items list is now faster.
+- Refined the way menu items are searched and displayed. [Read more about this change here]().
+- The help button under the rule editor now links directly to the relevant section in the user guide.
+- Options menu:
+  - Changed item order slightly.
+  - Added a ”Find” menu item.
+- Changed default column widths (thanks, [@gingerbeardman](https://twitter.com/gingerbeardman))
+- Removed the alternating row colors in favor of line separators, for a cleaner look.
+- Removed the fade–in animation on activation.
+
+### Bug Fixes
+
+- Fixed a highlighting issue in the key equivalent badges.
+- Fixed a bug where the path column would unnecessarily truncate and wouldn’t expand even when there’s enough space.
+- The settings window’s default position now defaults to the center of the screen. [Closes ticket #10](https://github.com/roeybiran/finbar-issues/issues/10) (thanks once more [@gingerbeardman](https://twitter.com/gingerbeardman)!)
+
+## 1.7.3
 
 ### What’s New
 
@@ -12,20 +36,20 @@ app: 'finbar'
 
 - Fixed a bug where double clicking or pressing return on list items would not work in some circumstances.
 
-## v1.7.2
+## 1.7.2
 
 ### Bug Fixes
 
 - The rule editor’s window now supports resizing.
 
-## v1.7.1
+## 1.7.1
 
 ### Bug Fixes
 
 - Fixed a small interface issue in the release notes preview.
 - Fixed a bug where the rule editor’s window size is initially shown with a tiny frame.
 
-## v1.7
+## 1.7
 
 I’m pleased to present you with another **very** significant update to Finbar, and this time around: a completely revamped rule editor. Finbar now relies on the Mac’s tried–and–true rule editor — a worldwide first for menu item searching. Use this ultra powerful and endlessly flexible component to create the most elaborate rule configurations, and never see an irrelevant menu item ever again.
 
@@ -45,7 +69,7 @@ I’m pleased to present you with another **very** significant update to Finbar,
 - Fixed a bug where double–clicking an outline column would choose the currently selected row.
 - Fixed a bug where double–clicking a group row would choose the currently selected row.
 
-## v1.6
+## 1.6
 
 Apologies for the relatively long period without any updates — I fractured my scaphoid bone while running outdoors, which greatly affected my ability to code 😔. Nevertheless, I’m thrilled to finally release a new update to Finbar, and a **huge** one at that. I truly believe this update makes Finbar the best menu bar searching utility there is — and it’s just the beginning.
 
@@ -55,7 +79,7 @@ Apologies for the relatively long period without any updates — I fractured my 
 - Finbar now includes a beautiful “overview” mode, where you’ll be able to see all menu items, scripts and recents Finbar could find for the menu bar owning app. To return to this screen after searching, simply erase the search query.
 - While in overview mode, menu items are now browsable. Expand or collapse menu bar items or submenus and click menu items, all while having a bird’s view of the menu bar‘s hierarchy. And you don’t even have to shift the keyboard’s focus to the list to do so: Finbar comes with customizable keyboard shortcuts just for this purpose. They’re listed in the options menu in the lower right.
 
-## v1.5.1
+## 1.5.1
 
 ### Changes
 
@@ -65,7 +89,7 @@ Apologies for the relatively long period without any updates — I fractured my 
 
 - Fixed a bug where the main window wouldn’t remain centered when working across multiple displays.
 
-## v1.5
+## 1.5
 
 ### What’s New
 
@@ -79,7 +103,7 @@ Apologies for the relatively long period without any updates — I fractured my 
 
 - Fixed a small bug related to text selection in the search field.
 
-## v1.4
+## 1.4
 
 ### What’s New
 
@@ -87,7 +111,7 @@ Apologies for the relatively long period without any updates — I fractured my 
 - Settings: you can now configure software update behavior.
 - Improved help for the `finbar-cli` command.
 
-## v1.3
+## 1.3
 
 ### What’s New
 
@@ -97,7 +121,7 @@ Apologies for the relatively long period without any updates — I fractured my 
 
 - Fixed a bug where search field wouldn’t regain focus upon app activation.
 
-## v1.2
+## 1.2
 
 ### What’s New
 
@@ -109,7 +133,7 @@ Apologies for the relatively long period without any updates — I fractured my 
 
 - Menu item selection should now work reliably across JetBrains software products.
 
-## v1.1
+## 1.1
 
 ### What’s New
 
