@@ -1,4 +1,4 @@
-.card {
+@mixin card {
   position: relative;
 
   a {
@@ -15,6 +15,10 @@
     position: absolute;
     inset: 0;
   }
+}
+
+.card {
+  @include card();
 }
 
 .card-ui {

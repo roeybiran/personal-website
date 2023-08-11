@@ -6,21 +6,25 @@ import "sanitize.css/typography.css";
 
 import "@fontsource-variable/inter";
 
-import "../styles/reset.css";
-import "../styles/theme.scss";
-import "../styles/buttons.scss";
-import "../styles/prose.scss";
-import "../styles/app-nav.scss";
-import "../styles/help.scss";
+import "../styles/components/_buttons.scss";
+import "../styles/components/_card.scss";
+import "../styles/components/_header.scss";
+import "../styles/components/_footer.scss";
+import "../styles/components/_prose.scss";
+import "../styles/components/_sr-only.scss";
 
-import "../styles/app.scss";
-import "../styles/card.scss";
-import "../styles/footer.scss";
+import "../styles/reset.scss";
+import "../styles/theme.scss";
+
+import "../styles/pages/app.scss";
+import "../styles/pages/help.scss";
+import "../styles/pages/projects.scss";
+import "../styles/pages/project.scss";
 
 import "../styles/layout/_center.scss";
 import "../styles/layout/_stack.scss";
-import "../styles/layout/grid.css";
-import "../styles/layout/cluster.css";
+import "../styles/layout/_grid.scss";
+import "../styles/layout/_cluster.scss";
 
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";

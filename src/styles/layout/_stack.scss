@@ -1,4 +1,6 @@
 @mixin stack($recursive: false, $split_after: n) {
+  --space: var(--size-3);
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

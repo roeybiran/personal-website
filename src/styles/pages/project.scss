@@ -1,0 +1,53 @@
+@use "../components/prose";
+
+.project-root {
+  .project__cover {
+    inline-size: 100%;
+    block-size: 33vh;
+    object-fit: cover;
+  }
+
+  .project__aside-and-content-wrapper {
+    margin-block: var(--size-3);
+    padding-inline: var(--bleed);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  .project__aside {
+    font-size: var(--font-size-0);
+    color: var(--text-2);
+  }
+
+  .project__content {
+    flex-basis: 60ch;
+    flex-grow: 999;
+    @include prose.prose;
+    @include prose.prose-layout;
+  }
+
+  .project__badge {
+    margin-block-start: var(--size-1);
+    inline-size: max-content;
+    background-color: var(--surface-3);
+    padding-inline: var(--size-2);
+    border-radius: var(--radius-1);
+  }
+
+  .project__list {
+    list-style: none;
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: var(--size-2);
+  }
+
+  .project__key {
+    color: var(--text-1);
+    font-weight: var(--bold);
+  }
+
+  .project__key:not(:first-child) {
+    margin-block-start: var(--size-2);
+  }
+}

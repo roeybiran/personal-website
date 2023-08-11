@@ -14,15 +14,17 @@
   }
 
   h3 {
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
   }
 
   h2 {
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-5);
+    line-height: var(--font-lineheight-1);
   }
 
   h1 {
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-7);
+    line-height: var(--font-lineheight-1);
   }
 
   * + * {

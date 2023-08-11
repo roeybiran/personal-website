@@ -1,8 +1,31 @@
-@use "sr-only.scss";
-@use "layout/center";
-@use "layout/stack";
-@use "buttons";
-@use "prose";
+@use "../layout/center";
+@use "../layout/stack";
+@use "../components/buttons";
+@use "../components/prose";
+
+.app-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-3);
+  padding: var(--size-2) var(--bleed);
+  border-block-end: var(--border);
+}
+
+.app-nav-link[aria-current="page"] {
+  font-weight: var(--bold);
+}
+
+.app-nav-link,
+.app-nav-link:visited {
+  font-size: var(--font-size-0);
+  color: var(--text-1);
+  text-decoration: none;
+}
+
+.app-nav-link:first-child {
+  margin-inline-end: auto;
+}
 
 .app-page__content,
 .content-help,
@@ -159,23 +182,9 @@
 .release-notes,
 .content-help {
   h1 {
-    font-size: var(--font-size-1);
-    font-size: var(--font-size-3);
     border-block-end: var(--border);
-    margin-block-end: var(--size-1);
-  }
-
-  h2 {
-    font-size: var(--font-size-6);
-    line-height: var(--font-lineheight-1);
-  }
-
-  h3 {
-    line-height: var(--font-lineheight-1);
-  }
-
-  :not(#table-of-contents) + * li {
-    padding-inline-start: var(--size-2);
+    margin-block-end: var(--size-3);
+    padding-block-end: var(--size-1);
   }
 
   table {
@@ -189,11 +198,7 @@
   th,
   td {
     border: var(--border);
-    padding: var(--size-1);
+    padding: var(--size-2);
     vertical-align: baseline;
   }
-}
-
-#table-of-contents {
-  display: none;
 }

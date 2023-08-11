@@ -1,47 +1,44 @@
 ---
 import Image from "astro/components/Image.astro";
 
-
 interface Props {
-	slug: string;
-	title: string;
-	subtitle: string;
-	icon: ImageMetadata;
-	iconAlt: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  icon: ImageMetadata;
+  iconAlt: string;
 }
 
 const { slug, title, subtitle, icon, iconAlt } = Astro.props;
-
 ---
 
 <div class="card card-ui">
-	<div class="center intrinsic and-text">
-		<div class="text">
-			<a href={slug}>{title}</a>
-			<p class="subtitle">{subtitle}</p>
-		</div>
-		<Image src={icon} alt={iconAlt} />
-	</div>
+  <div class="center intrinsic and-text">
+    <div class="text">
+      <a href={slug}>{title}</a>
+      <p class="subtitle">{subtitle}</p>
+    </div>
+    <Image src={icon} alt={iconAlt} />
+  </div>
 </div>
 
 <style>
+  .card {
+    background-color: var(--surface-2);
+    border-radius: var(--radius-3);
+    padding: var(--size-3);
+  }
 
-.card {
-		background-color: var(--surface-2);
-		border-radius: var(--radius-3);
-		padding: var(--size-3);
-	}
+  a {
+    font-size: var(--font-size-5);
+  }
 
-	a {
-		font-size: var(--font-size-5);
-	}
+  .subtitle {
+    color: var(--text-2);
+  }
 
-	.subtitle {
-		color: var(--text-2);
-	}
-
-	img {
-		inline-size: var(--size-14);
-		block-size: auto;
-	}
+  img {
+    inline-size: var(--size-14);
+    block-size: auto;
+  }
 </style>

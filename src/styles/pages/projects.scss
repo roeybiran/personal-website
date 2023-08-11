@@ -1,0 +1,44 @@
+@use "../layout/grid";
+@use "../layout/stack";
+@use "../components/card";
+
+.projects-root {
+  .projects-list {
+    @include grid.grid;
+    margin: var(--size-6);
+    list-style: none;
+  }
+
+  .project-card {
+    @include card.card;
+    @include stack.stack;
+    border-radius: var(--radius-3);
+    background-color: var(--surface-2);
+    padding: var(--size-6);
+  }
+
+  .project-card__texts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .project-card__title {
+    text-decoration: none;
+    color: var(--text-1);
+  }
+
+  .project-card__small {
+    color: var(--text-2);
+    font-size: var(--font-size-00);
+  }
+
+  .project-card__image {
+    pointer-events: none;
+    aspect-ratio: var(--ratio-widescreen);
+    object-fit: cover;
+    opacity: 0.8;
+    border-radius: var(--radius-1);
+    box-shadow: var(--shadow-2);
+  }
+}

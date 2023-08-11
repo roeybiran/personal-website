@@ -87,3 +87,16 @@ body > footer {
   padding-block: var(--size-3);
   border-block-start: var(--border);
 }
+
+code {
+  background-color: var(--surface-4);
+  padding-inline: var(--size-1);
+  border-radius: var(--radius-1);
+}
+
+kbd {
+  border: var(--border);
+  padding: var(--size-1);
+  border-radius: var(--radius-2);
+  background-color: var(--surface-3);
+}

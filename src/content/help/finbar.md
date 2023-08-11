@@ -15,16 +15,18 @@ In Finbar, every menu item is matched by its title, while nested menu items belo
 
 Finbar operates in two implicit “modes” — searching and browsing. The app enters searching mode whenever you type something in search field. Appropriately, you return to browsing mode by clearing the search field.
 
-The differences between these two modes are as follows:
+The differences between these two modes are:
 
 | Searching | Browsing |
 | --------- | ------- |
 | Items are a flat list | Items are a browsable outline |
-| Nested menu items’ titles are preceded by the parent’s title | All titles shown as they are |
+| Nested (above a certain level) menu items’ titles are preceded by the parent’s title | All titles shown as they are |
 
-When activating a “container” menu item, you enter a new, scoped context that can be further browsed or searched, and the same differences noted above apply.
+When activating a “container” menu item, you enter a new, scoped context that can be further browsed or searched. The differences noted above still apply.
 
-There’s another special ”mode” worth mentioning — it’s Finbar’s initial view when you activate the app or when the search field is empty and you’re not in a scoped context. In this mixed ”mode”, some items (like recents) may have their title preceded by their container’s title, but some items are also browsable, like an outline.
+There’s another special ”mode” worth mentioning. You enter it when the search field is empty and you’re not in a scoped context. This is the state when the app activates.
+
+In this mixed mode, items in some sections (like recents) may have their title preceded by their container’s title (depending on their nesting level), and they are not browsable; while items other sections may still appear as an outline and are browsable.
 
 ### Using the Rule Editor
 

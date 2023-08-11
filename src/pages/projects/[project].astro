@@ -1,6 +1,5 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
-import Root from "../../layouts/Root.astro";
 import { Image } from "astro:assets";
 import Page from "../../layouts/Page.astro";
 
@@ -38,20 +37,25 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 ---
 
 <Page pageTitle={title}>
-  <div class="root">
-    <figure class="cover">
-      <Image fetchpriority="high" src={image} alt={title} />
+  <div class="project-root">
+    <figure class="project__cover-wrapper">
+      <Image
+        fetchpriority="high"
+        src={image}
+        alt={title}
+        class="project__cover"
+      />
     </figure>
-    <div class="below-fold">
-      <aside>
-        <dl>
-          <dt>Date</dt>
+    <div class="project__aside-and-content-wrapper">
+      <aside class="project__aside">
+        <dl class="project__meta">
+          <dt class="project__key">Date</dt>
           <dd>{dateFormatter.format(date)}</dd>
-          <dt>Type</dt>
+          <dt class="project__key">Type</dt>
           <dd>{type}</dd>
-          <dt>Links</dt>
+          <dt class="project__key">Links</dt>
           <dd>
-            <ul class="url-list">
+            <ul class="project__list project__list--links">
               {
                 links.map(({ url, label }) => (
                   <li>
@@ -66,9 +70,9 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
               <>
                 <dt>Press</dt>
                 <dd>
-                  <ul class="url-list">
+                  <ul class="project__list project__list--press">
                     {press.map(({ url, label }) => (
-                      <li>
+                      <li class="project__badge">
                         <a href={url}>{label}</a>
                       </li>
                     ))}
@@ -77,75 +81,23 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
               </>
             )
           }
-          <dt>Responsibilities</dt>
+          <dt class="project__key">Responsibilities</dt>
           <dd>
-            <ul>
-              {responsibilities.map((r) => <li>{r}</li>)}
+            <ul class="project__list project__list--responsibilities">
+              {responsibilities.map((r) => <li class="project__badge">{r}</li>)}
             </ul>
           </dd>
-          <dt>Stack</dt>
+          <dt class="project__key">Stack</dt>
           <dd>
-            <ul>
-              {stack.map((s) => <li>{s}</li>)}
+            <ul class="project__list project__list--stack">
+              {stack.map((s) => <li class="project__badge">{s}</li>)}
             </ul>
           </dd>
         </dl>
       </aside>
-      <div class="content center prose">
+      <div class="project__content">
         <Content />
       </div>
     </div>
   </div>
 </Page>
-
-<style lang="scss">
-  h1 {
-    font-weight: var(--bold);
-  }
-
-  .cover img {
-    inline-size: 100%;
-    block-size: 33vh;
-    object-fit: cover;
-  }
-
-  .content {
-    max-inline-size: 60ch;
-  }
-
-  .below-fold {
-    margin-block: var(--size-3);
-    padding-inline: var(--bleed);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-3);
-  }
-
-  aside {
-    font-size: var(--font-size-0);
-
-    ul {
-      list-style: none;
-    }
-
-    ul:not(.url-list) li {
-      margin-block-start: var(--size-1);
-      inline-size: max-content;
-      background-color: var(--surface-3);
-      padding-inline: var(--size-2);
-      border-radius: var(--radius-1);
-    }
-
-    dt {
-      font-weight: var(--bold);
-    }
-
-    dd + dt {
-      margin-block-start: var(--size-2);
-    }
-
-    dd {
-      color: var(--text-2);
-    }
-  }
-</style>
