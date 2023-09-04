@@ -10,8 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vercel": "^4.0.3",
     "@fontsource-variable/inter": "^5.0.4",
-    "astro": "^2.8.1",
+    "astro": "^3.0.7",
     "install": "^0.13.0",
     "normalize.css": "^8.0.1",
     "npm": "^9.8.0",

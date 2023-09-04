@@ -1,38 +1,24 @@
 ---
-import { CollectionEntry, getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import AppPage from "../../../layouts/AppPage.astro";
 import { getEntry } from "astro:content";
+import R404 from "../../../util/Response404";
 
-// 1. Generate a new path for every collection entry
-export async function getStaticPaths() {
-  const collection = await getCollection("release-notes");
-  return collection.map((entry) => ({
-    params: { app: entry.slug },
-    props: { entry },
-  }));
-}
-// 2. When it's time to render, you can get the entry directly from the prop
-const entry: CollectionEntry<"release-notes"> = Astro.props.entry;
+export const prerender = false;
 
-const {
-  data: {
-    app: { slug: appSlug },
-  },
-} = entry;
+const slug = Astro.params.app ?? "";
+const entry: CollectionEntry<"apps"> | undefined = await getEntry("apps", slug);
 
-const { Content } = await entry.render();
+if (!entry?.data.releaseNotesURL) return R404;
 
-const appEntry = await getEntry("apps", appSlug);
+const data = await fetch(entry?.data.releaseNotesURL);
+const text: string = await data.text();
+const [, body] = text.match(/<body>(.+?)<\/body>/s) ?? [];
 const pageTitleSuffix = "Release Notes";
+
+if (!body) return R404;
 ---
 
-<AppPage
-  pageTitleSuffix={pageTitleSuffix}
-  appSlug={appSlug}
-  appEntry={appEntry}
->
-  <div class="release-notes">
-    <h1>{appEntry.data.title}: {pageTitleSuffix}</h1>
-    <Content />
-  </div>
+<AppPage pageTitleSuffix={pageTitleSuffix} appSlug={slug} appEntry={entry}>
+  <div class="release-notes" set:html={body} />
 </AppPage>

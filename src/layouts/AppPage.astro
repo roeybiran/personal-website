@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Root, { Props as RootProps } from "./Root.astro";
+import Root, { type Props as RootProps } from "./Root.astro";
 
 interface Props extends Omit<RootProps, "pageTitle"> {
   appEntry: CollectionEntry<"apps">;
@@ -11,20 +11,20 @@ interface Props extends Omit<RootProps, "pageTitle"> {
 const {
   appSlug,
   appEntry: {
-    data: { title, help, releaseNotes },
+    data: { title, help, releaseNotesURL },
   },
 } = Astro.props;
 
 const pathnames = [
   { href: `/apps/${appSlug}`, title },
-  help && { href: `/apps/${appSlug}/help`, title: "Help" },
-  releaseNotes && {
-    href: `/apps/${appSlug}/release-notes`,
-    title: "Release Notes",
-  },
-]
-  .filter((p) => p)
-  .map((p) => ({ ...p, current: p?.href == Astro.url.pathname }));
+  help ? { href: `/apps/${appSlug}/help`, title: "Help" } : {},
+  releaseNotesURL
+    ? {
+        href: `/apps/${appSlug}/release-notes`,
+        title: "Release Notes",
+      }
+    : {},
+];
 
 const pageTitle = [title, Astro.props.pageTitleSuffix ?? ""]
   .filter((x) => x)
@@ -34,12 +34,8 @@ const pageTitle = [title, Astro.props.pageTitleSuffix ?? ""]
 <Root {...Astro.props} pageTitle={pageTitle}>
   <nav class="app-nav">
     {
-      pathnames.map(({ title, href, current }) => (
-        <a
-          class="app-nav-link"
-          href={href}
-          aria-current={current ? "page" : undefined}
-        >
+      pathnames.map(({ title, href }) => (
+        <a class="app-nav-link" href={href}>
           {title}
         </a>
       ))

@@ -1,16 +1,11 @@
 ---
-import memoji from "~/assets/memoji.png";
+import memoji from "../assets/memoji.png";
+import { Image } from "astro:assets";
 ---
 
 <header class="header">
 	<div class="header__leading">
-		<img
-			class="header__avatar"
-			src={memoji.src}
-			width={memoji.width}
-			height={memoji.height}
-			alt=""
-		/>
+		<Image src={memoji} class="header__avatar" alt="" />
 		<div class="header__text">
 			<a class="header__name" href="/">Roey Biran</a>
 			<small class="header__subtitle">Designer + Developer</small>

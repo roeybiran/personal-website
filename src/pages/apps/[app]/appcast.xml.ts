@@ -1,28 +1,25 @@
 import type { APIRoute } from "astro";
-import { CollectionEntry, getCollection } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
+import R404 from "../../../util/Response404";
 
-// 1. Generate a new path for every collection entry
-export async function getStaticPaths() {
-  const appsEntries = await getCollection("apps");
-  return appsEntries
-    .filter(({ data: sparkleAppcastURL }) => sparkleAppcastURL)
-    .map((entry) => ({
-      params: { app: entry.slug },
-      props: { appcastURL: entry.data.sparkleAppcastURL },
-    }));
-}
+export const prerender = false;
 
-export const get: APIRoute = async function get({ props }) {
-  if (!props.appcastURL) {
-    return new Response(null, { status: 404, statusText: 'Page not found' });
-  }
+export const GET: APIRoute = async ({ params: { app: slug } }) => {
+  const entry: CollectionEntry<"apps"> | undefined = await getEntry(
+    "apps",
+    slug ?? ""
+  );
 
-  const response = await fetch(props.appcastURL);
+  const appcastURL = entry?.data.sparkleAppcastURL;
 
-  return {
-    body: await response.text(),
+  if (!appcastURL) return R404;
+
+  const response = await fetch(appcastURL);
+
+  return new Response(await response.text(), {
+    status: 200,
     headers: {
       "Content-Type": "application/xml",
     },
-  };
+  });
 };

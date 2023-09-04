@@ -1,12 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import Root from "../layouts/Root.astro";
-import memoji404 from "~/assets/404.png";
+import memoji404 from "../assets/404.png";
 ---
 
 <Root pageTitle="Error: Page Not Found">
   <div class="page-404">
-    <Image class:list="page-404__image" src={memoji404} alt="" />
+    <Image class="page-404__image" src={memoji404} alt="" />
     <h1 class="page-404__title">This page can’t be found.</h1>
     <p><a href="/">Click here</a> to go back to the home page.</p>
   </div>

@@ -1,7 +1,12 @@
 ---
 cover: ./cover.png
 dateReleased: 2022-11-12
+#
 downloadURL: https://f002.backblazeb2.com/file/roeybiran/finbar/latest/Finbar.dmg
+releaseNotesURL: https://f002.backblazeb2.com/file/roeybiran/finbar/latest/Finbar.html
+purchaseURL: https://roeybiran.gumroad.com/l/mgpnr
+sparkleAppcastURL: https://f002.backblazeb2.com/file/roeybiran/finbar/appcast.xml
+#
 help: "finbar"
 icon: ./icon.png
 iconAlt: Finbar’s app icon
@@ -10,9 +15,6 @@ platform: macOS
 price: 9.99
 productHuntEmbed: '<a href="https://www.producthunt.com/posts/finbar?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-finbar" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=404865&theme=light" alt="Finbar - Supercharged&#0032;menu&#0032;bar&#0032;search&#0032;for&#0032;your&#0032;Mac | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>'
 purchasePolicy: One time purchase, no in–app purchases.
-purchaseURL: https://roeybiran.gumroad.com/l/mgpnr
-releaseNotes: "finbar"
-sparkleAppcastURL: https://f002.backblazeb2.com/file/roeybiran/finbar/appcast.xml
 subtitle: Supercharged menu bar search
 systemRequirements: Big Sur
 tagline: Menu bar searching you didn’t know you wanted.

@@ -7,6 +7,9 @@
   display: block;
 }
 
-.footer__link {
-  display: inline;
+.footer__links {
+  display: flex;
+  gap: var(--size-1);
+  justify-content: center;
+  list-style: none;
 }

@@ -4,12 +4,15 @@ const apps = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
+      //
+      downloadURL: z.string(),
+      purchaseURL: z.string().url().optional(),
       sparkleAppcastURL: z.string().url().optional(),
+      releaseNotesURL: z.string().url().optional(),
+      //
       cover: image().optional(),
       dateReleased: z.date(),
-      downloadURL: z.string(),
       help: reference("help").optional(),
-      releaseNotes: reference("release-notes").optional(),
       icon: image(),
       iconAlt: z.string(),
       openGraphImage: z.string().optional(),
@@ -17,7 +20,6 @@ const apps = defineCollection({
       price: z.number().optional(),
       productHuntEmbed: z.string().optional(),
       purchasePolicy: z.string().optional(),
-      purchaseURL: z.string().url().optional(),
       sourceCode: z.string().url().optional(),
       subtitle: z.string(),
       systemRequirements: z.union([
@@ -76,16 +78,9 @@ const help = defineCollection({
   }),
 });
 
-const releaseNotes = defineCollection({
-  type: "content",
-  schema: z.object({
-    app: reference("apps"),
-  }),
-});
 
 export const collections = {
   apps,
   projects,
   help,
-  'release-notes': releaseNotes,
 };
