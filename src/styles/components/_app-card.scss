@@ -9,7 +9,9 @@
 }
 
 .card--app__title {
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-4);
+  line-height: var(--font-lineheight-1);
+  max-inline-size: var(--size-header-2);
 }
 
 .card--app__subtitle {

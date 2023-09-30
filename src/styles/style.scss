@@ -1,6 +1,3 @@
-@import "@radix-ui/colors/gray.css";
-@import "@radix-ui/colors/plum.css";
-@import "@radix-ui/colors/blue.css";
 @import "open-props/animations.min.css";
 @import "open-props/aspects.min.css";
 @import "open-props/borders.min.css";
@@ -19,35 +16,14 @@
 :root {
   --bleed: var(--size-4);
   --bold: var(--font-weight-7);
-
-  --app-bg: var(--gray-1);
-  --ui-element-bg: var(--gray-3);
-  --border: var(--gray-6) solid var(--border-size-1);
-  --outline-color: var(--blue-7);
-  --text-primary: var(--gray-12);
-  --text-secondary: var(--gray-11);
-
-  --apl-link: #06c;
-  --apl-link-dark: #6bf;
-  --apl-blue: #0071e3;
-  --apl-blue-hover: #147ce5;
-
-  --link: var(--apl-link);
-  --link-visited: var(--plum-11);
+  --border: var(--border-color) solid var(--border-size-1);
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter Variable",
     var(--font-sans);
   color: var(--text-primary);
   background-color: var(--app-bg);
 
-  // text-wrap: balance;
   line-height: var(--font-lineheight-3);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --link: var(--apl-link-dark);
-  }
 }
 
 .uppercased {
@@ -104,4 +80,52 @@ kbd {
 
 .astro-code {
   padding: var(--size-2);
+}
+
+//
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: var(--font-lineheight-1);
+  text-wrap: pretty;
+}
+
+.p {
+  max-inline-size: 60ch;
+  font-size: var(--font-size-1);
+  line-height: var(--font-lineheight-1);
+}
+
+h1 {
+  font-size: var(--font-size-8);
+  max-inline-size: var(--size-header-1);
+}
+
+h2 {
+  font-size: var(--font-size-6);
+  max-inline-size: var(--size-header-2);
+}
+
+h3 {
+  font-size: var(--font-size-5);
+}
+
+h4 {
+  font-size: var(--font-size-4);
+}
+
+h5 {
+  font-size: var(--font-size-3);
+}
+
+h3,
+h4,
+h5,
+h6,
+dt {
+  max-inline-size: var(--size-header-3);
 }

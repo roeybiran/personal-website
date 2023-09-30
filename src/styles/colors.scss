@@ -1,0 +1,75 @@
+@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/plum.css";
+@import "@radix-ui/colors/blue.css";
+
+@import "@radix-ui/colors/gray-dark.css";
+@import "@radix-ui/colors/plum-dark.css";
+@import "@radix-ui/colors/blue-dark.css";
+
+:root {
+  // static
+  --apl-blue: #0071e3;
+  --apl-blue-hover: #147ce5;
+
+  // dynamic
+  --app-bg: var(--gray-1);
+  --ui-element-bg: var(--gray-3);
+  --text-primary: var(--gray-12);
+  --text-secondary: var(--gray-11);
+  --link-visited: var(--plum-11);
+  --border-color: var(--gray-6);
+  --outline-color: var(--blue-7);
+  --link: var(--blue-12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gray-1: #111111;
+    --gray-2: #191919;
+    --gray-3: #222222;
+    --gray-4: #2a2a2a;
+    --gray-5: #313131;
+    --gray-6: #3a3a3a;
+    --gray-7: #484848;
+    --gray-8: #606060;
+    --gray-9: #6e6e6e;
+    --gray-10: #7b7b7b;
+    --gray-11: #b3b3b3;
+    --gray-12: #eeeeee;
+
+    --plum-1: #181118;
+    --plum-2: #201320;
+    --plum-3: #351a35;
+    --plum-4: #451d47;
+    --plum-5: #512454;
+    --plum-6: #5e3061;
+    --plum-7: #734079;
+    --plum-8: #92549c;
+    --plum-9: #ab4aba;
+    --plum-10: #b658c4;
+    --plum-11: #e796f3;
+    --plum-12: #f4d4f4;
+
+    --blue-1: #0d1520;
+    --blue-2: #111927;
+    --blue-3: #0d2847;
+    --blue-4: #003362;
+    --blue-5: #004074;
+    --blue-6: #104d87;
+    --blue-7: #205d9e;
+    --blue-8: #2870bd;
+    --blue-9: #0090ff;
+    --blue-10: #3b9eff;
+    --blue-11: #70b8ff;
+    --blue-12: #c2e6ff;
+
+    --app-bg: var(--gray-1);
+    --ui-element-bg: var(--gray-3);
+    --text-primary: var(--gray-12);
+    --text-secondary: var(--gray-11);
+    --link-visited: var(--plum-11);
+    --border-color: var(--gray-6);
+    --outline-color: var(--blue-7);
+    --link: var(--blue-12);
+  }
+}

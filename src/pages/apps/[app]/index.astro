@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import AppPage from "../../../layouts/AppPage.astro";
+import DownloadBar from "../../../components/DownloadBar.astro";
 
 export async function getStaticPaths() {
   const collection = await getCollection("apps");
@@ -34,11 +35,6 @@ const {
   },
 } = entry;
 
-const formatter = new Intl.NumberFormat(undefined, {
-  style: "currency",
-  currency: "USD",
-});
-
 const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
 ---
 
@@ -53,12 +49,7 @@ const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
       {
         cover && (
           <figure class="app__cover-wrapper">
-            <Image
-              class="app__cover"
-              fetchpriority="high"
-              src={cover}
-              alt=""
-            />
+            <Image class="app__cover" fetchpriority="high" src={cover} alt="" />
           </figure>
         )
       }
@@ -74,19 +65,11 @@ const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
     <p class="app__tagline">{subtitle}</p>
   </div>
   <div class="app__technicals">
-    <div class="download-bar">
-      <a class="try-button" href={downloadURL}
-        >{price ? "Try for Free" : "Download"}</a
-      >
-      {
-        price && (
-          <a class="buy-button" href={purchaseURL}>
-            <span>Buy</span>
-            <small class="buy-button__price">{formatter.format(price)}</small>
-          </a>
-        )
-      }
-    </div>
+    <DownloadBar
+      purchaseURL={purchaseURL}
+      downloadURL={downloadURL}
+      price={price}
+    />
     <div>
       {
         purchasePolicy && (

@@ -1,0 +1,29 @@
+---
+interface Props {
+  price?: number;
+  purchaseURL?: string;
+  downloadURL: string;
+}
+
+const { price, purchaseURL, downloadURL } = Astro.props;
+
+const formatter = new Intl.NumberFormat(undefined, {
+  style: "currency",
+  currency: "USD",
+});
+
+---
+
+<div class="download-bar">
+  <a class="buy-button" href={downloadURL}
+    >{price ? "Try for Free" : "Download"}</a
+  >
+  {
+    price && (
+      <a class="buy-button" href={purchaseURL}>
+        <span>Buy</span>
+        <small class="buy-button__price">{formatter.format(price)}</small>
+      </a>
+    )
+  }
+</div>

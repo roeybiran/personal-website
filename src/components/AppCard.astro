@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import '../styles/components/_app-card.scss';
+import { Image } from "astro:assets";
+import "../styles/components/_app-card.scss";
 
 interface Props {
   slug?: string;
@@ -14,7 +14,15 @@ const { slug, title, subtitle, icon, iconAlt } = Astro.props;
 ---
 
 <div class="card card-ui card--app">
-  {slug ? <a class="card--app__title" href={slug}>{title}</a> : <p class="card--app__title">{title}</p>}
+  {
+    slug ? (
+      <a class="card--app__title" href={slug}>
+        {title}
+      </a>
+    ) : (
+      <p class="card--app__title">{title}</p>
+    )
+  }
   <p class="card--app__subtitle">{subtitle}</p>
   <Image class="card--app__thumb" src={icon} alt={iconAlt} />
 </div>
