@@ -24,7 +24,7 @@
 .header__name,
 .header__name:visited {
   text-decoration: none;
-  color: var(--text-1);
+  color: var(--text-primary);
   font-weight: var(--bold);
 }
 
@@ -41,6 +41,6 @@
 
 .nav__link,
 .nav__link:visited {
-  color: var(--text-2);
+  color: var(--text-secondary);
   text-decoration: none;
 }

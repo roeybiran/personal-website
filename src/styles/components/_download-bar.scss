@@ -1,0 +1,34 @@
+@use "./buttons";
+
+.download-bar,
+.buy-button {
+  display: flex;
+  gap: var(--size-2);
+  align-items: center;
+}
+
+.download-bar {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.buy-button,
+.try-button {
+  @include buttons.button--primary;
+}
+
+.try-button,
+.try-button:active,
+.try-button:hover {
+  background-color: transparent;
+  border-color: var(--link);
+  color: var(--link);
+}
+
+.buy-button__price {
+  font-size: var(--font-size-0);
+  color: var(--apl-blue);
+  background-color: white;
+  padding-inline: var(--size-1);
+  border-radius: var(--radius-3);
+}

@@ -1,0 +1,20 @@
+.card--app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: var(--size-3);
+  border-radius: var(--radius-3);
+  background-color: var(--ui-element-bg);
+}
+
+.card--app__title {
+  font-size: var(--font-size-5);
+}
+
+.card--app__subtitle {
+  color: var(--text-secondary);
+}
+
+.card--app__thumb {
+  inline-size: var(--size-14);
+}

@@ -39,8 +39,7 @@ const formatter = new Intl.NumberFormat(undefined, {
   currency: "USD",
 });
 
-const downloadURL = Astro.url.pathname.replace(/\/+$/, '') + "/download";
-
+const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
 ---
 
 <AppPage
@@ -92,7 +91,7 @@ const downloadURL = Astro.url.pathname.replace(/\/+$/, '') + "/download";
       <div>
         {
           purchasePolicy && (
-            <small class="app__purchasePolicy">{purchasePolicy}</small>
+            <small class="app__purchase-policy">{purchasePolicy}</small>
           )
         }
         <small class="app__sys-reqs">

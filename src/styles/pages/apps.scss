@@ -1,0 +1,16 @@
+.apps-page {
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bleed);
+
+    margin-block: var(--bleed);
+    padding-inline: var(--bleed);
+    list-style: none;
+  }
+
+  .cards > * {
+    flex-grow: 1;
+    flex-basis: 60ch;
+  }
+}

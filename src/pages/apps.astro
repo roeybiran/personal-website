@@ -2,35 +2,30 @@
 import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
 import AppCard from "../components/AppCard.astro";
+import "../styles/pages/apps.scss";
+import genericAppIcon from "../assets/generic-app-icon.png";
 
 const posts = await getCollection("apps");
 ---
 
 <Page pageTitle="Apps">
-	<ul class="cards">
-		{
-			posts.map(({ data, slug }) => (
-				<li>
-					<AppCard slug={`./apps/${slug}`} {...data} />
-				</li>
-			))
-		}
-	</ul>
+  <div class="apps-page">
+    <ul class="cards">
+      {
+        posts.map(({ data, slug }) => (
+          <li>
+            <AppCard slug={`./apps/${slug}`} {...data} />
+          </li>
+        ))
+      }
+      <li>
+        <AppCard
+          title="Untitled macOS App"
+          subtitle="Coming Winter 2024"
+          icon={genericAppIcon}
+          iconAlt=""
+        />
+      </li>
+    </ul>
+  </div>
 </Page>
-
-<style>
-	.cards {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--bleed);
-
-		margin-block: var(--bleed);
-		padding-inline: var(--bleed);
-		list-style: none;
-	}
-
-	.cards > * {
-		flex-grow: 1;
-		flex-basis: 60ch;
-	}
-</style>

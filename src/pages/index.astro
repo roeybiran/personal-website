@@ -1,31 +1,25 @@
 ---
+import { getEntry } from "astro:content";
+import AppCard from "../components/AppCard.astro";
 import Root from "../layouts/Root.astro";
+import "../styles/pages/index.scss";
+
+const {
+  slug,
+  data: { title, icon, subtitle, iconAlt },
+} = await getEntry("apps", "finbar");
 ---
 
 <Root pageTitle="Home">
-  <h1 class="sr-only">Home</h1>
-  <div class="root">
-    <div class="center intrinsic and-text">
-      <div class="text">
-        <p>
-          Hello, my name’s Roey and this is my personal home page.<br />
-          I’m a designer and front–end developer. I enjoy crafting quality <a
-            href="/apps">macOS applications</a
-          > on the side. I’m also passionate about industrial design, typography,
-          architecture, and art.
-        </p>
-      </div>
-    </div>
+  <div class="page-home">
+    <h1 class="sr-only">Roey Biran</h1>
+    <p class="page-home__intro">
+      I’m a designer and front–end developer. I enjoy crafting quality <a
+        href="/apps">macOS applications</a
+      > on the side. I’m also passionate about industrial design, typography,
+      architecture, and art. Welcome to my personal home page!
+    </p>
+    <p class="page-home__intro">Check out my latest macOS application:</p>
+    <AppCard {title} slug={`/apps/${slug}`} {subtitle} {icon} {iconAlt} />
   </div>
 </Root>
-
-<style>
-  .root {
-    margin-block: var(--size-3);
-    padding-inline: var(--bleed);
-  }
-
-  .text {
-    max-inline-size: 60ch;
-  }
-</style>

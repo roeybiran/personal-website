@@ -1,35 +1,14 @@
 @use "../layout/center";
 @use "../layout/stack";
+@use "../layout/reel";
 @use "../components/buttons";
 @use "../components/prose";
+@use "../components/app-nav";
+@use "../components/download-bar.scss";
 
-.app-nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--size-3);
-  padding: var(--size-2) var(--bleed);
-  border-block-end: var(--border);
-}
+$gap: var(--size-8);
 
-.app-nav-link[aria-current="page"] {
-  font-weight: var(--bold);
-}
-
-.app-nav-link,
-.app-nav-link:visited {
-  font-size: var(--font-size-0);
-  color: var(--text-1);
-  text-decoration: none;
-}
-
-.app-nav-link:first-child {
-  margin-inline-end: auto;
-}
-
-.app-page__content,
-.content-help,
-.release-notes {
+.app-page__content {
   padding: var(--bleed);
 }
 
@@ -75,56 +54,23 @@
   padding-inline: var(--bleed);
 }
 
-.download-bar,
-.buy-button {
-  display: flex;
-  gap: var(--size-2);
-  align-items: center;
-}
-
-.download-bar {
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.buy-button,
-.try-button {
-  @include buttons.button--primary;
-}
-
-.try-button,
-.try-button:active,
-.try-button:hover {
-  background-color: transparent;
-  border-color: var(--link);
-  color: var(--link);
-}
-
-.buy-button__price {
-  font-size: var(--font-size-0);
-  color: var(--apl-blue);
-  background-color: white;
-  padding-inline: var(--size-1);
-  border-radius: var(--radius-3);
-}
-
 .app__technicals {
   --space: var(--size-2);
   @include center.center($intrinsic: true, $and-text: true);
   @include stack.stack;
 }
 
-.app__purchasePolicy,
+.app__purchase-policy,
 .app__sys-reqs {
   display: block;
   font-size: var(--font-size-0);
-  color: var(--text-2);
+  color: var(--text-secondary);
 }
 
 .app__cover {
   inline-size: 100%;
-  -webkit-mask: linear-gradient(to top, transparent 0%, black 50%);
-  mask: linear-gradient(to top, transparent 0%, black 50%);
+  -webkit-mask: linear-gradient(to top, transparent 10%, black 25%);
+  mask: linear-gradient(to top, transparent 10%, black 25%);
 
   margin-inline: auto;
   inline-size: min(100%, var(--size-15));
@@ -134,71 +80,49 @@
 
 .app__prose {
   @include prose.prose;
-  @include prose.prose-layout;
+  @include prose.layout;
 
-  p:first-of-type {
+  .intro p:first-child {
     font-size: var(--font-size-4);
   }
 
-  h2,
-  h3 {
-    border-block-start: var(--border);
-    padding-block-start: var(--size-3);
+  .intro {
+    margin-block-end: $gap;
   }
 
-  h3 {
-    border-block-start: var(--border);
-    padding-block-start: var(--size-3);
-    font-size: var(--font-size-6);
-    line-height: var(--font-lineheight-0);
+  h2 {
+    text-transform: uppercase;
+    letter-spacing: var(--font-letterspacing-4);
+    font-size: var(--font-size-0);
+    inline-size: 100%;
+    // grid-column: 1/-1;
     text-align: center;
-    margin-block-end: var(--size-3);
-  }
-
-  img {
-    max-inline-size: 60ch;
-    margin-inline: auto;
   }
 }
 
-.astro-code {
-  padding: var(--size-2);
-}
+.remark-container.feat {
+  margin-block: $gap;
+  text-align: center;
 
-.release-notes {
-  @include prose.prose;
-  @include prose.prose-layout;
-
-  h2:first-of-type {
-    margin-block-start: 0;
-  }
-
-  h2:not(:first-of-type) {
-    padding-block-start: var(--size-3);
-    border-block-start: var(--border);
+  h3 {
+    font-size: var(--font-size-6);
   }
 }
 
-.release-notes,
-.content-help {
-  h1 {
-    border-block-end: var(--border);
-    margin-block-end: var(--size-3);
-    padding-block-end: var(--size-1);
+.remark-container.misc {
+  ul {
+    margin-block: $gap;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-1);
+    align-items: center;
+    font-size: var(--font-size-2);
+    text-align: center;
   }
+}
 
-  table {
-    border-collapse: collapse;
-  }
-
-  th {
-    background-color: var(--surface-3);
-  }
-
-  th,
-  td {
-    border: var(--border);
-    padding: var(--size-2);
-    vertical-align: baseline;
-  }
+.carousel {
+  @include reel.reel;
 }

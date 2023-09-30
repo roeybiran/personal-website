@@ -2,17 +2,7 @@
 
 .content-help {
   @include prose.prose;
-  @include prose.prose-layout;
-
-  h2:not(:first-of-type) {
-    padding-block-start: var(--size-3);
-    margin-block-start: var(--size-6);
-    border-block-start: var(--border);
-  }
-
-  h3 {
-    margin-block-end: var(--size-1);
-  }
+  @include prose.layout;
 
   #table-of-contents {
     margin: 0 0 var(--size-2) 0;

@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import AppPage from "../../../layouts/AppPage.astro";
 import { getEntry } from "astro:content";
-import R404 from "../../../util/Response404";
+import "../../../styles/pages/release-notes.scss";
 
 export const prerender = false;
 
@@ -20,5 +20,5 @@ if (!body) return R404;
 ---
 
 <AppPage pageTitleSuffix={pageTitleSuffix} appSlug={slug} appEntry={entry}>
-  <div class="release-notes" set:html={body} />
+  <div class="content-release-notes" set:html={body} />
 </AppPage>

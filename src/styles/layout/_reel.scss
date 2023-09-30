@@ -1,0 +1,28 @@
+@mixin reel {
+  --reel-item-size: var(--size-content-3);
+  --reel-item-size: 90%;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(100%, var(--reel-item-size, 100%));
+  justify-content: flex-start;
+
+  gap: var(--reel-gap, var(--size-3));
+  padding: var(--padding, var(--size-3));
+  scroll-padding-inline-start: var(--size-1);
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  overflow-y: hidden;
+
+  scroll-snap-type: x mandatory;
+
+  > * {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+.reel {
+  @include reel();
+}

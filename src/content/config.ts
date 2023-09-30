@@ -1,4 +1,4 @@
-import { z, defineCollection, reference } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 
 const apps = defineCollection({
   type: "content",

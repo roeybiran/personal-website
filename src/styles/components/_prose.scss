@@ -1,4 +1,16 @@
 @mixin prose {
+  // general
+
+  > * + * {
+    margin-block-start: var(--size-3);
+  }
+
+  p + p {
+    margin-block-start: var(--size-3);
+  }
+
+  // lists
+
   ul,
   ol {
     padding-inline-start: var(--size-5);
@@ -13,40 +25,43 @@
     list-style-type: decimal;
   }
 
-  h3 {
-    font-size: var(--font-size-3);
-  }
-
-  h2 {
-    font-size: var(--font-size-5);
-    line-height: var(--font-lineheight-1);
-  }
-
-  h1 {
-    font-size: var(--font-size-7);
-    line-height: var(--font-lineheight-1);
-  }
-
-  * + * {
-    margin-block-start: var(--size-3);
-  }
-
   li + li {
     margin-block-start: 0;
   }
 
-  @for $i from 1 through 6 {
-    * + h#{$i} {
-      margin-block-start: var(--size-4);
-    }
+  // headings
 
-    h#{$i} + p {
-      margin-block-start: var(--size-1);
-    }
+  h1 {
+    font-size: var(--font-size-7);
+  }
+
+  h2 {
+    font-size: var(--font-size-6);
+  }
+
+  h3 {
+    font-size: var(--font-size-3);
+  }
+
+  // tables
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th {
+    background-color: var(--ui-element-bg);
+  }
+
+  th,
+  td {
+    border: var(--border);
+    padding: var(--size-2);
+    vertical-align: baseline;
   }
 }
 
-@mixin prose-layout {
+@mixin layout {
   display: grid;
   grid-template-columns: 1fr min(60ch, 100%) 1fr;
 

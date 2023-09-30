@@ -19,6 +19,7 @@
 
 .card {
   @include card();
+  box-shadow: var(--shadow-1);
 }
 
 .card-ui {
@@ -28,8 +29,7 @@
 }
 
 .card-ui:focus-within {
-  // box-shadow: 0 0 0 3px var(--blue7);
-  outline-color: var(--blue-7);
+  outline-color: var(--outline-color);
   outline-offset: 0px;
 }
 

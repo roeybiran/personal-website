@@ -1,30 +1,25 @@
 ---
-import "open-props/open-props.min.css";
+import "@fontsource-variable/inter";
 import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
 
-import "@fontsource-variable/inter";
-
 import "../styles/components/_buttons.scss";
 import "../styles/components/_card.scss";
-import "../styles/components/_header.scss";
 import "../styles/components/_footer.scss";
+import "../styles/components/_header.scss";
 import "../styles/components/_prose.scss";
 import "../styles/components/_sr-only.scss";
-
-import "../styles/reset.scss";
-import "../styles/theme.scss";
-
+import "../styles/layout/_center.scss";
+import "../styles/layout/_cluster.scss";
+import "../styles/layout/_grid.scss";
+import "../styles/layout/_stack.scss";
 import "../styles/pages/app.scss";
 import "../styles/pages/help.scss";
-import "../styles/pages/projects.scss";
 import "../styles/pages/project.scss";
-
-import "../styles/layout/_center.scss";
-import "../styles/layout/_stack.scss";
-import "../styles/layout/_grid.scss";
-import "../styles/layout/_cluster.scss";
+import "../styles/pages/projects.scss";
+import "../styles/reset.scss";
+import "../styles/style.scss";
 
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -44,7 +39,7 @@ const name = "Roey Biran";
 const suffixedTitle = `${pageTitle} — ${name}`;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />

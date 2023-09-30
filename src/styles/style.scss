@@ -1,0 +1,105 @@
+@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/plum.css";
+@import "@radix-ui/colors/blue.css";
+@import "open-props/animations.min.css";
+@import "open-props/aspects.min.css";
+@import "open-props/borders.min.css";
+// @import "open-props/durations.min.css";
+@import "open-props/easings.min.css";
+@import "open-props/fonts.min.css";
+@import "open-props/gradients.min.css";
+@import "open-props/masks.edges.min.css";
+@import "open-props/masks.corner-cuts.min.css";
+@import "open-props/media.min.css";
+@import "open-props/shadows.min.css";
+@import "open-props/sizes.min.css";
+@import "open-props/supports.min.css";
+@import "open-props/zindex.min.css";
+
+:root {
+  --bleed: var(--size-4);
+  --bold: var(--font-weight-7);
+
+  --app-bg: var(--gray-1);
+  --ui-element-bg: var(--gray-3);
+  --border: var(--gray-6) solid var(--border-size-1);
+  --outline-color: var(--blue-7);
+  --text-primary: var(--gray-12);
+  --text-secondary: var(--gray-11);
+
+  --apl-link: #06c;
+  --apl-link-dark: #6bf;
+  --apl-blue: #0071e3;
+  --apl-blue-hover: #147ce5;
+
+  --link: var(--apl-link);
+  --link-visited: var(--plum-11);
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter Variable",
+    var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--app-bg);
+  text-wrap: balance;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: var(--apl-link-dark);
+  }
+}
+
+.uppercased {
+  text-transform: uppercase;
+  letter-spacing: var(--font-letterspacing-3);
+}
+
+a {
+  color: var(--link);
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.card a {
+  color: var(--text-primary);
+}
+
+.card a:visited {
+  color: var(--text-primary);
+}
+
+.card a:hover {
+  text-decoration: none;
+}
+
+.header,
+.footer {
+  color: var(--text-secondary);
+  font-size: var(--font-size-0);
+}
+
+body > header {
+  border-block-end: var(--border);
+  padding-block: var(--size-3);
+}
+
+body > footer {
+  padding-block: var(--size-3);
+  border-block-start: var(--border);
+}
+
+kbd {
+  border: var(--border);
+  padding: var(--size-1);
+  border-radius: var(--radius-2);
+  background-color: var(--ui-element-bg);
+}
+
+.astro-code {
+  padding: var(--size-2);
+}

@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import AppPage from "../../../layouts/AppPage.astro";
 import { getEntry } from "astro:content";
+import "../../../styles/pages/help.scss";
 
 export async function getStaticPaths() {
   const collection = await getCollection("help");
@@ -22,12 +23,16 @@ const {
 } = entry;
 
 const appEntry = await getEntry("apps", appSlug);
-const pageTitleSuffix = 'Help';
+const pageTitleSuffix = "Help";
 ---
 
-<AppPage pageTitleSuffix={pageTitleSuffix} appSlug={appSlug} appEntry={appEntry}>
+<AppPage
+  pageTitleSuffix={pageTitleSuffix}
+  appSlug={appSlug}
+  appEntry={appEntry}
+>
   <div class="content-help">
-    <h1>{appEntry.data.title}: {pageTitleSuffix}</h1>
+    <h1>{appEntry.data.title}{" "}{pageTitleSuffix}</h1>
     <Content />
   </div>
 </AppPage>

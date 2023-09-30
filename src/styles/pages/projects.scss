@@ -13,7 +13,7 @@
     @include card.card;
     @include stack.stack;
     border-radius: var(--radius-3);
-    background-color: var(--surface-2);
+    background-color: var(--ui-element-bg);
     padding: var(--size-6);
   }
 
@@ -25,11 +25,11 @@
 
   .project-card__title {
     text-decoration: none;
-    color: var(--text-1);
+    color: var(--text-primary);
   }
 
   .project-card__small {
-    color: var(--text-2);
+    color: var(--text-secondary);
     font-size: var(--font-size-00);
   }
 
