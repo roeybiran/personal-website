@@ -39,7 +39,9 @@
     var(--font-sans);
   color: var(--text-primary);
   background-color: var(--app-bg);
-  text-wrap: balance;
+
+  // text-wrap: balance;
+  line-height: var(--font-lineheight-3);
 }
 
 @media (prefers-color-scheme: dark) {

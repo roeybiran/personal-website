@@ -48,67 +48,65 @@ const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
   description={subtitle}
   openGraphImage={openGraphImage}
 >
-  <div class="app-page__content">
-    <div class="app__above-fold">
-      <div class="app__above-fold-images">
-        {
-          cover && (
-            <figure class="app__cover-wrapper">
-              <Image
-                class="app__cover"
-                fetchpriority="high"
-                src={cover}
-                alt=""
-              />
-            </figure>
-          )
-        }
-        <figure class="app__icon-wrapper">
-          <Image
-            class="app__icon"
-            fetchpriority="high"
-            src={icon}
-            alt={iconAlt}
-          />
-        </figure>
-      </div>
-      <p class="app__tagline">{subtitle}</p>
-    </div>
-    <div class="app__technicals">
-      <div class="download-bar">
-        <a class="try-button" href={downloadURL}
-          >{price ? "Try for Free" : "Download"}</a
-        >
-        {
-          price && (
-            <a class="buy-button" href={purchaseURL}>
-              <span>Buy</span>
-              <small class="buy-button__price">{formatter.format(price)}</small>
-            </a>
-          )
-        }
-      </div>
-      <div>
-        {
-          purchasePolicy && (
-            <small class="app__purchase-policy">{purchasePolicy}</small>
-          )
-        }
-        <small class="app__sys-reqs">
-          Requires {platform}
-          {systemRequirements} or later.
-        </small>
-      </div>
+  <div class="app__above-fold">
+    <div class="app__above-fold-images">
       {
-        productHuntEmbed && (
-          <div class="product-hunt-wrapper">
-            <Fragment set:html={productHuntEmbed} />
-          </div>
+        cover && (
+          <figure class="app__cover-wrapper">
+            <Image
+              class="app__cover"
+              fetchpriority="high"
+              src={cover}
+              alt=""
+            />
+          </figure>
+        )
+      }
+      <figure class="app__icon-wrapper">
+        <Image
+          class="app__icon"
+          fetchpriority="high"
+          src={icon}
+          alt={iconAlt}
+        />
+      </figure>
+    </div>
+    <p class="app__tagline">{subtitle}</p>
+  </div>
+  <div class="app__technicals">
+    <div class="download-bar">
+      <a class="try-button" href={downloadURL}
+        >{price ? "Try for Free" : "Download"}</a
+      >
+      {
+        price && (
+          <a class="buy-button" href={purchaseURL}>
+            <span>Buy</span>
+            <small class="buy-button__price">{formatter.format(price)}</small>
+          </a>
         )
       }
     </div>
-    <div class="app__prose">
-      <Content />
+    <div>
+      {
+        purchasePolicy && (
+          <small class="app__purchase-policy">{purchasePolicy}</small>
+        )
+      }
+      <small class="app__sys-reqs">
+        Requires {platform}
+        {systemRequirements} or later.
+      </small>
     </div>
+    {
+      productHuntEmbed && (
+        <div class="product-hunt-wrapper">
+          <Fragment set:html={productHuntEmbed} />
+        </div>
+      )
+    }
+  </div>
+  <div class="app__prose">
+    <Content />
   </div>
 </AppPage>

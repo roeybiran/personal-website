@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Root, { type Props as RootProps } from "./Root.astro";
+import "../styles/layouts/_app-page.scss";
 
 interface Props extends Omit<RootProps, "pageTitle"> {
   appEntry: CollectionEntry<"apps">;
@@ -41,5 +42,7 @@ const pageTitle = [title, Astro.props.pageTitleSuffix ?? ""]
       ))
     }
   </nav>
-  <slot />
+  <div class="app-page__root">
+    <slot />
+  </div>
 </Root>

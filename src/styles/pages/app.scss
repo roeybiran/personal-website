@@ -8,14 +8,6 @@
 
 $gap: var(--size-8);
 
-.app-page__content {
-  padding: var(--bleed);
-}
-
-.app-page__content {
-  @include stack.stack;
-}
-
 .product-hunt-wrapper {
   display: flex;
   justify-content: center;
