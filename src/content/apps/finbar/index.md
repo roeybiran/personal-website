@@ -6,6 +6,7 @@ downloadURL: https://f002.backblazeb2.com/file/roeybiran/finbar/latest/Finbar.dm
 releaseNotesURL: https://f002.backblazeb2.com/file/roeybiran/finbar/latest/Finbar.html
 purchaseURL: https://roeybiran.gumroad.com/l/mgpnr
 sparkleAppcastURL: https://f002.backblazeb2.com/file/roeybiran/finbar/appcast.xml
+cask: finbar
 #
 help: finbar
 icon: ./icon.png

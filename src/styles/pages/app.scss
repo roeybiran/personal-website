@@ -45,6 +45,23 @@ $gap: var(--size-8);
   text-wrap: balance;
 }
 
+.app-cask {
+  --space: var(--size-1);
+  font-size: var(--font-size-0);
+
+  > * + * {
+    margin-block-start: var(--size-1);
+  }
+}
+
+.app-cask__code {
+  display: block;
+  background-color: var(--ui-element-bg);
+  color: var(--text-2);
+  padding: var(--size-2);
+  border-radius: var(--radius-1);
+}
+
 .app__technicals {
   --space: var(--size-2);
   @include center.center($intrinsic: true, $and-text: true);

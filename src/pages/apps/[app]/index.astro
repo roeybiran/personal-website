@@ -20,7 +20,6 @@ const {
   slug,
   data: {
     cover,
-    help,
     icon,
     iconAlt,
     openGraphImage,
@@ -31,7 +30,7 @@ const {
     purchaseURL,
     subtitle,
     systemRequirements,
-    title,
+    cask,
   },
 } = entry;
 
@@ -70,6 +69,14 @@ const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
       downloadURL={downloadURL}
       price={price}
     />
+    {
+      cask && (
+        <div class="app-cask">
+          <p class="app-cask__or">Or:</p>
+          <pre class="app-cask__code">brew install --cask {cask}</pre>
+        </div>
+      )
+    }
     <div>
       {
         purchasePolicy && (

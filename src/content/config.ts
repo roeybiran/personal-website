@@ -9,6 +9,7 @@ const apps = defineCollection({
       purchaseURL: z.string().url().optional(),
       sparkleAppcastURL: z.string().url().optional(),
       releaseNotesURL: z.string().url().optional(),
+      cask: z.string().optional(),
       //
       cover: image().optional(),
       dateReleased: z.date(),
