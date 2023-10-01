@@ -6,6 +6,8 @@ interface Props extends RootProps {}
 ---
 
 <Root {...Astro.props}>
-  <h1 class="page__title p">{Astro.props.pageTitle}</h1>
+  <div class="page__title">
+    <h1 class="p">{Astro.props.pageTitle}</h1>
+  </div>
   <slot />
 </Root>
