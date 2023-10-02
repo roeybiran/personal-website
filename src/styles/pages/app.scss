@@ -39,10 +39,6 @@ $gap: var(--size-8);
 
 .app__tagline {
   text-align: center;
-  font-size: var(--font-size-6);
-  max-inline-size: var(--size-header-1);
-  line-height: var(--font-lineheight-1);
-  text-wrap: balance;
 }
 
 .app-cask {
@@ -98,12 +94,16 @@ $gap: var(--size-8);
     margin-block-end: $gap;
   }
 
+  h3,
+  h2 {
+    margin-inline: auto;
+    text-align: center;
+  }
+
   h2 {
     text-transform: uppercase;
     letter-spacing: var(--font-letterspacing-4);
     font-size: var(--font-size-0);
-    text-align: center;
-    margin-inline: auto;
   }
 }
 
@@ -112,7 +112,7 @@ $gap: var(--size-8);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: var(--size-2);
+  // gap: var(--size-2);
 }
 
 .remark-container.misc {

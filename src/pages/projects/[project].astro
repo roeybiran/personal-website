@@ -17,17 +17,7 @@ const entry = Astro.props.entry as CollectionEntry<"projects">;
 const { Content } = await entry.render();
 
 const {
-  data: {
-    title,
-    image,
-    type,
-    responsibilities,
-    links,
-    date,
-    stack,
-    subtitle,
-    press,
-  },
+  data: { title, image, type, responsibilities, links, date, stack, press },
 } = entry;
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
@@ -37,7 +27,7 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 });
 ---
 
-<Page pageTitle={title}>
+<Page>
   <div class="project-root">
     <figure class="project__cover-wrapper">
       <Image
@@ -48,54 +38,61 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
       />
     </figure>
     <div class="project__aside-and-content-wrapper">
-      <aside class="project__aside">
-        <dl class="project__meta">
-          <dt class="project__key">Date</dt>
-          <dd>{dateFormatter.format(date)}</dd>
-          <dt class="project__key">Type</dt>
-          <dd>{type}</dd>
-          <dt class="project__key">Links</dt>
-          <dd>
-            <ul class="project__list project__list--links">
-              {
-                links.map(({ url, label }) => (
-                  <li>
-                    <a href={url}>{label}</a>
-                  </li>
-                ))
-              }
-            </ul>
-          </dd>
-          {
-            press && (
-              <>
-                <dt>Press</dt>
-                <dd>
-                  <ul class="project__list project__list--press">
-                    {press.map(({ url, label }) => (
-                      <li class="project__badge">
-                        <a href={url}>{label}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </dd>
-              </>
-            )
-          }
-          <dt class="project__key">Responsibilities</dt>
-          <dd>
-            <ul class="project__list project__list--responsibilities">
-              {responsibilities.map((r) => <li class="project__badge">{r}</li>)}
-            </ul>
-          </dd>
-          <dt class="project__key">Stack</dt>
-          <dd>
-            <ul class="project__list project__list--stack">
-              {stack.map((s) => <li class="project__badge">{s}</li>)}
-            </ul>
-          </dd>
-        </dl>
-      </aside>
+      <div>
+        <h1 class="project__title">{title}</h1>
+        <aside class="project__aside">
+          <dl class="project__meta">
+            <dt class="project__key">Date</dt>
+            <dd>{dateFormatter.format(date)}</dd>
+            <dt class="project__key">Type</dt>
+            <dd>{type}</dd>
+            <dt class="project__key">Links</dt>
+            <dd>
+              <ul class="project__list project__list--links">
+                {
+                  links.map(({ url, label }) => (
+                    <li>
+                      <a href={url}>{label}</a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </dd>
+            {
+              press && (
+                <>
+                  <dt>Press</dt>
+                  <dd>
+                    <ul class="project__list project__list--press">
+                      {press.map(({ url, label }) => (
+                        <li class="project__badge">
+                          <a href={url}>{label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </>
+              )
+            }
+            <dt class="project__key">Responsibilities</dt>
+            <dd>
+              <ul class="project__list project__list--responsibilities">
+                {
+                  responsibilities.map((r) => (
+                    <li class="project__badge">{r}</li>
+                  ))
+                }
+              </ul>
+            </dd>
+            <dt class="project__key">Stack</dt>
+            <dd>
+              <ul class="project__list project__list--stack">
+                {stack.map((s) => <li class="project__badge">{s}</li>)}
+              </ul>
+            </dd>
+          </dl>
+        </aside>
+      </div>
       <div class="project__content">
         <Content />
       </div>
