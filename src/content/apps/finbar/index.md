@@ -20,6 +20,7 @@ subtitle: Supercharged Menu Bar Search
 systemRequirements: Big Sur
 tagline: Menu bar searching you didn’t know you wanted.
 title: Finbar
+isMisc: false
 ---
 
 ::: intro

@@ -88,7 +88,7 @@
 
 @mixin layout {
   display: grid;
-  grid-template-columns: 1fr min(60ch, 100%) 1fr;
+  grid-template-columns: 1fr min(var(--size-content-3), 100%) 1fr;
 
   > * {
     grid-column: 2;

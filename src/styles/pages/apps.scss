@@ -1,16 +1,29 @@
 .apps-page {
+  padding: var(--bleed);
+
+  > * + * {
+    margin-block-start: var(--size-2);
+  }
+
   .cards {
     display: flex;
     flex-wrap: wrap;
     gap: var(--bleed);
-
-    margin-block: var(--bleed);
-    padding-inline: var(--bleed);
     list-style: none;
   }
 
-  .cards > * {
+  .cards__list-item {
     flex-grow: 1;
-    flex-basis: 60ch;
+    flex-basis: var(--size-content-3);
+  }
+
+  .cards__list-item--small {
+    flex-grow: 0;
+    flex-basis: auto;
+  }
+
+  .apps-page__header {
+    margin-block-start: var(--size-4);
+    font-size: var(--font-size-1);
   }
 }

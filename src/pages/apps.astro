@@ -12,13 +12,15 @@ const posts = await getCollection("apps");
   <div class="apps-page">
     <ul class="cards">
       {
-        posts.map(({ data, slug }) => (
-          <li>
-            <AppCard slug={`./apps/${slug}`} {...data} />
-          </li>
-        ))
+        posts
+          .filter(({ data }) => !data.isMisc)
+          .map(({ data, slug }) => (
+            <li class="cards__list-item">
+              <AppCard slug={`./apps/${slug}`} {...data} />
+            </li>
+          ))
       }
-      <li>
+      <li class="cards__list-item">
         <AppCard
           title="Untitled macOS App"
           subtitle="Coming Winter 2024"
@@ -26,6 +28,18 @@ const posts = await getCollection("apps");
           iconAlt=""
         />
       </li>
+    </ul>
+    <h2 class="apps-page__header">Miscellaneous Apps</h2>
+    <ul class="cards">
+      {
+        posts
+          .filter(({ data }) => data.isMisc)
+          .map(({ data, slug }) => (
+            <li class="cards__list-item cards__list-item--small">
+              <AppCard slug={`./apps/${slug}`} small {...data} />
+            </li>
+          ))
+      }
     </ul>
   </div>
 </Page>

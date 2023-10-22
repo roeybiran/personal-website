@@ -8,21 +8,24 @@ interface Props {
   subtitle: string;
   icon: ImageMetadata;
   iconAlt: string;
+  small?: boolean;
 }
 
-const { slug, title, subtitle, icon, iconAlt } = Astro.props;
+const { slug, title, subtitle, icon, iconAlt, small } = Astro.props;
 ---
 
-<div class="card card-ui card--app">
-  {
-    slug ? (
-      <a class="card--app__title" href={slug}>
-        {title}
-      </a>
-    ) : (
-      <p class="card--app__title">{title}</p>
-    )
-  }
-  <p class="card--app__subtitle">{subtitle}</p>
+<div class=`card card--styled card--app ${small ? "card--small" : ""}`>
+  <div class="card__texts">
+    {
+      slug ? (
+        <a class="card--app__title" href={slug}>
+          {title}
+        </a>
+      ) : (
+        <p class="card--app__title">{title}</p>
+      )
+    }
+    <p class="card--app__subtitle">{subtitle}</p>
+  </div>
   <Image class="card--app__thumb" src={icon} alt={iconAlt} />
 </div>

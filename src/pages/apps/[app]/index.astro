@@ -84,8 +84,7 @@ const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
         )
       }
       <small class="app__sys-reqs">
-        Requires {platform}
-        {systemRequirements} or later.
+        Requires {platform}{' '}{systemRequirements} or later.
       </small>
     </div>
     {

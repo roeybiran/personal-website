@@ -10,6 +10,6 @@
 }
 
 .page-home__intro {
-  max-inline-size: 60ch;
+  max-inline-size: var(--size-content-3);
   text-align: center;
 }

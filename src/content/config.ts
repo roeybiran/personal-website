@@ -23,10 +23,8 @@ const apps = defineCollection({
       purchasePolicy: z.string().optional(),
       sourceCode: z.string().url().optional(),
       subtitle: z.string(),
-      systemRequirements: z.union([
-        z.literal("Big Sur"),
-        z.literal("Monterey"),
-      ]),
+      isMisc: z.boolean(),
+      systemRequirements: z.literal("Big Sur").or(z.literal("Monterey")),
       title: z.string(),
     }),
 });
@@ -78,7 +76,6 @@ const help = defineCollection({
     app: reference("apps"),
   }),
 });
-
 
 export const collections = {
   apps,

@@ -28,7 +28,7 @@
   .project__content {
     @include prose.prose;
     @include prose.layout;
-    flex-basis: 60ch;
+    flex-basis: var(--size-content-3);
     flex-grow: 999;
   }
 

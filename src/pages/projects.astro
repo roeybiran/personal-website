@@ -13,10 +13,10 @@ const posts = await getCollection("projects");
         posts.map(({ data: { title, subtitle, image, type }, slug }) => (
           <li class="project-card">
             <div class="project-card__texts">
-              <small class="project-card__small">{type}</small>
               <a class="project-card__title" href={`./projects/${slug}`}>
                 {title}
               </a>
+              <small class="project-card__small">{type}</small>
             </div>
             <Image src={image} alt={title} class="project-card__image" />
           </li>

@@ -3,9 +3,10 @@
 @use "../components/card";
 
 .projects-root {
+  padding: var(--bleed);
+
   .projects-list {
     @include grid.grid;
-    margin: var(--size-6);
     list-style: none;
   }
 
@@ -13,14 +14,13 @@
     @include card.card;
     @include stack.stack;
     border-radius: var(--radius-3);
-    background-color: var(--ui-element-bg);
-    padding: var(--size-6);
+    flex-direction: column-reverse;
+    gap: var(--size-2);
   }
 
   .project-card__texts {
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
 
   .project-card__title {
@@ -30,7 +30,6 @@
 
   .project-card__small {
     color: var(--text-secondary);
-    font-size: var(--font-size-00);
   }
 
   .project-card__image {

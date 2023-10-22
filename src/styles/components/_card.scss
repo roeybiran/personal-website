@@ -19,21 +19,21 @@
 
 .card {
   @include card();
-  box-shadow: var(--shadow-1);
 }
 
-.card-ui {
+.card--styled {
+  box-shadow: var(--shadow-1);
   outline: 1px solid transparent;
   outline-offset: 8px;
   transition: outline-color 0.3s ease 0s, outline-offset 0.3s ease 0s;
 }
 
-.card-ui:focus-within {
+.card--styled:focus-within {
   outline-color: var(--outline-color);
   outline-offset: 0px;
 }
 
-.card-ui a:focus {
+.card--styled a:focus {
   text-decoration: none;
   outline: none;
 }
