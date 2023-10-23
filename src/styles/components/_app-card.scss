@@ -26,6 +26,7 @@
   flex-direction: row-reverse;
   gap: var(--size-2);
   text-align: start;
+  justify-content: flex-end;
 
   .card__texts {
     display: flex;
@@ -34,12 +35,7 @@
   }
 
   .card--app__title {
-    // font-size: var(--font-size-1);
-    // font-size: var(--font-size-0);
-  }
-
-  .card--app__subtitle {
-    // font-size: var(--font-size-0);
+    font-size: var(--font-size-1);
   }
 
   .card--app__thumb {

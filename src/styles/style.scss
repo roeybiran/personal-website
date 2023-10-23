@@ -26,6 +26,17 @@
   line-height: var(--font-lineheight-3);
 }
 
+:root,
+html,
+body {
+  block-size: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
 .uppercased {
   text-transform: uppercase;
   letter-spacing: var(--font-letterspacing-3);

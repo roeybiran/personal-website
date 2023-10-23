@@ -19,7 +19,7 @@
 
   .cards__list-item--small {
     flex-grow: 0;
-    flex-basis: auto;
+    flex-basis: var(--size-content-2);
   }
 
   .apps-page__header {
