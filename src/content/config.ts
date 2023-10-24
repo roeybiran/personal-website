@@ -4,6 +4,13 @@ const apps = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
+      title: z.string(),
+      subtitle: z.string(),
+      icon: image(),
+      iconAlt: z.string(),
+      dateReleased: z.date(),
+      price: z.number().optional(),
+      isMisc: z.boolean(),
       //
       downloadURL: z.string(),
       purchaseURL: z.string().url().optional(),
@@ -12,20 +19,13 @@ const apps = defineCollection({
       cask: z.string().optional(),
       //
       cover: image().optional(),
-      dateReleased: z.date(),
       help: reference("help").optional(),
-      icon: image(),
-      iconAlt: z.string(),
       openGraphImage: z.string().optional(),
       platform: z.literal("macOS"),
-      price: z.number().optional(),
       productHuntEmbed: z.string().optional(),
       purchasePolicy: z.string().optional(),
       sourceCode: z.string().url().optional(),
-      subtitle: z.string(),
-      isMisc: z.boolean(),
       systemRequirements: z.literal("Big Sur").or(z.literal("Monterey")),
-      title: z.string(),
     }),
 });
 

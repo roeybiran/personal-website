@@ -15,9 +15,20 @@
     gap: var(--size-3);
   }
 
+  .project__aside-and-title-wrapper {
+    max-inline-size: var(--size-content-1);
+    flex-grow: 1;
+  }
+
   .project__aside {
     font-size: var(--font-size-0);
     color: var(--text-secondary);
+  }
+
+  .project__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bleed);
   }
 
   .project__title {
@@ -27,9 +38,11 @@
 
   .project__content {
     @include prose.prose;
-    @include prose.layout;
-    flex-basis: var(--size-content-3);
-    flex-grow: 999;
+    // @include prose.layout;
+    // flex-basis: var(--size-content-3);
+    max-inline-size: var(--size-content-3);
+    flex-grow: 2;
+    // flex-basis: 60%;
   }
 
   .project__badge {

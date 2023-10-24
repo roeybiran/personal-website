@@ -29,14 +29,14 @@ const posts = await getCollection("apps");
         />
       </li>
     </ul>
-    <h2 class="apps-page__header">Miscellaneous Apps</h2>
+    <h2 class="apps-page__header">Miscellaneous</h2>
     <ul class="cards">
       {
         posts
           .filter(({ data }) => data.isMisc)
-          .map(({ data, slug }) => (
+          .map(({ data: { sourceCode, ...data }, slug }) => (
             <li class="cards__list-item cards__list-item--small">
-              <AppCard slug={`./apps/${slug}`} small {...data} />
+              <AppCard slug={sourceCode ?? `./apps/${slug}`} small {...data} />
             </li>
           ))
       }

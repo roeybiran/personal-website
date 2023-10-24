@@ -38,15 +38,20 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
       />
     </figure>
     <div class="project__aside-and-content-wrapper">
-      <div>
+      <div class="project__aside-and-title-wrapper">
         <h1 class="project__title">{title}</h1>
         <aside class="project__aside">
           <dl class="project__meta">
-            <dt class="project__key">Date</dt>
-            <dd>{dateFormatter.format(date)}</dd>
-            <dt class="project__key">Type</dt>
-            <dd>{type}</dd>
-            <dt class="project__key">Links</dt>
+            <div>
+              <dt class="project__key">Date</dt>
+              <dd>{dateFormatter.format(date)}</dd>
+            </div>
+            <div>
+              <dt class="project__key">Type</dt>
+              <dd>{type}</dd>
+            </div>
+            <div>
+              <dt class="project__key">Links</dt>
             <dd>
               <ul class="project__list project__list--links">
                 {
@@ -58,9 +63,10 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
                 }
               </ul>
             </dd>
+            </div>
             {
               press && (
-                <>
+                <div>
                   <dt>Press</dt>
                   <dd>
                     <ul class="project__list project__list--press">
@@ -71,10 +77,11 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
                       ))}
                     </ul>
                   </dd>
-                </>
+                </div>
               )
             }
-            <dt class="project__key">Responsibilities</dt>
+            <div>
+              <dt class="project__key">Responsibilities</dt>
             <dd>
               <ul class="project__list project__list--responsibilities">
                 {
@@ -84,12 +91,15 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
                 }
               </ul>
             </dd>
-            <dt class="project__key">Stack</dt>
+            </div>
+            <div>
+              <dt class="project__key">Stack</dt>
             <dd>
               <ul class="project__list project__list--stack">
                 {stack.map((s) => <li class="project__badge">{s}</li>)}
               </ul>
             </dd>
+            </div>
           </dl>
         </aside>
       </div>

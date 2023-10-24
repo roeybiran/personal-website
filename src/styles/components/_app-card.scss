@@ -38,6 +38,12 @@
     font-size: var(--font-size-1);
   }
 
+  .card--app__subtitle {
+    font-size: var(--font-size-0);
+    line-height: var(--font-lineheight-2);
+    text-wrap: pretty;
+  }
+
   .card--app__thumb {
     max-inline-size: var(--size-10);
   }
