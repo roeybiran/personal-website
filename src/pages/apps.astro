@@ -28,9 +28,6 @@ const posts = await getCollection("apps");
           iconAlt=""
         />
       </li>
-    </ul>
-    <h2 class="apps-page__header">Miscellaneous</h2>
-    <ul class="cards">
       {
         posts
           .filter(({ data }) => data.isMisc)
@@ -41,5 +38,17 @@ const posts = await getCollection("apps");
           ))
       }
     </ul>
+    <!-- <h2 class="sr-only apps-page__header">Miscellaneous</h2>
+    <ul class="cards">
+      {
+        posts
+          .filter(({ data }) => data.isMisc)
+          .map(({ data: { sourceCode, ...data }, slug }) => (
+            <li class="cards__list-item cards__list-item--small">
+              <AppCard slug={sourceCode ?? `./apps/${slug}`} small {...data} />
+            </li>
+          ))
+      }
+    </ul> -->
   </div>
 </Page>

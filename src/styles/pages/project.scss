@@ -2,22 +2,48 @@
 
 .project-root {
   .project__cover {
-    inline-size: 100%;
-    block-size: 33vh;
+    // inline-size: 100%;
+    // block-size: 33vh;
     object-fit: cover;
+    // flex-basis: 100%;
+    // flex-grow: 0;
+    // min-inline-size: 0;
+  }
+
+  .project__cover-wrapper {
+    // project__cover-wrapper
+    // order: 99;
+    flex-grow: 1;
+    flex-basis: var(--size-content-2);
   }
 
   .project__aside-and-content-wrapper {
     margin-block: var(--size-3);
     padding-inline: var(--bleed);
+
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-3);
+    gap: var(--bleed);
   }
 
   .project__aside-and-title-wrapper {
-    max-inline-size: var(--size-content-1);
-    flex-grow: 1;
+    // flex-basis: var(--size-content-1);
+    // flex-grow: 1;
+    // flex-basis: var(--size-content-3);
+  }
+
+  .project__content-wrapper {
+    flex-basis: var(--size-content-3);
+    // flex-grow: 999;
+    // min-inline-size: 50%;
+    // flex-basis: 0;
+    // flex-grow: 1;
+  }
+
+  .project__content {
+    @include prose.prose;
+    // @include prose.layout;
+    max-inline-size: var(--size-content-3);
   }
 
   .project__aside {
@@ -34,15 +60,6 @@
   .project__title {
     font-size: var(--font-size-5);
     margin-block-end: var(--size-2);
-  }
-
-  .project__content {
-    @include prose.prose;
-    // @include prose.layout;
-    // flex-basis: var(--size-content-3);
-    max-inline-size: var(--size-content-3);
-    flex-grow: 2;
-    // flex-basis: 60%;
   }
 
   .project__badge {

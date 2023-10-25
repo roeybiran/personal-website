@@ -27,17 +27,18 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 });
 ---
 
-<Page>
+<Page pageTitle={title}>
   <div class="project-root">
-    <figure class="project__cover-wrapper">
-      <Image
-        fetchpriority="high"
-        src={image}
-        alt={title}
-        class="project__cover"
-      />
-    </figure>
+
     <div class="project__aside-and-content-wrapper">
+      <figure class="project__cover-wrapper">
+        <Image
+          fetchpriority="high"
+          src={image}
+          alt={title}
+          class="project__cover"
+        />
+      </figure>
       <div class="project__aside-and-title-wrapper">
         <h1 class="project__title">{title}</h1>
         <aside class="project__aside">
@@ -52,17 +53,17 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
             </div>
             <div>
               <dt class="project__key">Links</dt>
-            <dd>
-              <ul class="project__list project__list--links">
-                {
-                  links.map(({ url, label }) => (
-                    <li>
-                      <a href={url}>{label}</a>
-                    </li>
-                  ))
-                }
-              </ul>
-            </dd>
+              <dd>
+                <ul class="project__list project__list--links">
+                  {
+                    links.map(({ url, label }) => (
+                      <li>
+                        <a href={url}>{label}</a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </dd>
             </div>
             {
               press && (
@@ -82,29 +83,31 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
             }
             <div>
               <dt class="project__key">Responsibilities</dt>
-            <dd>
-              <ul class="project__list project__list--responsibilities">
-                {
-                  responsibilities.map((r) => (
-                    <li class="project__badge">{r}</li>
-                  ))
-                }
-              </ul>
-            </dd>
+              <dd>
+                <ul class="project__list project__list--responsibilities">
+                  {
+                    responsibilities.map((r) => (
+                      <li class="project__badge">{r}</li>
+                    ))
+                  }
+                </ul>
+              </dd>
             </div>
             <div>
               <dt class="project__key">Stack</dt>
-            <dd>
-              <ul class="project__list project__list--stack">
-                {stack.map((s) => <li class="project__badge">{s}</li>)}
-              </ul>
-            </dd>
+              <dd>
+                <ul class="project__list project__list--stack">
+                  {stack.map((s) => <li class="project__badge">{s}</li>)}
+                </ul>
+              </dd>
             </div>
           </dl>
         </aside>
       </div>
-      <div class="project__content">
-        <Content />
+      <div class="project__content-wrapper">
+        <div class="project__content">
+          <Content />
+        </div>
       </div>
     </div>
   </div>
