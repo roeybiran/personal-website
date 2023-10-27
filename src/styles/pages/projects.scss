@@ -6,21 +6,23 @@
   padding: var(--bleed);
 
   .projects-list {
-    @include grid.grid;
     list-style: none;
+    --minimum: var(--size-content-2);
+    @include grid.grid;
+    gap: var(--size-6);
   }
 
   .project-card {
     @include card.card;
-    @include stack.stack;
     border-radius: var(--radius-3);
+    display: flex;
     flex-direction: column-reverse;
     gap: var(--size-2);
   }
 
   .project-card__texts {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
   }
 
   .project-card__title {
@@ -33,10 +35,8 @@
   }
 
   .project-card__image {
-    pointer-events: none;
     aspect-ratio: var(--ratio-widescreen);
     object-fit: cover;
-    opacity: 0.8;
     border-radius: var(--radius-1);
     box-shadow: var(--shadow-2);
   }

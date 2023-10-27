@@ -10,13 +10,13 @@ const posts = await getCollection("projects");
   <div class="projects-root">
     <ul class="projects-list">
       {
-        posts.map(({ data: { title, subtitle, image, type }, slug }) => (
+        posts.map(({ data: { title, subtitle, image, type, date }, slug }) => (
           <li class="project-card">
             <div class="project-card__texts">
               <a class="project-card__title" href={`./projects/${slug}`}>
                 {title}
               </a>
-              <small class="project-card__small">{type}</small>
+              <small class="project-card__small">{date.getFullYear()}</small>
             </div>
             <Image src={image} alt={title} class="project-card__image" />
           </li>

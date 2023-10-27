@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
-import Page from "../../layouts/Page.astro";
+import ProjectPage from "../../layouts/ProjectPage.astro";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -27,88 +27,84 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 });
 ---
 
-<Page pageTitle={title}>
+<ProjectPage pageTitle={title}>
   <div class="project-root">
+    <div class="project__texts-wrapper">
+      <h1 class="project__title">{title}</h1>
+      <aside class="project__aside">
+        <dl class="project__meta">
+          <div>
+            <dt class="project__key">Date</dt>
+            <dd>{dateFormatter.format(date)}</dd>
+          </div>
 
-    <div class="project__aside-and-content-wrapper">
-      <figure class="project__cover-wrapper">
-        <Image
-          fetchpriority="high"
-          src={image}
-          alt={title}
-          class="project__cover"
-        />
-      </figure>
-      <div class="project__aside-and-title-wrapper">
-        <h1 class="project__title">{title}</h1>
-        <aside class="project__aside">
-          <dl class="project__meta">
-            <div>
-              <dt class="project__key">Date</dt>
-              <dd>{dateFormatter.format(date)}</dd>
-            </div>
-            <div>
-              <dt class="project__key">Type</dt>
-              <dd>{type}</dd>
-            </div>
-            <div>
-              <dt class="project__key">Links</dt>
-              <dd>
-                <ul class="project__list project__list--links">
-                  {
-                    links.map(({ url, label }) => (
+          <div>
+            <dt class="project__key">Type</dt>
+            <dd>{type}</dd>
+          </div>
+          <div>
+            <dt class="project__key">Links</dt>
+            <dd>
+              <ul class="project__list project__list--links">
+                {
+                  links.map(({ url, label }) => (
+                    <li>
+                      <a href={url}>{label}</a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </dd>
+          </div>
+          {
+            press && (
+              <div>
+                <dt class="project__key">Press</dt>
+                <dd>
+                  <ul class="project__list project__list--press">
+                    {press.map(({ url, label }) => (
                       <li>
                         <a href={url}>{label}</a>
                       </li>
-                    ))
-                  }
-                </ul>
-              </dd>
-            </div>
-            {
-              press && (
-                <div>
-                  <dt>Press</dt>
-                  <dd>
-                    <ul class="project__list project__list--press">
-                      {press.map(({ url, label }) => (
-                        <li class="project__badge">
-                          <a href={url}>{label}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              )
-            }
-            <div>
-              <dt class="project__key">Responsibilities</dt>
-              <dd>
-                <ul class="project__list project__list--responsibilities">
-                  {
-                    responsibilities.map((r) => (
-                      <li class="project__badge">{r}</li>
-                    ))
-                  }
-                </ul>
-              </dd>
-            </div>
-            <div>
-              <dt class="project__key">Stack</dt>
-              <dd>
-                <ul class="project__list project__list--stack">
-                  {stack.map((s) => <li class="project__badge">{s}</li>)}
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
-      <div class="project__content-wrapper">
-        <div class="project__content">
-          <Content />
-        </div>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            )
+          }
+          <div>
+            <dt class="project__key">Responsibilities</dt>
+            <dd>
+              <ul class="project__list project__list--responsibilities">
+                {
+                  responsibilities.map((r) => (
+                    <li class="project__badge">{r}</li>
+                  ))
+                }
+              </ul>
+            </dd>
+          </div>
+          <div>
+            <dt class="project__key">Stack</dt>
+            <dd>
+              <ul class="project__list project__list--stack">
+                {stack.map((s) => <li class="project__badge">{s}</li>)}
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </aside>
+      <div class="project__content">
+        <Content />
       </div>
     </div>
+    <figure class="project__cover-wrapper">
+      <Image
+        fetchpriority="high"
+        src={image}
+        alt={title}
+        class="project__cover"
+      />
+    </figure>
   </div>
-</Page>
+</>

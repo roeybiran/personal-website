@@ -1,48 +1,41 @@
 @use "../components/prose";
 
 .project-root {
-  .project__cover {
-    // inline-size: 100%;
-    // block-size: 33vh;
-    object-fit: cover;
-    // flex-basis: 100%;
-    // flex-grow: 0;
-    // min-inline-size: 0;
+  display: flex;
+  gap: var(--size-6);
+  flex-wrap: wrap;
+  margin-block: var(--bleed);
+  padding-inline: var(--bleed);
+
+  .project__texts-wrapper {
+    max-inline-size: var(--size-content-3);
   }
 
   .project__cover-wrapper {
-    // project__cover-wrapper
-    // order: 99;
+    flex-basis: var(--size-content-1);
     flex-grow: 1;
-    flex-basis: var(--size-content-2);
+    order: -1;
   }
 
-  .project__aside-and-content-wrapper {
-    margin-block: var(--size-3);
-    padding-inline: var(--bleed);
-
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--bleed);
+  @media (orientation: landscape) {
+    .project__cover-wrapper {
+      order: 0;
+    }
   }
 
-  .project__aside-and-title-wrapper {
-    // flex-basis: var(--size-content-1);
-    // flex-grow: 1;
-    // flex-basis: var(--size-content-3);
+  .project__cover {
+    block-size: 100%;
+    object-fit: cover;
   }
 
   .project__content-wrapper {
     flex-basis: var(--size-content-3);
-    // flex-grow: 999;
-    // min-inline-size: 50%;
-    // flex-basis: 0;
-    // flex-grow: 1;
   }
 
   .project__content {
     @include prose.prose;
-    // @include prose.layout;
+
+    margin-block-start: var(--bleed);
     max-inline-size: var(--size-content-3);
   }
 
@@ -54,7 +47,7 @@
   .project__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--bleed);
+    gap: var(--size-2) var(--bleed);
   }
 
   .project__title {
@@ -64,14 +57,24 @@
 
   .project__badge {
     margin-block-start: var(--size-1);
-    inline-size: max-content;
     background-color: var(--ui-element-bg);
     padding-inline: var(--size-2);
     border-radius: var(--radius-1);
   }
 
   .project__list {
+    display: flex;
+    gap: var(--size-1);
+    flex-wrap: wrap;
     list-style: none;
+  }
+
+  .project__list--press,
+  .project__list--links {
+    flex-direction: column;
+    a {
+      color: var(--text-secondary);
+    }
   }
 
   .project__key {
