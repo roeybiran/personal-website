@@ -1,5 +1,7 @@
 {
-  "editor.codeActionsOnSave": { "source.fixAll": true },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
   "cssvar.files": [
     "./node_modules/open-props/open-props.min.css",
     // if you have an alternative path to where your styles are located

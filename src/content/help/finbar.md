@@ -11,6 +11,12 @@ title: ""
 
 In Finbar, every menu item is matched by its title, while nested menu items below a certain depth are also matched by the title of their containing menu item. This is similar to how the built–in menu bar searching operates. For those nested menu items, their title will be preceded by the one of its parent. Accordingly, the respective parent’s title will not be shown in the location column.
 
+### Disabled Menu Items
+
+Finbar displays and allows the selection of disabled menu items, which will have a dimmed appearance. There’re apps that disable many of their menu items when they lose keyboard focus, even momentarily and to “transient” apps like Finbar. In other words, these menu items are disabled only while viewed in Finbar — they’ll be re-enabled by their owning app once Finbar initiates a menu item click and deactivates. Thus, guarding against selection of disabled menu items meant leaving out many perfectly valid ones.
+
+Some menu items are “truly” disabled and will remain so regardless of focus state. Selecting them will trigger a system notification alerting you of this.
+
 ### Searching vs. Browsing
 
 Finbar operates in two implicit “modes” — searching and browsing. The app enters searching mode whenever you type something in search field. Appropriately, you return to browsing mode by clearing the search field.
