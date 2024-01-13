@@ -7,7 +7,7 @@ interface Props extends RootProps {
   slug: string;
 }
 
-const { slug, title: pageTitle, appName } = Astro.props;
+const { slug, title, appName } = Astro.props;
 
 const links = [
   { href: `/apps/${slug}`, label: appName },
@@ -17,7 +17,7 @@ const links = [
 
 ---
 
-<Root {...Astro.props} title={pageTitle}>
+<Root {...Astro.props} title={title}>
   <nav class="app-nav">
     {
       links.map(({ label, href }) => (
