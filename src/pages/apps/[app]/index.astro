@@ -7,10 +7,12 @@ import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const collection = await getCollection("apps");
-  return collection.map((entry) => ({
-    params: { app: entry.slug },
-    props: { entry },
-  }));
+  return collection
+    .filter((entry) => entry.data.release.type === "indie")
+    .map((entry) => ({
+      params: { app: entry.slug },
+      props: { entry },
+    }));
 }
 
 const entry: CollectionEntry<"apps"> = Astro.props.entry;
@@ -31,7 +33,9 @@ if (release.type === "indie") {
   const {
     product: { formatted_price, short_url },
   } = await fetch(`https://api.gumroad.com/v2/products/${release.gumroadID}`, {
-    headers: { Authorization: `Bearer ${import.meta.env.GUMROAD_ACCESS_TOKEN}` },
+    headers: {
+      Authorization: `Bearer ${import.meta.env.GUMROAD_ACCESS_TOKEN}`,
+    },
   }).then((v) => v.json());
   purchaseURL = short_url;
   formattedPrice = formatted_price;

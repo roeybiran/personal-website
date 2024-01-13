@@ -1,4 +1,9 @@
 .page-404 {
+  display: grid;
+  place-content: center;
+  gap: var(--size-2);
+
+  block-size: 100%;
   padding: var(--bleed);
   text-align: center;
 }
@@ -11,4 +16,5 @@
 .page-404__image {
   margin-inline: auto;
   max-inline-size: var(--size-13);
+  filter: grayscale(100%);
 }

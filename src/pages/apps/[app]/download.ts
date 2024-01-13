@@ -28,7 +28,6 @@ export const GET: APIRoute = async ({ params: { app: slug } }) => {
 
     if (!extension) return R404;
 
-    // https://flaviocopes.com/set-custom-cookie-in-the-header-and-then-redirect-in-astro/
     const file = await fetch(url).then((v) => v.blob());
     return new Response(file, {
       status: 200,
