@@ -18,19 +18,17 @@ const { Content } = await entry.render();
 
 const {
   data: {
-    app: { slug: appSlug },
+    app: { slug },
   },
 } = entry;
 
-const appEntry = await getEntry("apps", appSlug);
+const {
+  data: { title },
+} = await getEntry("apps", slug);
 const pageTitleSuffix = "Help";
 ---
 
-<AppPage
-  pageTitleSuffix={pageTitleSuffix}
-  appSlug={appSlug}
-  appEntry={appEntry}
->
+<AppPage title={`${title} Help`} appName={title} {slug}>
   <div class="content-help">
     <h1>{pageTitleSuffix}</h1>
     <Content />

@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import AppPage from "../../../layouts/AppPage.astro";
 import DownloadBar from "../../../components/DownloadBar.astro";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const collection = await getCollection("apps");
@@ -14,41 +14,53 @@ export async function getStaticPaths() {
 }
 
 const entry: CollectionEntry<"apps"> = Astro.props.entry;
-const { Content } = await entry.render();
 
 const {
   slug,
-  data: {
-    cover,
-    icon,
-    iconAlt,
-    openGraphImage,
-    platform,
-    price,
-    productHuntEmbed,
-    purchasePolicy,
-    purchaseURL,
-    subtitle,
-    systemRequirements,
-    cask,
-  },
+  data: { title, tagline, icon, release },
+  render,
 } = entry;
 
-const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
+const { Content } = await render();
+
+let minimumSystemVersion: string | undefined;
+let formattedPrice: string | undefined;
+let purchaseURL: string | undefined;
+
+if (release.type === "indie") {
+  const {
+    product: { formatted_price, short_url },
+  } = await fetch(`https://api.gumroad.com/v2/products/${release.gumroadID}`, {
+    headers: { Authorization: `Bearer ${import.meta.env.GUMROAD_ACCESS_TOKEN}` },
+  }).then((v) => v.json());
+  purchaseURL = short_url;
+  formattedPrice = formatted_price;
+  const appcast = await fetch(release.sparkleAppcastURL).then((v) => v.text());
+  [, minimumSystemVersion] =
+    appcast.match(
+      /<sparkle:minimumSystemVersion>(.+?)<\/sparkle:minimumSystemVersion>/
+    ) ?? [];
+}
 ---
 
 <AppPage
-  appEntry={entry}
-  appSlug={slug}
-  description={subtitle}
-  openGraphImage={openGraphImage}
+  title={title}
+  appName={title}
+  description={tagline}
+  openGraphImage={`/${slug}/og.png`}
+  {slug}
 >
   <div class="app__above-fold">
     <div class="app__above-fold-images">
       {
-        cover && (
+        release.type === "indie" && (
           <figure class="app__cover-wrapper">
-            <Image class="app__cover" fetchpriority="high" src={cover} alt="" />
+            <Image
+              class="app__cover"
+              fetchpriority="high"
+              src={release.cover}
+              alt=""
+            />
           </figure>
         )
       }
@@ -57,40 +69,43 @@ const downloadURL = Astro.url.pathname.replace(/\/+$/, "") + "/download";
           class="app__icon"
           fetchpriority="high"
           src={icon}
-          alt={iconAlt}
+          alt={`${title}’s app icon`}
         />
       </figure>
     </div>
-    <p class="app__tagline h1">{subtitle}</p>
+    <p class="app__tagline h1">{tagline}</p>
   </div>
   <div class="app__technicals">
-    <DownloadBar
-      purchaseURL={purchaseURL}
-      downloadURL={downloadURL}
-      price={price}
-    />
     {
-      cask && (
-        <div class="app-cask">
-          <p class="app-cask__or">Or:</p>
-          <pre class="app-cask__code">brew install --cask {cask}</pre>
-        </div>
+      formattedPrice && purchaseURL && (
+        <DownloadBar
+          purchase={{ price: formattedPrice, url: purchaseURL }}
+          downloadURL={`./${slug}/download`}
+        />
       )
     }
     <div>
       {
-        purchasePolicy && (
-          <small class="app__purchase-policy">{purchasePolicy}</small>
+        release.type === "indie" && (
+          <small class="app__purchase-policy">{release.purchasePolicy}</small>
         )
       }
-      <small class="app__sys-reqs">
-        Requires {platform}{' '}{systemRequirements} or later.
-      </small>
+      {
+        release.type === "indie" && minimumSystemVersion && (
+          <small class="app__sys-reqs">
+            Requires{" "}
+            <strong>
+              {release.platform} {minimumSystemVersion}
+            </strong>{" "}
+            or later.
+          </small>
+        )
+      }
     </div>
     {
-      productHuntEmbed && (
+      release.type === "indie" && release.productHuntEmbed && (
         <div class="product-hunt-wrapper">
-          <Fragment set:html={productHuntEmbed} />
+          <Fragment set:html={release.productHuntEmbed} />
         </div>
       )
     }

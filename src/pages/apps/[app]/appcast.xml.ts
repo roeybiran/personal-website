@@ -1,25 +1,27 @@
 import type { APIRoute } from "astro";
-import { getEntry, type CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
 import R404 from "../../../util/Response404";
 
 export const prerender = false;
 
 export const GET: APIRoute = async ({ params: { app: slug } }) => {
-  const entry: CollectionEntry<"apps"> | undefined = await getEntry(
-    "apps",
-    slug ?? ""
-  );
+  if (!slug) return R404;
 
-  const appcastURL = entry?.data.sparkleAppcastURL;
+  const entry = await getEntry("apps", slug);
 
-  if (!appcastURL) return R404;
+  if (!entry) return R404;
 
-  const response = await fetch(appcastURL);
-
-  return new Response(await response.text(), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/xml",
-    },
-  });
+  if (entry.data.release.type === "indie") {
+    const text = await fetch(entry.data.release.sparkleAppcastURL).then((v) =>
+      v.text()
+    );
+    return new Response(text, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/xml",
+      },
+    });
+  } else {
+    return R404;
+  }
 };

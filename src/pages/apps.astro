@@ -2,40 +2,49 @@
 import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
 import AppCard from "../components/AppCard.astro";
+import type { Props } from "../components/AppCard.astro";
 import "../styles/pages/apps.scss";
 import genericAppIcon from "../assets/generic-app-icon.png";
 
 const posts = await getCollection("apps");
+
+type CardProps = Props & {
+  isMisc: boolean;
+};
+
+const cards: CardProps[] = posts.map((post) => {
+  const card = {
+    title: post.data.title,
+    icon: post.data.icon,
+    subtitle: post.data.tagline,
+    iconAlt: post.data.title,
+    slug: `./apps/${post.slug}`,
+    isMisc: post.data.release.type === "github",
+  };
+  return card;
+});
+
+const firstMisc = cards.findIndex(({ isMisc }) => isMisc);
+if (-1 < firstMisc) {
+  cards.splice(firstMisc, 0, {
+    title: "Untitled macOS App",
+    subtitle: "Coming Winter 2024",
+    icon: genericAppIcon,
+    iconAlt: "",
+    isMisc: false,
+  });
+}
 ---
 
-<Page pageTitle="Apps">
+<Page title="Apps">
   <div class="apps-page">
     <ul class="cards">
       {
-        posts
-          .filter(({ data }) => !data.isMisc)
-          .map(({ data, slug }) => (
-            <li class="cards__list-item">
-              <AppCard slug={`./apps/${slug}`} {...data} />
-            </li>
-          ))
-      }
-      <li class="cards__list-item">
-        <AppCard
-          title="Untitled macOS App"
-          subtitle="Coming Winter 2024"
-          icon={genericAppIcon}
-          iconAlt=""
-        />
-      </li>
-      {
-        posts
-          .filter(({ data }) => data.isMisc)
-          .map(({ data: { sourceCode, ...data }, slug }) => (
-            <li class="cards__list-item cards__list-item--small">
-              <AppCard slug={sourceCode ?? `./apps/${slug}`} small {...data} />
-            </li>
-          ))
+        cards.map(({ isMisc, ...card }) => (
+          <li class={`cards__list-item ${isMisc ? "cards__list-item--small" : ""}`}>
+            <AppCard small={isMisc} {...card} />
+          </li>
+        ))
       }
     </ul>
   </div>

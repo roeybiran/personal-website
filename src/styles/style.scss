@@ -26,6 +26,10 @@
   line-height: var(--font-lineheight-3);
 }
 
+* {
+  word-break: break-word;
+}
+
 :root,
 html,
 body {

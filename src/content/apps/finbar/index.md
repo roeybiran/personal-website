@@ -1,26 +1,17 @@
 ---
-cover: ./cover.png
-dateReleased: 2022-11-12
-#
-downloadURL: https://f002.backblazeb2.com/file/roeybiran/finbar/latest/Finbar.dmg
-releaseNotesURL: https://f002.backblazeb2.com/file/roeybiran/finbar/latest/Finbar.html
-purchaseURL: https://roeybiran.gumroad.com/l/mgpnr
-sparkleAppcastURL: https://f002.backblazeb2.com/file/roeybiran/finbar/appcast.xml
-cask: finbar
-#
-help: finbar
-icon: ./icon.png
-iconAlt: Finbar’s app icon
-openGraphImage: finbar-og.jpg
-platform: macOS
-price: 9.99
-productHuntEmbed: '<a href="https://www.producthunt.com/posts/finbar?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-finbar" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=404865&theme=light" alt="Finbar - Supercharged&#0032;menu&#0032;bar&#0032;search&#0032;for&#0032;your&#0032;Mac | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>'
-purchasePolicy: One time purchase, no in–app purchases.
-subtitle: Supercharged Menu Bar Search
-systemRequirements: Big Sur
-tagline: Menu bar searching you didn’t know you wanted.
 title: Finbar
-isMisc: false
+tagline: Supercharged Menu Bar Search
+icon: ./assets/icon.png
+release:
+  type: indie
+  cover: ./assets/cover.png
+  gumroadID: mgpnr
+  sparkleAppcastURL: https://f002.backblazeb2.com/file/roeybiran/finbar/appcast.xml
+  releaseDate: 2022-11-12
+  platform: macOS
+  cask: finbar
+  purchasePolicy: One time purchase, no in–app purchases.
+  productHuntEmbed: '<a href="https://www.producthunt.com/posts/finbar?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-finbar" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=404865&theme=light" alt="Finbar - Supercharged&#0032;menu&#0032;bar&#0032;search&#0032;for&#0032;your&#0032;Mac | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>'
 ---
 
 ::: intro
@@ -28,6 +19,7 @@ isMisc: false
 **Finbar** reimagines the Mac’s [built–in menu bar search](https://support.apple.com/en-us/guide/mac-help/hlpvw003/13.0/mac/13.0) with great features such as fuzzy filtering and tracking of recently selected menu items — without sacrificing an ounce of speed. With Finbar, you’ll unlock the menu bar’s true potential as a native, ubiquitous [command palette](https://capiche.com/e/consumer-dev-tools-command-palette).
 
 Yes, your Mac has built–in menu bar search capabilities, and in fact, I was a devout user of this feature myself for a long time. While quite serviceable right out of the box, I started to feel there’s a lot to be desired with the way it currently works: No fuzzy searching; it also searches through an app’s “help book” which slows things down; it doesn’t remember your recently selected menu items, and it offers no control over excluding or including specific menu items from search results. All of these, and more, persuaded me to start building Finbar.
+
 :::
 
 ## Features
@@ -46,7 +38,7 @@ Finbar is designed to do one thing, and do it well. **Built exclusively with nat
 
 Find the menu item you were looking for faster and with minimal typing, all while eschewing tiresome memorization of its title.
 
-![fuzzy searching](./fuzzy-search.png)
+![fuzzy searching](./assets/fuzzy-search.png)
 
 :::
 
@@ -58,8 +50,8 @@ Finbar remembers every menu item you’ve selected, gradually accumulating a lis
 
 <div class="carousel">
 
-![recents](./recents-1.png)
-![recents](./recents-2.png)
+![recents](./assets/recents-1.png)
+![recents](./assets/recents-2.png)
 
 </div>
 
@@ -71,17 +63,17 @@ Finbar remembers every menu item you’ve selected, gradually accumulating a lis
 
 Create incredibly intricate rules using the Mac’s tried and true rule editing interface, and never see an irrelevant menu item again.
 
-![the rule editor](./rule-editor.png)
+![the rule editor](./assets/rule-editor.png)
 
 :::
 
 ::: feat
 
-### Menu Bar Traversal
+### Navigate the Menu Bar with Ease
 
-Navigate through the most complex of menu bar hierarchies with just a few keystrokes: Finbar turns every menu bar into a browsable outline, just like the Finder does for your file system. And selecting menu items containing other items will scope the search just to those nested items.
+Traverse through the most complex menu bar hierarchies with just a few keystrokes: Finbar turns every menu bar into a browsable outline, just like the Finder does for your file system. Plus, selecting menu items containing other items will narrow down the results just to the nested items.
 
-<video src="https://res.cloudinary.com/roeybiran/video/upload/v1696017520/navigation.mp4" controls loop muted playsinline ></video>
+<video width="1350" height="860" src="/finbar/videos/navigation.mp4" poster="/finbar/videos/navigation.jpg" autoplay controls loop muted playsinline ></video>
 
 :::
 
@@ -91,7 +83,7 @@ Navigate through the most complex of menu bar hierarchies with just a few keystr
 
 Finbar will automatically pick up any shell scripts or AppleScript files placed inside a designated folder and integrate them with the rest of the menu bar, essentially a way for you to add “menu items” of your own.
 
-![scripts](./scripts.png)
+![scripts](./assets/scripts.png)
 
 :::
 
@@ -101,7 +93,7 @@ Finbar will automatically pick up any shell scripts or AppleScript files placed 
 
 Quickly select the first nine eligible items using customizable keyboard shortcuts. Hold the <kbd>⌘</kbd> key to tell an item’s position among the other nine.
 
-<video src="https://res.cloudinary.com/roeybiran/video/upload/v1696017520/quick-selection.mp4" controls loop muted playsinline ></video>
+<video width="1350" height="860" src="/finbar/videos/quick-selection.mp4" poster="/finbar/videos/quick-selection.jpg" autoplay controls loop muted playsinline ></video>
 
 :::
 
@@ -111,7 +103,7 @@ Quickly select the first nine eligible items using customizable keyboard shortcu
 
 Couldn’t find the menu item you were looking for? Searching the system’s help menu remains a click away.
 
-![fallback](./fallback.png)
+![fallback](./assets/fallback.png)
 
 :::
 

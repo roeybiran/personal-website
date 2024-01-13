@@ -1,43 +1,28 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import Root, { type Props as RootProps } from "./Root.astro";
 import "../styles/layouts/_app-page.scss";
 
-interface Props extends Omit<RootProps, "pageTitle"> {
-  appEntry: CollectionEntry<"apps">;
-  appSlug: string;
-  pageTitleSuffix?: string;
+interface Props extends RootProps {
+  appName: string;
+  slug: string;
 }
 
-const {
-  appSlug,
-  appEntry: {
-    data: { title, help, releaseNotesURL },
-  },
-} = Astro.props;
+const { slug, title: pageTitle, appName } = Astro.props;
 
-const pathnames = [
-  { href: `/apps/${appSlug}`, title },
-  help ? { href: `/apps/${appSlug}/help`, title: "Help" } : {},
-  releaseNotesURL
-    ? {
-        href: `/apps/${appSlug}/release-notes`,
-        title: "Release Notes",
-      }
-    : {},
+const links = [
+  { href: `/apps/${slug}`, label: appName },
+  { href: `/apps/${slug}/help`, label: "Help" },
+  { href: `/apps/${slug}/release-notes`, label: "Release Notes" },
 ];
 
-const pageTitle = [title, Astro.props.pageTitleSuffix ?? ""]
-  .filter((x) => x)
-  .join(": ");
 ---
 
-<Root {...Astro.props} pageTitle={pageTitle}>
+<Root {...Astro.props} title={pageTitle}>
   <nav class="app-nav">
     {
-      pathnames.map(({ title, href }) => (
+      links.map(({ label, href }) => (
         <a class="app-nav-link" href={href}>
-          {title}
+          {label}
         </a>
       ))
     }

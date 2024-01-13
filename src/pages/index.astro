@@ -3,14 +3,15 @@ import { getEntry } from "astro:content";
 import AppCard from "../components/AppCard.astro";
 import Root from "../layouts/Root.astro";
 import "../styles/pages/index.scss";
+import finbarIcon from '../content/apps/finbar/assets/icon.png';
 
 const {
   slug,
-  data: { title, icon, subtitle, iconAlt },
+  data: { title, tagline },
 } = await getEntry("apps", "finbar");
 ---
 
-<Root pageTitle="Home">
+<Root title="Home">
   <div class="page-home">
     <h1 class="sr-only">Roey Biran</h1>
     <p class="page-home__intro">
@@ -19,6 +20,6 @@ const {
       > on the side. I’m also passionate about industrial design, typography,
       architecture, and art. My latest macOS application, <b>Finbar</b>, is now available:
     </p>
-    <AppCard {title} slug={`/apps/${slug}`} {subtitle} {icon} {iconAlt} />
+    <AppCard {title} slug={`/apps/${slug}`} subtitle={tagline} icon={finbarIcon} iconAlt="Finbar’s app icon" />
   </div>
 </Root>

@@ -1,24 +1,42 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import AppPage from "../../../layouts/AppPage.astro";
-import { getEntry } from "astro:content";
 import "../../../styles/pages/release-notes.scss";
 
-export const prerender = false;
+export async function getStaticPaths() {
+  const collection = await getCollection("apps");
+  return collection
+    .map((entry) => {
+      if (entry.data.release.type === "indie") {
+        return {
+          params: {
+            app: entry.slug,
+          },
+          props: {
+            slug: entry.slug,
+            appcast: entry.data.release.sparkleAppcastURL,
+            title: entry.data.title,
+          },
+        };
+      }
+    })
+    .filter(Boolean);
+}
 
-const slug = Astro.params.app ?? "";
-const entry: CollectionEntry<"apps"> | undefined = await getEntry("apps", slug);
+const { appcast, slug, title } = Astro.props;
 
-if (!entry?.data.releaseNotesURL) return R404;
-
-const data = await fetch(entry?.data.releaseNotesURL);
-const text: string = await data.text();
-const [, body] = text.match(/<body>(.+?)<\/body>/s) ?? [];
-const pageTitleSuffix = "Release Notes";
-
-if (!body) return R404;
+let html: string | undefined;
+const appcastResponse = await fetch(appcast).then((v) => v.text());
+const [, releaseNotesURL] = appcastResponse.match(
+  /<sparkle:releaseNotesLink>(.+?)<\/sparkle:releaseNotesLink>/
+) ?? [];
+if (releaseNotesURL) {
+  const releaseNotes = await fetch(releaseNotesURL).then((v) => v.text());
+  ([, html] = releaseNotes.match(/<body>(.+?)<\/body>/s) ?? []);
+}
 ---
 
-<AppPage pageTitleSuffix={pageTitleSuffix} appSlug={slug} appEntry={entry}>
-  <div class="content-release-notes" set:html={body} />
+<AppPage title={`${title}: Release Notes`} {slug} appName={title}>
+  {html && <div class="content-release-notes" set:html={html} />}
 </AppPage>

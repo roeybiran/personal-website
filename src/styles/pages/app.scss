@@ -41,27 +41,21 @@ $gap: var(--size-8);
   text-align: center;
 }
 
-.app-cask {
-  --space: var(--size-1);
-  font-size: var(--font-size-0);
-
-  > * + * {
-    margin-block-start: var(--size-1);
-  }
+.app__technicals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bleed);
+  align-items: center;
+  text-align: center;
 }
 
-.app-cask__code {
-  display: block;
+.app-cask {
+  overflow-x: auto;
+  min-inline-size: 0;
   background-color: var(--ui-element-bg);
   color: var(--text-2);
   padding: var(--size-2);
   border-radius: var(--radius-1);
-}
-
-.app__technicals {
-  --space: var(--size-2);
-  @include center.center($intrinsic: true, $and-text: true);
-  @include stack.stack;
 }
 
 .app__purchase-policy,
@@ -112,7 +106,6 @@ $gap: var(--size-8);
   text-align: center;
   display: flex;
   flex-direction: column;
-  // gap: var(--size-2);
 }
 
 .remark-container.misc {

@@ -5,27 +5,25 @@ const apps = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      subtitle: z.string(),
+      tagline: z.string(),
       icon: image(),
-      iconAlt: z.string(),
-      dateReleased: z.date(),
-      price: z.number().optional(),
-      isMisc: z.boolean(),
-      //
-      downloadURL: z.string(),
-      purchaseURL: z.string().url().optional(),
-      sparkleAppcastURL: z.string().url().optional(),
-      releaseNotesURL: z.string().url().optional(),
-      cask: z.string().optional(),
-      //
-      cover: image().optional(),
-      help: reference("help").optional(),
-      openGraphImage: z.string().optional(),
-      platform: z.literal("macOS"),
-      productHuntEmbed: z.string().optional(),
-      purchasePolicy: z.string().optional(),
-      sourceCode: z.string().url().optional(),
-      systemRequirements: z.literal("Big Sur").or(z.literal("Monterey")),
+      release: z.discriminatedUnion("type", [
+        z.object({
+          type: z.literal("indie"),
+          cover: image(),
+          releaseDate: z.date(),
+          gumroadID: z.string(),
+          sparkleAppcastURL: z.string().url(),
+          purchasePolicy: z.string().optional(),
+          platform: z.literal("macOS"),
+          productHuntEmbed: z.string().optional(),
+          cask: z.string().optional(),
+        }),
+        z.object({
+          type: z.literal("github"),
+          repoURL: z.string().url(),
+        }),
+      ]),
     }),
 });
 
