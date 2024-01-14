@@ -9,13 +9,15 @@ title: ""
 
 ### How Searching Works
 
-In Finbar, every menu item is matched by its title, while nested menu items below a certain depth are also matched by the title of their containing menu item. This is similar to how the built–in menu bar searching operates. For those nested menu items, their title will be preceded by the one of its parent. Accordingly, the respective parent’s title will not be shown in the location column.
+In Finbar, every item is matched by its title. Additionally, menu items below a certain depth are also matched by the title of the containing menu. This is similar to the way the built–in menu bar searching works.
 
 ### Disabled Menu Items
 
-Finbar displays and allows the selection of disabled menu items, which will have a dimmed appearance. There’re apps that disable many of their menu items when they lose keyboard focus, even momentarily and to “transient” apps like Finbar. In other words, these menu items are disabled only while viewed in Finbar — they’ll be re-enabled by their owning app once Finbar initiates a menu item click and deactivates. Thus, guarding against selection of disabled menu items meant leaving out many perfectly valid ones.
+Finbar displays and allows the selection of disabled menu items, which will have a dimmed appearance.
 
-Some menu items are “truly” disabled and will remain so regardless of focus state. Selecting them will trigger a system notification alerting you of this.
+The rationale to this is as follows: some apps disable some of their menu items when they lose keyboard focus. In other words, these menu items are disabled only while viewed in Finbar — they’ll be re-enabled by the respective app once Finbar initiates a menu item click and deactivates. Thus, guarding against selection of disabled menu items means leaving out many that are perfectly valid.
+
+Some menu items are disabled regardless of focus and will remain so after Finbar deactivates. Selecting them will trigger a system notification alerting you of this.
 
 ### Searching vs. Browsing
 
@@ -26,13 +28,13 @@ The differences between these two modes are:
 | Searching | Browsing |
 | --------- | ------- |
 | Items are a flat list | Items are a browsable outline |
-| Nested (above a certain level) menu items’ titles are preceded by the parent’s title | All titles shown as they are |
+| Deeply nested menu items’ titles are preceded by the parent’s | All titles shown as they are |
 
 When activating a “container” menu item, you enter a new, scoped context that can be further browsed or searched. The differences noted above still apply.
 
-There’s another special ”mode” worth mentioning. You enter it when the search field is empty and you’re not in a scoped context. This is the state when the app activates.
+### The Root Screen
 
-In this mixed mode, items in some sections (like recents) may have their title preceded by their container’s title (depending on their nesting level), and they are not browsable; while items other sections may still appear as an outline and are browsable.
+Another ”mode” worth mentioning is Finbar’s “root mode”. This is the Finbar initial state, and you may return to it by clearing the search field completely. This mode is a combination of the two mentioned above. Here, deeply nested items in the “Recents” section have their title preceded by their parent’s, and they are not browsable. However, items in the “menu items” section will be a browsable outline and have their title shown as is.
 
 ### Using the Rule Editor
 
