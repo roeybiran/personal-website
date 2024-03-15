@@ -34,7 +34,7 @@ When activating a “container” menu item, you enter a new, scoped context tha
 
 ### The Root Screen
 
-Another ”mode” worth mentioning is Finbar’s “root mode”. This is the Finbar initial state, and you may return to it by clearing the search field completely. This mode is a combination of the two mentioned above. Here, deeply nested items in the “Recents” section have their title preceded by their parent’s, and they are not browsable. However, items in the “menu items” section will be a browsable outline and have their title shown as is.
+Another ”mode” worth mentioning is Finbar’s “root mode”. This is Finbar’s initial state, and you return to it by clearing the search field completely. This mode is a combination of the two mentioned above. Here, deeply nested items in the “Recents” section have their title preceded by their parent’s, and they are not browsable. However, items in the “menu items” section will be a browsable outline and have their title shown as is.
 
 ### Using the Rule Editor
 

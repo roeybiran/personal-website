@@ -73,7 +73,7 @@ Create incredibly intricate rules using the Mac’s tried and true rule editing 
 
 Traverse through the most complex menu bar hierarchies with just a few keystrokes: Finbar turns every menu bar into a browsable outline, just like the Finder does for your file system. Plus, selecting menu items containing other items will narrow down the results just to the nested items.
 
-<video width="1350" height="860" src="/finbar/videos/navigation.mp4" poster="/finbar/videos/navigation.jpg" autoplay controls loop muted playsinline ></video>
+<video width="1350" height="860" src="/finbar/videos/navigation.mp4" poster="/finbar/videos/navigation.jpg" autoplay loop muted playsinline ></video>
 
 :::
 
@@ -93,7 +93,7 @@ Finbar will automatically pick up any shell scripts or AppleScript files placed 
 
 Quickly select the first nine eligible items using customizable keyboard shortcuts. Hold the <kbd>⌘</kbd> key to tell an item’s position among the other nine.
 
-<video width="1350" height="860" src="/finbar/videos/quick-selection.mp4" poster="/finbar/videos/quick-selection.jpg" autoplay controls loop muted playsinline ></video>
+<video width="1350" height="860" src="/finbar/videos/quick-selection.mp4" poster="/finbar/videos/quick-selection.jpg" autoplay loop muted playsinline ></video>
 
 :::
 
