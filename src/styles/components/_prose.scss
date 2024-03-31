@@ -1,9 +1,9 @@
 @mixin prose {
   // defaults margins
 
-  > * + * {
-    margin-block-start: var(--size-3);
-  }
+  // > * + * {
+  //   margin-block-start: var(--size-3);
+  // }
 
   // general
 
@@ -31,15 +31,10 @@
     list-style-type: decimal;
   }
 
-  li + li {
-    // margin-block-start: var(--size-1);
-  }
-
   // headings
 
   h1 {
     font-size: var(--font-size-4);
-    margin-block-end: var(--size-4);
   }
 
   h2 {
@@ -47,18 +42,8 @@
   }
 
   h3 {
-    font-weight: var(--bold);
     font-size: var(--font-size-3);
   }
-
-  // h1,
-  // h2,
-  // h3,
-  // h4,
-  // h5,
-  // h6 {
-  //   margin-block: var(--size-1);
-  // }
 
   :where(h1, h2, h3, h4, h5, h6) + * {
     margin-block-start: var(--size-1);
@@ -88,7 +73,7 @@
 
 @mixin layout {
   display: grid;
-  grid-template-columns: 1fr min(var(--size-content-3), 100%) 1fr;
+  grid-template-columns: 1fr minmax(0, min(var(--size-content-3), 100%)) 1fr;
 
   > * {
     grid-column: 2;

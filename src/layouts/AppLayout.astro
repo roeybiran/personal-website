@@ -1,0 +1,74 @@
+---
+import Root, { type Props as RootProps } from "./Root.astro";
+import "@styles/layouts/_app-layout.scss";
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import fetchGumroadData from "@util/fetchGumroadData";
+
+interface Props extends Omit<RootProps, "openGraphImage" | "pageTitle"> {
+  slug: string;
+  pageSuffix?: string;
+}
+
+const { slug, pageSuffix } = Astro.props;
+
+const entry = await getEntry("apps", slug);
+
+if (!entry) throw new Error();
+
+const {
+  data: { title, icon, release },
+} = entry;
+const { purchaseURL, price } =
+  release.type === "indie"
+    ? await fetchGumroadData(release.gumroadID)
+    : { purchaseURL: undefined, price: undefined };
+const openGraphImage = `/${slug}/og.png`;
+const hasLocalDownload = release.type === "indie" && release.sparkleAppcastURL;
+
+const links = [
+  { className: "app-nav-link", href: `/apps/${slug}`, label: title, icon },
+  hasLocalDownload
+    ? {
+        className: "buy-button",
+        href: `./${slug}/download`,
+        label: price ? "Try for Free" : "Download",
+      }
+    : {},
+  purchaseURL
+    ? {
+        className: "buy-button",
+        href: purchaseURL,
+        label:
+          "Buy " +
+          (price ? `<span class="buy-button__price">${price}</span>` : ""),
+      }
+    : {},
+  { className: "app-nav-link", href: `/apps/${slug}/help`, label: "Help" },
+  {
+    className: "app-nav-link",
+    href: `/apps/${slug}/release-notes`,
+    label: "Release Notes",
+  },
+];
+---
+
+<Root
+  {...Astro.props}
+  pageTitle={pageSuffix ? `${title}: ${pageSuffix}` : title}
+  openGraphImage={openGraphImage}
+>
+  <nav class="app-nav">
+    {
+      links.map(({ label, href, className, icon }, i) => (
+        <a class={className} href={href}>
+          {icon && <Image class="app-nav__icon" src={icon} alt="" />}
+          <span set:html={label} />
+        </a>
+      ))
+    }
+  </nav>
+  <div class="layout-app">
+    <slot />
+  </div>
+</Root>

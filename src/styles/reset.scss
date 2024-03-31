@@ -50,3 +50,11 @@ iframe {
 :where(strong, b) {
   font-weight: var(--bold);
 }
+
+[id] {
+  scroll-margin-top: var(--size-8);
+}
+
+cite {
+  font-style: unset;
+}

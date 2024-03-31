@@ -14,7 +14,6 @@
 
   .project-card {
     @include card.card;
-    border-radius: var(--radius-3);
     display: flex;
     flex-direction: column-reverse;
     gap: var(--size-2);
@@ -37,7 +36,7 @@
   .project-card__image {
     aspect-ratio: var(--ratio-widescreen);
     object-fit: cover;
-    border-radius: var(--radius-1);
     box-shadow: var(--shadow-2);
+    border-radius: var(--card-radius);
   }
 }

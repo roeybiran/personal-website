@@ -5,9 +5,7 @@ import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
 
 import "../styles/reset.scss";
-import "../styles/style.scss";
-import "../styles/typography.scss";
-import "../styles/colors.scss";
+import "../styles/theme.scss";
 
 import "../styles/layout/_center.scss";
 import "../styles/layout/_cluster.scss";
@@ -29,18 +27,18 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
 export interface Props {
-  title?: string;
+  pageTitle?: string;
   openGraphImage?: string;
   description?: string;
 }
 
 const {
-  title,
+  pageTitle,
   description = "Roey Biran’s Personal Home Page",
   openGraphImage = "og.jpg",
 } = Astro.props;
 const name = "Roey Biran";
-const suffixedTitle = `${title} — ${name}`;
+const suffixedTitle = `${pageTitle} — ${name}`;
 ---
 
 <!doctype html>
@@ -51,7 +49,7 @@ const suffixedTitle = `${title} — ${name}`;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:type" content="website" />
     <meta
       property="og:image"
@@ -60,7 +58,7 @@ const suffixedTitle = `${title} — ${name}`;
     <meta property="og:url" content={Astro.url} />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:image:alt" content={pageTitle} />
 
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={name} />

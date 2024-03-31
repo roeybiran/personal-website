@@ -1,6 +1,6 @@
+import R404 from "@util/Response404";
 import type { APIRoute } from "astro";
 import { getEntry } from "astro:content";
-import R404 from "../../../util/Response404";
 
 export const prerender = false;
 

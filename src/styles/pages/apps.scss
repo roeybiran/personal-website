@@ -2,19 +2,13 @@
 
 .apps-page {
   padding: var(--bleed);
-
-  > * + * {
-    margin-block-start: var(--size-2);
-  }
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
 
   .cards {
     list-style: none;
-    --minimum: var(--size-content-3);
-    @include grid.grid;
-  }
-
-  .apps-page__header {
-    margin-block-start: var(--size-4);
-    font-size: var(--font-size-1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--bleed);
   }
 }

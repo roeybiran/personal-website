@@ -1,44 +1,37 @@
 @use "../layout/center";
 @use "../layout/stack";
 @use "../layout/reel";
+@use "../layout/grid";
 @use "../components/prose";
-@use "../components/app-nav";
-@use "../components/download-bar.scss";
-
-$gap: var(--size-8);
-
-.product-hunt-wrapper {
-  display: flex;
-  justify-content: center;
-}
 
 .app__above-fold {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.app__above-fold-images {
   display: grid;
-}
+  justify-items: center;
 
-.app__above-fold-images > * {
-  grid-area: 1/1;
+  > * {
+    grid-area: 1/1;
+  }
 }
 
 .app__icon-wrapper {
   justify-self: center;
   align-self: flex-end;
-  z-index: 1;
 }
 
 .app__icon {
-  margin-block-start: calc(-1 * var(--size-6));
-  max-inline-size: var(--size-12);
+  inline-size: clamp(var(--size-11), 25vw, var(--size-content-1));
+}
+
+.app__cover-wrapper {
+  inline-size: min(100%, var(--size-content-3));
 }
 
 .app__tagline {
   text-align: center;
+  max-inline-size: var(--size-header-1);
+  text-wrap: pretty;
+  line-height: var(--font-lineheight-1);
+  font-size: var(--font-size-fluid-3);
 }
 
 .app__technicals {
@@ -49,15 +42,6 @@ $gap: var(--size-8);
   text-align: center;
 }
 
-.app-cask {
-  overflow-x: auto;
-  min-inline-size: 0;
-  background-color: var(--ui-element-bg);
-  color: var(--text-2);
-  padding: var(--size-2);
-  border-radius: var(--radius-1);
-}
-
 .app__purchase-policy,
 .app__sys-reqs {
   display: block;
@@ -65,63 +49,87 @@ $gap: var(--size-8);
   color: var(--text-secondary);
 }
 
-.app__cover {
-  inline-size: 100%;
-  -webkit-mask: linear-gradient(to top, transparent 10%, black 25%);
-  mask: linear-gradient(to top, transparent 10%, black 25%);
-
-  margin-inline: auto;
-  inline-size: min(100%, var(--size-15));
-  object-fit: cover;
-  object-position: top;
+.app-reviews {
+  @include reel.reel;
+  --reel-item-size: var(--size-content-2);
 }
 
-.app__prose {
+.app-review {
+  padding: var(--bleed);
+  display: flex;
+  flex-direction: column;
+  background: var(--ui-element-bg);
+  border-radius: var(--card-radius);
+  position: relative;
+}
+
+.review__text::before,
+.review__text::after {
+  content: "“";
+  font-family: serif;
+}
+
+.review__text::after {
+  content: "”";
+}
+
+.review__rating {
+  // position: absolute;
+  color: var(--rating);
+  font-size: var(--font-size-3);
+}
+
+.review__cite {
+  margin-block-start: auto;
+  font-size: var(--font-size-0);
+  font-style: italic;
+}
+
+.app-content {
   @include prose.prose;
   @include prose.layout;
 
-  .intro p:first-child {
-    font-size: var(--font-size-3);
-  }
+  row-gap: var(--size-6);
 
-  .intro {
-    margin-block-end: $gap;
-  }
-
-  h3,
-  h2 {
-    margin-inline: auto;
-    text-align: center;
+  .intro > :first-child {
+    font-size: var(--font-size-fluid-1);
   }
 
   h2 {
-    text-transform: uppercase;
-    letter-spacing: var(--font-letterspacing-4);
-    font-size: var(--font-size-0);
+    display: none;
+  }
+
+  h3 {
+    font-size: var(--font-size-fluid-1);
+    font-weight: var(--bold);
   }
 }
 
-.remark-container.feat {
-  margin-block: var(--size-6);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
+.feature--recents {
+  margin-block-start: var(--bleed);
+  display: grid;
+  overflow: hidden;
 
-.remark-container.misc {
-  ul {
-    margin-block: $gap;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-1);
-    align-items: center;
-    font-size: var(--font-size-2);
-    text-align: center;
+  > * {
+    grid-area: 1/1;
+  }
+
+  > :nth-child(2) {
+    translate: 50%;
   }
 }
 
-.carousel {
-  @include reel.reel;
+.misc-features {
+  @include grid.grid;
+  --minimum: var(--size-content-1);
+
+  dt {
+    font-weight: var(--bold);
+  }
+
+  div {
+    background: var(--ui-element-bg);
+    padding: var(--bleed);
+    border-radius: var(--card-radius);
+  }
 }

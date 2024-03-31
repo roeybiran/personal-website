@@ -24,6 +24,15 @@ const apps = defineCollection({
           repoURL: z.string().url(),
         }),
       ]),
+      reviews: z.array(
+        z.object({
+          text: z.string(),
+          reviewer: z.string(),
+          rating: z.number().min(0).max(5).optional(),
+          link: z.string().url(),
+          platform: z.string(),
+        })
+      ).optional()
     }),
 });
 

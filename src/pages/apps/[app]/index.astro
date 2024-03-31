@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
-import AppPage from "../../../layouts/AppPage.astro";
-import DownloadBar from "../../../components/DownloadBar.astro";
+import AppLayout from "../../../layouts/AppLayout.astro";
 import type { CollectionEntry } from "astro:content";
+import fetchGumroadData from "@util/fetchGumroadData";
 
 export async function getStaticPaths() {
   const collection = await getCollection("apps");
@@ -19,26 +19,15 @@ const entry: CollectionEntry<"apps"> = Astro.props.entry;
 
 const {
   slug,
-  data: { title, tagline, icon, release },
+  data: { title, tagline, icon, release, reviews },
   render,
 } = entry;
 
 const { Content } = await render();
 
 let minimumSystemVersion: string | undefined;
-let formattedPrice: string | undefined;
-let purchaseURL: string | undefined;
 
 if (release.type === "indie") {
-  const {
-    product: { formatted_price, short_url },
-  } = await fetch(`https://api.gumroad.com/v2/products/${release.gumroadID}`, {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.GUMROAD_ACCESS_TOKEN}`,
-    },
-  }).then((v) => v.json());
-  purchaseURL = short_url;
-  formattedPrice = formatted_price;
   const appcast = await fetch(release.sparkleAppcastURL).then((v) => v.text());
   [, minimumSystemVersion] =
     appcast.match(
@@ -47,65 +36,47 @@ if (release.type === "indie") {
 }
 ---
 
-<AppPage
-  title={title}
-  appName={title}
-  description={tagline}
-  openGraphImage={`/${slug}/og.png`}
-  {slug}
->
+<AppLayout description={tagline} {slug}>
   <div class="app__above-fold">
-    <div class="app__above-fold-images">
-      {
-        release.type === "indie" && (
-          <figure class="app__cover-wrapper">
-            <Image
-              class="app__cover"
-              fetchpriority="high"
-              src={release.cover}
-              alt=""
-            />
-          </figure>
-        )
-      }
-      <figure class="app__icon-wrapper">
-        <Image
-          class="app__icon"
-          fetchpriority="high"
-          src={icon}
-          alt={`${title}’s app icon`}
-        />
-      </figure>
-    </div>
-    <p class="app__tagline h1">{tagline}</p>
-  </div>
-  <div class="app__technicals">
     {
-      formattedPrice && purchaseURL && (
-        <DownloadBar
-          purchase={{ price: formattedPrice, url: purchaseURL }}
-          downloadURL={`./${slug}/download`}
-        />
+      release.type === "indie" && (
+        <figure class="app__cover-wrapper">
+          <Image
+            class="app__cover"
+            fetchpriority="high"
+            src={release.cover}
+            alt=""
+          />
+        </figure>
       )
     }
-    <div>
-      {
-        release.type === "indie" && (
+    <figure class="app__icon-wrapper">
+      <Image
+        class="app__icon"
+        fetchpriority="high"
+        src={icon}
+        alt={`${title}’s app icon`}
+      />
+    </figure>
+  </div>
+  <p class="app__tagline h1"><b>{title}</b>. {tagline}</p>
+  <div class="app__technicals">
+    {
+      release.type === "indie" && (
+        <div>
           <small class="app__purchase-policy">{release.purchasePolicy}</small>
-        )
-      }
-      {
-        release.type === "indie" && minimumSystemVersion && (
-          <small class="app__sys-reqs">
-            Requires{" "}
-            <strong>
-              {release.platform} {minimumSystemVersion}
-            </strong>{" "}
-            or later.
-          </small>
-        )
-      }
-    </div>
+          {minimumSystemVersion && (
+            <small class="app__sys-reqs">
+              Requires{" "}
+              <strong>
+                {release.platform} {minimumSystemVersion}
+              </strong>{" "}
+              or later.
+            </small>
+          )}
+        </div>
+      )
+    }
     {
       release.type === "indie" && release.productHuntEmbed && (
         <div class="product-hunt-wrapper">
@@ -114,7 +85,29 @@ if (release.type === "indie") {
       )
     }
   </div>
-  <div class="app__prose">
+  {
+    reviews && (
+      <section class="app-reviews">
+        <header class="sr-only">
+          <h2>Reviews</h2>
+        </header>
+        {reviews.map(({ rating, text, link, reviewer, platform }) => (
+          <blockquote class="app-review">
+            {rating && (
+              <span class="review__rating">{Array(rating).fill("⭑")}</span>
+            )}
+            <p class="review__text">{text}</p>
+            <footer class="review__cite">
+              <a href={`${link}`}>
+                — {reviewer}, <cite>{platform}</cite>
+              </a>
+            </footer>
+          </blockquote>
+        ))}
+      </section>
+    )
+  }
+  <div class="app-content">
     <Content />
   </div>
-</AppPage>
+</AppLayout>

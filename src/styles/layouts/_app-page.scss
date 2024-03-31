@@ -1,6 +1,0 @@
-@use "../layout/stack";
-
-.app-page__root {
-  @include stack.stack;
-  padding: var(--bleed);
-}

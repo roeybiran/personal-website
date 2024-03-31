@@ -1,8 +1,7 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
-import AppPage from "../../../layouts/AppPage.astro";
-import "../../../styles/pages/release-notes.scss";
+import AppLayout from "@layouts/AppLayout.astro";
+import "@styles/pages/release-notes.scss";
 
 export async function getStaticPaths() {
   const collection = await getCollection("apps");
@@ -16,6 +15,7 @@ export async function getStaticPaths() {
           props: {
             slug: entry.slug,
             appcast: entry.data.release.sparkleAppcastURL,
+            icon: entry.data.icon,
             title: entry.data.title,
           },
         };
@@ -24,7 +24,7 @@ export async function getStaticPaths() {
     .filter(Boolean);
 }
 
-const { appcast, slug, title } = Astro.props;
+const { appcast, slug } = Astro.props;
 
 let html: string | undefined;
 const appcastResponse = await fetch(appcast).then((v) => v.text());
@@ -37,6 +37,6 @@ if (releaseNotesURL) {
 }
 ---
 
-<AppPage title={`${title}: Release Notes`} {slug} appName={title}>
+<AppLayout pageSuffix="Release Notes" {slug} >
   {html && <div class="content-release-notes" set:html={html} />}
-</AppPage>
+</AppLayout>
