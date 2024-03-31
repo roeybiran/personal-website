@@ -26,29 +26,25 @@ const { purchaseURL, price } =
 const openGraphImage = `/${slug}/og.png`;
 const hasLocalDownload = release.type === "indie" && release.sparkleAppcastURL;
 
+const home = { className: "app-nav-link", href: `/apps/${slug}`, label: title, icon };
 const links = [
-  { className: "app-nav-link", href: `/apps/${slug}`, label: title, icon },
-  hasLocalDownload
-    ? {
-        className: "buy-button",
-        href: `./${slug}/download`,
-        label: price ? "Try for Free" : "Download",
-      }
-    : {},
-  purchaseURL
-    ? {
-        className: "buy-button",
-        href: purchaseURL,
-        label:
-          "Buy " +
-          (price ? `<span class="buy-button__price">${price}</span>` : ""),
-      }
-    : {},
+
   { className: "app-nav-link", href: `/apps/${slug}/help`, label: "Help" },
   {
     className: "app-nav-link",
     href: `/apps/${slug}/release-notes`,
     label: "Release Notes",
+  },
+  {
+    className: "buy-button",
+    href: hasLocalDownload && `./${slug}/download`,
+    label: price ? "Try for Free" : "Download",
+  },
+  {
+    className: "buy-button",
+    href: purchaseURL,
+    label:
+      "Buy " + (price ? `<span class="buy-button__price">${price}</span>` : ""),
   },
 ];
 ---
@@ -59,14 +55,21 @@ const links = [
   openGraphImage={openGraphImage}
 >
   <nav class="app-nav">
-    {
-      links.map(({ label, href, className, icon }, i) => (
-        <a class={className} href={href}>
-          {icon && <Image class="app-nav__icon" src={icon} alt="" />}
-          <span set:html={label} />
-        </a>
-      ))
-    }
+    <a class={home.className} href={home.href}>
+      <Image class="app-nav__icon" src={icon} alt="" />
+      <span set:html={home.label} />
+    </a>
+    <span>
+      {
+        links
+          .filter(({ href }) => Boolean(href))
+          .map(({ label, href, className }, i) => (
+            <a class={className} href={String(href)}>
+              <span set:html={label} />
+            </a>
+          ))
+      }
+    </span>
   </nav>
   <div class="layout-app">
     <slot />
