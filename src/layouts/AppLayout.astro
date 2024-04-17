@@ -4,6 +4,7 @@ import "@styles/layouts/_app-layout.scss";
 import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 import fetchGumroadData from "@util/fetchGumroadData";
+import chevronDown from "@assets/chevron-down.svg";
 
 interface Props extends Omit<RootProps, "openGraphImage" | "pageTitle"> {
   slug: string;
@@ -26,19 +27,26 @@ const { purchaseURL, price } =
 const openGraphImage = `/${slug}/og.png`;
 const hasLocalDownload = release.type === "indie" && release.sparkleAppcastURL;
 
-const home = { className: "app-nav-link", href: `/apps/${slug}`, label: title, icon };
-const links = [
-
+const home = {
+  className: "app-nav-link app-nav-link--home",
+  href: `/apps/${slug}`,
+  label: title,
+  icon,
+};
+const helpLinks = [
   { className: "app-nav-link", href: `/apps/${slug}/help`, label: "Help" },
   {
     className: "app-nav-link",
     href: `/apps/${slug}/release-notes`,
     label: "Release Notes",
   },
+];
+
+const downloadLinks = [
   {
     className: "buy-button",
     href: hasLocalDownload && `./${slug}/download`,
-    label: price ? "Try for Free" : "Download",
+    label: price ? "Try Now" : "Download",
   },
   {
     className: "buy-button",
@@ -54,14 +62,28 @@ const links = [
   pageTitle={pageSuffix ? `${title}: ${pageSuffix}` : title}
   openGraphImage={openGraphImage}
 >
-  <nav class="app-nav">
-    <a class={home.className} href={home.href}>
-      <Image class="app-nav__icon" src={icon} alt="" />
-      <span set:html={home.label} />
-    </a>
-    <span>
+  <nav id="app-nav" class="app-nav">
+    <span class="app-nav__section app-nav__section--home">
+      <a class={home.className} href={home.href}>{home.label}</a>
+    </span>
+    <button id="app-nav__menu-button" class="app-nav__menu-button">
+      <Image src={chevronDown} alt=""/>
+    </button>
+    <span class="app-nav__section app-nav__section--help">
       {
-        links
+        helpLinks
+          .filter(({ href }) => Boolean(href))
+          .map(({ label, href, className }, i) => (
+            <a class={className} href={String(href)}>
+              <span set:html={label} />
+            </a>
+          ))
+      }
+
+    </span>
+    <span class="app-nav__section app-nav__section--buy">
+      {
+        downloadLinks
           .filter(({ href }) => Boolean(href))
           .map(({ label, href, className }, i) => (
             <a class={className} href={String(href)}>
@@ -74,4 +96,15 @@ const links = [
   <div class="layout-app">
     <slot />
   </div>
+  <script>
+    const el = document.getElementById('app-nav');
+    if (el) {
+      el.dataset.js = ''
+    }
+    const btn = document.getElementById('app-nav__menu-button') as HTMLButtonElement
+    btn.ariaExpanded = "false"
+    btn.addEventListener('click', (e) => {
+      btn.ariaExpanded = btn.ariaExpanded === "true" ? "false" : "true";
+    })
+  </script>
 </Root>

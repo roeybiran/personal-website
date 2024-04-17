@@ -10,7 +10,7 @@ release:
   releaseDate: 2022-11-12
   platform: macOS
   cask: finbar
-  purchasePolicy: One time purchase, no in–app purchases. Valid for 2 Macs.
+  purchasePolicy: "One time purchase, no in–app purchases. Valid for 2 Macs."
 reviews:
   [
     {
