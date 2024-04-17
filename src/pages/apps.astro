@@ -1,10 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import Page from "../layouts/Page.astro";
-import AppCard from "../components/AppCard.astro";
-import type { Props } from "../components/AppCard.astro";
-import "../styles/pages/apps.scss";
-import genericAppIcon from "../assets/generic-app-icon.png";
+import Page from "@layouts/Page.astro";
+import AppCard from "@components/AppCard.astro";
+import type { Props } from "@components/AppCard.astro";
+import "@styles/pages/apps.scss";
+import genericAppIcon from "@assets/generic-app-icon.png";
 
 const posts = await getCollection("apps");
 

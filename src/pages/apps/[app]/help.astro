@@ -1,10 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import AppLayout from "../../../layouts/AppLayout.astro";
-import { getEntry } from "astro:content";
-import "../../../styles/pages/help.scss";
-import fetchGumroadData from "@util/fetchGumroadData";
+import AppLayout from "@layouts/AppLayout.astro";
+import "@styles/pages/help.scss";
 
 export async function getStaticPaths() {
   const collection = await getCollection("help");
@@ -24,10 +22,9 @@ const {
 } = entry;
 
 const pageSuffix = "Help";
-
 ---
 
-<AppLayout {pageSuffix} {slug} >
+<AppLayout {pageSuffix} {slug}>
   <div class="content-help">
     <h1>{pageSuffix}</h1>
     <Content />
