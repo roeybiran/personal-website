@@ -4,7 +4,7 @@ import "@styles/layouts/_app-layout.scss";
 import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 import fetchGumroadData from "@util/fetchGumroadData";
-import chevronDown from "@assets/chevron-down.svg";
+import chevronDown from "@assets/chevron-down.svg?raw";
 
 interface Props extends Omit<RootProps, "openGraphImage" | "pageTitle"> {
   slug: string;
@@ -67,7 +67,7 @@ const downloadLinks = [
       <a class={home.className} href={home.href}>{home.label}</a>
     </span>
     <button id="app-nav__menu-button" class="app-nav__menu-button">
-      <Image src={chevronDown} alt=""/>
+      <Fragment set:html={chevronDown} />
     </button>
     <span class="app-nav__section app-nav__section--help">
       {
