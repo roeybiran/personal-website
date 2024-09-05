@@ -8,15 +8,14 @@ export const GET: APIRoute = async ({ params: { app: slug } }) => {
   if (!slug) return R404;
 
   const entry = await getEntry("apps", slug);
-
   if (!entry) return R404;
 
-  if (entry.data.release.type === "indie") {
-    const response = await fetch(entry.data.release.sparkleAppcastURL).then(
-      (r) => r.text()
-    );
-    const [, downloadURL] = response.match(/<enclosure url="(.+?)"/) ?? [];
+  const response = await fetch(entry.data.sparkleAppcastURL).then((r) =>
+    r.text()
+  );
+  const [, downloadURL] = response.match(/<enclosure url="(.+?)"/) ?? [];
 
+  try {
     const url = new URL(downloadURL);
     const extension = url.pathname
       .split("/")
@@ -25,10 +24,10 @@ export const GET: APIRoute = async ({ params: { app: slug } }) => {
       ?.split(".")
       .slice(-1)
       .at(0);
-
     if (!extension) return R404;
 
     const file = await fetch(url).then((v) => v.blob());
+
     return new Response(file, {
       status: 200,
       headers: {
@@ -36,8 +35,7 @@ export const GET: APIRoute = async ({ params: { app: slug } }) => {
         "Content-Disposition": `attachment; filename="${entry.data.title}.${extension}"`,
       },
     });
-
-  } else {
+  } catch (error) {
     return R404;
   }
 };

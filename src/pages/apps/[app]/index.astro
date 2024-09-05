@@ -3,89 +3,83 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import AppLayout from "@layouts/AppLayout.astro";
 import type { CollectionEntry } from "astro:content";
+import bg from './bg.jpg'
 
 export async function getStaticPaths() {
-  const collection = await getCollection("apps");
-  return collection
-    .filter((entry) => entry.data.release.type === "indie")
-    .map((entry) => ({
-      params: { app: entry.slug },
-      props: { entry },
-    }));
+  const collection = await getCollection("apps")
+  return collection.map((entry) => ({
+    params: { app: entry.slug },
+    props: { entry },
+  }));
 }
 
 const entry: CollectionEntry<"apps"> = Astro.props.entry;
 
 const {
   slug,
-  data: { title, tagline, icon, release, reviews },
+  data: {
+    title,
+    tagline,
+    icon,
+    reviews,
+    sparkleAppcastURL,
+    cover,
+    purchasePolicy,
+    platform,
+  },
   render,
 } = entry;
 
 const { Content } = await render();
 
-let minimumSystemVersion: string | undefined;
-
-if (release.type === "indie") {
-  const appcast = await fetch(release.sparkleAppcastURL).then((v) => v.text());
-  [, minimumSystemVersion] =
-    appcast.match(
-      /<sparkle:minimumSystemVersion>(.+?)<\/sparkle:minimumSystemVersion>/
-    ) ?? [];
-}
+const appcast = await fetch(sparkleAppcastURL).then((v) => v.text());
+const [, minimumSystemVersion] =
+  appcast.match(
+    /<sparkle:minimumSystemVersion>(.+?)<\/sparkle:minimumSystemVersion>/
+  ) ?? [];
 ---
 
 <AppLayout description={tagline} {slug}>
+
   <div class="app__above-fold">
-    {
-      release.type === "indie" && (
-        <figure class="app__cover-wrapper">
-          <Image
-            class="app__cover"
-            fetchpriority="high"
-            src={release.cover}
-            alt=""
-          />
-        </figure>
-      )
-    }
-    <figure class="app__icon-wrapper">
-      <Image
-        class="app__icon"
-        fetchpriority="high"
-        src={icon}
-        alt={`${title}’s app icon`}
-      />
+    <!-- <figure class="app__cover-bg">
+      <Image src={bg} alt=""/>
+    </figure> -->
+
+    <figure class="app__cover-wrapper">
+      <Image class="app__cover" fetchpriority="high" src={cover} alt="" />
     </figure>
+
   </div>
+  <figure class="app__icon-wrapper">
+    <Image
+      class="app__icon"
+      fetchpriority="high"
+      src={icon}
+      alt={`${title}’s app icon`}
+    />
+  </figure>
+
   <p class="app__tagline h1"><b>{title}</b>. {tagline}</p>
   <div class="app__technicals">
-    {
-      release.type === "indie" && (
-        <div>
-          <small class="app__purchase-policy">{release.purchasePolicy}</small>
-          {minimumSystemVersion && (
-            <small class="app__sys-reqs">
-              Requires{" "}
-              <strong>
-                {release.platform} {minimumSystemVersion}
-              </strong>{" "}
-              or later.
-            </small>
-          )}
-        </div>
-      )
-    }
-    {
-      release.type === "indie" && release.productHuntEmbed && (
-        <div class="product-hunt-wrapper">
-          <Fragment set:html={release.productHuntEmbed} />
-        </div>
-      )
-    }
+    <div>
+      <small class="app__purchase-policy">{purchasePolicy}</small>
+      {
+        minimumSystemVersion && (
+          <small class="app__sys-reqs">
+            Requires{" "}
+            <strong>
+              {platform} {minimumSystemVersion}
+            </strong>{" "}
+            or later.
+          </small>
+        )
+      }
+    </div>
   </div>
+
   {
-    reviews && (
+    reviews.length > 0 && (
       <section class="app-reviews">
         <header class="sr-only">
           <h2>Reviews</h2>

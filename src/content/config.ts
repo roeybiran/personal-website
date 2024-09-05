@@ -7,23 +7,12 @@ const apps = defineCollection({
       title: z.string(),
       tagline: z.string(),
       icon: image(),
-      release: z.discriminatedUnion("type", [
-        z.object({
-          type: z.literal("indie"),
-          cover: image(),
-          releaseDate: z.date(),
-          gumroadID: z.string(),
-          sparkleAppcastURL: z.string().url(),
-          purchasePolicy: z.string().optional(),
-          platform: z.literal("macOS"),
-          productHuntEmbed: z.string().optional(),
-          cask: z.string().optional(),
-        }),
-        z.object({
-          type: z.literal("github"),
-          repoURL: z.string().url(),
-        }),
-      ]),
+      cover: image(),
+      releaseDate: z.date(),
+      gumroadID: z.string(),
+      sparkleAppcastURL: z.string().url(),
+      purchasePolicy: z.string(),
+      platform: z.literal("macOS"),
       reviews: z.array(
         z.object({
           text: z.string(),
@@ -32,9 +21,19 @@ const apps = defineCollection({
           link: z.string().url(),
           platform: z.string(),
         })
-      ).optional()
+      )
     }),
 });
+
+const openSourceApps = defineCollection({
+  type: 'content',
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    tagline: z.string(),
+    icon: image(),
+    repoURL: z.string().url(),
+  })
+})
 
 const projects = defineCollection({
   type: "content",
@@ -86,6 +85,7 @@ const help = defineCollection({
 
 export const collections = {
   apps,
+  openSourceApps,
   projects,
   help,
 };

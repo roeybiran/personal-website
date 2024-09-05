@@ -2,13 +2,4 @@
 
 .apps-page {
   padding: var(--bleed);
-  max-inline-size: var(--size-content-3);
-  margin-inline: auto;
-
-  .cards {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--bleed);
-  }
 }

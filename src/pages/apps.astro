@@ -4,45 +4,35 @@ import Page from "@layouts/Page.astro";
 import AppCard from "@components/AppCard.astro";
 import type { Props } from "@components/AppCard.astro";
 import "@styles/pages/apps.scss";
-import genericAppIcon from "@assets/generic-app-icon.png";
+import "@styles/components/_app-grid.scss";
+import getSortedApps from "@util/getSortedApps";
 
-const posts = await getCollection("apps");
+const apps = await getSortedApps();
 
-type CardProps = Props & {
-  isMisc: boolean;
-};
-
-const cards: CardProps[] = posts.map(({ data, slug }) => {
-  const card = {
+const githubApps = (await getCollection("openSourceApps"))
+  .map(({ data, slug }) => ({
     title: data.title,
     icon: data.icon,
     subtitle: data.tagline,
     iconAlt: data.title,
-    slug: data.release.type === "indie" ? `./apps/${slug}` : data.release.repoURL,
-    isMisc: data.release.type === "github",
-  };
-  return card;
-});
-
-const firstMisc = cards.findIndex(({ isMisc }) => isMisc);
-if (-1 < firstMisc) {
-  cards.splice(firstMisc, 0, {
-    title: "Untitled macOS App",
-    subtitle: "Coming Summer 2024",
-    icon: genericAppIcon,
-    iconAlt: "",
-    isMisc: false,
-  });
-}
+    slug: data.repoURL,
+  }));
 ---
 
 <Page pageTitle="Apps">
   <div class="apps-page">
-    <ul class="cards">
+    <ul class="app-grid">
       {
-        cards.map(({ isMisc, ...card }) => (
-          <li class={`cards__list-item ${isMisc ? "cards__list-item--small" : ""}`}>
-            <AppCard small={isMisc} {...card} />
+        apps.map((card) => (
+          <li class="cards__list-item">
+            <AppCard {...card} />
+          </li>
+        ))
+      }
+      {
+        githubApps.map((card) => (
+          <li class="cards__list-item cards__list-item--small">
+            <AppCard small {...card} />
           </li>
         ))
       }

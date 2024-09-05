@@ -1,12 +1,4 @@
 @mixin prose {
-  // defaults margins
-
-  // > * + * {
-  //   margin-block-start: var(--size-3);
-  // }
-
-  // general
-
   p + p {
     margin-block-start: var(--size-3);
   }
@@ -46,7 +38,7 @@
   }
 
   :where(h1, h2, h3, h4, h5, h6) + * {
-    margin-block-start: var(--size-1);
+    margin-block-start: var(--size-2);
   }
 
   :not(h1, h2, h3, h4, h5, h6) + :where(h1, h2, h3, h4, h5, h6) {

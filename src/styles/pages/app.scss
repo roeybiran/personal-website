@@ -5,25 +5,18 @@
 @use "../components/prose";
 
 .app__above-fold {
-  display: grid;
-  justify-items: center;
-
-  > * {
-    grid-area: 1/1;
+  figure {
+    max-block-size: 100%;
   }
-}
 
-.app__icon-wrapper {
-  justify-self: center;
-  align-self: flex-end;
+  img {
+    max-block-size: 75vh;
+    object-fit: contain;
+  }
 }
 
 .app__icon {
   inline-size: clamp(var(--size-11), 25vw, var(--size-content-1));
-}
-
-.app__cover-wrapper {
-  inline-size: min(100%, var(--size-content-3));
 }
 
 .app__tagline {
@@ -88,10 +81,29 @@
   @include prose.prose;
   @include prose.layout;
 
-  row-gap: var(--size-6);
+  max-inline-size: var(--size-content-3);
 
-  .intro > :first-child {
-    font-size: var(--font-size-fluid-1);
+  img {
+    border-radius: 4px;
+  }
+  section {
+    margin-block-start: var(--bleed);
+    margin-block-start: var(--size-8);
+  }
+
+  p + * {
+    margin-block-start: var(--bleed);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--bleed);
+  }
+
+  > p:first-child {
+    font-size: var(--font-size-4);
+    line-height: var(--font-lineheight-3);
   }
 
   h2 {
@@ -104,7 +116,7 @@
   }
 }
 
-.feature--recents {
+.feature__recents {
   margin-block-start: var(--bleed);
   display: grid;
   overflow: hidden;
@@ -118,17 +130,27 @@
   }
 }
 
-.misc-features {
-  @include grid.grid;
-  --minimum: var(--size-content-1);
+#even-more {
+  display: block;
+  font-size: var(--font-size-fluid-1);
+  font-weight: var(--bold);
+  text-align: center;
+  margin-inline: auto;
+}
+#even-more ~ section {
+  margin-block-start: var(--bleed);
+  background: var(--ui-element-bg);
+  padding: var(--bleed);
+  border-radius: var(--card-radius);
 
-  dt {
-    font-weight: var(--bold);
+  h3 {
+    font-size: var(--font-size-1);
   }
+}
 
-  div {
-    background: var(--ui-element-bg);
-    padding: var(--bleed);
-    border-radius: var(--card-radius);
-  }
+.footnotes {
+  border-block-start: var(--border);
+  padding-block-end: var(--bleed);
+  font-size: var(--font-size-0);
+  color: var(--text-secondary);
 }

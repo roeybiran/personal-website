@@ -1,0 +1,21 @@
+.app-grid {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--bleed);
+
+  .cards__list-item:not(.cards__list-item--small) {
+    flex-grow: 1;
+    flex-basis: var(--size-content-3);
+  }
+
+  .cards__list-item--small {
+    flex-basis: 100%;
+  }
+
+  .cards__list-item--small > * {
+    max-inline-size: var(--size-content-3);
+    margin-inline: auto;
+  }
+}

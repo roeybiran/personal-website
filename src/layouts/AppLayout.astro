@@ -1,7 +1,6 @@
 ---
 import Root, { type Props as RootProps } from "./Root.astro";
 import "@styles/layouts/_app-layout.scss";
-import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 import fetchGumroadData from "@util/fetchGumroadData";
 import chevronDown from "@assets/chevron-down.svg?raw";
@@ -18,14 +17,12 @@ const entry = await getEntry("apps", slug);
 if (!entry) throw new Error();
 
 const {
-  data: { title, icon, release },
+  data: { title, icon, gumroadID },
 } = entry;
-const { purchaseURL, price } =
-  release.type === "indie"
-    ? await fetchGumroadData(release.gumroadID)
-    : { purchaseURL: undefined, price: undefined };
+
+const { purchaseURL, price } = await fetchGumroadData(gumroadID)
+
 const openGraphImage = `/${slug}/og.png`;
-const hasLocalDownload = release.type === "indie" && release.sparkleAppcastURL;
 
 const home = {
   className: "app-nav-link app-nav-link--home",
@@ -33,6 +30,7 @@ const home = {
   label: title,
   icon,
 };
+
 const helpLinks = [
   { className: "app-nav-link", href: `/apps/${slug}/help`, label: "Help" },
   {
@@ -45,7 +43,7 @@ const helpLinks = [
 const downloadLinks = [
   {
     className: "buy-button",
-    href: hasLocalDownload && `./${slug}/download`,
+    href: `./${slug}/download`,
     label: price ? "Try Now" : "Download",
   },
   {
