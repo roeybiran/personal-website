@@ -27,10 +27,7 @@ Simply start typing to enter Syphon’s search mode, which lists all running app
 
 Keep your the most important stuff front and center by optionally putting hidden apps and minimized windows in distinct sections.
 
-::: gallery
-![hidden apps](./assets/hidden-1.png)
-![minimized windows](./assets/hidden-2.png)
-:::
+![organization](./assets/organization.png)
 
 ### Window Switching
 
@@ -52,7 +49,7 @@ Quit, hide or unhide apps; close, minimize or un–minimize windows — all thro
 
 <video width="3456" height="2160" src="/syphon/videos/actions.mp4" poster="/syphon/videos/actions.jpg" autoplay loop muted playsinline ></video>
 
-### 1–Keystroke Activation
+### One Keystroke Activation
 
 While in Syphon’s search mode, simply hold the last key you pressed to instantly select the top search result. Surely among the fastest ways to switch to an app or window on the Mac!
 
