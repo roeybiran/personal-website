@@ -36,16 +36,12 @@
   transform: rotate(180deg);
 }
 
-.app-nav__menu-button[aria-expanded="true"] + .app-nav__section--help {
-  display: flex !important;
-}
-
 @media (max-width: 767px) {
   .app-nav[data-js] {
     gap: 0;
     display: grid;
     grid-template-areas:
-      "home button buy"
+      "home dropdown-button buy"
       "help help help";
     grid-template-columns: 1fr auto auto;
   }
@@ -55,24 +51,43 @@
   }
 
   .app-nav[data-js] .app-nav__menu-button {
-    grid-area: button;
+    grid-area: dropdown-button;
   }
 
   .app-nav[data-js] .app-nav__section--buy {
     grid-area: buy;
   }
 
+  .app-nav[data-js] .app-nav__menu-button {
+    display: block;
+  }
+
   .app-nav[data-js] .app-nav__section--help {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    translate: 0 -100%;
+    transition: 0.3s ease;
+
+    background: var(--app-bg);
+    inset-block-start: 0;
+    inset-inline: 0;
+    position: absolute;
     margin-block-start: var(--bleed);
+    border: var(--border);
     grid-area: help;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--size-1);
+    padding: var(--size-2);
+    border-radius: var(--radius-1);
   }
 
-  .app-nav[data-js] .app-nav__menu-button {
-    display: block;
+  .app-nav[data-js]
+    .app-nav__menu-button[aria-expanded="true"]
+    + .app-nav__section--help {
+    translate: 0;
+    pointer-events: unset;
+    opacity: 1;
   }
 
   .app-nav[data-js] .app-nav__section--help .app-nav-link {

@@ -71,7 +71,7 @@ const downloadLinks = [
       {
         helpLinks
           .filter(({ href }) => Boolean(href))
-          .map(({ label, href, className }, i) => (
+          .map(({ label, href, className }) => (
             <a class={className} href={String(href)}>
               <span set:html={label} />
             </a>
