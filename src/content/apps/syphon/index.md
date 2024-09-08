@@ -37,8 +37,6 @@ Use a dedicated hotkey to list the windows of the frontmost app or perform a fuz
 
 ### App Launcher
 
-Ever had to open the Mac’s app switcher to activate an app, only to annoyingly discover that app isn’t even running? Thought so. For this exact reason, Syphon searches for installed apps as well as running apps. Selecting a non–running app launches it, so you could stay in the flow.
-
 Ever opened the Mac’s app switcher to activate an app, only to realize it’s not running? Syphon solves this by searching both installed and running apps. Selecting a non–running app it will launch it, allowing you to stay in the flow.
 
 ![installed apps](./assets/installed-apps.png)
