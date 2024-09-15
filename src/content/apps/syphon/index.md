@@ -11,9 +11,9 @@ purchasePolicy: Requires macOS 12.4 or later; One time purchase, no in–app pur
 reviews: []
 ---
 
-**Syphon** is an opinionated application switcher engineered for simplicity and efficiency. Simply pop up the panel, type a few keystrokes (ideally just one), activate the app you need, and get back to work. If this workflow resonates with you, you’ll probably find Syphon useful.
+**Syphon** is an opinionated application switcher engineered for simplicity and efficiency. Simply pop up the panel, type a few characters (ideally just one), activate the app you need, and get back to work. If this workflow resonates with you, you’ll probably find Syphon useful.
 
-The design philisophy is straightforward: on the surface, Syphon maintains a similar look–and–feel to the Mac’s built–in app switcher, but allows you to gradually unsheathe its powers and have control over the interplay between the familiar and the advanced. You decide whether the search field is always shown or only while typing and whether hidden apps are placed in their own section; you can even decide whether you want Syphon to function purely as a window switcher, app switcher, or both.
+The design philisophy is straightforward: on the surface, Syphon maintains a similar look–and–feel to the Mac’s built–in app switcher, but allows you to gradually unsheathe its powers and have control over the interplay between the familiar and the advanced. You decide whether the search field is always shown, or only while typing. You decide whether hidden apps are placed in their own section; and whether Syphon will serve purely as a window switcher, app switcher, or both.
 
 ## Features
 
