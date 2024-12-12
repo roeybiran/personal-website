@@ -1,0 +1,172 @@
+/*
+Theme Name: Roey Biran’s Theme
+*/
+
+@import url(./vendor/open-props@1.7.7/open-props.min.css);
+
+@import url(./assets/css/reset.css);
+@import url(./assets/css/util/sr-only.css);
+@import url(./assets/css/util/center.css);
+@import url(./assets/css/util/cluster.css);
+@import url(./assets/css/util/grid.css);
+@import url(./assets/css/util/reel.css);
+@import url(./assets/css/util/stack.css);
+@import url(./assets/css/util/card.css);
+@import url(./assets/css/util/prose.css);
+
+@import url(./assets/css/util/card-app.css);
+@import url(./assets/css/util/grid-app.css);
+@import url(./assets/css/util/card-project.css);
+
+/* @import url(./assets/css/reset.css); */
+@import url(./assets/css/theme.css);
+@import url(./assets/css/footer.css);
+@import url(./assets/css/header.css);
+
+@import url(./assets/css/pages/app.css);
+@import url(./assets/css/pages/projects.css);
+@import url(./assets/css/pages/page-help.css);
+@import url(./assets/css/pages/page-404.css);
+
+.page__title {
+  padding: var(--size-2) var(--bleed);
+  border-block-end: var(--border);
+}
+
+.page-home {
+  padding: var(--bleed);
+}
+
+.page-home {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bleed);
+  align-items: center;
+}
+
+.page-home__intro {
+  max-inline-size: var(--size-content-3);
+}
+
+:root {
+  scroll-behavior: smooth;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--app-bg);
+  line-height: var(--font-lineheight-3);
+}
+
+:root,
+html,
+body {
+  block-size: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.site-main {
+  /* align-self: center; */
+}
+
+a {
+  color: var(--link);
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.card a {
+  color: var(--text-primary);
+}
+
+.card a:visited {
+  color: var(--text-primary);
+}
+
+.card a:hover {
+  text-decoration: none;
+}
+
+.header,
+.footer {
+  color: var(--text-secondary);
+  font-size: var(--font-size-0);
+}
+
+body > header {
+  border-block-end: var(--border);
+  padding-block: var(--bleed);
+}
+
+body > footer {
+  padding-block: var(--bleed);
+  border-block-start: var(--border);
+}
+
+kbd {
+  border: var(--border);
+  padding: var(--size-1);
+  border-radius: var(--radius-2);
+  background: var(--ui-bg);
+  font-size: var(--font-size-0);
+}
+
+.astro-code {
+  padding: var(--size-2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: var(--font-lineheight-1);
+}
+
+.body {
+  max-inline-size: var(--content-size-3);
+  font-size: var(--font-size-1);
+  line-height: var(--font-lineheight-1);
+}
+
+h1,
+.h1 {
+  line-height: var(--font-lineheight-1);
+  font-size: var(--font-size-6);
+  max-inline-size: var(--size-header-1);
+  text-wrap: pretty;
+}
+
+h2 {
+  font-size: var(--font-size-4);
+  max-inline-size: var(--size-header-2);
+}
+
+h3 {
+  font-size: var(--font-size-4);
+}
+
+h3,
+h4,
+h5,
+h6,
+dt {
+  max-inline-size: var(--size-header-3);
+}
+
+.page-content {
+  padding: var(--bleed);
+}
+
+p {
+  text-wrap: pretty;
+}

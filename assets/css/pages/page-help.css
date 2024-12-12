@@ -1,0 +1,19 @@
+.content-help {
+  #table-of-contents {
+    margin: 0 0 var(--size-2) 0;
+    font-size: var(--font-size-1);
+  }
+
+  #table-of-contents + ul,
+  #table-of-contents + ul ul {
+    margin: 0;
+  }
+
+  #table-of-contents + ul a {
+    text-decoration: none;
+  }
+
+  #table-of-contents + ul a:visited {
+    color: var(--link);
+  }
+}

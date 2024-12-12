@@ -1,6 +1,0 @@
-@use "../components/prose";
-
-.content-release-notes {
-  @include prose.prose;
-  @include prose.layout;
-}

@@ -1,0 +1,51 @@
+/* 1. Use a more-intuitive box-sizing model */
+
+:where(*, *::before, *::after) {
+  /* all: unset;
+  display: revert; */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+:where(strong, b) {
+  font-weight: bold;
+}
+
+:where(body) {
+  /* 3. Add accessible line-height */
+  line-height: 1.5;
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 5. Improve media defaults */
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+/* 6. Inherit fonts for form controls */
+:where(input, button, textarea, select) {
+  font: inherit;
+}
+
+/* 7. Avoid text overflows */
+:where(*) {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+:where(p) {
+  text-wrap: pretty;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+}
+
+:where(code) {
+  font-family: monospace;
+}

@@ -1,0 +1,222 @@
+/*
+1 => App background
+2 => Subtle background
+3 => UI element background
+4 => Hovered UI element background
+5 => Active / Selected UI element background
+6 => Subtle borders and separators
+7 => UI element border and focus rings
+8 => Hovered UI element border
+9 => Solid backgrounds
+10 => Hovered solid backgrounds
+11 => Low-contrast text
+12 => High-contrast text
+*/
+
+:root {
+  --gray-1: #fcfcfc;
+  --gray-2: #f9f9f9;
+  --gray-3: #f0f0f0;
+  --gray-4: #e8e8e8;
+  --gray-5: #e0e0e0;
+  --gray-6: #d9d9d9;
+  --gray-7: #cecece;
+  --gray-8: #bbbbbb;
+  --gray-9: #8d8d8d;
+  --gray-10: #838383;
+  --gray-11: #646464;
+  --gray-12: #202020;
+
+  --gray-a1: #00000003;
+  --gray-a2: #00000006;
+  --gray-a3: #0000000f;
+  --gray-a4: #00000017;
+  --gray-a5: #0000001f;
+  --gray-a6: #00000026;
+  --gray-a7: #00000031;
+  --gray-a8: #00000044;
+  --gray-a9: #00000072;
+  --gray-a10: #0000007c;
+  --gray-a11: #0000009b;
+  --gray-a12: #000000df;
+
+  --blue-1: #fbfdff;
+  --blue-2: #f4faff;
+  --blue-3: #e6f4fe;
+  --blue-4: #d5efff;
+  --blue-5: #c2e5ff;
+  --blue-6: #acd8fc;
+  --blue-7: #8ec8f6;
+  --blue-8: #5eb1ef;
+  --blue-9: #0090ff;
+  --blue-10: #0588f0;
+  --blue-11: #0d74ce;
+  --blue-12: #113264;
+
+  --plum-1: #fefcff;
+  --plum-2: #fdf7fd;
+  --plum-3: #fbebfb;
+  --plum-4: #f7def8;
+  --plum-5: #f2d1f3;
+  --plum-6: #e9c2ec;
+  --plum-7: #deade3;
+  --plum-8: #cf91d8;
+  --plum-9: #ab4aba;
+  --plum-10: #a144af;
+  --plum-11: #953ea3;
+  --plum-12: #53195d;
+
+  --yellow-1: #fdfdf9;
+  --yellow-2: #fefce9;
+  --yellow-3: #fffab8;
+  --yellow-4: #fff394;
+  --yellow-5: #ffe770;
+  --yellow-6: #f3d768;
+  --yellow-7: #e4c767;
+  --yellow-8: #d5ae39;
+  --yellow-9: #ffe629;
+  --yellow-10: #ffdc00;
+  --yellow-11: #9e6c00;
+  --yellow-12: #473b1f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gray-1: #111111;
+    --gray-2: #191919;
+    --gray-3: #222222;
+    --gray-4: #2a2a2a;
+    --gray-5: #313131;
+    --gray-6: #3a3a3a;
+    --gray-6: #3a3a3a;
+    --gray-7: #484848;
+    --gray-8: #606060;
+    --gray-9: #6e6e6e;
+    --gray-10: #7b7b7b;
+    --gray-11: #b4b4b4;
+    --gray-12: #eeeeee;
+
+    --gray-a1: #00000000;
+    --gray-a2: #ffffff09;
+    --gray-a3: #ffffff12;
+    --gray-a4: #ffffff1b;
+    --gray-a5: #ffffff22;
+    --gray-a6: #ffffff2c;
+    --gray-a7: #ffffff3b;
+    --gray-a8: #ffffff55;
+    --gray-a9: #ffffff64;
+    --gray-a10: #ffffff72;
+    --gray-a11: #ffffffaf;
+    --gray-a12: #ffffffed;
+
+    --blue-1: #0d1520;
+    --blue-2: #111927;
+    --blue-3: #0d2847;
+    --blue-4: #003362;
+    --blue-5: #004074;
+    --blue-6: #104d87;
+    --blue-7: #205d9e;
+    --blue-8: #2870bd;
+    --blue-9: #0090ff;
+    --blue-10: #3b9eff;
+    --blue-11: #70b8ff;
+    --blue-12: #c2e6ff;
+
+    --yellow-1: #14120b;
+    --yellow-2: #1b180f;
+    --yellow-3: #2d2305;
+    --yellow-4: #362b00;
+    --yellow-5: #433500;
+    --yellow-6: #524202;
+    --yellow-7: #665417;
+    --yellow-8: #836a21;
+    --yellow-9: #ffe629;
+    --yellow-10: #ffff57;
+    --yellow-11: #f5e147;
+    --yellow-12: #f6eeb4;
+
+    --plum-1: #181118;
+    --plum-2: #201320;
+    --plum-3: #351a35;
+    --plum-4: #451d47;
+    --plum-5: #512454;
+    --plum-6: #5e3061;
+    --plum-7: #734079;
+    --plum-8: #92549c;
+    --plum-9: #ab4aba;
+    --plum-10: #b658c4;
+    --plum-11: #e796f3;
+    --plum-12: #f4d4f4;
+  }
+}
+
+/* UI */
+
+:root {
+  /* static */
+  --apl-blue: #0071e3;
+  --apl-blue-hover: #147ce5;
+
+  --app-bg: var(--gray-1);
+  --ui-bg: var(--gray-3);
+  --ui-bg-alpha: var(--gray-a3);
+
+  --ui-bg-hover: var(--gray-4);
+  --ui-bg-hover-alpha: var(--gray-a4);
+
+  --ui-bg-active: var(--gray-5);
+  --ui-bg-active-alpha: var(--gray-a5);
+
+  --text-primary: var(--gray-12);
+  --text-secondary: var(--gray-11);
+  --link-visited: var(--plum-11);
+
+  --border-color-subtle: var(--gray-6);
+  --border-color-subtle-alpha: var(--gray-a6);
+
+  --border-color: var(--gray-7);
+
+  --outline-color: var(--blue-7);
+  --link: var(--blue-12);
+  --rating: var(--yellow-11);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-bg: var(--gray-1);
+
+    --ui-bg: var(--gray-3);
+    --ui-bg-alpha: var(--gray-a3);
+
+    --ui-bg-hover: var(--gray-4);
+    --ui-bg-hover-alpha: var(--gray-a4);
+
+    --ui-bg-active: var(--gray-5);
+    --ui-bg-active-alpha: var(--gray-a5);
+
+    --border-color-subtle: var(--gray-6);
+    --border-color-subtle-alpha: var(--gray-a6);
+
+    --border-color: var(--gray-7);
+
+    --ui-bg-hover: var(--gray-4);
+    --ui-bg-active: var(--gray-5);
+
+    --text-primary: var(--gray-12);
+    --text-secondary: var(--gray-11);
+    --link-visited: var(--plum-11);
+
+    --outline-color: var(--blue-7);
+    --link: var(--blue-12);
+  }
+}
+
+:root {
+  --bleed: var(--size-3);
+  --bold: var(--font-weight-7);
+  --border: var(--border-color) solid var(--border-size-1);
+  --border-subtle: var(--border-color-subtle) solid var(--border-size-1);
+  --border-subtle-alpha: var(--border-color-subtle-alpha) solid var(--border-size-1);
+  --card-radius: var(--radius-3);
+  --card-shadow: var(--shadow-2);
+}

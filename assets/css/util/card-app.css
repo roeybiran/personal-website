@@ -1,0 +1,67 @@
+.card--styled {
+  box-shadow: var(--shadow-1);
+  outline: 1px solid transparent;
+  outline-offset: 8px;
+  transition: outline-color 0.3s ease 0s, outline-offset 0.3s ease 0s;
+}
+
+.card--styled:focus-within {
+  outline-color: var(--outline-color);
+  outline-offset: 0px;
+}
+
+.card--styled a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+.card--app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: var(--bleed);
+  border-radius: var(--card-radius);
+  background-color: var(--ui-bg);
+}
+
+.card--app__title {
+  font-size: var(--font-size-4);
+  line-height: var(--font-lineheight-1);
+  max-inline-size: var(--size-header-2);
+}
+
+.card--app__subtitle {
+  color: var(--text-secondary);
+}
+
+.card--app__thumb {
+  inline-size: var(--size-content-2);
+}
+
+.card--small {
+  flex-direction: row-reverse;
+  gap: var(--size-2);
+  text-align: start;
+  justify-content: flex-end;
+
+  .card__texts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card--app__title {
+    font-size: var(--font-size-1);
+  }
+
+  .card--app__subtitle {
+    font-size: var(--font-size-0);
+    line-height: var(--font-lineheight-2);
+    text-wrap: pretty;
+  }
+
+  .card--app__thumb {
+    max-inline-size: var(--size-10);
+  }
+}

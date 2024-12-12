@@ -1,26 +1,23 @@
 {
   "name": "personal-website",
-  "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "pull": "./scripts/pull.sh",
+    "push": "./scripts/push.sh",
+    "admin": "./scripts/admin.sh",
+    "dev": "browser-sync start --proxy \"https://roeybiran.local\" --files \"**/*.php\" \"**/*.js\" \"**/*.css\"",
+    "backup": "./scripts/backup.sh"
   },
-  "dependencies": {
-    "@astrojs/vercel": "^7.8.0",
-    "@fontsource-variable/inter": "^5.0.20",
-    "astro": "^4.15.1",
-    "normalize.css": "^8.0.1",
-    "open-props": "^1.7.6",
-    "remark-definition-list": "^2.0.0",
-    "remark-flexible-containers": "^1.2.1",
-    "remark-sectionize": "^2.0.0",
-    "remark-toc": "^9.0.0",
-    "remark-unwrap-images": "^4.0.0",
-    "sanitize.css": "^13.0.0",
-    "sass": "^1.77.8"
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0"
+  },
+  "prettier": {
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 100
   }
 }
