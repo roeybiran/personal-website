@@ -1,0 +1,32 @@
+---
+export const prerender = false;
+
+import { getEntry } from "astro:content";
+import AppLayout from "../../../layouts/AppLayout.astro";
+import { extractAppNameFromURL } from "../../../utils/extractAppNameFromURL";
+import Fallback from "../../../components/Fallback.astro";
+
+const url = Astro.request.url;
+const slug = extractAppNameFromURL(url);
+const entry = await getEntry("apps", slug);
+
+if (!entry) {
+  return Astro.redirect("/404");
+}
+
+const content = (await getEntry("privacy", slug))?.rendered?.html;
+
+---
+
+<AppLayout
+  pageTitle={`${entry.data.name}: Privacy`}
+  description={`Privacy for ${entry.data.name}`}
+  ogImage={""}
+  currentURL={url}
+  appName={entry.data.name}
+  gumroadID={entry.data.gumroadID}
+>
+  <div class="content-help | padded prose layout" set:html={content}>
+    {content ? null : <Fallback fallbackText="No privacy policy yet." />}
+  </div>
+</AppLayout>

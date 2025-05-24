@@ -1,0 +1,39 @@
+---
+interface Props {
+	pageTitle: string;
+	pageDescription: string;
+	ogImage: string;
+	currentURL: string;
+}
+
+const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
+const suffixedPageTitle = `${pageTitle} — Roey Biran`;
+
+// https://css-tricks.com/essential-meta-tags-social-media/#aa-final-markup
+---
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <title>{suffixedPageTitle}</title>
+
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="description" content={pageDescription} />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta property="og:title" content={suffixedPageTitle} />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content={ogImage} />
+	<meta property="og:url" content={currentURL} />
+	<meta name="twitter:card" content="summary_large_image" />
+
+	<meta property="og:description" content={pageDescription} />
+	<meta property="og:site_name" content="Roey Biran" />
+	<meta name="twitter:image:alt" content={pageTitle} />
+
+    <meta name="generator" content={Astro.generator} />
+</head>

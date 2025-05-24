@@ -1,0 +1,117 @@
+---
+export const prerender = false;
+
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = await getCollection("projects");
+const interactions = await getCollection("interactions");
+const icons = await getCollection("icons");
+
+const allProjects = [...projects]
+  .map(({ id, data }) => {
+    let links: Array<string> = [];
+    if (data.url) {
+      links.push(data.url);
+    }
+    if (data.github) {
+      links.push(`https://github.com/${data.github}`);
+    }
+
+    return {
+      id,
+      title: data.title,
+      subtitle: data.tagline,
+      date: data.date,
+      isoDate: data.date.toISOString(),
+      dateString: data.date.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      }),
+      links,
+      responsibilities: data.responsibilities,
+      stack: data.stack,
+      press: data.press,
+      type: data.type,
+      video: {
+        src: `/projects/${id}.mp4`,
+        poster: `/projects/${id}-poster.jpg`,
+      },
+    };
+  })
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const allInteractions = [...interactions]
+  .map(({ id, data }) => {
+    return {
+      id,
+      title: data.title,
+      date: data.date,
+      isoDate: data.date.toISOString(),
+      dateString: data.date.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      }),
+      responsibilities: data.responsibilities,
+      stack: data.stack,
+      type: "Interaction",
+      video: {
+        src: `/interactions/${id}.mp4`,
+        poster: `/interactions/${id}-poster.jpg`,
+      },
+    };
+  })
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const allIcons = [...icons]
+  .map(({ id, data }) => {
+    return {
+      id,
+      title: data.title,
+      type: "Icon",
+      date: data.date,
+      isoDate: data.date.toISOString(),
+      dateString: data.date.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      }),
+      stack: data.stack,
+      image: data.image,
+    };
+  })
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const content = [
+  { title: "General", projects: allProjects },
+  { title: "Interactions", projects: allInteractions },
+  { title: "Icons", projects: allIcons },
+];
+---
+
+<Layout
+  pageTitle="Projects"
+  pageDescription="Roey Biran's personal website"
+  ogImage="/og.jpg"
+  currentURL={Astro.request.url}
+>
+  <h1 class="sr-only">Projects</h1>
+  <div class="constrained padded stack">
+    <div class="projects-grid | grid">
+      {
+        content.map(({ title, projects }) => (
+          <section class="projects-grid__section">
+            <header class="projects-grid__section-header">
+              <h2 class="projects-grid__section-title | uppercased text-sm text-secondary">
+                {title}
+              </h2>
+            </header>
+            {projects.map((project) => (
+              <ProjectCard {...project} />
+            ))}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

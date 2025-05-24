@@ -1,0 +1,66 @@
+.release-notes {
+  > * + * {
+    border-block-start: var(--border);
+    border-block-start-style: dashed;
+    padding-block-start: var(--size-6);
+    margin-block-start: var(--size-6);
+  }
+
+  section {
+    display: flex;
+    gap: var(--size-2);
+    flex-wrap: wrap;
+  }
+
+  section > :first-child {
+    flex: var(--size-content-1);
+  }
+
+  section > :last-child {
+    flex: var(--size-content-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+  }
+
+  time {
+    color: var(--text-secondary);
+  }
+
+  .entry > * + * {
+    margin-block-start: var(--size-1);
+  }
+
+  .entry-label {
+    text-transform: uppercase;
+    letter-spacing: var(--font-letterspacing-4);
+    display: inline-block;
+    padding-inline: var(--size-2);
+    border: var(--border);
+    border-radius: var(--radius-2);
+  }
+
+  .entry-label__new {
+    color: var(--green-11);
+    background: var(--green-3);
+    border-color: var(--green-7);
+  }
+
+  .entry-label__change {
+    color: var(--plum-11);
+    background: var(--plum-3);
+    border-color: var(--plum-7);
+  }
+
+  .entry-label__issue {
+    color: var(--yellow-11);
+    background: var(--yellow-3);
+    border-color: var(--yellow-7);
+  }
+
+  .entry-label__fix {
+    color: var(--blue-11);
+    background: var(--blue-3);
+    border-color: var(--blue-7);
+  }
+}

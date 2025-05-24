@@ -1,0 +1,23 @@
+---
+export const prerender = false;
+
+import Layout from "../layouts/Layout.astro";
+import AppGrid from "../components/AppGrid.astro";
+
+const name = "Roey Biran";
+const tagline = "Power tools for Mac enthusiasts.";
+
+---
+
+<Layout
+  pageTitle="Home"
+  pageDescription={`${name}’s personal website`}
+  ogImage="/og.jpg"
+  currentURL={Astro.request.url}
+>
+  <h1 class="sr-only">{name}</h1>
+    <div class="page-front__content">
+      <p class="padded center intrinsic">{tagline}</p>
+    </div>
+    <AppGrid includeUtilities={false} />
+</Layout>

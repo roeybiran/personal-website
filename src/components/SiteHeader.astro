@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets";
+import avatar from "../assets/memoji.png";
+
+const navigation = [
+  { label: "Home", slug: "/" },
+  { label: "Apps", slug: "/apps" },
+  { label: "Projects", slug: "/projects" },
+];
+
+interface Props {
+  currentURL: string;
+}
+
+const { currentURL } = Astro.props;
+
+const name = "Roey Biran";
+const tagline = "Designer + Developer";
+
+const pathComponent = `/${new URL(currentURL).pathname.split("/").slice(-1)[0]}`;
+---
+
+<header class="site-header">
+  <div class="site-header__inner | constrained">
+    <div class="site-header__leading">
+      <Image src={avatar} alt={name} class="site-header__avatar" />
+      <div class="site-header__text">
+        <a class="site-header__name" href="/">{name}</a>
+        <small class="site-header__subtitle">{tagline}</small>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <ul class="site-nav__list | cluster">
+        {
+          navigation.map(({ label, slug }) => (
+            <li>
+              <a
+                class="site-nav__link"
+                href={slug}
+                aria-current={pathComponent === slug ? "page" : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

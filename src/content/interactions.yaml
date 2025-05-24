@@ -1,0 +1,59 @@
+- id: license-unlock
+  title: License Unlock
+  date: 2024-08-01
+  responsibilities:
+    - Art
+    - Code
+  stack:
+    - AppKit
+    - Core Animation
+    - Swift
+    - Figma
+
+- id: async-button
+  title: Async Button
+  date: 2024-11-29
+  responsibilities:
+    - Code
+  stack:
+    - AppKit
+    - Core Animation
+    - Swift
+
+- id: mac-dynamic-island
+  title: Mac Dynamic Island
+  date: 2024-11-29
+  responsibilities:
+    - Code
+  stack:
+    - SwiftUI
+
+- id: toast
+  title: Toast
+  date: 2024-11-29
+  responsibilities:
+    - Code
+  stack:
+    - AppKit
+    - Core Animation
+    - Swift
+
+- id: skeletons
+  title: Skeletons
+  date: 2024-12-01
+  responsibilities:
+    - Code
+  stack:
+    - AppKit
+    - Core Animation
+    - Swift
+
+- id: hold-actions
+  title: Hold Actions
+  date: 2024-12-01
+  responsibilities:
+    - Code
+  stack:
+    - AppKit
+    - Core Animation
+    - Swift

@@ -1,0 +1,15 @@
+---
+import GithubLogo from "../assets/github-logo.svg";
+
+export interface Props {
+  url: string;
+  small?: boolean;
+}
+
+const { url, small } = Astro.props;
+---
+
+<a class="button" class:list={{ "button-s": small }} href={url} target="_blank">
+  <GithubLogo />
+  View on GitHub
+</a>

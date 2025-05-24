@@ -1,0 +1,31 @@
+- id: milonchik
+  title: Milonchik
+  type: App Icon
+  date: 2020-10-03
+  image: ./milonchik.png
+  stack:
+    - Photoshop
+
+- id: finbar
+  title: Finbar
+  type: App Icon
+  date: 2022-11-03
+  image: ./finbar.png
+  stack:
+    - Sketch
+
+- id: syphon
+  title: Syphon
+  type: App Icon
+  date: 2024-09-03
+  image: ./syphon.png
+  stack:
+    - Sketch
+
+- id: knobby
+  title: Knobby
+  type: App Icon
+  date: 2024-12-03
+  image: ./knobby.png
+  stack:
+    - Figma

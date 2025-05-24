@@ -1,0 +1,85 @@
+---
+export const prerender = false;
+
+import { getEntry, render } from "astro:content";
+import { Image } from "astro:assets";
+import AppLayout from "../../../layouts/AppLayout.astro";
+
+const url = Astro.request.url;
+const pathname = new URL(url).pathname.split("/").filter(Boolean).pop()
+
+if (!pathname) {
+  return Astro.redirect("/404");
+}
+
+const app = await getEntry("apps", pathname);
+
+if (!app) {
+  return Astro.redirect("/404");
+}
+
+const { Content } = await render(app);
+---
+
+<AppLayout
+  pageTitle={app.data.name}
+  description={app.data.tagline}
+  ogImage={app.data.icon.src}
+  currentURL={url}
+  appName={app.data.name}
+  gumroadID={app.data.gumroadID}
+>
+  <div class="page-app | padded">
+    <div class="stack">
+      <figure class="app__cover-wrapper | center intrinsic">
+        <Image
+          src={app.data.coverImage}
+          alt={app.data.name}
+          class="app__cover"
+        />
+      </figure>
+
+      <div class="center intrinsic text">
+        <figure class="app__icon-wrapper">
+          <Image src={app.data.icon} alt={app.data.name} class="app__icon" />
+        </figure>
+        <div class="page--title">
+          <h1><strong>{app.data.name}.</strong> {app.data.tagline}</h1>
+        </div>
+        <div class="app__technicals">
+          <small class="app__purchase-policy">{app.data.purchasePolicy}</small>
+          <!-- <small class="app__sys-reqs">{app.data.sysReqs}</small> -->
+        </div>
+      </div>
+
+      {
+        app.data.reviews && (
+          <section class="center intrinsic">
+            <header class="sr-only">
+              <h2>Reviews</h2>
+            </header>
+            <div class="app-reviews | reel">
+              {app.data.reviews.map((review) => (
+                <div class="app-review">
+                  <blockquote>
+                    <p class="review__text">{review.text}</p>
+                  </blockquote>
+                  <footer class="review__cite">
+                    —{" "}
+                    <a href={review.url}>
+                      {review.reviewer}, <cite>{review.platform}</cite>
+                    </a>
+                  </footer>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <div class="app-content | prose layout">
+        <Content />
+      </div>
+    </div>
+  </div>
+</AppLayout>

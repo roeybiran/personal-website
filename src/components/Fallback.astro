@@ -1,0 +1,11 @@
+---
+interface Props {
+  fallbackText: string;
+}
+
+const { fallbackText } = Astro.props;
+---
+
+<div class="fallback-content">
+  <p>{fallbackText}</p>
+</div>

@@ -1,0 +1,114 @@
+.page-app {
+  .app__cover-wrapper {
+    max-block-size: 100%;
+  }
+
+  .app__cover {
+    max-block-size: 75vh;
+    object-fit: contain;
+  }
+
+  .app__icon {
+    inline-size: clamp(var(--size-11), 25vw, var(--size-content-1));
+  }
+
+  .app__technicals {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: var(--font-size-0);
+    color: var(--text-secondary);
+  }
+
+  .app-reviews {
+    --reel-item-size: var(--size-content-2);
+  }
+
+  .app-review {
+    padding: var(--bleed);
+    display: flex;
+    flex-direction: column;
+    background: var(--ui-bg);
+    border-radius: var(--card-radius);
+    position: relative;
+    box-shadow: var(--shadow-2);
+  }
+
+  .review__text::before,
+  .review__text::after {
+    content: '“';
+    font-family: serif;
+  }
+
+  .review__text::after {
+    content: '”';
+  }
+
+  .review__cite {
+    margin-block-start: auto;
+    font-size: var(--font-size-0);
+  }
+
+  .app-content {
+    img {
+      border-radius: var(--radius-1);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--bleed);
+    }
+
+    >p:first-child {
+      font-size: var(--font-size-4);
+      line-height: var(--font-lineheight-3);
+    }
+
+    h3 {
+      font-size: var(--font-size-3);
+    }
+
+    .footnotes {
+      border-block-start: var(--border);
+      margin-block-start: var(--size-10);
+      padding-block-start: var(--size-2);
+      font-size: var(--font-size-0);
+      color: var(--text-secondary);
+    }
+  }
+
+  #features {
+    display: none;
+  }
+
+  .features {
+    margin-inline: auto;
+    max-inline-size: 980px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--bleed);
+  }
+
+  .feature {
+    flex: 0 1 var(--size-content-2);
+
+    border-radius: var(--card-radius);
+    /* display: grid; */
+    /* flex-direction: column; */
+    /* grid-template-rows: auto 1fr 1fr; */
+
+    padding: var(--bleed-xl);
+    background: var(--app-bg-subtle);
+
+    p {
+      color: var(--text-secondary);
+    }
+
+    /* p:has(img) {
+      order: -1;
+    } */
+  }
+}

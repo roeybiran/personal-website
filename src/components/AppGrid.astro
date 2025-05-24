@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import AppCard from "./AppCard.astro";
+
+interface Props {
+  includeUtilities?: boolean;
+}
+
+const { includeUtilities = true } = Astro.props;
+
+const apps = (await getCollection("apps"))
+  .map((app) => ({
+    ...app,
+    name: app.data.name,
+    tagline: app.data.tagline,
+    icon: app.data.icon,
+    slug: `apps/${app.data.name.toLowerCase()}`,
+  }))
+  .sort((a, b) => b.data.releaseDate.getTime() - a.data.releaseDate.getTime());
+
+const utilities = (await getCollection("utilities")).map((utility) => ({
+  ...utility,
+  name: utility.data.name,
+  tagline: utility.data.tagline,
+  icon: utility.data.icon,
+  slug: `https://github.com/roeybiran/${utility.data.github}`,
+  isSmall: true,
+}))
+  .sort((a, b) => b.data.releaseDate.getTime() - a.data.releaseDate.getTime());
+
+---
+
+<div class="app-grid">
+  <section class="main-apps | stack">
+    {apps.map((app) => <AppCard {...app} />)}
+  </section>
+  {includeUtilities && (
+    <section class="misc-apps | padded">
+      {utilities.map((app) => <AppCard {...app} />)}
+    </section>
+  )}
+</div>

@@ -1,0 +1,54 @@
+.app-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: var(--size-8) var(--bleed);
+  background-color: var(--app-bg-subtle);
+  border-radius: var(--radius-1);
+}
+
+.app-card__texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-1);
+}
+
+.app-card__title {
+  font-size: var(--font-size-4);
+  line-height: var(--font-lineheight-1);
+  max-inline-size: var(--size-header-2);
+}
+
+.card--small {
+  gap: var(--bleed);
+}
+
+.card--small .app-card__title {
+  font-size: var(--font-size-1);
+}
+
+.card--small .app-card__subtitle {
+  font-size: var(--font-size-0);
+}
+
+.app-card__button {
+  margin-block-start: var(--size-1);
+}
+
+.card--small .app-card__button {
+  font-size: var(--font-size-0);
+}
+
+.app-card__subtitle {
+  color: var(--text-secondary);
+}
+
+.app-card__thumb {
+  inline-size: var(--size-content-2);
+}
+
+.card--small .app-card__thumb {
+  max-inline-size: var(--size-10);
+}

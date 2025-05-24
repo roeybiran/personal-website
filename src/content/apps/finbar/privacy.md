@@ -1,0 +1,1 @@
+Finbar requires your consent to use your Mac’s accessibility features to search the menu bar and perform “clicks” on menu items when necessary. It retrieves the bare minimum of menu item attributes needed for the search experience, and all of that data is stored privately on your Mac. No other personal information or data is consumed by the app, in any way.

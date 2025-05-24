@@ -1,0 +1,18 @@
+---
+export const prerender = false;
+
+import Layout from "../../layouts/Layout.astro";
+import AppGrid from "../../components/AppGrid.astro";
+---
+
+<Layout
+  pageTitle="Apps"
+  pageDescription="Roey Biran's personal website"
+  ogImage="/og.jpg"
+  currentURL={Astro.request.url}
+>
+  <h1 class="sr-only">Apps — Roey Biran</h1>
+  <div class="stack">
+    <AppGrid />
+  </div>
+</Layout>

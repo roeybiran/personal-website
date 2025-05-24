@@ -1,0 +1,50 @@
+---
+interface Props {
+  appName: string;
+  currentURL: string;
+  gumroadID: string;
+}
+
+const { appName, currentURL, gumroadID } = Astro.props;
+
+const base = `/apps/${appName.toLowerCase()}`;
+const links = [
+  { slug: base, label: "Overview" },
+  { slug: `${base}/help`, label: "Help" },
+  { slug: `${base}/release-notes`, label: "Release Notes" },
+  { slug: `${base}/privacy`, label: "Privacy" },
+];
+
+const buyLink = `https://roeybiran.gumroad.com/l/${gumroadID}`;
+const downloadLink = `${base}/download`;
+---
+
+<nav id="app-nav" class="app-nav">
+  <div class="app-nav__inner | constrained">
+    <div class="app-nav__main">
+      <a class="app-nav-link app-nav-link--home" href={base}>
+        {appName}
+      </a>
+      <span class="app-nav__section app-nav__section--buy">
+        <a class="buy-button" href={downloadLink}>Free Trial</a>
+        <a class="buy-button" href={buyLink} data-js-buy=""
+          >Buy <span class="buy-button__price" data-js-price>$9.99</span></a
+        >
+      </span>
+    </div>
+
+    <span class="app-nav__section app-nav__section--help">
+      {
+        links.map(({ slug, label }) => (
+          <a
+            class="app-nav-link"
+            aria-current={currentURL.endsWith(slug) ? "page" : undefined}
+            href={slug}
+          >
+            {label}
+          </a>
+        ))
+      }
+    </span>
+  </div>
+</nav>

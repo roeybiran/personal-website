@@ -1,0 +1,41 @@
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+:where(strong, b) {
+  font-weight: bold;
+}
+
+:where(body) {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+:where(input, button, textarea, select) {
+  font: inherit;
+}
+
+:where(*) {
+  overflow-wrap: break-word;
+}
+
+:where(p) {
+  text-wrap: pretty;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+}
+
+:where(code) {
+  font-family: monospace;
+}

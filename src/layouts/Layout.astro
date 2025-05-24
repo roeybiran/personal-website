@@ -1,0 +1,38 @@
+---
+import "open-props/style";
+import "../styles/global.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteHead from "../components/SiteHead.astro";
+import { extractSlug } from "../utils/extractSlug";
+
+interface Props {
+  pageTitle: string;
+  pageDescription: string;
+  ogImage: string;
+  currentURL: string;
+}
+
+const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
+
+const slug = extractSlug(currentURL);
+const bodyClass = `body--${slug}`;
+const mainClass = `main--${slug}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <SiteHead
+    pageTitle={pageTitle}
+    pageDescription={pageDescription}
+    ogImage={ogImage}
+    currentURL={currentURL}
+  />
+  <body class={bodyClass}>
+    <SiteHeader currentURL={currentURL} />
+    <main class={mainClass}>
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

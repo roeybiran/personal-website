@@ -1,0 +1,26 @@
+---
+import Layout from "./Layout.astro";
+import AppNav from "../components/AppNav.astro";
+
+interface Props {
+  pageTitle: string;
+  description: string;
+  ogImage: string;
+  currentURL: string;
+  appName: string;
+  gumroadID: string;
+}
+
+const { pageTitle, description, ogImage, currentURL, appName, gumroadID }: Props = Astro.props;
+
+---
+
+<Layout
+  pageTitle={pageTitle}
+  pageDescription={description}
+  ogImage={ogImage}
+  currentURL={currentURL}
+>
+  <AppNav appName={appName} currentURL={currentURL} gumroadID={gumroadID} />
+  <slot />
+</Layout>
