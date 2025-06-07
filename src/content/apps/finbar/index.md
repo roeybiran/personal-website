@@ -14,7 +14,7 @@ reviews:
     url: https://www.producthunt.com/products/finbar/reviews?review=726899
     platform: ProductHunt
     rating: 5
-  - text: A must-have app for power users
+  - text: Finbar is a treasure… The app is best in class 
     reviewer: Rick M.
     url: https://www.producthunt.com/products/finbar/reviews?review=646983
     platform: ProductHunt
