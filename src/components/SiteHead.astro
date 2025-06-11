@@ -7,7 +7,6 @@ interface Props {
 }
 
 const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
-const suffixedPageTitle = `${pageTitle} — Roey Biran`;
 
 // https://css-tricks.com/essential-meta-tags-social-media/#aa-final-markup
 ---
@@ -21,13 +20,13 @@ const suffixedPageTitle = `${pageTitle} — Roey Biran`;
   />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-  <title>{suffixedPageTitle}</title>
+  <title>{pageTitle}</title>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="description" content={pageDescription} />
 
-  <meta property="og:title" content={suffixedPageTitle} />
+  <meta property="og:title" content={pageTitle} />
   <meta property="og:type" content="website" />
   <meta property="og:image" content={ogImage} />
   <meta property="og:url" content={currentURL} />
@@ -35,7 +34,7 @@ const suffixedPageTitle = `${pageTitle} — Roey Biran`;
   <meta property="og:site_name" content="roeybiran.com" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image:alt" content={suffixedPageTitle} />
+  <meta name="twitter:image:alt" content={pageTitle} />
 
   <meta name="generator" content={Astro.generator} />
 </head>

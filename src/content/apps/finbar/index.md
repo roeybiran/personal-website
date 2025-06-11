@@ -6,7 +6,7 @@ icon: ./icon.png
 coverImage: ./cover.png
 purchasePolicy: One time purchase, no in–app purchases. Valid for 2 Macs.
 gumroadID: mgpnr
-seoDescription: Finbar is a Mac app for supercharged menu bar searching.
+metaDescription: Finbar is a Mac app for supercharged menu bar searching.
 reviews:
   - text: A must-have app for power users
     reviewer: Michael P.
