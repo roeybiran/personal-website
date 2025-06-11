@@ -18,11 +18,34 @@
   gap: var(--size-1);
 }
 
-.popup-menu {
+.desktop-menu {
+  display: none;
+}
+
+.mobile-menu {
+  visibility: hidden;
+
   position: absolute;
   inset-block-start: calc(100% + var(--border-width));
-  background: var(--app-bg);
+  background: color-mix(in srgb, var(--app-bg) 90%, transparent);
+  backdrop-filter: blur(10px);
   inset-inline: 0;
+  transform-origin: top;
+}
+
+/* tablet in chrome devtools 768px */
+@media (768px < width) {
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: none;
+  }
+
+  .desktop-menu {
+    display: contents;
+  }
 }
 
 .app-nav__section--help {

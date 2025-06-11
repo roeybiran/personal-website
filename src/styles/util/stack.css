@@ -15,6 +15,7 @@
 }
 
 .flow > * + * {
+  --stack-space: var(--bleed, 1.5rem);
   margin-block-start: var(--stack-space);
 }
 

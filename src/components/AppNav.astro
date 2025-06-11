@@ -26,7 +26,7 @@ const downloadLink = `${base}/download`;
         {appName}
       </a>
       <div class="dialog-container" data-js-dialog-container>
-        <div class="popup-menu | padded">
+        <div class="mobile-menu | padded flow">
           {
             links.map(({ slug, label }) => (
               <a
@@ -39,19 +39,23 @@ const downloadLink = `${base}/download`;
             ))
           }
         </div>
-        <button data-js-menu-button>menu</button>
+        <button class="mobile-menu-button" data-js-app-nav-mobile-menu-button>
+          menu
+        </button>
       </div>
-      {
-        links.map(({ slug, label }) => (
-          <a
-            class="app-nav-link"
-            aria-current={currentURL.endsWith(slug) ? "page" : undefined}
-            href={slug}
-          >
-            {label}
-          </a>
-        ))
-      }
+      <div class="desktop-menu">
+        {
+          links.map(({ slug, label }) => (
+            <a
+              class="app-nav-link"
+              aria-current={currentURL.endsWith(slug) ? "page" : undefined}
+              href={slug}
+            >
+              {label}
+            </a>
+          ))
+        }
+      </div>
     </div>
     <div class="app-nav__section app-nav__section--buy">
       <a class="buy-button" href={downloadLink}>Free Trial</a>
