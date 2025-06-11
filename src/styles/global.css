@@ -29,6 +29,9 @@
 @import url(./pages/page-release_notes.css);
 
 /* TEMPORARY -- REMOVE TO UTIL */
+@view-transition {
+  navigation: auto;
+}
 
 .constrained {
   max-width: 1024px;

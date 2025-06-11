@@ -1,5 +1,3 @@
-export const prerender = false;
-
 import type { APIRoute } from "astro";
 import { getLatestDMG } from "../../../utils/s3";
 
@@ -12,7 +10,7 @@ export const GET: APIRoute = async ({ params }) => {
     }
 
     return await getLatestDMG(app);
-  } catch (error) {
+  } catch {
     return new Response(null, {
       status: 301,
       headers: {

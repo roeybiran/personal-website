@@ -21,19 +21,26 @@ const downloadLink = `${base}/download`;
 
 <nav id="app-nav" class="app-nav">
   <div class="app-nav__inner | constrained">
-    <div class="app-nav__main">
+    <div class="app-nav__section app-nav__section--help">
       <a class="app-nav-link app-nav-link--home" href={base}>
         {appName}
       </a>
-      <span class="app-nav__section app-nav__section--buy">
-        <a class="buy-button" href={downloadLink}>Free Trial</a>
-        <a class="buy-button" href={buyLink} data-js-buy=""
-          >Buy <span class="buy-button__price" data-js-price>$9.99</span></a
-        >
-      </span>
-    </div>
-
-    <span class="app-nav__section app-nav__section--help">
+      <div class="dialog-container" data-js-dialog-container>
+        <div class="popup-menu | padded">
+          {
+            links.map(({ slug, label }) => (
+              <a
+                class="app-nav-link"
+                aria-current={currentURL.endsWith(slug) ? "page" : undefined}
+                href={slug}
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+        <button data-js-menu-button>menu</button>
+      </div>
       {
         links.map(({ slug, label }) => (
           <a
@@ -45,6 +52,22 @@ const downloadLink = `${base}/download`;
           </a>
         ))
       }
-    </span>
+    </div>
+    <div class="app-nav__section app-nav__section--buy">
+      <a class="buy-button" href={downloadLink}>Free Trial</a>
+      <a class="buy-button" href={buyLink} data-js-buy="">Buy</a>
+    </div>
   </div>
 </nav>
+
+<script>
+  document
+    .querySelectorAll("[data-js-dialog-container]")
+    .forEach((container) => {
+      container
+        .querySelector("[data-js-menu-button]")
+        ?.addEventListener("click", () => {
+          // container.querySelector("dialog")?.showModal();
+        });
+    });
+</script>

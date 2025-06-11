@@ -18,13 +18,6 @@
     border-style: dashed;
     background: var(--app-bg-subtle);
   }
-
-  /* .projects-grid__section-title {
-    padding: var(--size-1);
-    border: var(--border);
-    border-style: dashed;
-    border-radius: var(--card-radius);
-  } */
 }
 
 .project-card {
@@ -35,7 +28,6 @@
 }
 
 .project-card__popup {
-  position: fixed;
   margin-inline: auto;
   inset-block-start: var(--bleed);
   inset-inline: var(--bleed);

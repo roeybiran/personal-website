@@ -39,7 +39,7 @@ const {
 ---
 
 <article class="project-card" aria-label={title}>
-  <dialog id={`${id}-popup`} class="project-card__popup">
+  <dialog id={`${id}-popup`} class="project-card__popup" closedby="any">
     <div class="project-card__popup-inner | flow">
       <button class="project-card__close-button | button" aria-label="Close">
         <CrossIcon />
@@ -124,7 +124,9 @@ const {
         />
       )
     }
+
     {image && <Image class="project-card__image" src={image} alt={title} />}
+
     <button
       class="project-card__button | button button--image"
       data-popup={`${id}-popup`}
@@ -134,25 +136,3 @@ const {
     </button>
   </div>
 </article>
-
-<script>
-  document.querySelectorAll(".project-card__button").forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const dialog = (e.target as HTMLButtonElement).dataset.popup;
-      if (!dialog) return;
-      const popup = document.getElementById(dialog) as HTMLDialogElement;
-      popup?.showModal();
-    });
-  });
-
-  document.querySelectorAll(".project-card__close-button").forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const dialog = (e.target as HTMLButtonElement).closest("dialog");
-      dialog?.close();
-    });
-  });
-
-  document.addEventListener("click", ({ target }) => {
-    if (target instanceof HTMLDialogElement) target.close();
-  });
-</script>
