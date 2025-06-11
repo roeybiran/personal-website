@@ -14,14 +14,7 @@ if (!entry) {
 const content = (await getEntry("privacy", slug))?.rendered?.html;
 ---
 
-<AppLayout
-  pageTitle={`${entry.data.name}: Privacy`}
-  description={`Privacy for ${entry.data.name}`}
-  ogImage={""}
-  currentURL={url}
-  appName={entry.data.name}
-  gumroadID={entry.data.gumroadID}
->
+<AppLayout entry={entry} pageTitle="Privacy" currentURL={url}>
   <div class="content-help | padded prose layout" set:html={content}>
     {content ? null : <Fallback fallbackText="No privacy policy yet." />}
   </div>

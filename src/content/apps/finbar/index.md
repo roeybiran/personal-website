@@ -7,14 +7,13 @@ coverImage: ./cover.png
 purchasePolicy: One time purchase, no in–app purchases. Valid for 2 Macs.
 gumroadID: mgpnr
 seoDescription: Finbar is a Mac app for supercharged menu bar searching.
-seoImage: ./og.jpg
 reviews:
   - text: A must-have app for power users
     reviewer: Michael P.
     url: https://www.producthunt.com/products/finbar/reviews?review=726899
     platform: ProductHunt
     rating: 5
-  - text: Finbar is a treasure… The app is best in class 
+  - text: Finbar is a treasure… The app is best in class
     reviewer: Rick M.
     url: https://www.producthunt.com/products/finbar/reviews?review=646983
     platform: ProductHunt

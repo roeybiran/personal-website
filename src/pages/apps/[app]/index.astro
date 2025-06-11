@@ -10,17 +10,12 @@ if (!entry) {
   return Astro.redirect("/404");
 }
 
+// <small class="app__sys-reqs">{app.data.sysReqs}</small>
+
 const { Content } = await render(entry);
 ---
 
-<AppLayout
-  pageTitle={entry.data.name}
-  description={entry.data.tagline}
-  ogImage={entry.data.icon.src}
-  currentURL={url}
-  appName={entry.data.name}
-  gumroadID={entry.data.gumroadID}
->
+<AppLayout entry={entry} pageTitle={undefined} currentURL={url}>
   <div class="page-app | padded">
     <div class="stack">
       <figure class="app__cover-wrapper | center intrinsic">
@@ -45,7 +40,6 @@ const { Content } = await render(entry);
         <div class="app__technicals">
           <small class="app__purchase-policy">{entry.data.purchasePolicy}</small
           >
-          <!-- <small class="app__sys-reqs">{app.data.sysReqs}</small> -->
         </div>
       </div>
 
