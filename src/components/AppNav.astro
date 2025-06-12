@@ -1,4 +1,6 @@
 ---
+import ChevronDown from "../assets/chevron-down.svg";
+
 interface Props {
   appName: string;
   currentURL: string;
@@ -21,26 +23,27 @@ const downloadLink = `${base}/download`;
 
 <nav id="app-nav" class="app-nav">
   <div class="app-nav__inner | constrained">
-    <div class="app-nav__section app-nav__section--help">
+    <div class="app-nav__section app-nav__section--leading">
       <a class="app-nav-link app-nav-link--home" href={base}>
         {appName}
       </a>
-      <div class="dialog-container" data-js-dialog-container>
-        <div class="mobile-menu | padded flow">
+      <div class="mobile-menu">
+        <div class="mobile-menu__menu | padded flow" data-js-mobile-menu>
           {
             links.map(({ slug, label }) => (
               <a
                 class="app-nav-link"
                 aria-current={currentURL.endsWith(slug) ? "page" : undefined}
                 href={slug}
+                data-js-mobile-menu-link
               >
                 {label}
               </a>
             ))
           }
         </div>
-        <button class="mobile-menu-button" data-js-app-nav-mobile-menu-button>
-          menu
+        <button class="mobile-menu__button" data-js-app-nav-mobile-menu-button>
+          <ChevronDown />
         </button>
       </div>
       <div class="desktop-menu">
@@ -63,15 +66,3 @@ const downloadLink = `${base}/download`;
     </div>
   </div>
 </nav>
-
-<script>
-  document
-    .querySelectorAll("[data-js-dialog-container]")
-    .forEach((container) => {
-      container
-        .querySelector("[data-js-menu-button]")
-        ?.addEventListener("click", () => {
-          // container.querySelector("dialog")?.showModal();
-        });
-    });
-</script>

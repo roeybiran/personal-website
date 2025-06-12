@@ -31,9 +31,9 @@ const tl = gsap.timeline({
 document
   .querySelectorAll("[data-js-app-nav-mobile-menu-button]")
   .forEach((button) => {
-    const menu = button.parentElement?.querySelector(".mobile-menu");
+    const menu = button.parentElement?.querySelector("[data-js-mobile-menu]");
     if (!menu || !(menu instanceof HTMLDivElement)) return;
-    const links = menu.querySelectorAll("a");
+    const links = menu.querySelectorAll("[data-js-mobile-menu-link]");
 
     gsap.set(menu, {
       scaleY: 0,
@@ -44,12 +44,16 @@ document
     });
 
     tl.to(menu, {
-      scaleY: 1,
       autoAlpha: 1,
-    }).to(links, {
-      opacity: 1,
-      stagger: 0.05,
-    });
+      duration: 0,
+    })
+      .to(menu, {
+        scaleY: 1,
+      })
+      .to(links, {
+        opacity: 1,
+        stagger: 0.05,
+      });
 
     button.addEventListener("click", () => {
       const previousIsExpanded = menu.getAttribute("aria-expanded") === "true";
