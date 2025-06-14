@@ -1,3 +1,7 @@
+:root {
+  scrollbar-gutter: stable;
+}
+
 :where(*, *::before, *::after) {
   box-sizing: border-box;
   margin: 0;

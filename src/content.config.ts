@@ -46,8 +46,7 @@ const apps = defineCollection({
       coverImage: image(),
       purchasePolicy: z.string(),
       gumroadID: z.string(),
-      seoDescription: z.string(),
-      seoImage: image(),
+      metaDescription: z.string(),
       reviews: z
         .array(
           z.object({

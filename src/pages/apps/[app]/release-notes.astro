@@ -1,6 +1,4 @@
 ---
-export const prerender = false;
-
 import { getEntry } from "astro:content";
 import AppLayout from "../../../layouts/AppLayout.astro";
 import { extractAppNameFromURL } from "../../../utils/extractAppNameFromURL";
@@ -10,25 +8,16 @@ import { getTextFile } from "../../../utils/s3";
 const url = Astro.request.url;
 const slug = extractAppNameFromURL(url);
 const entry = await getEntry("apps", slug);
-
 if (!entry) {
   return Astro.redirect("/404");
 }
 
-const appName = entry.data.name;
-const text = await getTextFile(slug, `${appName}.html`);
+const content = await getTextFile(slug, `${entry.data.name}.html`);
 ---
 
-<AppLayout
-  pageTitle={`${entry.data.name}: Release Notes`}
-  description={`Release notes for ${entry.data.name}`}
-  ogImage={""}
-  currentURL={url}
-  appName={entry.data.name}
-  gumroadID={entry.data.gumroadID}
->
+<AppLayout entry={entry} pageTitle="Release Notes" currentURL={url}>
   <h1 class="sr-only">{entry.data.name}: Release Notes</h1>
-  <div class="release-notes | constrained padded prose" set:html={text}>
-    {text ? null : <Fallback fallbackText="No release notes yet." />}
+  <div class="release-notes | constrained padded prose" set:html={content}>
+    {content ? null : <Fallback fallbackText="No release notes yet." />}
   </div>
 </AppLayout>
