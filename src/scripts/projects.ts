@@ -41,6 +41,7 @@ cards.forEach((card) => {
       `.projects-grid__section > *:not(#${card.id})`,
       {
         filter: "blur(10px)",
+        pointerEvents: "none",
       },
       "<"
     )

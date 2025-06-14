@@ -73,6 +73,7 @@ const utilities = defineCollection({
       releaseDate: z.date(),
       icon: image(),
       github: z.string(),
+      discontinued: z.boolean().optional(),
     }),
 });
 

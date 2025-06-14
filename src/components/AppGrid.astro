@@ -25,6 +25,7 @@ const utilities = (await getCollection("utilities")).map((utility) => ({
   icon: utility.data.icon,
   slug: `https://github.com/roeybiran/${utility.data.github}`,
   isSmall: true,
+  discontinued: utility.data.discontinued ?? false,
 }))
   .sort((a, b) => b.data.releaseDate.getTime() - a.data.releaseDate.getTime());
 

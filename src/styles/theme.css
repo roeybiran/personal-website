@@ -170,12 +170,6 @@ kbd {
   background: var(--ui-bg);
 }
 
-.theme-red {
-  color: var(--red-11);
-  background: var(--red-3);
-  border-color: var(--red-7);
-}
-
 .bordered {
   border-width: var(--border-size-1);
   border-style: solid;
@@ -191,4 +185,31 @@ kbd {
 
 .text-sm {
   font-size: var(--font-size-0);
+}
+
+.badge {
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: var(--font-letterspacing-1);
+  border: var(--border);
+  padding-inline: var(--size-2);
+  border-radius: var(--radius-2);
+}
+
+.theme-gray {
+  color: var(--gray-11);
+  background: var(--gray-3);
+  border-color: var(--gray-7);
+}
+
+.theme-red {
+  color: var(--red-11);
+  background: var(--red-3);
+  border-color: var(--red-7);
+}
+
+.theme-yellow {
+  color: var(--yellow-11);
+  background: var(--yellow-3);
+  border-color: var(--yellow-7);
 }
