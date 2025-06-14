@@ -43,3 +43,7 @@
 :where(code) {
   font-family: monospace;
 }
+
+:where(button) {
+  touch-action: manipulation;
+}
