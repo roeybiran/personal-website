@@ -9,9 +9,9 @@ interface Props {
 const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
 
 
-const { hostname } = new URL(currentURL)
+const { protocol, hostname, port } = new URL(currentURL);
 
-const ogImageUrl = `${hostname}${ogImage}`
+const ogImageUrl = `${protocol}//${hostname}${port ? `:${port}` : ""}${ogImage}`;
 
 // https://css-tricks.com/essential-meta-tags-social-media/#aa-final-markup
 ---
@@ -40,5 +40,6 @@ const ogImageUrl = `${hostname}${ogImage}`
   <!-- <meta property="og:site_name" content="Roey Biran’s Personal Website" /> -->
 
   <meta name="twitter:card" content="summary_large_image" />
+
   <meta name="generator" content={Astro.generator} />
 </head>

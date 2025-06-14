@@ -9,6 +9,10 @@
   font-weight: normal;
 }
 
+:where(*) {
+  overflow-wrap: break-word;
+}
+
 :where(strong, b) {
   font-weight: bold;
 }
@@ -28,10 +32,6 @@
   font: inherit;
 }
 
-:where(*) {
-  overflow-wrap: break-word;
-}
-
 :where(p) {
   text-wrap: pretty;
 }
@@ -44,6 +44,7 @@
   font-family: monospace;
 }
 
+/* https://x.com/JohnPhamous/status/1909293861547262141 */
 :where(button) {
   touch-action: manipulation;
 }
