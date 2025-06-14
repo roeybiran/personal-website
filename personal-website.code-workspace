@@ -6,7 +6,8 @@
   ],
   "settings": {
     "search.exclude": {
-      ".astro": true
+      ".astro": true,
+      "node_modules": true
     },
     "files.exclude": {
       ".astro": true,

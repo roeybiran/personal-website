@@ -6,8 +6,7 @@ icon: ./icon.png
 coverImage: ./cover.png
 purchasePolicy: One time purchase, no in–app purchases. Valid for 2 Macs.
 gumroadID: inkolq
-seoDescription: Syphon is an application and window switcher designed for keyboard enthusiasts.
-seoImage: ./og.jpg
+metaDescription: Syphon is an application and window switcher designed for keyboard enthusiasts.
 ---
 
 **Syphon** is a switcher for apps and windows designed for keyboard enthusiasts. Simply pop up Syphon, type a few characters (ideally just one), activate whatever you need, and get back to work. Engineered with performance and keyboard usage in mind, you're guaranteed to switch to the app you need extremely quickly — even if you have hundreds open.

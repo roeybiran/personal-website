@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+
   text-align: center;
   padding: var(--size-8) var(--bleed);
   background-color: var(--app-bg-subtle);
@@ -22,6 +23,10 @@
 }
 
 .card--small {
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  grid-template-rows: 1fr 1fr;
   gap: var(--bleed);
 }
 

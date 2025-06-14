@@ -1,26 +1,32 @@
 ---
 import Layout from "./Layout.astro";
 import AppNav from "../components/AppNav.astro";
+import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  pageTitle: string;
-  description: string;
-  ogImage: string;
+  entry: CollectionEntry<"apps">;
+  pageTitle: string | undefined;
   currentURL: string;
-  appName: string;
-  gumroadID: string;
+  ogImage?: string;
 }
 
-const { pageTitle, description, ogImage, currentURL, appName, gumroadID }: Props = Astro.props;
+const { entry, pageTitle, ogImage = "og.jpg", currentURL }: Props = Astro.props;
 
+const composedTitle = pageTitle
+  ? `${entry.data.name}: ${pageTitle}`
+  : entry.data.name;
 ---
 
 <Layout
-  pageTitle={pageTitle}
-  pageDescription={description}
-  ogImage={ogImage}
+  pageTitle={composedTitle}
+  pageDescription={entry.data.metaDescription}
+  ogImage={`/apps/${entry.id}/${ogImage}`}
   currentURL={currentURL}
 >
-  <AppNav appName={appName} currentURL={currentURL} gumroadID={gumroadID} />
+  <AppNav
+    appName={entry.data.name}
+    currentURL={currentURL}
+    gumroadID={entry.data.gumroadID}
+  />
   <slot />
 </Layout>

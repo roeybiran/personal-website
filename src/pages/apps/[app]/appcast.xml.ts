@@ -1,5 +1,3 @@
-export const prerender = false;
-
 import type { APIRoute } from "astro";
 import { getTextFile } from "../../../utils/s3";
 
@@ -19,7 +17,7 @@ export const GET: APIRoute = async ({ params }) => {
         "Content-Type": "application/xml",
       },
     });
-  } catch (error) {
+  } catch {
     return new Response(null, {
       status: 404,
       headers: {

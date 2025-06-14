@@ -1,4 +1,6 @@
 ---
+import AppMenuButton from "../assets/app-menu-button.svg";
+
 interface Props {
   appName: string;
   currentURL: string;
@@ -21,30 +23,46 @@ const downloadLink = `${base}/download`;
 
 <nav id="app-nav" class="app-nav">
   <div class="app-nav__inner | constrained">
-    <div class="app-nav__main">
+    <div class="app-nav__section app-nav__section--leading">
       <a class="app-nav-link app-nav-link--home" href={base}>
         {appName}
       </a>
-      <span class="app-nav__section app-nav__section--buy">
-        <a class="buy-button" href={downloadLink}>Free Trial</a>
-        <a class="buy-button" href={buyLink} data-js-buy=""
-          >Buy <span class="buy-button__price" data-js-price>$9.99</span></a
-        >
-      </span>
+      <div class="mobile-menu">
+        <div class="mobile-menu__menu | padded stack" data-js-mobile-menu>
+          {
+            links.map(({ slug, label }) => (
+              <a
+                class="app-nav-link"
+                aria-current={currentURL.endsWith(slug) ? "page" : undefined}
+                href={slug}
+                data-js-mobile-menu-link
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+        <button class="mobile-menu__button" data-js-app-nav-mobile-menu-button>
+          <AppMenuButton />
+        </button>
+      </div>
+      <div class="desktop-menu">
+        {
+          links.map(({ slug, label }) => (
+            <a
+              class="app-nav-link"
+              aria-current={currentURL.endsWith(slug) ? "page" : undefined}
+              href={slug}
+            >
+              {label}
+            </a>
+          ))
+        }
+      </div>
     </div>
-
-    <span class="app-nav__section app-nav__section--help">
-      {
-        links.map(({ slug, label }) => (
-          <a
-            class="app-nav-link"
-            aria-current={currentURL.endsWith(slug) ? "page" : undefined}
-            href={slug}
-          >
-            {label}
-          </a>
-        ))
-      }
-    </span>
+    <div class="app-nav__section app-nav__section--buy">
+      <a class="buy-button" href={downloadLink}>Free Trial</a>
+      <a class="buy-button" href={buyLink} data-js-buy="">Buy</a>
+    </div>
   </div>
 </nav>

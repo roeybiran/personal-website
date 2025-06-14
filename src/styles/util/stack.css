@@ -1,39 +1,17 @@
-.stack {
-  --stack-space: var(--bleed, 1.5rem);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
-  > * {
-    margin-block: 0;
-  }
-
-  > * + * {
-    margin-block-start: var(--stack-space);
-  }
+:where(.stack, .stack-s) > * {
+  margin-block: 0;
 }
 
-.flow > * + * {
-  margin-block-start: var(--stack-space);
+.stack > * + * {
+  margin-block-start: var(--bleed);
 }
 
-.flow-s > * + * {
+.stack-s > * + * {
   margin-block-start: var(--size-1);
 }
 
-.stack-s {
-  --stack-space: var(--size-1);
-}
-
-.stack.recursive {
-  * {
-    margin-block: 0;
-  }
-
-  * + * {
-    margin-block-start: var(--stack-space);
-  }
+.stack-recursive * + * {
+  margin-block-start: var(--bleed);
 }
 
 .stack.split-after:only-child {

@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import CrossIcon from "../assets/cross.svg";
 import GitHubButton from "./GitHubButton.astro";
 import PlusIcon from "../assets/plus.svg";
 
@@ -38,13 +37,13 @@ const {
 } = Astro.props;
 ---
 
-<article class="project-card" aria-label={title}>
-  <dialog id={`${id}-popup`} class="project-card__popup">
-    <div class="project-card__popup-inner | flow">
-      <button class="project-card__close-button | button" aria-label="Close">
-        <CrossIcon />
-      </button>
-
+<article
+  id={id}
+  class={`project-card project-card--${type.toLowerCase()}`}
+  aria-label={title}
+>
+  <div id={`${id}-popup`} class="project-card__popup">
+    <div class="project-card__popup-inner | stack-s">
       <header class="project-card__header">
         <p class="project-card__title">{title}</p>
         <time class="project-card__date" datetime={isoDate}>
@@ -53,49 +52,55 @@ const {
         {subtitle && <p class="project-card__subtitle">{subtitle}</p>}
       </header>
 
-      <dl class="project-card__links | flow-s">
-        <dt class="sr-only">Links</dt>
-        {
-          links?.map((url: string) => (
-            <dd>
-              {url.includes("github") ? (
-                <GitHubButton url={url} />
-              ) : (
-                <a class="button" target="_blank" href={url}>
-                  View Project
-                </a>
-              )}
-            </dd>
-          ))
-        }
-      </dl>
+      {
+        links && (
+          <dl class="project-card__links | stack-s">
+            <dt class="sr-only">Links</dt>
+            {links?.map((url: string) => (
+              <dd>
+                {url.includes("github") ? (
+                  <GitHubButton url={url} />
+                ) : (
+                  <a class="button" target="_blank" href={url}>
+                    View Project
+                  </a>
+                )}
+              </dd>
+            ))}
+          </dl>
+        )
+      }
 
       <dl class="project-card__meta">
-        <div>
+        <div class="project-card__meta-entry project-card__meta-entry--kind">
           <dt>Kind</dt>
-          <dd class="project-card__badge">{type}</dd>
+          <dd class="project-card__badge | badge text-sm theme-gray">{type}</dd>
         </div>
         {
           responsibilities && (
-            <div>
+            <div class="project-card__meta-entry project-card__meta-entry--responsibilities">
               <dt>Roles</dt>
               {responsibilities.map((r: string) => (
-                <dd class="project-card__badge">{r}</dd>
+                <dd class="project-card__badge | badge text-sm theme-gray">
+                  {r}
+                </dd>
               ))}
             </div>
           )
         }
-        <div>
-          <dt>Stack</dt>
+        <div class="project-card__meta-entry project-card__meta-entry--stack">
+          <dt>Tools</dt>
           {
             stack.map((tech: string) => (
-              <dd class="project-card__badge">{tech}</dd>
+              <dd class="project-card__badge | badge text-sm theme-gray">
+                {tech}
+              </dd>
             ))
           }
         </div>
         {
           press && (
-            <div class="project-card__press">
+            <div class="project-card__meta-entry project-card__meta-entry--press">
               <dt>Press</dt>
               {press.map(({ name, url }: { name: string; url: string }) => (
                 <dd>
@@ -109,7 +114,8 @@ const {
         }
       </dl>
     </div>
-  </dialog>
+  </div>
+
   <div class="project-card__media">
     {
       video && (
@@ -124,7 +130,9 @@ const {
         />
       )
     }
+
     {image && <Image class="project-card__image" src={image} alt={title} />}
+
     <button
       class="project-card__button | button button--image"
       data-popup={`${id}-popup`}
@@ -134,25 +142,3 @@ const {
     </button>
   </div>
 </article>
-
-<script>
-  document.querySelectorAll(".project-card__button").forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const dialog = (e.target as HTMLButtonElement).dataset.popup;
-      if (!dialog) return;
-      const popup = document.getElementById(dialog) as HTMLDialogElement;
-      popup?.showModal();
-    });
-  });
-
-  document.querySelectorAll(".project-card__close-button").forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const dialog = (e.target as HTMLButtonElement).closest("dialog");
-      dialog?.close();
-    });
-  });
-
-  document.addEventListener("click", ({ target }) => {
-    if (target instanceof HTMLDialogElement) target.close();
-  });
-</script>

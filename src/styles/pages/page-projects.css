@@ -18,82 +18,36 @@
     border-style: dashed;
     background: var(--app-bg-subtle);
   }
-
-  /* .projects-grid__section-title {
-    padding: var(--size-1);
-    border: var(--border);
-    border-style: dashed;
-    border-radius: var(--card-radius);
-  } */
 }
 
 .project-card {
-  border: var(--border);
-  border-radius: var(--card-radius);
-  overflow: hidden;
-  background: var(--ui-bg);
+  position: relative;
 }
 
 .project-card__popup {
-  position: fixed;
-  margin-inline: auto;
-  inset-block-start: var(--bleed);
-  inset-inline: var(--bleed);
-  inline-size: min(100%, var(--size-content-2));
+  position: absolute;
+  z-index: var(--layer-important);
+  inset-block-start: 100%;
+  inset-inline: 0;
   background: var(--app-bg);
   border: var(--border);
-  border-radius: var(--card-radius);
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
   box-shadow: var(--shadow-5);
-
-  opacity: 0;
-  transform: scale(0.75);
-  transition-duration: 0.3s;
-  transition-behavior: allow-discrete;
-  transition-property: display, overlay, opacity, transform;
-
-  transition-timing-function: var(--ease-spring-1);
-}
-
-.project-card__popup[open] {
-  opacity: 1;
-  transform: scale(1);
-}
-
-@starting-style {
-  .project-card__popup[open] {
-    opacity: 1;
-    transform: scale(0.75);
-  }
-}
-
-.project-card__popup::backdrop {
-  backdrop-filter: blur(0px);
-  transition-duration: 0.3s;
-  transition-property: display, overlay, backdrop-filter;
-}
-
-.project-card__popup[open]::backdrop {
-  backdrop-filter: blur(10px);
-}
-
-@starting-style {
-  .project-card__popup[open]::backdrop {
-    backdrop-filter: blur(0px);
-  }
+  visibility: hidden;
 }
 
 .project-card__popup-inner {
   padding: var(--bleed);
 }
 
-.project-card ul {
-  list-style: none;
-}
-
 .project-card__media {
   block-size: 100%;
   border-radius: var(--card-radius);
+  overflow: hidden;
   display: grid;
+  border: var(--border);
+  border-radius: var(--card-radius);
+  background: var(--ui-bg);
 
   > * {
     grid-area: 1/1;
@@ -136,16 +90,21 @@
 
 .project-card__meta {
   font-size: var(--font-size-0);
-
-  > div {
-    display: flex;
-    gap: var(--size-1);
-  }
 }
 
-.project-card__badge {
-  color: var(--text-secondary);
-  font-size: var(--font-size-0);
+.project-card__meta-entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+:where(.project-card--interaction, .project-card--icon) .project-card__date {
+  display: none;
+}
+
+.project-card__meta-entry--kind,
+.project-card__meta-entry--responsibilities {
+  display: none;
 }
 
 .project-card__press dd {

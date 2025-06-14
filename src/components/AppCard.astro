@@ -9,14 +9,16 @@ interface Props {
   tagline: string;
   icon: ImageMetadata;
   isSmall?: boolean;
+  discontinued?: boolean;
 }
 
-const { slug, name, tagline, icon, isSmall } = Astro.props;
+const { slug, name, tagline, icon, isSmall, discontinued } = Astro.props;
 const isGitHub = slug.startsWith("https://");
 ---
 
 <article class={`app-card ${isSmall ? "card--small" : ""}`}>
   <div class="app-card__texts">
+    {discontinued && <p class="badge text-xs theme-yellow">Discontinued</p>}
     <header>
       <p class="app-card__title">{name}</p>
     </header>

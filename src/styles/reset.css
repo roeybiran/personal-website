@@ -1,8 +1,16 @@
+:root {
+  scrollbar-gutter: stable;
+}
+
 :where(*, *::before, *::after) {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-weight: normal;
+}
+
+:where(*) {
+  overflow-wrap: break-word;
 }
 
 :where(strong, b) {
@@ -24,10 +32,6 @@
   font: inherit;
 }
 
-:where(*) {
-  overflow-wrap: break-word;
-}
-
 :where(p) {
   text-wrap: pretty;
 }
@@ -38,4 +42,9 @@
 
 :where(code) {
   font-family: monospace;
+}
+
+/* https://x.com/JohnPhamous/status/1909293861547262141 */
+:where(button) {
+  touch-action: manipulation;
 }
