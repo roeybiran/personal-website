@@ -6,6 +6,7 @@ cards.forEach((card) => {
   const button = card.querySelector(
     ".project-card__button"
   ) as HTMLButtonElement;
+  const svg = button.querySelector("svg") as SVGSVGElement;
   const media = card.querySelector(".project-card__media") as HTMLDivElement;
   const popup = card.querySelector(".project-card__popup") as HTMLDivElement;
   card.ariaExpanded = "false";
@@ -14,7 +15,7 @@ cards.forEach((card) => {
     autoAlpha: 0,
   });
 
-  gsap.set(button, {
+  gsap.set(svg, {
     rotate: 0,
   });
 
@@ -44,7 +45,7 @@ cards.forEach((card) => {
       "<"
     )
     .to(
-      button,
+      svg,
       {
         rotate: -45,
       },
