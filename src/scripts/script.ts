@@ -1,4 +1,7 @@
 import { gsap } from "gsap";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
+
+gsap.registerPlugin(MorphSVGPlugin);
 
 document.querySelectorAll(".project-card__button").forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -65,5 +68,9 @@ document
       } else {
         tl.reverse();
       }
+      gsap.to("#chevron-down", {
+        duration: 0.3,
+        morphSVG: newIsExpanded ? "#chevron-up" : "#chevron-down",
+      });
     });
   });

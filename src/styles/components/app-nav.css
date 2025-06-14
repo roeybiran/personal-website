@@ -64,6 +64,7 @@
   place-content: center;
 
   svg {
+    pointer-events: none;
     color: var(--text-secondary);
   }
 }
