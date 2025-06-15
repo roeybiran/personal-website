@@ -1,5 +1,13 @@
 .reel {
-  display: grid;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+
+  > * {
+    scroll-snap-align: center;
+  }
+
+  /* display: grid;
   grid-auto-stack: column;
   grid-auto-columns: min(100%, var(--reel-item-size, 90%));
   justify-content: flex-start;
@@ -18,5 +26,5 @@
     min-inline-size: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-  }
+  } */
 }

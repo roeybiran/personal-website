@@ -18,106 +18,115 @@
     border-style: dashed;
     background: var(--app-bg-subtle);
   }
-}
 
-.project-card {
-  position: relative;
-}
-
-.project-card__popup {
-  position: absolute;
-  z-index: var(--layer-important);
-  inset-block-start: 100%;
-  inset-inline: 0;
-  background: var(--app-bg);
-  border: var(--border);
-  border-radius: 0 0 var(--card-radius) var(--card-radius);
-  box-shadow: var(--shadow-5);
-  visibility: hidden;
-}
-
-.project-card__popup-inner {
-  padding: var(--bleed);
-}
-
-.project-card__media {
-  block-size: 100%;
-  border-radius: var(--card-radius);
-  overflow: hidden;
-  display: grid;
-  border: var(--border);
-  border-radius: var(--card-radius);
-  background: var(--ui-bg);
-
-  > * {
-    grid-area: 1/1;
+  .project-card {
+    position: relative;
   }
 
-  > :first-child {
-    inline-size: 100%;
+  .project-card__popup {
+    position: absolute;
+    z-index: var(--layer-important);
+    inset-block-start: 100%;
+    inset-inline: 0;
+    background: var(--app-bg);
+    border: var(--border);
+    border-radius: 0 0 var(--card-radius) var(--card-radius);
+    box-shadow: var(--shadow-5);
+    visibility: hidden;
+  }
+
+  .project-card__popup-inner {
+    padding: var(--bleed);
+
+    > * + * {
+      border-block-start: var(--border-dashed);
+      padding-block-start: var(--size-2);
+      margin-block-start: var(--size-2);
+    }
+  }
+
+  .project-card__media {
     block-size: 100%;
-    min-inline-size: 0;
-    min-block-size: 0;
-    place-self: center;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    display: grid;
+    border: var(--border);
+    border-radius: var(--card-radius);
+    background: var(--ui-bg);
+
+    > * {
+      grid-area: 1/1;
+    }
+
+    > :first-child {
+      inline-size: 100%;
+      block-size: 100%;
+      min-inline-size: 0;
+      min-block-size: 0;
+      place-self: center;
+    }
   }
-}
 
-.project-card__button {
-  position: relative;
-  place-self: flex-end;
-  margin-inline-end: var(--size-1);
-  margin-block-end: var(--size-1);
-  box-shadow: var(--shadow-5);
-}
+  .project-card__button {
+    position: relative;
+    place-self: flex-end;
+    margin-inline-end: var(--size-1);
+    margin-block-end: var(--size-1);
+    box-shadow: var(--shadow-5);
+  }
 
-.project-card__video {
-  object-fit: cover;
-}
+  .project-card__video {
+    object-fit: cover;
+  }
 
-.project-card__image {
-  object-fit: contain;
-  max-inline-size: var(--size-10);
-}
+  .project-card__image {
+    object-fit: contain;
+    max-inline-size: var(--size-10);
+  }
 
-.project-card__subtitle {
-  color: var(--text-secondary);
-}
+  .project-card__subtitle {
+    color: var(--text-secondary);
+  }
 
-.project-card__date {
-  font-size: var(--font-size-0);
-  color: var(--text-secondary);
-}
+  .project-card__date {
+    font-size: var(--font-size-0);
+    color: var(--text-secondary);
+  }
 
-.project-card__meta {
-  font-size: var(--font-size-0);
-}
+  .project-card__meta {
+    font-size: var(--font-size-0);
+  }
 
-.project-card__meta-entry {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-1);
-}
+  .project-card__meta-entry {
+    display: flex;
+    flex-direction: column;
+  }
 
-:where(.project-card--interaction, .project-card--icon) .project-card__date {
-  display: none;
-}
+  .project-card__tools-list {
+    gap: var(--size-1);
+  }
 
-.project-card__meta-entry--kind,
-.project-card__meta-entry--responsibilities {
-  display: none;
-}
+  :where(.project-card--interaction, .project-card--icon) .project-card__date {
+    display: none;
+  }
 
-.project-card__press dd {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+  .project-card__meta-entry--press {
+    display: flex;
+    flex-direction: column;
+  }
 
-.project-card__link {
-  color: var(--text-secondary);
-}
+  .project-card__meta-entry--press dd {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-.project-card__close-button {
-  margin-inline-start: auto;
-  padding: var(--size-1);
+  .project-card__link {
+    color: var(--text-secondary);
+  }
+
+  .project-card__close-button {
+    margin-inline-start: auto;
+    padding: var(--size-1);
+  }
 }

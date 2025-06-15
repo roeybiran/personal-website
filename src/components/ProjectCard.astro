@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import GitHubButton from "./GitHubButton.astro";
 import PlusIcon from "../assets/plus.svg";
+import ExternalLinkIcon from "../assets/external-link.svg";
 
 export interface Props {
   id: string;
@@ -28,7 +29,7 @@ const {
   isoDate,
   dateString,
   links,
-  responsibilities,
+  // responsibilities,
   stack,
   press,
   type,
@@ -43,7 +44,7 @@ const {
   aria-label={title}
 >
   <div id={`${id}-popup`} class="project-card__popup">
-    <div class="project-card__popup-inner | stack-s">
+    <div class="project-card__popup-inner">
       <header class="project-card__header">
         <p class="project-card__title">{title}</p>
         <time class="project-card__date" datetime={isoDate}>
@@ -52,27 +53,8 @@ const {
         {subtitle && <p class="project-card__subtitle">{subtitle}</p>}
       </header>
 
-      {
-        links && (
-          <dl class="project-card__links | stack-s">
-            <dt class="sr-only">Links</dt>
-            {links?.map((url: string) => (
-              <dd>
-                {url.includes("github") ? (
-                  <GitHubButton url={url} />
-                ) : (
-                  <a class="button" target="_blank" href={url}>
-                    View Project
-                  </a>
-                )}
-              </dd>
-            ))}
-          </dl>
-        )
-      }
-
-      <dl class="project-card__meta">
-        <div class="project-card__meta-entry project-card__meta-entry--kind">
+      <dl class="project-card__meta | stack-s">
+        <!-- <div class="project-card__meta-entry project-card__meta-entry--kind">
           <dt>Kind</dt>
           <dd class="project-card__badge | badge text-sm theme-gray">{type}</dd>
         </div>
@@ -87,22 +69,25 @@ const {
               ))}
             </div>
           )
-        }
-        <div class="project-card__meta-entry project-card__meta-entry--stack">
+        } -->
+
+        <div class="project-card__meta-entry project-card__meta-entry--tools">
           <dt>Tools</dt>
-          {
-            stack.map((tech: string) => (
-              <dd class="project-card__badge | badge text-sm theme-gray">
-                {tech}
-              </dd>
-            ))
-          }
+          <div class="project-card__tools-list | reel">
+            {
+              stack.map((tech) => (
+                <dd class="project-card__badge | badge text-sm theme-plum">
+                  {tech}
+                </dd>
+              ))
+            }
+          </div>
         </div>
         {
           press && (
             <div class="project-card__meta-entry project-card__meta-entry--press">
               <dt>Press</dt>
-              {press.map(({ name, url }: { name: string; url: string }) => (
+              {press.map(({ name, url }) => (
                 <dd>
                   <a target="_blank" class="project-card__link" href={url}>
                     {name}
@@ -113,6 +98,27 @@ const {
           )
         }
       </dl>
+
+      {
+        links && (
+          <dl class="project-card__links | stack-s">
+            <dt class="sr-only">Links</dt>
+            {links?.map((url: string) => (
+              <dd>
+                {url.includes("github") ? (
+                  <GitHubButton url={url} />
+                ) : (
+                  <a class="button button--image" target="_blank" href={url}>
+                    Visit
+                    <ExternalLinkIcon />
+                  </a>
+                )}
+              </dd>
+            ))}
+          </dl>
+        )
+      }
+
     </div>
   </div>
 
@@ -134,7 +140,7 @@ const {
     {image && <Image class="project-card__image" src={image} alt={title} />}
 
     <button
-      class="project-card__button | button button--image"
+      class="project-card__button | button button--image button--rounded"
       data-popup={`${id}-popup`}
       aria-label="Open project details"
     >

@@ -1,7 +1,8 @@
 .button {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: var(--size-2);
+  gap: var(--size-1);
   padding: var(--size-1) var(--size-3);
   border-radius: var(--radius-round);
   text-wrap: nowrap;
@@ -31,9 +32,16 @@
   background: var(--ui-bg-active);
 }
 
-.button--image {
-  padding: var(--size-2);
-  svg {
-    pointer-events: none;
-  }
+.button svg {
+  pointer-events: none;
+  block-size: var(--font-size-1);
+}
+
+.button--rounded {
+  display: grid;
+  place-content: center;
+  border-radius: var(--radius-round);
+  inline-size: var(--font-size-4);
+  padding: 0;
+  aspect-ratio: 1;
 }

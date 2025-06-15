@@ -18,7 +18,7 @@ const isGitHub = slug.startsWith("https://");
 
 <article class={`app-card ${isSmall ? "card--small" : ""}`}>
   <div class="app-card__texts">
-    {discontinued && <p class="badge text-xs theme-yellow">Discontinued</p>}
+    {discontinued && <p class="badge uppercased text-xs theme-yellow">Discontinued</p>}
     <header>
       <p class="app-card__title">{name}</p>
     </header>

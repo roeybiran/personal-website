@@ -112,6 +112,7 @@
   --bold: var(--font-weight-7);
   --border-width: var(--border-size-1);
   --border: var(--border-color) solid var(--border-width);
+  --border-dashed: var(--border-color) dashed var(--border-width);
   --border-subtle: var(--border-color-subtle) solid var(--border-width);
   --border-subtle-alpha: var(--border-color-subtle-alpha) solid
     var(--border-width);
@@ -193,8 +194,6 @@ kbd {
 
 .badge {
   white-space: nowrap;
-  text-transform: uppercase;
-  letter-spacing: var(--font-letterspacing-1);
   border: var(--border);
   padding-inline: var(--size-2);
   border-radius: var(--radius-2);
@@ -216,4 +215,10 @@ kbd {
   color: var(--yellow-11);
   background: var(--yellow-3);
   border-color: var(--yellow-7);
+}
+
+.theme-plum {
+  color: var(--plum-11);
+  background: var(--plum-3);
+  border-color: var(--plum-7);
 }
