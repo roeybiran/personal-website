@@ -64,6 +64,7 @@
   background: none;
   display: grid;
   place-content: center;
+  inline-size: var(--size-7);
 
   svg {
     pointer-events: none;
