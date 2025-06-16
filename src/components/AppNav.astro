@@ -27,6 +27,8 @@ const downloadLink = `${base}/download`;
       <a class="app-nav-link app-nav-link--home" href={base}>
         {appName}
       </a>
+    </div>
+    <div class="app-nav__section app-nav__section--trailing">
       <div class="mobile-menu">
         <div class="mobile-menu__menu | padded stack" data-js-mobile-menu>
           {
@@ -59,10 +61,10 @@ const downloadLink = `${base}/download`;
           ))
         }
       </div>
-    </div>
-    <div class="app-nav__section app-nav__section--buy">
-      <a class="buy-button" href={downloadLink}>Free Trial</a>
-      <a class="buy-button" href={buyLink} data-js-buy="">Buy</a>
+      <div class="app-nav__action-buttons">
+        <a class="buy-button" href={downloadLink}>Free Trial</a>
+        <a class="buy-button" href={buyLink} data-js-buy="">Buy</a>
+      </div>
     </div>
   </div>
 </nav>

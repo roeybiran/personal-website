@@ -1,30 +1,16 @@
 .reel {
-  display: flex;
+  display: grid;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-
-  > * {
-    scroll-snap-align: center;
-  }
-
-  /* display: grid;
-  grid-auto-stack: column;
-  grid-auto-columns: min(100%, var(--reel-item-size, 90%));
-  justify-content: flex-start;
-
-  gap: var(--reel-gap, var(--bleed));
-  padding: var(--padding, var(--bleed));
-  scroll-padding-inline-start: var(--size-1);
-
-  overflow-x: auto;
   overscroll-behavior-x: contain;
-  overflow-y: hidden;
+  grid-auto-flow: column;
+  grid-auto-columns: min(100%, var(--reel-item-size, auto));
+  gap: var(--reel-gap, var(--bleed));
+  justify-content: flex-start;
+}
 
-  scroll-snap-type: x mandatory;
-
-  > * {
-    min-inline-size: 0;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  } */
+.reel > * {
+  min-inline-size: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }

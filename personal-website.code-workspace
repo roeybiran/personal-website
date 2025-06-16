@@ -3,20 +3,5 @@
     {
       "path": "."
     }
-  ],
-  "settings": {
-    "search.exclude": {
-      ".astro": true,
-      "node_modules": true
-    },
-    "files.exclude": {
-      ".astro": true,
-      "node_modules": true
-    },
-    "editor.formatOnSave": true,
-    "eslint.validate": ["astro", "typescript", "javascript"],
-    "cssvar.files": ["./node_modules/open-props/open-props.min.css"],
-    "cssvar.ignore": [],
-    "cssvar.extensions": ["css", "postcss", "jsx", "tsx"]
-  }
+  ]
 }

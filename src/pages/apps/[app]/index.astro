@@ -18,6 +18,22 @@ const { Content } = await render(entry);
 <AppLayout entry={entry} pageTitle={undefined} currentURL={url}>
   <div class="page-app | padded">
     <div class="stack">
+      <div class="center intrinsic text">
+
+        <!-- <figure class="app__icon-wrapper">
+          <Image
+            src={entry.data.icon}
+            alt={entry.data.name}
+            class="app__icon"
+          />
+        </figure> -->
+
+        <header class="app__header">
+          <h1 class="app__title">{entry.data.name}.</h1>
+          <p class="app__tagline">{entry.data.tagline}.</p>
+        </header>
+      </div>
+
       <figure class="app__cover-wrapper | center intrinsic">
         <Image
           src={entry.data.coverImage}
@@ -25,23 +41,6 @@ const { Content } = await render(entry);
           class="app__cover"
         />
       </figure>
-
-      <div class="center intrinsic text">
-        <figure class="app__icon-wrapper">
-          <Image
-            src={entry.data.icon}
-            alt={entry.data.name}
-            class="app__icon"
-          />
-        </figure>
-        <div class="page--title">
-          <h1><strong>{entry.data.name}.</strong> {entry.data.tagline}</h1>
-        </div>
-        <div class="app__technicals">
-          <small class="app__purchase-policy">{entry.data.purchasePolicy}</small
-          >
-        </div>
-      </div>
 
       {
         entry.data.reviews && (
@@ -70,6 +69,10 @@ const { Content } = await render(entry);
 
       <div class="app-content | prose layout">
         <Content />
+      </div>
+
+      <div class="app__technicals">
+        <small class="app__purchase-policy">{entry.data.purchasePolicy}</small>
       </div>
     </div>
   </div>

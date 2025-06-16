@@ -1,6 +1,8 @@
 .app-nav {
   border-block-end: var(--border);
   background: var(--app-bg);
+  position: sticky;
+  inset-block-start: 0;
 }
 
 .app-nav__inner {
@@ -82,7 +84,7 @@
   .desktop-menu {
     display: inherit;
     column-gap: var(--bleed);
-    margin-inline-start: var(--bleed);
+    margin-inline-end: var(--bleed);
   }
 }
 
