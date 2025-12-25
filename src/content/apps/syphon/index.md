@@ -39,7 +39,7 @@ Keep your the most important stuff front and center by optionally putting hidden
 
 ### Window Switching
 
-Use a dedicated hotkey to list the windows of the frontmost app or perform a fuzzy search across all windows from all applications, both feature large, clear window previews[^1]. Seamlessly switch between app and window modes without having to reactivate Syphon.
+Use a dedicated hotkey to list the windows of the frontmost app or perform a fuzzy search across all windows from all applications, both feature large, clear window previews. Seamlessly switch between app and window modes without having to reactivate Syphon.
 
 ![Window Switching](./window-switching.png)
 
@@ -78,5 +78,3 @@ Syphon learns from your habits and gets smarter with use. If you're a designer w
 </div>
 
 </div>
-
-[^1]: Window previews are supported on macOS Sonoma and later.
