@@ -1,0 +1,18 @@
+{
+  "name": "@roey/personal-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^8.2.7",
+    "@roey/product-catalog": "*",
+    "@roey/site-kit": "*",
+    "astro": "^5.13.9",
+    "gsap": "^3.13.0",
+    "lightningcss": "^1.30.1"
+  }
+}

@@ -1,0 +1,9 @@
+.site-footer {
+  padding-block: var(--bleed);
+  border-block-start: var(--border);
+}
+
+.site-footer__links {
+  --cluster-space: var(--size-2);
+  list-style: none;
+}

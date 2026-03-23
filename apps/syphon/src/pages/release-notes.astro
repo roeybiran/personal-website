@@ -1,0 +1,27 @@
+---
+import Fallback from "@roey/site-kit/components/Fallback.astro";
+import ProductLayout from "@roey/site-kit/layouts/ProductLayout.astro";
+import { product } from "../product";
+import { getTextFile } from "../utils/s3";
+
+const content = await getTextFile(product.slug, `${product.name}.html`);
+---
+
+<ProductLayout
+  productName={product.name}
+  gumroadId={product.gumroadId}
+  pageTitle="Release Notes"
+  pageDescription={product.metaDescription}
+  currentURL={Astro.request.url}
+>
+  <h1 class="sr-only">{product.name}: Release Notes</h1>
+  {
+    content ? (
+      <div class="release-notes | constrained padded prose" set:html={content} />
+    ) : (
+      <div class="release-notes | constrained padded prose">
+        <Fallback fallbackText="No release notes yet." />
+      </div>
+    )
+  }
+</ProductLayout>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import AppNav from "../components/AppNav.astro";
+
+interface Props {
+  productName: string;
+  gumroadId: string;
+  pageTitle?: string;
+  pageDescription: string;
+  currentURL: string;
+  ogImage?: string;
+}
+
+const {
+  productName,
+  gumroadId,
+  pageTitle,
+  pageDescription,
+  currentURL,
+  ogImage = "/og.jpg",
+}: Props = Astro.props;
+
+const composedTitle = pageTitle ? `${productName}: ${pageTitle}` : productName;
+---
+
+<BaseLayout
+  pageTitle={composedTitle}
+  pageDescription={pageDescription}
+  ogImage={ogImage}
+  currentURL={currentURL}
+>
+  <AppNav
+    slot="header"
+    productName={productName}
+    currentURL={currentURL}
+    gumroadId={gumroadId}
+  />
+  <slot />
+</BaseLayout>

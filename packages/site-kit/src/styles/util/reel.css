@@ -1,0 +1,16 @@
+.reel {
+  display: grid;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  grid-auto-flow: column;
+  grid-auto-columns: min(100%, var(--reel-item-size, auto));
+  gap: var(--reel-gap, var(--bleed));
+  justify-content: flex-start;
+}
+
+.reel > * {
+  min-inline-size: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}

@@ -1,0 +1,12 @@
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  /* The space (margin) between each of the clustered elements */
+  gap: var(--cluster-space, 1rem);
+  /* The justify-content value (for horizontal alignment) */
+  justify-content: var(--cluster-justify, flex-start);
+  /* The align-items value (for vertical alignment) */
+  align-items: var(--cluster-align, center);
+
+  list-style: none;
+}

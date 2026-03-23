@@ -1,0 +1,19 @@
+{
+  "name": "@roey/finbar",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^8.2.7",
+    "@aws-sdk/client-s3": "^3.726.1",
+    "@roey/product-catalog": "*",
+    "@roey/site-kit": "*",
+    "astro": "^5.13.9",
+    "lightningcss": "^1.30.1",
+    "marked": "^16.4.1"
+  }
+}

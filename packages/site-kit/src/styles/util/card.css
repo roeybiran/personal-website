@@ -1,0 +1,47 @@
+.card {
+  position: relative;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a:visited {
+    color: inherit;
+  }
+
+  a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.card a {
+  color: var(--text-primary);
+}
+
+.card a:visited {
+  color: var(--text-primary);
+}
+
+.card a:hover {
+  text-decoration: none;
+}
+
+.card--styled {
+  box-shadow: var(--shadow-1);
+  outline: 1px solid transparent;
+  outline-offset: 8px;
+  transition: outline-color 0.3s ease 0s, outline-offset 0.3s ease 0s;
+}
+
+.card--styled:focus-within {
+  outline-color: var(--outline-color);
+  outline-offset: 0px;
+}
+
+.card--styled a:focus {
+  text-decoration: none;
+  outline: none;
+}

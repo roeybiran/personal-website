@@ -1,0 +1,25 @@
+---
+import { getEntry, render } from "astro:content";
+import ProductLayout from "@roey/site-kit/layouts/ProductLayout.astro";
+import { product } from "../product";
+
+const entry = await getEntry("privacy", "privacy");
+
+if (!entry) {
+  throw new Error("Missing privacy content");
+}
+
+const { Content } = await render(entry);
+---
+
+<ProductLayout
+  productName={product.name}
+  gumroadId={product.gumroadId}
+  pageTitle="Privacy"
+  pageDescription={product.metaDescription}
+  currentURL={Astro.request.url}
+>
+  <div class="content-help | padded prose layout">
+    <Content />
+  </div>
+</ProductLayout>
