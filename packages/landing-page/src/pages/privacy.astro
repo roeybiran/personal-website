@@ -1,0 +1,24 @@
+---
+import { render } from "astro:content";
+import ProductLayout from "@roey/design-system/layouts/ProductLayout.astro";
+import { getProductOverviewEntry, getProductPrivacyEntry } from "../utils/product";
+
+const productEntry = await getProductOverviewEntry();
+const privacyEntry = await getProductPrivacyEntry();
+const product = productEntry.data;
+const { Content } = await render(privacyEntry);
+---
+
+<ProductLayout
+  productName={product.name}
+  productIcon={product.icon}
+  gumroadId={product.gumroadId}
+  xHandle={product.xHandle}
+  pageTitle="Privacy"
+  pageDescription={product.metaDescription}
+  currentURL={Astro.request.url}
+>
+  <div class="content-help | padded prose layout">
+    <Content />
+  </div>
+</ProductLayout>

@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import ProductLayout from "@roey/design-system/layouts/ProductLayout.astro";
+import { getProductOverviewEntry } from "../utils/product";
+
+const entry = await getProductOverviewEntry();
+const product = entry.data;
+const { Content } = await render(entry);
+---
+
+<ProductLayout
+  productName={product.name}
+  productIcon={product.icon}
+  gumroadId={product.gumroadId}
+  xHandle={product.xHandle}
+  pageDescription={product.metaDescription}
+  currentURL={Astro.request.url}
+>
+  <div class="page-app | padded">
+    <div class="stack">
+      <div class="center intrinsic text">
+        <header class="app__header">
+          <h1 class="app__tagline">
+            <span class="sr-only">{product.name}: </span>
+            {product.tagline}
+          </h1>
+        </header>
+      </div>
+
+      <figure class="app__cover-wrapper | center intrinsic">
+        <Image
+          src={entry.data.coverImage}
+          alt={product.name}
+          class="app__cover"
+        />
+      </figure>
+
+      {
+        entry.data.reviews && (
+          <section class="center intrinsic">
+            <header class="sr-only">
+              <h2>Reviews</h2>
+            </header>
+            <div class="app-reviews | reel">
+              {entry.data.reviews.map((review) => (
+                <div class="app-review">
+                  <blockquote>
+                    <p class="review__text">{review.text}</p>
+                  </blockquote>
+                  <footer class="review__cite">
+                    —{" "}
+                    <a href={review.url}>
+                      {review.reviewer}, <cite>{review.platform}</cite>
+                    </a>
+                  </footer>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <div class="app-content | prose layout">
+        <Content />
+      </div>
+
+      <div class="app__technicals">
+        <small class="app__purchase-policy">{entry.data.purchasePolicy}</small>
+      </div>
+    </div>
+  </div>
+</ProductLayout>

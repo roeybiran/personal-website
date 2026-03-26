@@ -1,5 +1,9 @@
 import { defineCollection, z } from "astro:content";
 import { file, glob } from "astro/loaders";
+import {
+  createProductOverviewSchema,
+  productIdFromEntry,
+} from "@roey/landing-page";
 import { extractSlug } from "./utils/extractSlug";
 import { extractDirName } from "./utils/extractDirName";
 
@@ -95,7 +99,17 @@ const icons = defineCollection({
     }),
 });
 
+const productOverview = defineCollection({
+  loader: glob({
+    base: "..",
+    pattern: "*/src/content/index.md",
+    generateId: ({ entry }) => productIdFromEntry(entry),
+  }),
+  schema: ({ image }) => createProductOverviewSchema(z, image),
+});
+
 export const collections = {
+  productOverview,
   utilities,
   projects,
   interactions,

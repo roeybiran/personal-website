@@ -1,27 +1,21 @@
 ---
 import { getCollection } from "astro:content";
-import { featuredProducts } from "@roey/product-catalog";
-import AppCard from "@roey/site-kit/components/AppCard.astro";
-import finbarIcon from "../content/icons/finbar.png";
-import syphonIcon from "../content/icons/syphon.png";
+import { sortProductEntriesBySlug } from "@roey/landing-page";
+import AppCard from "@roey/design-system/components/AppCard.astro";
 
 interface Props {
   includeUtilities?: boolean;
 }
 
 const { includeUtilities = true } = Astro.props;
-
-const icons = {
-  finbar: finbarIcon,
-  syphon: syphonIcon,
-} as const;
-
-const apps = featuredProducts.map((product) => ({
-  name: product.name,
-  tagline: product.tagline,
-  icon: icons[product.slug],
-  slug: product.siteUrl,
-}));
+const apps = sortProductEntriesBySlug(await getCollection("productOverview")).map(
+  (product) => ({
+    name: product.data.name,
+    tagline: product.data.tagline,
+    icon: product.data.icon,
+    slug: product.data.siteUrl,
+  })
+);
 
 const utilities = (await getCollection("utilities")).map((utility) => ({
   ...utility,

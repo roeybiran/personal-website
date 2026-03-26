@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^8.2.7",
-    "@roey/product-catalog": "*",
-    "@roey/site-kit": "*",
+    "@roey/design-system": "*",
+    "@roey/landing-page": "*",
     "astro": "^5.13.9",
     "gsap": "^3.13.0",
     "lightningcss": "^1.30.1"

@@ -1,15 +1,22 @@
 import type { APIRoute } from "astro";
-import { getProduct } from "@roey/product-catalog";
+import { getEntry } from "astro:content";
+import { isProductSlug } from "@roey/landing-page";
 
 export const GET: APIRoute = async ({ params }) => {
-  if (params.app !== "finbar" && params.app !== "syphon") {
+  if (!params.app || !isProductSlug(params.app)) {
+    return new Response("Not found", { status: 404 });
+  }
+
+  const product = await getEntry("productOverview", params.app);
+
+  if (!product) {
     return new Response("Not found", { status: 404 });
   }
 
   return new Response(null, {
     status: 308,
     headers: {
-      Location: getProduct(params.app).siteUrl,
+      Location: product.data.siteUrl,
     },
   });
 };

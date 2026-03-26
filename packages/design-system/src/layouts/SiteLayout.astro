@@ -1,0 +1,25 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+
+interface Props {
+  pageTitle: string;
+  pageDescription: string;
+  ogImage: string;
+  currentURL: string;
+}
+
+const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
+---
+
+<BaseLayout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  ogImage={ogImage}
+  currentURL={currentURL}
+  footerName="Roey Biran"
+  xHandle="roeybiran"
+>
+  <SiteHeader slot="header" currentURL={currentURL} />
+  <slot />
+</BaseLayout>

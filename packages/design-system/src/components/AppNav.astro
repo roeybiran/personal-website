@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import AppMenuButton from "../assets/app-menu-button.svg";
+
+interface Props {
+  productName: string;
+  productIcon: ImageMetadata;
+  currentURL: string;
+  gumroadId: string;
+}
+
+const { productName, productIcon, currentURL, gumroadId } = Astro.props;
+
+const pathname = new URL(currentURL).pathname;
+const links = [
+  { href: "/help", label: "Help" },
+  { href: "/release-notes", label: "Release Notes" },
+  { href: "/privacy", label: "Privacy" },
+];
+
+const buyLink = `https://roeybiran.gumroad.com/l/${gumroadId}`;
+const downloadLink = "/download";
+---
+
+<nav id="app-nav" class="app-nav">
+  <div class="app-nav__inner | constrained">
+    <div class="app-nav__section app-nav__section--leading">
+      <a class="app-nav-link app-nav-link--home" href="/">
+        <Image
+          src={productIcon}
+          alt=""
+          aria-hidden="true"
+          class="app-nav-link__icon"
+        />
+        {productName}
+      </a>
+    </div>
+    <div class="app-nav__section app-nav__section--trailing">
+      <div class="mobile-menu">
+        <div class="mobile-menu__menu | padded stack" data-js-mobile-menu>
+          {
+            links.map(({ href, label }) => (
+              <a
+                class="app-nav-link"
+                aria-current={pathname === href ? "page" : undefined}
+                href={href}
+                data-js-mobile-menu-link
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+        <button class="mobile-menu__button" data-js-app-nav-mobile-menu-button>
+          <AppMenuButton />
+        </button>
+      </div>
+      <div class="desktop-menu">
+        {
+          links.map(({ href, label }) => (
+            <a
+              class="app-nav-link"
+              aria-current={pathname === href ? "page" : undefined}
+              href={href}
+            >
+              {label}
+            </a>
+          ))
+        }
+      </div>
+      <div class="app-nav__action-buttons">
+        <a class="buy-button" href={downloadLink}>Free Trial</a>
+        <a class="buy-button" href={buyLink} data-js-buy="">Buy</a>
+      </div>
+    </div>
+  </div>
+</nav>

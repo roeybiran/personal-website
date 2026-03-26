@@ -1,0 +1,36 @@
+---
+import EnvelopeIcon from "../assets/envelope.svg";
+import XLogoIcon from "../assets/x-logo.svg";
+
+interface Props {
+  copyrightName: string;
+  xHandle: string;
+}
+
+const { copyrightName, xHandle }: Props = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <ul class="site-footer__links | cluster">
+      <li class="site-footer__link">
+        <a class="site-footer__icon-link" href={`https://x.com/${xHandle}`} aria-label="X">
+          <span class="sr-only">X</span>
+          <XLogoIcon aria-hidden="true" focusable="false" />
+        </a>
+      </li>
+      <li class="site-footer__link">
+        <a
+          class="site-footer__icon-link"
+          href="mailto:roeybiran@icloud.com"
+          aria-label="Email"
+        >
+          <span class="sr-only">Email</span>
+          <EnvelopeIcon aria-hidden="true" focusable="false" />
+        </a>
+      </li>
+    </ul>
+    <small class="site-footer__copyright">{copyrightName} © {year}</small>
+  </div>
+</footer>

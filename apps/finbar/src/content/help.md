@@ -1,3 +1,8 @@
+---
+feedbackUrl: https://github.com/roeybiran/finbar-issues/issues
+issueTrackerUrl: https://github.com/roeybiran/finbar-issues/issues
+---
+
 ## User Guide
 
 ### How Searching Works

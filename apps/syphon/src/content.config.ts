@@ -1,43 +1,38 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import {
+  createProductHelpSchema,
+  createProductOverviewSchema,
+} from "@roey/landing-page";
 
-const overview = defineCollection({
+const productOverview = defineCollection({
   loader: glob({
-    pattern: "src/content/index.md",
+    base: "src/content",
+    pattern: "index.md",
     generateId: () => "index",
   }),
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      tagline: z.string(),
-      releaseDate: z.date(),
-      icon: image(),
-      coverImage: image(),
-      purchasePolicy: z.string(),
-      gumroadID: z.string(),
-      metaDescription: z.string(),
-      reviews: z
-        .array(
-          z.object({
-            text: z.string(),
-            reviewer: z.string(),
-            url: z.string(),
-            platform: z.string(),
-            rating: z.number().optional(),
-          })
-        )
-        .optional(),
-    }),
+  schema: ({ image }) => createProductOverviewSchema(z, image),
 });
 
-const privacy = defineCollection({
+const productHelp = defineCollection({
   loader: glob({
-    pattern: "src/content/privacy.md",
+    base: "src/content",
+    pattern: "help.md",
+    generateId: () => "help",
+  }),
+  schema: createProductHelpSchema(z),
+});
+
+const productPrivacy = defineCollection({
+  loader: glob({
+    base: "src/content",
+    pattern: "privacy.md",
     generateId: () => "privacy",
   }),
 });
 
 export const collections = {
-  overview,
-  privacy,
+  productOverview,
+  productHelp,
+  productPrivacy,
 };

@@ -1,0 +1,71 @@
+---
+import { marked } from "marked";
+import ProductLayout from "@roey/design-system/layouts/ProductLayout.astro";
+import { getProductHelpEntry, getProductOverviewEntry } from "../utils/product";
+
+const productEntry = await getProductOverviewEntry();
+const helpEntry = await getProductHelpEntry();
+const product = productEntry.data;
+const sectionTokens = {
+  "User Guide": [],
+  Troubleshooting: [],
+} as Record<"User Guide" | "Troubleshooting", marked.Token[]>;
+let currentSection: "User Guide" | "Troubleshooting" | null = null;
+
+for (const token of marked.lexer(helpEntry.body)) {
+  if (token.type === "heading" && token.depth === 2) {
+    currentSection =
+      token.text === "User Guide" || token.text === "Troubleshooting"
+        ? token.text
+        : null;
+    continue;
+  }
+
+  if (currentSection) {
+    sectionTokens[currentSection].push(token);
+  }
+}
+
+const userGuideHtml = marked.parser(sectionTokens["User Guide"]);
+const troubleshootingHtml = marked.parser(sectionTokens.Troubleshooting);
+---
+
+<ProductLayout
+  productName={product.name}
+  productIcon={product.icon}
+  gumroadId={product.gumroadId}
+  xHandle={product.xHandle}
+  pageTitle="Help"
+  pageDescription={product.metaDescription}
+  currentURL={Astro.request.url}
+>
+  <div class="content-help | padded prose layout stack">
+    <h1 class="sr-only">{product.name}: Help</h1>
+
+    <section class="stack">
+      <h2>User Guide</h2>
+      <div set:html={userGuideHtml} />
+    </section>
+
+    <section class="stack">
+      <h2>Troubleshooting</h2>
+      <div set:html={troubleshootingHtml} />
+    </section>
+
+    <section class="stack">
+      <h2>Feedback &amp; Issues</h2>
+      <p>
+        <a href={helpEntry.data.feedbackUrl}>Submit feedback</a>
+      </p>
+      {
+        helpEntry.data.issueTrackerUrl ? (
+          <p>
+            <a href={helpEntry.data.issueTrackerUrl}>Open the issue tracker</a>
+          </p>
+        ) : (
+          <p>Issue tracker coming soon.</p>
+        )
+      }
+    </section>
+  </div>
+</ProductLayout>
