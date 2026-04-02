@@ -1,6 +1,0 @@
-.page-front__content {
-  p {
-    font-size: var(--font-size-fluid-1);
-    max-inline-size: var(--size-content-3);
-  }
-}

@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+import avatar from "../assets/memoji.png";
+
+const name = "Roey Biran";
+const tagline = "Designer + Developer";
+---
+
+<header class="site-header">
+  <div class="site-header__inner | constrained">
+    <div class="site-header__leading">
+      <Image src={avatar} alt={name} class="site-header__avatar" />
+      <div class="site-header__text">
+        <a class="site-header__name" href="/">{name}</a>
+        <small class="site-header__subtitle">{tagline}</small>
+      </div>
+    </div>
+  </div>
+</header>

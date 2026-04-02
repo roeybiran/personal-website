@@ -1,9 +1,0 @@
-.misc-apps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--bleed);
-}
-
-.card--small {
-  flex: min(100%, var(--size-content-2));
-}
