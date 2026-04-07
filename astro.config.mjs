@@ -25,8 +25,5 @@ export default defineConfig({
       S3_REGION: envField.string({ context: "server", access: "secret" }),
     },
   },
-  redirects: {
-    "/apps/[slug]/buy": "/apps/[slug]/",
-  },
   adapter: vercel(),
 });
