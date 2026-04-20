@@ -15,7 +15,7 @@ interface Props {
 
 const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
 
-const slug = extractSlug(currentURL);
+const slug = extractSlug(currentURL) || "home";
 const bodyClass = `body--${slug}`;
 const mainClass = `main--${slug}`;
 ---
@@ -29,12 +29,10 @@ const mainClass = `main--${slug}`;
     currentURL={currentURL}
   />
   <body class={bodyClass}>
-    <SiteHeader currentURL={currentURL} />
+    <SiteHeader />
     <main class={mainClass}>
       <slot />
     </main>
     <SiteFooter />
   </body>
 </html>
-
-<script src="../scripts/script.ts"></script>
