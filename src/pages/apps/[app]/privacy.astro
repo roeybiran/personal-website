@@ -15,7 +15,13 @@ const content = (await getEntry("privacy", slug))?.rendered?.html;
 ---
 
 <AppLayout entry={entry} pageTitle="Privacy" currentURL={url}>
-  <div class="content-help | padded prose layout" set:html={content}>
-    {content ? null : <Fallback fallbackText="No privacy policy yet." />}
-  </div>
+  {
+    content ? (
+      <div class="content-help | padded prose layout" set:html={content} />
+    ) : (
+      <div class="content-help | padded prose layout">
+        <Fallback fallbackText="No privacy policy yet." />
+      </div>
+    )
+  }
 </AppLayout>

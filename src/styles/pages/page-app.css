@@ -14,9 +14,6 @@
     font-size: var(--font-size-fluid-3);
   }
 
-  .app__tagline {
-  }
-
   .app__title {
     font-weight: var(--bold);
   }

@@ -3,23 +3,56 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 import css from "@eslint/css";
+import astro from "eslint-plugin-astro";
+
+const [
+  tseslintBaseConfig,
+  tseslintEslintRecommendedConfig,
+  tseslintRecommendedConfig,
+] = tseslint.configs.recommended;
 
 export default defineConfig([
-  // ...eslintPluginAstro.configs.recommended,
   {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-    plugins: { js },
-    extends: ["js/recommended"],
+    ignores: [".astro/", ".vercel/", "dist/", "node_modules/"],
+  },
+  ...astro.configs.recommended,
+  {
+    files: ["**/*.{js,mjs,cjs}"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    rules: js.configs.recommended.rules,
   },
   {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-    languageOptions: { globals: globals.browser },
+    files: ["**/*.{ts,mts,cts}"],
+    languageOptions: {
+      ...tseslintBaseConfig.languageOptions,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    plugins: tseslintBaseConfig.plugins,
+    rules: {
+      ...js.configs.recommended.rules,
+      ...tseslintEslintRecommendedConfig.rules,
+      ...tseslintRecommendedConfig.rules,
+    },
   },
-  tseslint.configs.recommended,
   {
     files: ["**/*.css"],
     language: "css/css",
     plugins: { css },
+    languageOptions: {
+      tolerant: true,
+    },
     extends: ["css/recommended"],
+    rules: {
+      "css/no-invalid-properties": "off",
+      "css/use-baseline": "off",
+    },
   },
 ]);

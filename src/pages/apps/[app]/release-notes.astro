@@ -17,7 +17,13 @@ const content = await getTextFile(slug, `${entry.data.name}.html`);
 
 <AppLayout entry={entry} pageTitle="Release Notes" currentURL={url}>
   <h1 class="sr-only">{entry.data.name}: Release Notes</h1>
-  <div class="release-notes | constrained padded prose" set:html={content}>
-    {content ? null : <Fallback fallbackText="No release notes yet." />}
-  </div>
+  {
+    content ? (
+      <div class="release-notes | constrained padded prose" set:html={content} />
+    ) : (
+      <div class="release-notes | constrained padded prose">
+        <Fallback fallbackText="No release notes yet." />
+      </div>
+    )
+  }
 </AppLayout>

@@ -15,7 +15,13 @@ const content = (await getEntry("help", slug))?.rendered?.html;
 ---
 
 <AppLayout entry={entry} pageTitle="Help" currentURL={url}>
-  <div class="content-help | padded prose layout" set:html={content}>
-    {content ? null : <Fallback fallbackText="No help yet." />}
-  </div>
+  {
+    content ? (
+      <div class="content-help | padded prose layout" set:html={content} />
+    ) : (
+      <div class="content-help | padded prose layout">
+        <Fallback fallbackText="No help yet." />
+      </div>
+    )
+  }
 </AppLayout>
