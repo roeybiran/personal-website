@@ -32,6 +32,35 @@ const stack = z.array(
 const responsibilities = z.array(z.enum(["Art", "Code", "Design"]));
 const type = z.enum(["Web", "macOS App", "Unity Game", "App Icon"]);
 
+const apps = defineCollection({
+  loader: glob({
+    pattern: "src/content/apps/*/index.md",
+    generateId: ({ entry }) => extractDirName(entry),
+  }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      tagline: z.string(),
+      releaseDate: z.date(),
+      icon: image(),
+      coverImage: image(),
+      purchasePolicy: z.string(),
+      gumroadID: z.string(),
+      metaDescription: z.string(),
+      reviews: z
+        .array(
+          z.object({
+            text: z.string(),
+            reviewer: z.string(),
+            url: z.string(),
+            platform: z.string(),
+            rating: z.number().optional(),
+          })
+        )
+        .optional(),
+    }),
+});
+
 const utilities = defineCollection({
   loader: glob({
     pattern: "src/content/utilities/*/index.md",
@@ -46,6 +75,20 @@ const utilities = defineCollection({
       github: z.string(),
       discontinued: z.boolean().optional(),
     }),
+});
+
+const privacy = defineCollection({
+  loader: glob({
+    pattern: "src/content/apps/*/privacy.md",
+    generateId: ({ entry }) => extractDirName(entry),
+  }),
+});
+
+const help = defineCollection({
+  loader: glob({
+    pattern: "src/content/apps/*/help.md",
+    generateId: ({ entry }) => extractDirName(entry),
+  }),
 });
 
 const projects = defineCollection({
@@ -95,23 +138,11 @@ const icons = defineCollection({
     }),
 });
 
-const apps = defineCollection({
-  loader: glob({
-    pattern: "src/content/apps/*.yaml",
-    generateId: ({ entry }) => entry.split("/").pop()?.replace(/\.yaml$/, "") ?? "",
-  }),
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      tagline: z.string(),
-      siteUrl: z.string().url(),
-      icon: image(),
-    }),
-});
-
 export const collections = {
   apps,
+  help,
   utilities,
+  privacy,
   projects,
   interactions,
   icons,

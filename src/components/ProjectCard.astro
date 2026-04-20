@@ -6,18 +6,15 @@ import ExternalLinkIcon from "../assets/external-link.svg";
 
 export interface Props {
   id: string;
-  type: string;
   title: string;
-  isoDate?: string;
-  dateString?: string;
-  stack?: string[];
+  isoDate: string;
+  dateString: string;
+  type: string;
+  stack: string[];
   subtitle?: string;
   links?: string[];
   responsibilities?: string[];
   press?: { name: string; url: string }[];
-  badgeLabel?: string;
-  badgeTone?: "gray" | "yellow" | "plum" | "red";
-  sectionKey?: string;
   video?: {
     poster: string;
     src: string;
@@ -33,82 +30,74 @@ const {
   dateString,
   links,
   // responsibilities,
-  stack = [],
+  stack,
   press,
-  badgeLabel,
-  badgeTone = "gray",
-  sectionKey,
   type,
   image,
   video,
 } = Astro.props;
-
-const hasMeta = stack.length > 0 || Boolean(press?.length);
 ---
 
 <article
   id={id}
   class={`project-card project-card--${type.toLowerCase()}`}
   aria-label={title}
-  data-section={sectionKey}
 >
   <div id={`${id}-popup`} class="project-card__popup">
     <div class="project-card__popup-inner">
       <header class="project-card__header">
         <p class="project-card__title">{title}</p>
-        {
-          isoDate && dateString && (
-            <time class="project-card__date" datetime={isoDate}>
-              {dateString}
-            </time>
-          )
-        }
-        {
-          badgeLabel && (
-            <p class={`project-card__status | badge text-xs uppercased theme-${badgeTone}`}>
-              {badgeLabel}
-            </p>
-          )
-        }
+        <time class="project-card__date" datetime={isoDate}>
+          {dateString}
+        </time>
         {subtitle && <p class="project-card__subtitle">{subtitle}</p>}
       </header>
 
-      {
-        hasMeta && (
-          <dl class="project-card__meta | stack-s">
+      <dl class="project-card__meta | stack-s">
+        <!-- <div class="project-card__meta-entry project-card__meta-entry--kind">
+          <dt>Kind</dt>
+          <dd class="project-card__badge | badge text-sm theme-gray">{type}</dd>
+        </div>
+        {
+          responsibilities && (
+            <div class="project-card__meta-entry project-card__meta-entry--responsibilities">
+              <dt>Roles</dt>
+              {responsibilities.map((r: string) => (
+                <dd class="project-card__badge | badge text-sm theme-gray">
+                  {r}
+                </dd>
+              ))}
+            </div>
+          )
+        } -->
+
+        <div class="project-card__meta-entry project-card__meta-entry--tools">
+          <dt>Tools</dt>
+          <div class="project-card__tools-list | reel">
             {
-              stack.length > 0 && (
-                <div class="project-card__meta-entry project-card__meta-entry--tools">
-                  <dt>Tools</dt>
-                  <div class="project-card__tools-list | reel">
-                    {
-                      stack.map((tech) => (
-                        <dd class="project-card__badge | badge text-sm theme-plum">
-                          {tech}
-                        </dd>
-                      ))
-                    }
-                  </div>
-                </div>
-              )
+              stack.map((tech) => (
+                <dd class="project-card__badge | badge text-sm theme-plum">
+                  {tech}
+                </dd>
+              ))
             }
-            {
-              press && (
-                <div class="project-card__meta-entry project-card__meta-entry--press">
-                  <dt>Press</dt>
-                  {press.map(({ name, url }) => (
-                    <dd>
-                      <a target="_blank" class="project-card__link" href={url}>
-                        {name}
-                      </a>
-                    </dd>
-                  ))}
-                </div>
-              )
-            }
-          </dl>
-        )
-      }
+          </div>
+        </div>
+        {
+          press && (
+            <div class="project-card__meta-entry project-card__meta-entry--press">
+              <dt>Press</dt>
+              {press.map(({ name, url }) => (
+                <dd>
+                  <a target="_blank" class="project-card__link" href={url}>
+                    {name}
+                  </a>
+                </dd>
+              ))}
+            </div>
+          )
+        }
+      </dl>
 
       {
         links && (

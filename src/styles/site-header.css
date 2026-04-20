@@ -19,6 +19,7 @@
 .site-header__leading {
   display: flex;
   gap: var(--size-2);
+  margin-inline-end: auto;
 }
 
 .site-header__avatar {
@@ -40,4 +41,18 @@
 .site-header__name,
 .site-header_subtitle {
   display: block;
+}
+
+.site-nav__list {
+  list-style: none;
+}
+
+.site-nav__link,
+.site-nav__link:visited {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.site-nav__link[aria-current="page"] {
+  font-weight: var(--bold);
 }

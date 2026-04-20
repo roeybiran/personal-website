@@ -15,12 +15,18 @@
 
 @import url(./components/button.css);
 
+@import url(./components/app-grid.css);
+@import url(./components/app-card.css);
+@import url(./components/app-nav.css);
+
 @import url(./site-footer.css);
 @import url(./site-header.css);
 
+@import url(./pages/page-app.css);
 @import url(./pages/page-projects.css);
 @import url(./pages/page-front.css);
 @import url(./pages/page-404.css);
+@import url(./pages/page-release_notes.css);
 
 /* TEMPORARY -- REMOVE TO UTIL */
 @view-transition {

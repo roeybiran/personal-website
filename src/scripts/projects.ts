@@ -9,16 +9,6 @@ cards.forEach((card) => {
   const svg = button.querySelector("svg") as SVGSVGElement;
   const media = card.querySelector(".project-card__media") as HTMLDivElement;
   const popup = card.querySelector(".project-card__popup") as HTMLDivElement;
-  const sectionKey = card.getAttribute("data-section");
-  const grid = card.closest(".projects-grid");
-  const siblingCards =
-    grid instanceof HTMLElement
-      ? Array.from(grid.querySelectorAll(".project-card")).filter(
-          (candidate) =>
-            candidate !== card &&
-            candidate.getAttribute("data-section") === sectionKey
-        )
-      : [];
   card.ariaExpanded = "false";
 
   gsap.set(popup, {
@@ -48,7 +38,7 @@ cards.forEach((card) => {
       "<"
     )
     .to(
-      siblingCards,
+      `.projects-grid__section > *:not(#${card.id})`,
       {
         filter: "blur(10px)",
         pointerEvents: "none",
@@ -94,3 +84,5 @@ cards.forEach((card) => {
   });
 
 });
+
+

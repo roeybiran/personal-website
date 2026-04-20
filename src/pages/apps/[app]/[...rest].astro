@@ -1,0 +1,19 @@
+---
+import { getEntry } from "astro:content";
+
+const { app } = Astro.params;
+
+if (!app) {
+  return Astro.redirect("/404");
+}
+
+const entry = await getEntry("apps", app);
+
+if (!entry) {
+  return Astro.redirect("/404");
+}
+
+const { search } = new URL(Astro.request.url);
+
+return Astro.redirect(`/apps/${app}${search}`, 301);
+---

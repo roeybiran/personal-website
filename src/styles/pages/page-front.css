@@ -1,3 +1,6 @@
 .page-front__content {
-  padding-block: var(--size-4) var(--size-8);
+  p {
+    font-size: var(--font-size-fluid-1);
+    max-inline-size: var(--size-content-3);
+  }
 }

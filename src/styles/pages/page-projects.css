@@ -1,22 +1,22 @@
-:where(.main--home, .main--projects) {
+.main--projects {
   .projects-grid {
     list-style: none;
     --grid-item-min: var(--size-content-1);
-    --grid-fit: auto-fit;
     gap: var(--bleed);
     grid-auto-rows: var(--size-12);
+  }
+
+  .projects-grid__section {
+    display: contents;
   }
 
   .projects-grid__section-header {
     display: grid;
     place-content: center;
-    min-block-size: var(--size-12);
-    padding: var(--bleed);
     border-radius: var(--card-radius);
     border: var(--border);
     border-style: dashed;
-    background: var(--ui-bg);
-    text-align: center;
+    background: var(--app-bg-subtle);
   }
 
   .project-card {
@@ -82,14 +82,6 @@
   .project-card__image {
     object-fit: contain;
     max-inline-size: var(--size-10);
-  }
-
-  .project-card--app .project-card__image {
-    max-inline-size: var(--size-8);
-  }
-
-  .project-card--utility .project-card__image {
-    max-inline-size: var(--size-7);
   }
 
   .project-card__subtitle {
