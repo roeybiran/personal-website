@@ -1,8 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import GitHubButton from "./GitHubButton.astro";
+import ProjectPopup from "./ProjectPopup.astro";
 import PlusIcon from "../assets/plus.svg";
-import ExternalLinkIcon from "../assets/external-link.svg";
 
 export interface Props {
   id: string;
@@ -43,7 +42,6 @@ const {
   video,
 } = Astro.props;
 
-const hasMeta = stack.length > 0 || Boolean(press?.length);
 const popupId = `${id}-popup`;
 const anchorName = `--${id}-anchor`;
 ---
@@ -52,95 +50,9 @@ const anchorName = `--${id}-anchor`;
   id={id}
   class={`card card--${type.toLowerCase()} | cardlike`}
   data-section={sectionKey}
+  style={`anchor-name: ${anchorName};`}
 >
-  <div
-    id={popupId}
-    class="card__popup"
-    popover="auto"
-    role="dialog"
-    style={`position-anchor: ${anchorName};`}
-  >
-    <div class="card__popup-inner">
-      <header class="card__header">
-        <p class="card__title">{title}</p>
-        {
-          isoDate && dateString && (
-            <time class="card__date" datetime={isoDate}>
-              {dateString}
-            </time>
-          )
-        }
-        {
-          badgeLabel && (
-            <p class={`card__status | badge text-xs uppercased theme-${badgeTone}`}>
-              {badgeLabel}
-            </p>
-          )
-        }
-        {subtitle && <p class="card__subtitle">{subtitle}</p>}
-      </header>
-
-      {
-        hasMeta && (
-          <dl class="card__meta | stack-s">
-            {
-              stack.length > 0 && (
-                <div class="card__meta-entry card__meta-entry--tools">
-                  <dt>Tools</dt>
-                  <div class="card__tools-list | reel">
-                    {
-                      stack.map((tech) => (
-                        <dd class="card__badge | badge text-sm theme-plum">
-                          {tech}
-                        </dd>
-                      ))
-                    }
-                  </div>
-                </div>
-              )
-            }
-            {
-              press && (
-                <div class="card__meta-entry card__meta-entry--press">
-                  <dt>Press</dt>
-                  {press.map(({ name, url }) => (
-                    <dd>
-                      <a target="_blank" class="card__link" href={url}>
-                        {name}
-                      </a>
-                    </dd>
-                  ))}
-                </div>
-              )
-            }
-          </dl>
-        )
-      }
-
-      {
-        links && (
-          <dl class="card__links | stack-s">
-            <dt class="sr-only">Links</dt>
-            {links?.map((url: string) => (
-              <dd>
-                {url.includes("github") ? (
-                  <GitHubButton url={url} />
-                ) : (
-                  <a class="button button--image" target="_blank" href={url}>
-                    Visit
-                    <ExternalLinkIcon />
-                  </a>
-                )}
-              </dd>
-            ))}
-          </dl>
-        )
-      }
-
-    </div>
-  </div>
-
-  <div class="card__media" style={`anchor-name: ${anchorName};`}>
+  <div class="card__media">
     {
       video && (
         <video
@@ -166,4 +78,20 @@ const anchorName = `--${id}-anchor`;
       <PlusIcon />
     </button>
   </div>
+
+  <ProjectPopup
+    popupId={popupId}
+    anchorName={anchorName}
+    title={title}
+    subtitle={subtitle}
+    isoDate={isoDate}
+    dateString={dateString}
+    links={links}
+    stack={stack}
+    press={press}
+    badgeLabel={badgeLabel}
+    badgeTone={badgeTone}
+    image={image}
+    video={video}
+  />
 </article>

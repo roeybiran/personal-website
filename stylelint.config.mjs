@@ -6,7 +6,7 @@ export default {
     "**/dist/**",
     "**/node_modules/**",
   ],
-  plugins: ["stylelint-no-unsupported-browser-features"],
+  plugins: ["stylelint-plugin-use-baseline"],
   rules: {
     "at-rule-no-unknown": [
       true,
@@ -37,7 +37,7 @@ export default {
         ignorePseudoClasses: ["popover-open"],
       },
     ],
-    "plugin/no-unsupported-browser-features": [
+    "plugin/use-baseline": [
       true,
       {
         severity: "warning",

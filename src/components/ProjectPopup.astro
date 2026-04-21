@@ -1,0 +1,245 @@
+---
+import { Image } from "astro:assets";
+import GitHubButton from "./GitHubButton.astro";
+import ExternalLinkIcon from "../assets/external-link.svg";
+
+export interface Props {
+  popupId: string;
+  anchorName: string;
+  title: string;
+  isoDate?: string;
+  dateString?: string;
+  stack?: string[];
+  subtitle?: string;
+  links?: string[];
+  press?: { name: string; url: string }[];
+  badgeLabel?: string;
+  badgeTone?: "gray" | "yellow" | "plum" | "red";
+  video?: {
+    poster: string;
+    src: string;
+  };
+  image?: ImageMetadata;
+}
+
+const {
+  popupId,
+  anchorName,
+  title,
+  subtitle,
+  isoDate,
+  dateString,
+  links,
+  stack = [],
+  press,
+  badgeLabel,
+  badgeTone = "gray",
+  image,
+  video,
+} = Astro.props;
+
+const hasMeta = stack.length > 0 || Boolean(press?.length);
+---
+
+<div
+  id={popupId}
+  class="card__popup"
+  popover="auto"
+  style={`position-anchor: ${anchorName};`}
+>
+  <div class="card__popup-media">
+    {
+      video && (
+        <video
+          class="card__video"
+          src={video.src}
+          poster={video.poster}
+          loop
+          autoplay
+          muted
+          playsinline
+        />
+      )
+    }
+
+    {image && <Image class="card__image" src={image} alt={title} />}
+  </div>
+
+  <div class="card__popup-inner">
+    <header class="card__header">
+      <p class="card__title">{title}</p>
+      {
+        isoDate && dateString && (
+          <time class="card__date" datetime={isoDate}>
+            {dateString}
+          </time>
+        )
+      }
+      {
+        badgeLabel && (
+          <p class={`card__status | badge text-xs uppercased theme-${badgeTone}`}>
+            {badgeLabel}
+          </p>
+        )
+      }
+      {subtitle && <p class="card__subtitle">{subtitle}</p>}
+    </header>
+
+    {
+      hasMeta && (
+        <dl class="card__meta | stack-s">
+          {stack.length > 0 && (
+            <div class="card__meta-entry card__meta-entry--tools">
+              <dt>Tools</dt>
+              <div class="card__tools-list | reel">
+                {stack.map((tech) => (
+                  <dd class="card__badge | badge text-sm theme-plum">
+                    {tech}
+                  </dd>
+                ))}
+              </div>
+            </div>
+          )}
+          {press && (
+            <div class="card__meta-entry card__meta-entry--press">
+              <dt>Press</dt>
+              {press.map(({ name, url }) => (
+                <dd>
+                  <a target="_blank" class="card__link" href={url}>
+                    {name}
+                  </a>
+                </dd>
+              ))}
+            </div>
+          )}
+        </dl>
+      )
+    }
+
+    {
+      links && (
+        <dl class="card__links | stack-s">
+          <dt class="sr-only">Links</dt>
+          {links?.map((url: string) => (
+            <dd>
+              {url.includes("github") ? (
+                <GitHubButton url={url} />
+              ) : (
+                <a class="button button--image" target="_blank" href={url}>
+                  Visit
+                  <ExternalLinkIcon />
+                </a>
+              )}
+            </dd>
+          ))}
+        </dl>
+      )
+    }
+  </div>
+</div>
+
+<style is:global>
+  .main--home {
+    .card__popup {
+      position: fixed;
+
+      inset-block-start: calc(var(--size-3) + anchor(end));
+      justify-self: anchor-center;
+      inline-size: calc(2 * anchor-size(self-inline));
+
+      background: var(--app-bg);
+      border: var(--border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow-5);
+      color: inherit;
+      overflow: auto;
+      opacity: 0;
+      transform: scale(0.9);
+      transform-origin: top center;
+      transition:
+        opacity 0.2s var(--ease-2),
+        transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+        display 0.2s allow-discrete,
+        overlay 0.2s allow-discrete;
+    }
+
+    .card__popup:popover-open {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .card__popup::backdrop {
+      background: transparent;
+      backdrop-filter: blur(0);
+      transition:
+        background-color 0.2s var(--ease-2),
+        backdrop-filter 0.2s var(--ease-2),
+        display 0.2s allow-discrete,
+        overlay 0.2s allow-discrete;
+    }
+
+    .card__popup:popover-open::backdrop {
+      background: var(--gray-a2);
+      backdrop-filter: blur(10px);
+    }
+
+    @starting-style {
+      .card__popup:popover-open {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      .card__popup:popover-open::backdrop {
+        background: transparent;
+        backdrop-filter: blur(0);
+      }
+    }
+
+    .card__popup-inner {
+      padding: var(--bleed);
+
+      > * + * {
+        border-block-start: var(--border-dashed);
+        padding-block-start: var(--size-2);
+        margin-block-start: var(--size-2);
+      }
+    }
+
+    .card__popup-media {
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-block-end: var(--border);
+      background: var(--ui-bg);
+    }
+
+    .card__popup-media > * {
+      grid-area: 1/1;
+    }
+
+    .card__popup-media > :first-child {
+      inline-size: 100%;
+      block-size: auto;
+      min-inline-size: 0;
+      min-block-size: 0;
+      place-self: center;
+    }
+
+    .card__popup-media .card__video {
+      object-fit: contain;
+    }
+
+    .card__popup-media .card__image {
+      inline-size: 100%;
+      block-size: auto;
+      max-inline-size: 100%;
+    }
+
+    @supports selector(.card:has(.card__popup:popover-open)) {
+      .card:has(.card__popup:popover-open) .card__button svg {
+        rotate: -45deg;
+      }
+    }
+  }
+</style>
