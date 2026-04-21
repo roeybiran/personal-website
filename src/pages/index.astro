@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
 
 const name = "Roey Biran";
+
 const apps = [...(await getCollection("apps"))]
   .sort((a, b) => a.id.localeCompare(b.id))
   .map((app) => ({
@@ -57,7 +58,7 @@ const allProjects = [...projects]
       responsibilities: data.responsibilities,
       stack: data.stack,
       press: data.press,
-      type: data.type,
+      type: "Project",
       video: {
         src: `/projects/${id}.mp4`,
         poster: `/projects/${id}-poster.jpg`,
@@ -106,37 +107,34 @@ const content = [
   {
     title: "Apps",
     key: "apps",
-    items: apps.map((app) => ({
-      id: app.id,
-      type: app.type,
-      title: app.name,
-      subtitle: app.tagline,
-      links: app.links,
-      image: app.image,
-    })),
+    items: [
+      ...apps.map((app) => ({
+        id: app.id,
+        type: app.type,
+        title: app.name,
+        subtitle: app.tagline,
+        links: app.links,
+        image: app.image,
+      })),
+      ...utilities.map((utility) => ({
+        id: utility.id,
+        type: utility.type,
+        title: utility.name,
+        subtitle: utility.tagline,
+        links: utility.links,
+        image: utility.image,
+        badgeLabel: utility.discontinued ? "Discontinued" : undefined,
+        badgeTone: "yellow" as const,
+      })),
+    ],
   },
-  {
-    title: "Utilities",
-    key: "utilities",
-    items: utilities.map((utility) => ({
-      id: utility.id,
-      type: utility.type,
-      title: utility.name,
-      subtitle: utility.tagline,
-      links: utility.links,
-      image: utility.image,
-      badgeLabel: utility.discontinued ? "Discontinued" : undefined,
-      badgeTone: "yellow" as const,
-    })),
-  },
-  { title: "General", key: "general", items: allProjects },
+  { title: "Projects", key: "projects", items: allProjects },
   { title: "Interactions", key: "interactions", items: allInteractions },
   { title: "Icons", key: "icons", items: allIcons },
 ];
 ---
 
 <SiteLayout
-  pageTitle="Home"
   pageDescription={`${name}’s personal website`}
   ogImage="/og.jpg"
   currentURL={Astro.request.url}
@@ -148,8 +146,8 @@ const content = [
         {
           content.map(({ title, key, items }) => (
             <>
-              <div class="projects-grid__section-header" data-section={key}>
-                <h2 class="projects-grid__section-title | uppercased text-sm text-secondary">
+              <div class="card card--header | cardlike" data-section={key}>
+                <h2 class="projects-grid__section-title | text-secondary">
                   {title}
                 </h2>
               </div>
@@ -163,5 +161,3 @@ const content = [
     </div>
   </div>
 </SiteLayout>
-
-<script src="../scripts/projects.ts"></script>

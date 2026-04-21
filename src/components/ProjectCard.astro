@@ -44,46 +44,53 @@ const {
 } = Astro.props;
 
 const hasMeta = stack.length > 0 || Boolean(press?.length);
+const popupId = `${id}-popup`;
+const anchorName = `--${id}-anchor`;
 ---
 
 <article
   id={id}
-  class={`project-card project-card--${type.toLowerCase()}`}
-  aria-label={title}
+  class={`card card--${type.toLowerCase()} | cardlike`}
   data-section={sectionKey}
 >
-  <div id={`${id}-popup`} class="project-card__popup">
-    <div class="project-card__popup-inner">
-      <header class="project-card__header">
-        <p class="project-card__title">{title}</p>
+  <div
+    id={popupId}
+    class="card__popup"
+    popover="auto"
+    role="dialog"
+    style={`position-anchor: ${anchorName};`}
+  >
+    <div class="card__popup-inner">
+      <header class="card__header">
+        <p class="card__title">{title}</p>
         {
           isoDate && dateString && (
-            <time class="project-card__date" datetime={isoDate}>
+            <time class="card__date" datetime={isoDate}>
               {dateString}
             </time>
           )
         }
         {
           badgeLabel && (
-            <p class={`project-card__status | badge text-xs uppercased theme-${badgeTone}`}>
+            <p class={`card__status | badge text-xs uppercased theme-${badgeTone}`}>
               {badgeLabel}
             </p>
           )
         }
-        {subtitle && <p class="project-card__subtitle">{subtitle}</p>}
+        {subtitle && <p class="card__subtitle">{subtitle}</p>}
       </header>
 
       {
         hasMeta && (
-          <dl class="project-card__meta | stack-s">
+          <dl class="card__meta | stack-s">
             {
               stack.length > 0 && (
-                <div class="project-card__meta-entry project-card__meta-entry--tools">
+                <div class="card__meta-entry card__meta-entry--tools">
                   <dt>Tools</dt>
-                  <div class="project-card__tools-list | reel">
+                  <div class="card__tools-list | reel">
                     {
                       stack.map((tech) => (
-                        <dd class="project-card__badge | badge text-sm theme-plum">
+                        <dd class="card__badge | badge text-sm theme-plum">
                           {tech}
                         </dd>
                       ))
@@ -94,11 +101,11 @@ const hasMeta = stack.length > 0 || Boolean(press?.length);
             }
             {
               press && (
-                <div class="project-card__meta-entry project-card__meta-entry--press">
+                <div class="card__meta-entry card__meta-entry--press">
                   <dt>Press</dt>
                   {press.map(({ name, url }) => (
                     <dd>
-                      <a target="_blank" class="project-card__link" href={url}>
+                      <a target="_blank" class="card__link" href={url}>
                         {name}
                       </a>
                     </dd>
@@ -112,7 +119,7 @@ const hasMeta = stack.length > 0 || Boolean(press?.length);
 
       {
         links && (
-          <dl class="project-card__links | stack-s">
+          <dl class="card__links | stack-s">
             <dt class="sr-only">Links</dt>
             {links?.map((url: string) => (
               <dd>
@@ -133,11 +140,11 @@ const hasMeta = stack.length > 0 || Boolean(press?.length);
     </div>
   </div>
 
-  <div class="project-card__media">
+  <div class="card__media" style={`anchor-name: ${anchorName};`}>
     {
       video && (
         <video
-          class="project-card__video"
+          class="card__video"
           src={video.src}
           poster={video.poster}
           loop
@@ -148,12 +155,13 @@ const hasMeta = stack.length > 0 || Boolean(press?.length);
       )
     }
 
-    {image && <Image class="project-card__image" src={image} alt={title} />}
+    {image && <Image class="card__image" src={image} alt={title} />}
 
     <button
-      class="project-card__button | button button--image button--rounded"
-      data-popup={`${id}-popup`}
-      aria-label="Open project details"
+      type="button"
+      class="card__button | button button--image button--rounded"
+      popovertarget={popupId}
+      popovertargetaction="toggle"
     >
       <PlusIcon />
     </button>

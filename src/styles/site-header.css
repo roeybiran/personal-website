@@ -1,6 +1,16 @@
 .site-header {
-  border-block-end: var(--border);
+  position: relative;
   padding-block: var(--bleed);
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--border-width);
+  background: var(--border-color);
+  pointer-events: none;
 }
 
 .site-header__inner {
@@ -38,6 +48,45 @@
 }
 
 .site-header__name,
-.site-header_subtitle {
+.site-header__subtitle {
   display: block;
+}
+
+.site-header::after {
+  opacity: 0;
+  animation: site-header-divider-enter 0.7s var(--ease-3) both;
+  animation-delay: 260ms;
+}
+
+.site-header__avatar,
+.site-header__name,
+.site-header__subtitle {
+  opacity: 0;
+  transform: translateY(var(--size-2));
+  animation: site-header-enter 0.7s var(--ease-3) both;
+}
+
+.site-header__avatar {
+  animation-delay: 0ms;
+}
+
+.site-header__name {
+  animation-delay: 90ms;
+}
+
+.site-header__subtitle {
+  animation-delay: 180ms;
+}
+
+@keyframes site-header-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes site-header-divider-enter {
+  to {
+    opacity: 1;
+  }
 }

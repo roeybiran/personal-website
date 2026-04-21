@@ -7,13 +7,12 @@ import SiteHead from "../components/SiteHead.astro";
 import { extractSlug } from "../utils/extractSlug";
 
 interface Props {
-  pageTitle: string;
   pageDescription: string;
   ogImage: string;
   currentURL: string;
 }
 
-const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
+const { pageDescription, ogImage, currentURL }: Props = Astro.props;
 
 const slug = extractSlug(currentURL) || "home";
 const bodyClass = `body--${slug}`;
@@ -23,7 +22,6 @@ const mainClass = `main--${slug}`;
 <!doctype html>
 <html lang="en">
   <SiteHead
-    pageTitle={pageTitle}
     pageDescription={pageDescription}
     ogImage={ogImage}
     currentURL={currentURL}

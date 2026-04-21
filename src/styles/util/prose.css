@@ -72,7 +72,7 @@
 
   code {
     font-family: var(--font-monospace-code);
-    word-wrap: normal;
+    overflow-wrap: normal;
   }
 }
 

@@ -8,7 +8,7 @@
 @import url(./util/grid.css);
 @import url(./util/reel.css);
 @import url(./util/stack.css);
-@import url(./util/card.css);
+@import url(./util/cardlike.css);
 @import url(./util/prose.css);
 
 @import url(./util/padded.css);
@@ -18,8 +18,7 @@
 @import url(./site-footer.css);
 @import url(./site-header.css);
 
-@import url(./pages/page-projects.css);
-@import url(./pages/page-front.css);
+@import url(./pages/index.css);
 @import url(./pages/page-404.css);
 
 /* TEMPORARY -- REMOVE TO UTIL */

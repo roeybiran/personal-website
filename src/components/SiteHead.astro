@@ -1,13 +1,16 @@
 ---
+import avatar from "../assets/memoji.png";
+
 interface Props {
-  pageTitle: string;
   pageDescription: string;
   ogImage: string;
   currentURL: string;
 }
 
-const { pageTitle, pageDescription, ogImage, currentURL }: Props = Astro.props;
-
+const { pageDescription, ogImage, currentURL }: Props = Astro.props;
+const name = "Roey Biran";
+const tagline = "Design Engineer";
+const siteTitle = `${name} — ${tagline}`;
 
 const { protocol, hostname, port } = new URL(currentURL);
 
@@ -23,15 +26,15 @@ const ogImageUrl = `${protocol}//${hostname}${port ? `:${port}` : ""}${ogImage}`
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet"
   />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" href={avatar.src} />
 
-  <title>{pageTitle}</title>
+  <title>{siteTitle}</title>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="description" content={pageDescription} />
 
-  <meta property="og:title" content={pageTitle} />
+  <meta property="og:title" content={siteTitle} />
   <meta property="og:type" content="website" />
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:alt" content={pageDescription} />
