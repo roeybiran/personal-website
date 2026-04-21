@@ -77,7 +77,9 @@ const hasMeta = stack.length > 0 || Boolean(press?.length);
       }
       {
         badgeLabel && (
-          <p class={`card__status | badge text-xs uppercased theme-${badgeTone}`}>
+          <p
+            class={`card__status | badge text-xs uppercased theme-${badgeTone}`}
+          >
             {badgeLabel}
           </p>
         )
@@ -93,9 +95,7 @@ const hasMeta = stack.length > 0 || Boolean(press?.length);
               <dt>Tools</dt>
               <div class="card__tools-list | reel">
                 {stack.map((tech) => (
-                  <dd class="card__badge | badge text-sm theme-plum">
-                    {tech}
-                  </dd>
+                  <dd class="card__badge | badge text-sm theme-plum">{tech}</dd>
                 ))}
               </div>
             </div>
@@ -143,9 +143,12 @@ const hasMeta = stack.length > 0 || Boolean(press?.length);
     .card__popup {
       position: fixed;
 
-      inset-block-start: calc(var(--size-3) + anchor(end));
+      inset-block-start: calc(var(--bleed) + anchor(end));
       justify-self: anchor-center;
-      inline-size: calc(2 * anchor-size(self-inline));
+      inline-size: min(
+        calc(100% - (2 * var(--bleed))),
+        calc(2 * anchor-size(self-inline))
+      );
 
       background: var(--app-bg);
       border: var(--border);
