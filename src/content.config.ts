@@ -1,7 +1,6 @@
 import { defineCollection, z } from "astro:content";
-import { file, glob } from "astro/loaders";
+import { glob } from "astro/loaders";
 import { extractSlug } from "./utils/extractSlug";
-import { extractDirName } from "./utils/extractDirName";
 
 const stack = z.array(
   z.enum([
@@ -30,89 +29,55 @@ const stack = z.array(
   ])
 );
 const responsibilities = z.array(z.enum(["Art", "Code", "Design"]));
-const type = z.enum(["Web", "macOS App", "Unity Game", "App Icon"]);
+const itemKind = z.enum(["app", "utility", "project", "interaction", "icon"]);
+const itemStatus = z.enum(["active", "discontinued", "archived"]);
+const linkKind = z.enum(["site", "github", "download", "article"]);
 
-const utilities = defineCollection({
+const items = defineCollection({
   loader: glob({
-    pattern: "src/content/utilities/*/index.md",
-    generateId: ({ entry }) => extractDirName(entry),
-  }),
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      tagline: z.string(),
-      releaseDate: z.date(),
-      icon: image(),
-      github: z.string(),
-      discontinued: z.boolean().optional(),
-    }),
-});
-
-const projects = defineCollection({
-  loader: glob({
-    pattern: "src/content/projects/*.md",
+    pattern: "src/content/items/*.md",
     generateId: ({ entry }) => extractSlug(entry),
   }),
-  schema: z.object({
-    title: z.string(),
-    date: z.date(),
-    tagline: z.string(),
-    type,
-    stack,
-    url: z.string().url().optional(),
-    github: z.string().optional(),
-    responsibilities,
-    press: z
-      .array(
-        z.object({
-          name: z.string(),
-          url: z.string().url(),
-        })
-      )
-      .optional(),
-  }),
-});
-
-const interactions = defineCollection({
-  loader: file("src/content/interactions.yaml"),
-  schema: z.object({
-    date: z.date(),
-    title: z.string(),
-    responsibilities,
-    stack,
-  }),
-});
-
-const icons = defineCollection({
-  loader: file("src/content/icons/icons.yaml"),
   schema: ({ image }) =>
     z.object({
-      date: z.date(),
+      kind: itemKind,
       title: z.string(),
-      type,
-      image: image(),
-      stack,
-    }),
-});
-
-const apps = defineCollection({
-  loader: glob({
-    pattern: "src/content/apps/*.yaml",
-    generateId: ({ entry }) => entry.split("/").pop()?.replace(/\.yaml$/, "") ?? "",
-  }),
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      tagline: z.string(),
-      siteUrl: z.string().url(),
-      icon: image(),
+      tagline: z.string().optional(),
+      date: z.date().optional(),
+      status: itemStatus.default("active"),
+      media: z.discriminatedUnion("type", [
+        z.object({
+          type: z.literal("image"),
+          image: image(),
+        }),
+        z.object({
+          type: z.literal("video"),
+          poster: image(),
+          video: z.string(),
+        }),
+      ]),
+      stack: stack.default([]),
+      responsibilities: responsibilities.optional(),
+      links: z
+        .array(
+          z.object({
+            label: z.string(),
+            url: z.string().url(),
+            kind: linkKind.optional(),
+          })
+        )
+        .default([]),
+      press: z
+        .array(
+          z.object({
+            name: z.string(),
+            url: z.string().url(),
+          })
+        )
+        .optional(),
     }),
 });
 
 export const collections = {
-  apps,
-  utilities,
-  projects,
-  interactions,
-  icons,
+  items,
 };

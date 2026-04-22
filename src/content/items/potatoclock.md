@@ -1,17 +1,24 @@
 ---
+kind: project
 title: PotatO'Clock
 date: 2021-02-01
 tagline: Battle prolonged seating with the help of a friendly potato.
+media:
+  type: video
+  poster: ../item-media/potatoclock-poster.jpg
+  video: /projects/potatoclock.mp4
 responsibilities:
   - Code
   - Design
   - Art
-type: macOS App
 stack:
   - AppKit
   - SpriteKit
   - Swift
-github: roeybiran/potatoclock
+links:
+  - label: GitHub
+    url: https://github.com/roeybiran/potatoclock
+    kind: github
 ---
 
 In the creative coding class where I built this project, the goal was to make a product that'll improve a specific aspect of daily life that the COVID–19 pandemic worsened. I chose to concentrate on the prolonged periods of seating caused I experienced while studying remotely.

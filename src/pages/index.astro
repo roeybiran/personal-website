@@ -2,108 +2,103 @@
 import SiteLayout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
+import type { ProjectItem } from "../types/project-item";
 
 const name = "Roey Biran";
+const itemEntries = await getCollection("items");
 
-const apps = [...(await getCollection("apps"))]
-  .sort((a, b) => a.id.localeCompare(b.id))
-  .map((app) => ({
-    id: `app-${app.id}`,
+const formatDate = (date?: Date) =>
+  date
+    ? {
+        date,
+        isoDate: date.toISOString(),
+        dateString: date.toLocaleDateString("en-US", {
+          month: "short",
+          year: "numeric",
+        }),
+      }
+    : {};
+
+const apps = itemEntries
+  .filter(({ data }) => data.kind === "app")
+  .sort((a, b) => a.data.title.localeCompare(b.data.title))
+  .map(({ id, data }) => ({
+    id,
     type: "App",
-    image: app.data.icon,
-    name: app.data.name,
-    tagline: app.data.tagline,
-    links: [app.data.siteUrl],
+    title: data.title,
+    subtitle: data.tagline,
+    links: data.links.map(({ url }) => url),
+    image: data.media.type === "image" ? data.media.image : undefined,
   }));
 
-const utilities = (await getCollection("utilities"))
-  .map((utility) => ({
-    id: `utility-${utility.id}`,
+const utilities = itemEntries
+  .filter(({ data }) => data.kind === "utility")
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
+  .map(({ id, data }) => ({
+    id,
     type: "Utility",
-    image: utility.data.icon,
-    name: utility.data.name,
-    tagline: utility.data.tagline,
-    links: [`https://github.com/roeybiran/${utility.data.github}`],
-    discontinued: utility.data.discontinued ?? false,
-    releaseDate: utility.data.releaseDate,
-  }))
-  .sort((a, b) => b.releaseDate.getTime() - a.releaseDate.getTime());
+    title: data.title,
+    subtitle: data.tagline,
+    links: data.links.map(({ url }) => url),
+    image: data.media.type === "image" ? data.media.image : undefined,
+    badgeLabel: data.status === "discontinued" ? "Discontinued" : undefined,
+    badgeTone: "yellow" as const,
+  }));
 
-const projects = await getCollection("projects");
-const interactions = await getCollection("interactions");
-const icons = await getCollection("icons");
-
-const allProjects = [...projects]
-  .map(({ id, data }) => {
-    const links = [];
-
-    if (data.url) {
-      links.push(data.url);
-    }
-    if (data.github) {
-      links.push(`https://github.com/${data.github}`);
-    }
-
-    return {
-      id,
-      title: data.title,
-      subtitle: data.tagline,
-      date: data.date,
-      isoDate: data.date.toISOString(),
-      dateString: data.date.toLocaleDateString("en-US", {
-        month: "short",
-        year: "numeric",
-      }),
-      links,
-      responsibilities: data.responsibilities,
-      stack: data.stack,
-      press: data.press,
-      type: "Project",
-      video: {
-        src: `/projects/${id}.mp4`,
-        poster: `/projects/${id}-poster.jpg`,
-      },
-    };
-  })
-  .sort((a, b) => b.date.getTime() - a.date.getTime());
-
-const allInteractions = [...interactions]
+const allProjects = itemEntries
+  .filter(({ data }) => data.kind === "project" && data.date)
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
   .map(({ id, data }) => ({
     id,
     title: data.title,
-    date: data.date,
-    isoDate: data.date.toISOString(),
-    dateString: data.date.toLocaleDateString("en-US", {
-      month: "short",
-      year: "numeric",
-    }),
+    subtitle: data.tagline,
+    links: data.links.map(({ url }) => url),
+    responsibilities: data.responsibilities,
+    stack: data.stack,
+    press: data.press,
+    type: "Project",
+    video:
+      data.media.type === "video"
+        ? {
+            src: data.media.video,
+            poster: data.media.poster,
+          }
+        : undefined,
+    ...formatDate(data.date),
+  }));
+
+const allInteractions = itemEntries
+  .filter(({ data }) => data.kind === "interaction" && data.date)
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
+  .map(({ id, data }) => ({
+    id,
+    title: data.title,
     responsibilities: data.responsibilities,
     stack: data.stack,
     type: "Interaction",
-    video: {
-      src: `/interactions/${id}.mp4`,
-      poster: `/interactions/${id}-poster.jpg`,
-    },
-  }))
-  .sort((a, b) => b.date.getTime() - a.date.getTime());
+    video:
+      data.media.type === "video"
+        ? {
+            src: data.media.video,
+            poster: data.media.poster,
+          }
+        : undefined,
+    ...formatDate(data.date),
+  }));
 
-const allIcons = [...icons]
+const allIcons = itemEntries
+  .filter(({ data }) => data.kind === "icon" && data.date)
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
   .map(({ id, data }) => ({
     id,
     title: data.title,
     type: "Icon",
-    date: data.date,
-    isoDate: data.date.toISOString(),
-    dateString: data.date.toLocaleDateString("en-US", {
-      month: "short",
-      year: "numeric",
-    }),
     stack: data.stack,
-    image: data.image,
-  }))
-  .sort((a, b) => b.date.getTime() - a.date.getTime());
+    image: data.media.type === "image" ? data.media.image : undefined,
+    ...formatDate(data.date),
+  }));
 
-const content = [
+const content: { title: string; key: string; items: ProjectItem[] }[] = [
   {
     title: "Apps",
     key: "apps",
@@ -111,19 +106,19 @@ const content = [
       ...apps.map((app) => ({
         id: app.id,
         type: app.type,
-        title: app.name,
-        subtitle: app.tagline,
+        title: app.title,
+        subtitle: app.subtitle,
         links: app.links,
         image: app.image,
       })),
       ...utilities.map((utility) => ({
         id: utility.id,
         type: utility.type,
-        title: utility.name,
-        subtitle: utility.tagline,
+        title: utility.title,
+        subtitle: utility.subtitle,
         links: utility.links,
         image: utility.image,
-        badgeLabel: utility.discontinued ? "Discontinued" : undefined,
+        badgeLabel: utility.badgeLabel,
         badgeTone: "yellow" as const,
       })),
     ],
@@ -152,7 +147,7 @@ const content = [
                 </h2>
               </div>
               {items.map((item) => (
-                <ProjectCard {...item} sectionKey={key} />
+                <ProjectCard item={item} sectionKey={key} />
               ))}
             </>
           ))
@@ -161,6 +156,143 @@ const content = [
     </div>
   </div>
 </SiteLayout>
+
+<script>
+  const TRANSITION_NAME = "card-popup-surface";
+  const bypassedPopovers = new WeakSet();
+
+  const setTransitionName = (element, value) => {
+    if (element instanceof HTMLElement) {
+      element.style.viewTransitionName = value;
+    }
+  };
+
+  const togglePopover = (popover, nextState) => {
+    bypassedPopovers.add(popover);
+
+    if (nextState === "open") {
+      popover.showPopover();
+      return;
+    }
+
+    popover.hidePopover();
+  };
+
+  const getTransitionElements = (popover) => {
+    const card = popover.closest(".card");
+    const source = card?.querySelector("[data-card-surface]");
+    const target = popover.matches("[data-popup-surface]") ? popover : null;
+
+    if (!(source instanceof HTMLElement) || !(target instanceof HTMLElement)) {
+      return null;
+    }
+
+    return { source, target };
+  };
+
+  const runPopoverTransition = (popover, nextState) => {
+    const elements = getTransitionElements(popover);
+
+    if (!document.startViewTransition || !elements) {
+      togglePopover(popover, nextState);
+      popover.dataset.transitionState = nextState;
+      return Promise.resolve();
+    }
+
+    const { source, target } = elements;
+    popover.dataset.transitionState = "transitioning";
+
+    if (nextState === "open") {
+      setTransitionName(source, TRANSITION_NAME);
+    } else {
+      setTransitionName(target, TRANSITION_NAME);
+    }
+
+    const transition = document.startViewTransition(() => {
+      if (nextState === "open") {
+        setTransitionName(source, "");
+        togglePopover(popover, nextState);
+        setTransitionName(target, TRANSITION_NAME);
+      } else {
+        setTransitionName(target, "");
+        togglePopover(popover, nextState);
+        setTransitionName(source, TRANSITION_NAME);
+      }
+    });
+
+    return transition.finished.finally(() => {
+      setTransitionName(source, "");
+      setTransitionName(target, "");
+      popover.dataset.transitionState = nextState;
+    });
+  };
+
+  document.addEventListener("click", async (event) => {
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const button = target.closest("[popovertarget]");
+
+    if (!(button instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const popoverId = button.getAttribute("popovertarget");
+    const popover = popoverId ? document.getElementById(popoverId) : null;
+
+    if (!(popover instanceof HTMLElement) || !popover.matches("[popover]")) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const activePopover = document.querySelector(".card__popup:popover-open");
+
+    if (activePopover instanceof HTMLElement && activePopover !== popover) {
+      await runPopoverTransition(activePopover, "idle");
+    }
+
+    if (popover.matches(":popover-open")) {
+      await runPopoverTransition(popover, "idle");
+      return;
+    }
+
+    await runPopoverTransition(popover, "open");
+  });
+
+  for (const popover of document.querySelectorAll(".card__popup")) {
+    if (!(popover instanceof HTMLElement)) {
+      continue;
+    }
+
+    popover.addEventListener("beforetoggle", (event) => {
+      if (bypassedPopovers.has(popover)) {
+        bypassedPopovers.delete(popover);
+        return;
+      }
+
+      if (popover.dataset.transitionState === "transitioning") {
+        return;
+      }
+
+      if (!("newState" in event) || event.newState !== "closed") {
+        return;
+      }
+
+      event.preventDefault();
+      void runPopoverTransition(popover, "idle");
+    });
+
+    popover.addEventListener("toggle", () => {
+      if (!popover.matches(":popover-open")) {
+        popover.dataset.transitionState = "idle";
+      }
+    });
+  }
+</script>
 
 <style is:global>
   .page-front__content {

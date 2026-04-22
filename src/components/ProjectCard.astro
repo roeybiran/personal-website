@@ -1,64 +1,39 @@
 ---
-import { Image } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 import ProjectPopup from "./ProjectPopup.astro";
 import PlusIcon from "../assets/plus.svg";
+import type { ProjectItem } from "../types/project-item";
 
 export interface Props {
-  id: string;
-  type: string;
-  title: string;
-  isoDate?: string;
-  dateString?: string;
-  stack?: string[];
-  subtitle?: string;
-  links?: string[];
-  responsibilities?: string[];
-  press?: { name: string; url: string }[];
-  badgeLabel?: string;
-  badgeTone?: "gray" | "yellow" | "plum" | "red";
+  item: ProjectItem;
   sectionKey?: string;
-  video?: {
-    poster: string;
-    src: string;
-  };
-  image?: ImageMetadata;
 }
 
-const {
-  id,
-  title,
-  subtitle,
-  isoDate,
-  dateString,
-  links,
-  // responsibilities,
-  stack = [],
-  press,
-  badgeLabel,
-  badgeTone = "gray",
-  sectionKey,
-  type,
-  image,
-  video,
-} = Astro.props;
+const { item, sectionKey } = Astro.props;
+const { id, title, type, image, video } = item;
 
 const popupId = `${id}-popup`;
-const anchorName = `--${id}-anchor`;
+const poster = video
+  ? await getImage({
+      src: video.poster,
+      width: 960,
+      format: "webp",
+    })
+  : undefined;
 ---
 
 <article
   id={id}
   class={`card card--${type.toLowerCase()} | cardlike`}
   data-section={sectionKey}
-  style={`anchor-name: ${anchorName};`}
 >
-  <div class="card__media">
+  <div class="card__media" data-card-surface>
     {
       video && (
         <video
           class="card__video"
           src={video.src}
-          poster={video.poster}
+          poster={poster?.src}
           loop
           autoplay
           muted
@@ -79,19 +54,5 @@ const anchorName = `--${id}-anchor`;
     </button>
   </div>
 
-  <ProjectPopup
-    popupId={popupId}
-    anchorName={anchorName}
-    title={title}
-    subtitle={subtitle}
-    isoDate={isoDate}
-    dateString={dateString}
-    links={links}
-    stack={stack}
-    press={press}
-    badgeLabel={badgeLabel}
-    badgeTone={badgeTone}
-    image={image}
-    video={video}
-  />
+  <ProjectPopup item={item} />
 </article>

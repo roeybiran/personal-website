@@ -1,16 +1,25 @@
 ---
+kind: project
 title: Let's Ski!
 date: 2020-10-06
 tagline: A ski lover's experiment in creative coding and big data parsing.
+media:
+  type: video
+  poster: ../item-media/lets-ski-poster.jpg
+  video: /projects/lets-ski.mp4
 responsibilities:
   - Code
   - Design
   - Art
-type: Web
 stack:
   - p5.js
-url: https://lets-ski.roeybiran.com
-github: roeybiran/lets-ski
+links:
+  - label: Visit
+    url: https://lets-ski.roeybiran.com
+    kind: site
+  - label: GitHub
+    url: https://github.com/roeybiran/lets-ski
+    kind: github
 ---
 
 The project originated as a school assignment in a creative coding class, where the objective was to present big data in an enticing way, using [Processing](https://processing.org) specifically.

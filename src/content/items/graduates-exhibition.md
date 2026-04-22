@@ -1,17 +1,26 @@
 ---
+kind: project
 title: Graduates Exhibition
 date: 2021-08-10
 tagline: The official website of my school’s department graduation exhibition.
+media:
+  type: video
+  poster: ../item-media/graduates-exhibition-poster.jpg
+  video: /projects/graduates-exhibition.mp4
 responsibilities:
   - Code
   - Design
-type: Web
 stack:
   - Airtable
   - Next.js
   - TypeScript
-url: https://hitviscom-graduates-2021.vercel.app
-github: roeybiran/hitviscom-graduates-2021
+links:
+  - label: Visit
+    url: https://hitviscom-graduates-2021.vercel.app
+    kind: site
+  - label: GitHub
+    url: https://github.com/roeybiran/hitviscom-graduates-2021
+    kind: github
 ---
 
 Two facilities ought to accompany the graduation exhibition at the Holon Institute of Technology’s department of visual communications design:

@@ -1,16 +1,25 @@
 ---
+kind: project
 title: Great Danes
 date: 2021-07-21
 tagline: A digital archive of mid-century design masterpieces from Denmark (B. Design graduation project).
+media:
+  type: video
+  poster: ../item-media/great-danes-poster.jpg
+  video: /projects/great-danes.mp4
 responsibilities:
   - Code
   - Design
-type: Web
 stack:
   - Next.js
   - react-three-fiber
-url: https://great-danes.roeybiran.com
-github: roeybiran/great-danes-site
+links:
+  - label: Visit
+    url: https://great-danes.roeybiran.com
+    kind: site
+  - label: GitHub
+    url: https://github.com/roeybiran/great-danes-site
+    kind: github
 ---
 
 For my graduation assignment, I revisited a similarly-named project from my 2nd year in school. It was a comprehensive catalog of mid-century design masterpieces from Denmark and their creators. I wanted to expand on that work with a digital companion in the form of a website.
