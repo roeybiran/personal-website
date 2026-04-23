@@ -1,33 +1,28 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import { getImage, Image } from "astro:assets";
 import GitHubButton from "./GitHubButton.astro";
 import ExternalLinkIcon from "../assets/external-link.svg";
-import type { ProjectItem } from "../types/project-item";
 
 export interface Props {
-  item: ProjectItem;
+  item: CollectionEntry<"items">;
 }
 
 const { item } = Astro.props;
-const {
-  id,
-  title,
-  subtitle,
-  isoDate,
-  dateString,
-  links,
-  stack = [],
-  press,
-  badgeLabel,
-  badgeTone = "gray",
-  image,
-  video,
-} = item;
+const { id, data } = item;
+const { title, tagline, date, status, media, stack, press, links } = data;
 
 const hasMeta = stack.length > 0 || Boolean(press?.length);
-const poster = video
+const isoDate = date?.toISOString();
+const dateString = date?.toLocaleDateString("en-US", {
+  month: "short",
+  year: "numeric",
+});
+const badgeLabel = status === "discontinued" ? "Discontinued" : undefined;
+const badgeTone = status === "discontinued" ? "yellow" : "gray";
+const poster = media.type === "video"
   ? await getImage({
-      src: video.poster,
+      src: media.poster,
       width: 1440,
       format: "webp",
     })
@@ -38,15 +33,14 @@ const poster = video
   id={`${id}-popup`}
   class="card__popup"
   popover="auto"
-  data-popup-surface
   data-transition-state="idle"
 >
-  <div class="card__popup-media">
+  <div class="card__popup-media" data-popup-surface>
     {
-      video && (
+      media.type === "video" && (
         <video
           class="card__video"
-          src={video.src}
+          src={media.video}
           poster={poster?.src}
           loop
           autoplay
@@ -56,7 +50,9 @@ const poster = video
       )
     }
 
-    {image && <Image class="card__image" src={image} alt={title} />}
+    {media.type === "image" && (
+      <Image class="card__image" src={media.image} alt={title} />
+    )}
   </div>
 
   <div class="card__popup-inner">
@@ -78,7 +74,7 @@ const poster = video
           </p>
         )
       }
-      {subtitle && <p class="card__subtitle">{subtitle}</p>}
+      {tagline && <p class="card__subtitle">{tagline}</p>}
     </header>
 
     {
@@ -111,16 +107,16 @@ const poster = video
     }
 
     {
-      links && (
+      links.length > 0 && (
         <dl class="card__links | stack-s">
           <dt class="sr-only">Links</dt>
-          {links?.map((url: string) => (
+          {links.map(({ label, url, kind }) => (
             <dd>
-              {url.includes("github") ? (
+              {kind === "github" || url.includes("github") ? (
                 <GitHubButton url={url} />
               ) : (
                 <a class="button button--image" target="_blank" href={url}>
-                  Visit
+                  {label}
                   <ExternalLinkIcon />
                 </a>
               )}
@@ -142,21 +138,32 @@ const poster = video
       inline-size: min(var(--size-content-3), calc(100% - (2 * var(--bleed))));
       margin: 0;
       padding: 0;
+      overflow: clip;
+      opacity: 0;
 
-      background: var(--app-bg);
+      background-color: var(--app-bg);
       border: var(--border);
       border-radius: var(--card-radius);
       box-shadow: var(--shadow-5);
       color: inherit;
       transition:
-        opacity var(--duration-moderate-1) var(--ease-3),
-        transform var(--duration-moderate-2) var(--ease-spring-4),
+        opacity var(--duration-quick-2) var(--ease-3),
+        background-color var(--duration-quick-2) var(--ease-3),
+        border-color var(--duration-quick-2) var(--ease-3),
+        box-shadow var(--duration-quick-2) var(--ease-3),
         display var(--duration-moderate-1) allow-discrete,
         overlay var(--duration-moderate-1) allow-discrete;
     }
 
     .card__popup:popover-open {
       opacity: 1;
+    }
+
+    .card__popup:popover-open[data-transition-state="opening"],
+    .card__popup:popover-open[data-transition-state="closing"] {
+      background-color: transparent;
+      border-color: transparent;
+      box-shadow: none;
     }
 
     .card__popup::backdrop {
@@ -170,14 +177,13 @@ const poster = video
     }
 
     .card__popup:popover-open::backdrop {
-      background-color: var(--gray-a2);
+      background-color: var(--gray-a4);
       backdrop-filter: blur(var(--size-px-2));
     }
 
     @starting-style {
       .card__popup:popover-open {
         opacity: 0;
-        transform: translate(-50%, -50%);
       }
 
       .card__popup:popover-open::backdrop {
@@ -214,6 +220,13 @@ const poster = video
       overflow: hidden;
       border-block-end: var(--border);
       background: var(--ui-bg);
+      will-change: transform;
+    }
+
+    .card__popup[data-transition-state="opening"] .card__popup-media,
+    .card__popup[data-transition-state="closing"] .card__popup-media {
+      border: var(--border);
+      border-radius: var(--card-radius);
     }
 
     .card__popup-media > * {
@@ -244,7 +257,7 @@ const poster = video
 
     ::view-transition-group(card-popup-surface) {
       animation-duration: var(--duration-gentle-2);
-      animation-timing-function: var(--ease-out-3);
+      animation-timing-function: var(--ease-spring-4);
     }
 
     ::view-transition-old(card-popup-surface),

@@ -1,127 +1,41 @@
 ---
 import SiteLayout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
-import type { ProjectItem } from "../types/project-item";
 
 const name = "Roey Biran";
 const itemEntries = await getCollection("items");
 
-const formatDate = (date?: Date) =>
-  date
-    ? {
-        date,
-        isoDate: date.toISOString(),
-        dateString: date.toLocaleDateString("en-US", {
-          month: "short",
-          year: "numeric",
-        }),
-      }
-    : {};
-
 const apps = itemEntries
   .filter(({ data }) => data.kind === "app")
-  .sort((a, b) => a.data.title.localeCompare(b.data.title))
-  .map(({ id, data }) => ({
-    id,
-    type: "App",
-    title: data.title,
-    subtitle: data.tagline,
-    links: data.links.map(({ url }) => url),
-    image: data.media.type === "image" ? data.media.image : undefined,
-  }));
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 const utilities = itemEntries
   .filter(({ data }) => data.kind === "utility")
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-  .map(({ id, data }) => ({
-    id,
-    type: "Utility",
-    title: data.title,
-    subtitle: data.tagline,
-    links: data.links.map(({ url }) => url),
-    image: data.media.type === "image" ? data.media.image : undefined,
-    badgeLabel: data.status === "discontinued" ? "Discontinued" : undefined,
-    badgeTone: "yellow" as const,
-  }));
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
 
 const allProjects = itemEntries
   .filter(({ data }) => data.kind === "project" && data.date)
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-  .map(({ id, data }) => ({
-    id,
-    title: data.title,
-    subtitle: data.tagline,
-    links: data.links.map(({ url }) => url),
-    responsibilities: data.responsibilities,
-    stack: data.stack,
-    press: data.press,
-    type: "Project",
-    video:
-      data.media.type === "video"
-        ? {
-            src: data.media.video,
-            poster: data.media.poster,
-          }
-        : undefined,
-    ...formatDate(data.date),
-  }));
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
 
 const allInteractions = itemEntries
   .filter(({ data }) => data.kind === "interaction" && data.date)
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-  .map(({ id, data }) => ({
-    id,
-    title: data.title,
-    responsibilities: data.responsibilities,
-    stack: data.stack,
-    type: "Interaction",
-    video:
-      data.media.type === "video"
-        ? {
-            src: data.media.video,
-            poster: data.media.poster,
-          }
-        : undefined,
-    ...formatDate(data.date),
-  }));
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
 
 const allIcons = itemEntries
   .filter(({ data }) => data.kind === "icon" && data.date)
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-  .map(({ id, data }) => ({
-    id,
-    title: data.title,
-    type: "Icon",
-    stack: data.stack,
-    image: data.media.type === "image" ? data.media.image : undefined,
-    ...formatDate(data.date),
-  }));
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
 
-const content: { title: string; key: string; items: ProjectItem[] }[] = [
+const content: {
+  title: string;
+  key: string;
+  items: CollectionEntry<"items">[];
+}[] = [
   {
     title: "Apps",
     key: "apps",
-    items: [
-      ...apps.map((app) => ({
-        id: app.id,
-        type: app.type,
-        title: app.title,
-        subtitle: app.subtitle,
-        links: app.links,
-        image: app.image,
-      })),
-      ...utilities.map((utility) => ({
-        id: utility.id,
-        type: utility.type,
-        title: utility.title,
-        subtitle: utility.subtitle,
-        links: utility.links,
-        image: utility.image,
-        badgeLabel: utility.badgeLabel,
-        badgeTone: "yellow" as const,
-      })),
-    ],
+    items: [...apps, ...utilities],
   },
   { title: "Projects", key: "projects", items: allProjects },
   { title: "Interactions", key: "interactions", items: allInteractions },
@@ -131,7 +45,6 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
 
 <SiteLayout
   pageDescription={`${name}’s personal website`}
-  ogImage="/og.jpg"
   currentURL={Astro.request.url}
 >
   <h1 class="sr-only">{name}</h1>
@@ -159,15 +72,17 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
 
 <script>
   const TRANSITION_NAME = "card-popup-surface";
-  const bypassedPopovers = new WeakSet();
+  const bypassedPopovers = new WeakSet<HTMLElement>();
+  type PopoverState = "idle" | "open";
+  type TransitionState = PopoverState | "opening" | "closing";
 
-  const setTransitionName = (element, value) => {
+  const setTransitionName = (element: Element | null, value: string) => {
     if (element instanceof HTMLElement) {
       element.style.viewTransitionName = value;
     }
   };
 
-  const togglePopover = (popover, nextState) => {
+  const togglePopover = (popover: HTMLElement, nextState: PopoverState) => {
     bypassedPopovers.add(popover);
 
     if (nextState === "open") {
@@ -178,10 +93,10 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
     popover.hidePopover();
   };
 
-  const getTransitionElements = (popover) => {
+  const getTransitionElements = (popover: HTMLElement) => {
     const card = popover.closest(".card");
     const source = card?.querySelector("[data-card-surface]");
-    const target = popover.matches("[data-popup-surface]") ? popover : null;
+    const target = popover.querySelector("[data-popup-surface]");
 
     if (!(source instanceof HTMLElement) || !(target instanceof HTMLElement)) {
       return null;
@@ -190,8 +105,13 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
     return { source, target };
   };
 
-  const runPopoverTransition = (popover, nextState) => {
+  const runPopoverTransition = (
+    popover: HTMLElement,
+    nextState: PopoverState,
+  ) => {
     const elements = getTransitionElements(popover);
+    const transitionState: TransitionState =
+      nextState === "open" ? "opening" : "closing";
 
     if (!document.startViewTransition || !elements) {
       togglePopover(popover, nextState);
@@ -200,7 +120,7 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
     }
 
     const { source, target } = elements;
-    popover.dataset.transitionState = "transitioning";
+    popover.dataset.transitionState = transitionState;
 
     if (nextState === "open") {
       setTransitionName(source, TRANSITION_NAME);
@@ -274,7 +194,10 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
         return;
       }
 
-      if (popover.dataset.transitionState === "transitioning") {
+      if (
+        popover.dataset.transitionState === "opening" ||
+        popover.dataset.transitionState === "closing"
+      ) {
         return;
       }
 
@@ -300,9 +223,18 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
   }
 
   .main--home {
+    --card-enter-opacity-duration: calc(
+      var(--sneeze) + var(--duration-quick-2) + var(--duration-quick-2)
+    );
+    --card-enter-transform-duration: calc(
+      var(--sneeze) + var(--duration-gentle-2) + var(--duration-moderate-1)
+    );
+    --card-enter-stagger: calc(var(--duration-quick-1) + var(--jiffy));
+    --card-button-rotate-duration: var(--flinch);
+
     .projects-grid {
       list-style: none;
-      --grid-item-min: var(--size-content-1);
+      --grid-item-min: var(--size-fluid-8);
       --grid-fit: auto-fit;
       gap: var(--bleed);
       grid-auto-rows: var(--size-12);
@@ -312,9 +244,11 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
       opacity: 1;
       transform: translateY(0);
       animation:
-        card-appear-opacity 0.75s var(--ease-2) both,
-        card-appear-transform 1.1s var(--ease-4) both;
-      animation-delay: calc(sibling-index() * 90ms);
+        card-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
+          both,
+        card-appear-transform var(--card-enter-transform-duration) var(--ease-4)
+          both;
+      animation-delay: calc(sibling-index() * var(--card-enter-stagger));
     }
 
     .card--header {
@@ -334,12 +268,18 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
     }
 
     .card__media {
+      position: relative;
+      block-size: 100%;
+    }
+
+    .card__surface {
       block-size: 100%;
       overflow: hidden;
       display: grid;
       border: var(--border);
       border-radius: var(--card-radius);
       background: var(--ui-bg);
+      will-change: transform;
 
       > * {
         grid-area: 1/1;
@@ -355,14 +295,15 @@ const content: { title: string; key: string; items: ProjectItem[] }[] = [
     }
 
     .card__button {
-      position: relative;
-      place-self: flex-end;
-      margin-inline-end: var(--size-1);
-      margin-block-end: var(--size-1);
+      position: absolute;
+      inset-inline-end: var(--size-1);
+      inset-block-end: var(--size-1);
+      z-index: 1;
       box-shadow: var(--shadow-5);
 
       svg {
-        transition: rotate 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition: rotate var(--card-button-rotate-duration)
+          var(--ease-elastic-out-4);
       }
     }
 

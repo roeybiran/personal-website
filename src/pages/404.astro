@@ -6,7 +6,6 @@ import { Image } from "astro:assets";
 
 <SiteLayout
   pageDescription="Page not found."
-  ogImage={""}
   currentURL={Astro.request.url}
 >
   <div class="page-404 | padded constrained">
@@ -15,3 +14,25 @@ import { Image } from "astro:assets";
     <Image class="page-404__image" src={Image404} alt="404" />
   </div>
 </SiteLayout>
+
+<style>
+  .page-404 {
+    display: grid;
+    place-content: center;
+    gap: var(--size-2);
+    block-size: 100%;
+    padding: var(--bleed);
+    text-align: center;
+  }
+
+  .page-404__title {
+    font-family: var(--font-monospace-code);
+    text-transform: uppercase;
+  }
+
+  .page-404__image {
+    margin-inline: auto;
+    max-inline-size: var(--size-13);
+    filter: grayscale(100%);
+  }
+</style>

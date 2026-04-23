@@ -1,3 +1,6 @@
+@import url("open-props/style");
+@import url("open-props/durations");
+
 @import url(./reset.css);
 @import url(./theme.css);
 
@@ -15,18 +18,13 @@
 
 @import url(./components/button.css);
 
-@import url(./site-footer.css);
-@import url(./site-header.css);
-
-@import url(./pages/page-404.css);
-
 /* TEMPORARY -- REMOVE TO UTIL */
 @view-transition {
   navigation: auto;
 }
 
 .constrained {
-  max-width: 1024px;
+  max-width: var(--size-lg);
   margin-inline: auto;
 }
 

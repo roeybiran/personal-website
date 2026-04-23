@@ -3,20 +3,17 @@ import avatar from "../assets/memoji.png";
 
 interface Props {
   pageDescription: string;
-  ogImage: string;
+  ogImage?: string;
   currentURL: string;
 }
 
-const { pageDescription, ogImage, currentURL }: Props = Astro.props;
+const { pageDescription, ogImage = "/og.jpg", currentURL }: Props = Astro.props;
 const name = "Roey Biran";
 const tagline = "Design Engineer";
 const siteTitle = `${name} — ${tagline}`;
 
 const { protocol, hostname, port } = new URL(currentURL);
-
 const ogImageUrl = `${protocol}//${hostname}${port ? `:${port}` : ""}${ogImage}`;
-
-// https://css-tricks.com/essential-meta-tags-social-media/#aa-final-markup
 ---
 
 <head>
@@ -40,7 +37,6 @@ const ogImageUrl = `${protocol}//${hostname}${port ? `:${port}` : ""}${ogImage}`
   <meta property="og:image:alt" content={pageDescription} />
   <meta property="og:description" content={pageDescription} />
   <meta property="og:url" content={currentURL} />
-  <!-- <meta property="og:site_name" content="Roey Biran’s Personal Website" /> -->
 
   <meta name="twitter:card" content="summary_large_image" />
 

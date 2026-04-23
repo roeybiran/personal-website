@@ -1,21 +1,22 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import { getImage, Image } from "astro:assets";
 import ProjectPopup from "./ProjectPopup.astro";
 import PlusIcon from "../assets/plus.svg";
-import type { ProjectItem } from "../types/project-item";
 
 export interface Props {
-  item: ProjectItem;
+  item: CollectionEntry<"items">;
   sectionKey?: string;
 }
 
 const { item, sectionKey } = Astro.props;
-const { id, title, type, image, video } = item;
+const { id, data } = item;
+const { title, kind, media } = data;
 
 const popupId = `${id}-popup`;
-const poster = video
+const poster = media.type === "video"
   ? await getImage({
-      src: video.poster,
+      src: media.poster,
       width: 960,
       format: "webp",
     })
@@ -24,25 +25,29 @@ const poster = video
 
 <article
   id={id}
-  class={`card card--${type.toLowerCase()} | cardlike`}
+  class={`card card--${kind} | cardlike`}
   data-section={sectionKey}
 >
-  <div class="card__media" data-card-surface>
-    {
-      video && (
-        <video
-          class="card__video"
-          src={video.src}
-          poster={poster?.src}
-          loop
-          autoplay
-          muted
-          playsinline
-        />
-      )
-    }
+  <div class="card__media">
+    <div class="card__surface" data-card-surface>
+      {
+        media.type === "video" && (
+          <video
+            class="card__video"
+            src={media.video}
+            poster={poster?.src}
+            loop
+            autoplay
+            muted
+            playsinline
+          />
+        )
+      }
 
-    {image && <Image class="card__image" src={image} alt={title} />}
+      {media.type === "image" && (
+        <Image class="card__image" src={media.image} alt={title} />
+      )}
+    </div>
 
     <button
       type="button"

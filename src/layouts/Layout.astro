@@ -1,6 +1,4 @@
 ---
-import "open-props/style";
-import "open-props/durations";
 import "../styles/global.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
@@ -9,12 +7,11 @@ import { extractSlug } from "../utils/extractSlug";
 
 interface Props {
   pageDescription: string;
-  ogImage: string;
+  ogImage?: string;
   currentURL: string;
 }
 
-const { pageDescription, ogImage, currentURL }: Props = Astro.props;
-
+const { pageDescription, ogImage = "/og.jpg", currentURL }: Props = Astro.props;
 const slug = extractSlug(currentURL) || "home";
 const bodyClass = `body--${slug}`;
 const mainClass = `main--${slug}`;
