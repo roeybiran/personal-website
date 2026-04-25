@@ -3,12 +3,14 @@ import type { CollectionEntry } from "astro:content";
 import { getImage, Image } from "astro:assets";
 import GitHubButton from "./GitHubButton.astro";
 import ExternalLinkIcon from "../assets/external-link.svg";
+import PlusIcon from "../assets/plus.svg";
 
 export interface Props {
   item: CollectionEntry<"items">;
+  buttonId: string;
 }
 
-const { item } = Astro.props;
+const { item, buttonId } = Astro.props;
 const { id, data } = item;
 const { title, tagline, date, status, media, stack, press, links } = data;
 
@@ -29,13 +31,21 @@ const poster = media.type === "video"
   : undefined;
 ---
 
-<div
+<dialog
   id={`${id}-popup`}
   class="card__popup"
-  popover="auto"
-  data-transition-state="idle"
+  data-js-button={buttonId}
 >
-  <div class="card__popup-media" data-popup-surface>
+  <button
+    type="button"
+    class="card__popup-close | button button--image button--rounded"
+    data-js-dialog-close
+    aria-label="Close"
+  >
+    <PlusIcon />
+  </button>
+
+  <div class="card__popup-media">
     {
       media.type === "video" && (
         <video
@@ -126,7 +136,7 @@ const poster = media.type === "video"
       )
     }
   </div>
-</div>
+</dialog>
 
 <style is:global>
   .main--home {
@@ -139,78 +149,52 @@ const poster = media.type === "video"
       margin: 0;
       padding: 0;
       overflow: clip;
-      opacity: 0;
 
       background-color: var(--app-bg);
       border: var(--border);
       border-radius: var(--card-radius);
       box-shadow: var(--shadow-5);
       color: inherit;
-      transition:
-        opacity var(--duration-quick-2) var(--ease-3),
-        background-color var(--duration-quick-2) var(--ease-3),
-        border-color var(--duration-quick-2) var(--ease-3),
-        box-shadow var(--duration-quick-2) var(--ease-3),
-        display var(--duration-moderate-1) allow-discrete,
-        overlay var(--duration-moderate-1) allow-discrete;
-    }
-
-    .card__popup:popover-open {
-      opacity: 1;
-    }
-
-    .card__popup:popover-open[data-transition-state="opening"],
-    .card__popup:popover-open[data-transition-state="closing"] {
-      background-color: transparent;
-      border-color: transparent;
-      box-shadow: none;
     }
 
     .card__popup::backdrop {
-      background-color: transparent;
       backdrop-filter: blur(0);
       transition:
-        background-color var(--duration-moderate-1) var(--ease-3),
         backdrop-filter var(--duration-moderate-1) var(--ease-3),
         display var(--duration-moderate-1) allow-discrete,
         overlay var(--duration-moderate-1) allow-discrete;
     }
 
-    .card__popup:popover-open::backdrop {
-      background-color: var(--gray-a4);
+    .card__popup[open]::backdrop {
       backdrop-filter: blur(var(--size-px-2));
     }
 
     @starting-style {
-      .card__popup:popover-open {
-        opacity: 0;
-      }
-
-      .card__popup:popover-open::backdrop {
-        background-color: transparent;
+      .card__popup[open]::backdrop {
         backdrop-filter: blur(0);
+      }
+    }
+
+    .card__popup-close {
+      position: absolute;
+      inset-block-start: var(--size-1);
+      inset-inline-end: var(--size-1);
+      z-index: 1;
+      box-shadow: var(--shadow-5);
+
+      svg {
+        rotate: 45deg;
       }
     }
 
     .card__popup-inner {
       padding: var(--bleed);
-      opacity: 0;
-      transform: translateY(var(--size-2));
-      transition:
-        opacity var(--duration-moderate-1) var(--ease-3),
-        transform var(--duration-moderate-2) var(--ease-spring-4);
 
       > * + * {
         border-block-start: var(--border-dashed);
         padding-block-start: var(--size-2);
         margin-block-start: var(--size-2);
       }
-    }
-
-    .card__popup:popover-open[data-transition-state="open"] .card__popup-inner {
-      opacity: 1;
-      transform: none;
-      transition-delay: var(--duration-quick-1);
     }
 
     .card__popup-media {
@@ -220,13 +204,6 @@ const poster = media.type === "video"
       overflow: hidden;
       border-block-end: var(--border);
       background: var(--ui-bg);
-      will-change: transform;
-    }
-
-    .card__popup[data-transition-state="opening"] .card__popup-media,
-    .card__popup[data-transition-state="closing"] .card__popup-media {
-      border: var(--border);
-      border-radius: var(--card-radius);
     }
 
     .card__popup-media > * {
@@ -249,30 +226,6 @@ const poster = media.type === "video"
       inline-size: 100%;
       block-size: auto;
       max-inline-size: 100%;
-    }
-
-    ::view-transition-group(root) {
-      animation-duration: 1ms;
-    }
-
-    ::view-transition-group(card-popup-surface) {
-      animation-duration: var(--duration-gentle-2);
-      animation-timing-function: var(--ease-spring-4);
-    }
-
-    ::view-transition-old(card-popup-surface),
-    ::view-transition-new(card-popup-surface) {
-      border-radius: var(--card-radius);
-    }
-
-    @supports selector(.card:has(.card__popup:popover-open)) {
-      .card:has(.card__popup:popover-open) > .card__media {
-        opacity: 0;
-      }
-
-      .card:has(.card__popup:popover-open) .card__button svg {
-        rotate: -45deg;
-      }
     }
   }
 </style>

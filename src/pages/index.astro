@@ -13,19 +13,27 @@ const apps = itemEntries
 
 const utilities = itemEntries
   .filter(({ data }) => data.kind === "utility")
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+  .sort(
+    (a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0),
+  );
 
 const allProjects = itemEntries
   .filter(({ data }) => data.kind === "project" && data.date)
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+  .sort(
+    (a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0),
+  );
 
 const allInteractions = itemEntries
   .filter(({ data }) => data.kind === "interaction" && data.date)
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+  .sort(
+    (a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0),
+  );
 
 const allIcons = itemEntries
   .filter(({ data }) => data.kind === "icon" && data.date)
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+  .sort(
+    (a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0),
+  );
 
 const content: {
   title: string;
@@ -71,150 +79,141 @@ const content: {
 </SiteLayout>
 
 <script>
-  const TRANSITION_NAME = "card-popup-surface";
-  const bypassedPopovers = new WeakSet<HTMLElement>();
-  type PopoverState = "idle" | "open";
-  type TransitionState = PopoverState | "opening" | "closing";
-
-  const setTransitionName = (element: Element | null, value: string) => {
-    if (element instanceof HTMLElement) {
-      element.style.viewTransitionName = value;
-    }
+  const resetDialogStyles = (dialog: HTMLDialogElement) => {
+    dialog.style.removeProperty("filter");
+    dialog.style.removeProperty("opacity");
+    dialog.style.removeProperty("transform");
+    dialog.style.removeProperty("transform-origin");
   };
 
-  const togglePopover = (popover: HTMLElement, nextState: PopoverState) => {
-    bypassedPopovers.add(popover);
-
-    if (nextState === "open") {
-      popover.showPopover();
-      return;
-    }
-
-    popover.hidePopover();
-  };
-
-  const getTransitionElements = (popover: HTMLElement) => {
-    const card = popover.closest(".card");
-    const source = card?.querySelector("[data-card-surface]");
-    const target = popover.querySelector("[data-popup-surface]");
-
-    if (!(source instanceof HTMLElement) || !(target instanceof HTMLElement)) {
-      return null;
-    }
-
-    return { source, target };
-  };
-
-  const runPopoverTransition = (
-    popover: HTMLElement,
-    nextState: PopoverState,
+  const getMiniTransform = (
+    dialog: HTMLDialogElement,
+    button: HTMLButtonElement,
   ) => {
-    const elements = getTransitionElements(popover);
-    const transitionState: TransitionState =
-      nextState === "open" ? "opening" : "closing";
+    const buttonRect = button.getBoundingClientRect();
+    const dialogRect = dialog.getBoundingClientRect();
 
-    if (!document.startViewTransition || !elements) {
-      togglePopover(popover, nextState);
-      popover.dataset.transitionState = nextState;
-      return Promise.resolve();
-    }
-
-    const { source, target } = elements;
-    popover.dataset.transitionState = transitionState;
-
-    if (nextState === "open") {
-      setTransitionName(source, TRANSITION_NAME);
-    } else {
-      setTransitionName(target, TRANSITION_NAME);
-    }
-
-    const transition = document.startViewTransition(() => {
-      if (nextState === "open") {
-        setTransitionName(source, "");
-        togglePopover(popover, nextState);
-        setTransitionName(target, TRANSITION_NAME);
-      } else {
-        setTransitionName(target, "");
-        togglePopover(popover, nextState);
-        setTransitionName(source, TRANSITION_NAME);
-      }
-    });
-
-    return transition.finished.finally(() => {
-      setTransitionName(source, "");
-      setTransitionName(target, "");
-      popover.dataset.transitionState = nextState;
-    });
+    return `
+      translate(-50%, -50%)
+      translate(${buttonRect.left - dialogRect.left}px, ${buttonRect.top - dialogRect.top}px)
+      scale(${Math.max(0.1, buttonRect.width / dialogRect.width)}, ${Math.max(0.1, buttonRect.height / dialogRect.height)})
+    `;
   };
 
-  document.addEventListener("click", async (event) => {
+  const animateDialogClose = (
+    dialog: HTMLDialogElement,
+    button: HTMLButtonElement,
+  ) => {
+    dialog.getAnimations().forEach((animation) => animation.cancel());
+    resetDialogStyles(dialog);
+
+    dialog
+      .animate(
+        [
+          {
+            filter: "blur(0)",
+            opacity: 1,
+            transform: "translate(-50%, -50%)",
+            transformOrigin: "0 0",
+          },
+          {
+            filter: "blur(8px)",
+            opacity: 0,
+            transform: getMiniTransform(dialog, button),
+            transformOrigin: "0 0",
+          },
+        ],
+        {
+          duration: 120,
+          easing: "cubic-bezier(0.55, 0, 1, 0.45)",
+        },
+      )
+      .finished.catch(() => {})
+      .finally(() => {
+        dialog.close();
+        resetDialogStyles(dialog);
+      });
+  };
+
+  document.addEventListener("click", (event) => {
     const target = event.target;
 
     if (!(target instanceof Element)) {
       return;
     }
 
-    const button = target.closest("[popovertarget]");
+    const openButton = target.closest("[data-js-dialog]");
 
-    if (!(button instanceof HTMLButtonElement)) {
-      return;
-    }
+    if (openButton instanceof HTMLButtonElement) {
+      const dialogId = openButton.dataset.jsDialog;
+      const dialog = dialogId ? document.getElementById(dialogId) : null;
 
-    const popoverId = button.getAttribute("popovertarget");
-    const popover = popoverId ? document.getElementById(popoverId) : null;
-
-    if (!(popover instanceof HTMLElement) || !popover.matches("[popover]")) {
-      return;
-    }
-
-    event.preventDefault();
-
-    const activePopover = document.querySelector(".card__popup:popover-open");
-
-    if (activePopover instanceof HTMLElement && activePopover !== popover) {
-      await runPopoverTransition(activePopover, "idle");
-    }
-
-    if (popover.matches(":popover-open")) {
-      await runPopoverTransition(popover, "idle");
-      return;
-    }
-
-    await runPopoverTransition(popover, "open");
-  });
-
-  for (const popover of document.querySelectorAll(".card__popup")) {
-    if (!(popover instanceof HTMLElement)) {
-      continue;
-    }
-
-    popover.addEventListener("beforetoggle", (event) => {
-      if (bypassedPopovers.has(popover)) {
-        bypassedPopovers.delete(popover);
+      if (!(dialog instanceof HTMLDialogElement)) {
         return;
       }
 
-      if (
-        popover.dataset.transitionState === "opening" ||
-        popover.dataset.transitionState === "closing"
-      ) {
+      dialog.getAnimations().forEach((animation) => animation.cancel());
+      resetDialogStyles(dialog);
+      dialog.showModal();
+
+      const miniTransform = getMiniTransform(dialog, openButton);
+
+      dialog.style.opacity = "1";
+      dialog.style.transform = miniTransform;
+      dialog.style.transformOrigin = "0 0";
+
+      dialog
+        .animate(
+          [
+            {
+              filter: "blur(8px)",
+              opacity: 0,
+              transform: miniTransform,
+              transformOrigin: "0 0",
+            },
+            {
+              filter: "blur(0)",
+              opacity: 1,
+              transform: "translate(-50%, -50%)",
+              transformOrigin: "0 0",
+            },
+          ],
+          {
+            duration: 280,
+            easing: "cubic-bezier(0.2, 1.45, 0.35, 1)",
+          },
+        )
+        .finished.catch(() => {})
+        .finally(() => resetDialogStyles(dialog));
+
+      return;
+    }
+
+    const closeButton = target.closest("[data-js-dialog-close]");
+
+    if (closeButton instanceof HTMLButtonElement) {
+      const dialog = closeButton.closest("dialog");
+
+      if (!(dialog instanceof HTMLDialogElement) || !dialog.open) {
         return;
       }
 
-      if (!("newState" in event) || event.newState !== "closed") {
+      const source = dialog.dataset.jsButton
+        ? document.getElementById(dialog.dataset.jsButton)
+        : null;
+
+      if (!(source instanceof HTMLButtonElement)) {
         return;
       }
 
       event.preventDefault();
-      void runPopoverTransition(popover, "idle");
-    });
+      animateDialogClose(dialog, source);
+    }
+  });
 
-    popover.addEventListener("toggle", () => {
-      if (!popover.matches(":popover-open")) {
-        popover.dataset.transitionState = "idle";
-      }
-    });
-  }
+  document.addEventListener("cancel", (event) => {
+    event.preventDefault();
+  });
 </script>
 
 <style is:global>
@@ -230,7 +229,6 @@ const content: {
       var(--sneeze) + var(--duration-gentle-2) + var(--duration-moderate-1)
     );
     --card-enter-stagger: calc(var(--duration-quick-1) + var(--jiffy));
-    --card-button-rotate-duration: var(--flinch);
 
     .projects-grid {
       list-style: none;
@@ -279,7 +277,6 @@ const content: {
       border: var(--border);
       border-radius: var(--card-radius);
       background: var(--ui-bg);
-      will-change: transform;
 
       > * {
         grid-area: 1/1;
@@ -300,11 +297,6 @@ const content: {
       inset-block-end: var(--size-1);
       z-index: 1;
       box-shadow: var(--shadow-5);
-
-      svg {
-        transition: rotate var(--card-button-rotate-duration)
-          var(--ease-elastic-out-4);
-      }
     }
 
     .card__button:hover svg {

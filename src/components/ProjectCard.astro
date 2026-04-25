@@ -14,6 +14,7 @@ const { id, data } = item;
 const { title, kind, media } = data;
 
 const popupId = `${id}-popup`;
+const buttonId = `${id}-popup-button`;
 const poster = media.type === "video"
   ? await getImage({
       src: media.poster,
@@ -50,14 +51,16 @@ const poster = media.type === "video"
     </div>
 
     <button
+      id={buttonId}
       type="button"
       class="card__button | button button--image button--rounded"
-      popovertarget={popupId}
-      popovertargetaction="toggle"
+      data-js-dialog={popupId}
+      aria-controls={popupId}
+      aria-haspopup="dialog"
     >
       <PlusIcon />
     </button>
   </div>
 
-  <ProjectPopup item={item} />
+  <ProjectPopup item={item} buttonId={buttonId} />
 </article>
