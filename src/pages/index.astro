@@ -86,6 +86,16 @@ const content: {
     dialog.style.removeProperty("transform-origin");
   };
 
+  const animateBackdrop = (
+    dialog: HTMLDialogElement,
+    keyframes: Keyframe[],
+    options: KeyframeAnimationOptions,
+  ) =>
+    dialog.animate(keyframes, {
+      ...options,
+      pseudoElement: "::backdrop",
+    });
+
   const getMiniTransform = (
     dialog: HTMLDialogElement,
     button: HTMLButtonElement,
@@ -107,29 +117,38 @@ const content: {
     dialog.getAnimations().forEach((animation) => animation.cancel());
     resetDialogStyles(dialog);
 
-    dialog
-      .animate(
-        [
-          {
-            filter: "blur(0)",
-            opacity: 1,
-            transform: "translate(-50%, -50%)",
-            transformOrigin: "0 0",
-          },
-          {
-            filter: "blur(8px)",
-            opacity: 0,
-            transform: getMiniTransform(dialog, button),
-            transformOrigin: "0 0",
-          },
-        ],
+    const options = {
+      duration: 120,
+      easing: "cubic-bezier(0.55, 0, 1, 0.45)",
+    };
+    const dialogAnimation = dialog.animate(
+      [
         {
-          duration: 120,
-          easing: "cubic-bezier(0.55, 0, 1, 0.45)",
+          filter: "blur(0)",
+          opacity: 1,
+          transform: "translate(-50%, -50%)",
+          transformOrigin: "0 0",
         },
-      )
-      .finished.catch(() => {})
-      .finally(() => {
+        {
+          filter: "blur(8px)",
+          opacity: 0,
+          transform: getMiniTransform(dialog, button),
+          transformOrigin: "0 0",
+        },
+      ],
+      options,
+    );
+    const backdropAnimation = animateBackdrop(
+      dialog,
+      [
+        { backdropFilter: "blur(var(--size-px-2))" },
+        { backdropFilter: "blur(0)" },
+      ],
+      options,
+    );
+
+    Promise.allSettled([dialogAnimation.finished, backdropAnimation.finished])
+      .then(() => {
         dialog.close();
         resetDialogStyles(dialog);
       });
@@ -162,29 +181,38 @@ const content: {
       dialog.style.transform = miniTransform;
       dialog.style.transformOrigin = "0 0";
 
-      dialog
-        .animate(
-          [
-            {
-              filter: "blur(8px)",
-              opacity: 0,
-              transform: miniTransform,
-              transformOrigin: "0 0",
-            },
-            {
-              filter: "blur(0)",
-              opacity: 1,
-              transform: "translate(-50%, -50%)",
-              transformOrigin: "0 0",
-            },
-          ],
+      const options = {
+        duration: 280,
+        easing: "cubic-bezier(0.2, 1.45, 0.35, 1)",
+      };
+      const dialogAnimation = dialog.animate(
+        [
           {
-            duration: 280,
-            easing: "cubic-bezier(0.2, 1.45, 0.35, 1)",
+            filter: "blur(8px)",
+            opacity: 0,
+            transform: miniTransform,
+            transformOrigin: "0 0",
           },
-        )
-        .finished.catch(() => {})
-        .finally(() => resetDialogStyles(dialog));
+          {
+            filter: "blur(0)",
+            opacity: 1,
+            transform: "translate(-50%, -50%)",
+            transformOrigin: "0 0",
+          },
+        ],
+        options,
+      );
+      const backdropAnimation = animateBackdrop(
+        dialog,
+        [
+          { backdropFilter: "blur(0)" },
+          { backdropFilter: "blur(var(--size-px-2))" },
+        ],
+        options,
+      );
+
+      Promise.allSettled([dialogAnimation.finished, backdropAnimation.finished])
+        .then(() => resetDialogStyles(dialog));
 
       return;
     }
@@ -296,7 +324,13 @@ const content: {
       inset-inline-end: var(--size-1);
       inset-block-end: var(--size-1);
       z-index: 1;
+      background: var(--sand-3a);
+      backdrop-filter: blur(var(--size-3));
       box-shadow: var(--shadow-5);
+    }
+
+    .card__button:hover {
+      background: var(--sand-3a);
     }
 
     .card__button:hover svg {

@@ -159,20 +159,10 @@ const poster = media.type === "video"
 
     .card__popup::backdrop {
       backdrop-filter: blur(0);
-      transition:
-        backdrop-filter var(--duration-moderate-1) var(--ease-3),
-        display var(--duration-moderate-1) allow-discrete,
-        overlay var(--duration-moderate-1) allow-discrete;
     }
 
     .card__popup[open]::backdrop {
       backdrop-filter: blur(var(--size-px-2));
-    }
-
-    @starting-style {
-      .card__popup[open]::backdrop {
-        backdrop-filter: blur(0);
-      }
     }
 
     .card__popup-close {
@@ -180,7 +170,13 @@ const poster = media.type === "video"
       inset-block-start: var(--size-1);
       inset-inline-end: var(--size-1);
       z-index: 1;
+      background: var(--sand-3a);
+      backdrop-filter: blur(var(--size-3));
       box-shadow: var(--shadow-5);
+
+      &:hover {
+        background: var(--sand-3a);
+      }
 
       svg {
         rotate: 45deg;

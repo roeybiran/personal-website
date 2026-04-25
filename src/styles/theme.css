@@ -107,6 +107,8 @@
   --red-11: light-dark(#ce2c31, #ff9592);
   --red-12: light-dark(#641723, #ffd1d9);
 
+  --sand-3a: hsl(var(--sand-3-hsl) / 60%);
+
   --bleed: var(--size-3);
   --bleed-xl: var(--size-6);
   --bold: var(--font-weight-7);
