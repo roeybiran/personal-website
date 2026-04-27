@@ -31,9 +31,12 @@ const poster = media.type === "video"
   : undefined;
 ---
 
-<dialog
+<div
   id={`${id}-popup`}
   class="card__popup"
+  popover="auto"
+  role="dialog"
+  aria-label={title}
   data-js-button={buttonId}
 >
   <button
@@ -136,7 +139,7 @@ const poster = media.type === "video"
       )
     }
   </div>
-</dialog>
+</div>
 
 <style is:global>
   .main--home {
@@ -155,14 +158,6 @@ const poster = media.type === "video"
       border-radius: var(--card-radius);
       box-shadow: var(--shadow-5);
       color: inherit;
-    }
-
-    .card__popup::backdrop {
-      backdrop-filter: blur(0);
-    }
-
-    .card__popup[open]::backdrop {
-      backdrop-filter: blur(var(--size-px-2));
     }
 
     .card__popup-close {

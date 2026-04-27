@@ -79,80 +79,28 @@ const content: {
 </SiteLayout>
 
 <script>
-  const resetDialogStyles = (dialog: HTMLDialogElement) => {
-    dialog.style.removeProperty("filter");
-    dialog.style.removeProperty("opacity");
-    dialog.style.removeProperty("transform");
-    dialog.style.removeProperty("transform-origin");
+  type PopoverElement = HTMLElement & {
+    hidePopover: () => void;
+    showPopover: () => void;
   };
 
-  const animateBackdrop = (
-    dialog: HTMLDialogElement,
-    keyframes: Keyframe[],
-    options: KeyframeAnimationOptions,
-  ) =>
-    dialog.animate(keyframes, {
-      ...options,
-      pseudoElement: "::backdrop",
-    });
-
-  const getMiniTransform = (
-    dialog: HTMLDialogElement,
-    button: HTMLButtonElement,
-  ) => {
-    const buttonRect = button.getBoundingClientRect();
-    const dialogRect = dialog.getBoundingClientRect();
-
-    return `
-      translate(-50%, -50%)
-      translate(${buttonRect.left - dialogRect.left}px, ${buttonRect.top - dialogRect.top}px)
-      scale(${Math.max(0.1, buttonRect.width / dialogRect.width)}, ${Math.max(0.1, buttonRect.height / dialogRect.height)})
-    `;
-  };
-
-  const animateDialogClose = (
-    dialog: HTMLDialogElement,
-    button: HTMLButtonElement,
-  ) => {
-    dialog.getAnimations().forEach((animation) => animation.cancel());
-    resetDialogStyles(dialog);
-
-    const options = {
-      duration: 120,
-      easing: "cubic-bezier(0.55, 0, 1, 0.45)",
+  const startViewTransition = (update: () => void) => {
+    const transitionDocument = document as Document & {
+      startViewTransition?: (updateCallback: () => void) => void;
     };
-    const dialogAnimation = dialog.animate(
-      [
-        {
-          filter: "blur(0)",
-          opacity: 1,
-          transform: "translate(-50%, -50%)",
-          transformOrigin: "0 0",
-        },
-        {
-          filter: "blur(8px)",
-          opacity: 0,
-          transform: getMiniTransform(dialog, button),
-          transformOrigin: "0 0",
-        },
-      ],
-      options,
-    );
-    const backdropAnimation = animateBackdrop(
-      dialog,
-      [
-        { backdropFilter: "blur(var(--size-px-2))" },
-        { backdropFilter: "blur(0)" },
-      ],
-      options,
-    );
 
-    Promise.allSettled([dialogAnimation.finished, backdropAnimation.finished])
-      .then(() => {
-        dialog.close();
-        resetDialogStyles(dialog);
-      });
+    if (transitionDocument.startViewTransition) {
+      transitionDocument.startViewTransition(update);
+      return;
+    }
+
+    update();
   };
+
+  const isPopoverElement = (element: Element | null): element is PopoverElement =>
+    element instanceof HTMLElement &&
+    "showPopover" in element &&
+    "hidePopover" in element;
 
   document.addEventListener("click", (event) => {
     const target = event.target;
@@ -164,55 +112,16 @@ const content: {
     const openButton = target.closest("[data-js-dialog]");
 
     if (openButton instanceof HTMLButtonElement) {
-      const dialogId = openButton.dataset.jsDialog;
-      const dialog = dialogId ? document.getElementById(dialogId) : null;
+      const popoverId = openButton.dataset.jsDialog;
+      const popover = popoverId ? document.getElementById(popoverId) : null;
 
-      if (!(dialog instanceof HTMLDialogElement)) {
+      if (!isPopoverElement(popover)) {
         return;
       }
 
-      dialog.getAnimations().forEach((animation) => animation.cancel());
-      resetDialogStyles(dialog);
-      dialog.showModal();
-
-      const miniTransform = getMiniTransform(dialog, openButton);
-
-      dialog.style.opacity = "1";
-      dialog.style.transform = miniTransform;
-      dialog.style.transformOrigin = "0 0";
-
-      const options = {
-        duration: 280,
-        easing: "cubic-bezier(0.2, 1.45, 0.35, 1)",
-      };
-      const dialogAnimation = dialog.animate(
-        [
-          {
-            filter: "blur(8px)",
-            opacity: 0,
-            transform: miniTransform,
-            transformOrigin: "0 0",
-          },
-          {
-            filter: "blur(0)",
-            opacity: 1,
-            transform: "translate(-50%, -50%)",
-            transformOrigin: "0 0",
-          },
-        ],
-        options,
-      );
-      const backdropAnimation = animateBackdrop(
-        dialog,
-        [
-          { backdropFilter: "blur(0)" },
-          { backdropFilter: "blur(var(--size-px-2))" },
-        ],
-        options,
-      );
-
-      Promise.allSettled([dialogAnimation.finished, backdropAnimation.finished])
-        .then(() => resetDialogStyles(dialog));
+      startViewTransition(() => {
+        popover.showPopover();
+      });
 
       return;
     }
@@ -220,27 +129,17 @@ const content: {
     const closeButton = target.closest("[data-js-dialog-close]");
 
     if (closeButton instanceof HTMLButtonElement) {
-      const dialog = closeButton.closest("dialog");
+      const popover = closeButton.closest(".card__popup");
 
-      if (!(dialog instanceof HTMLDialogElement) || !dialog.open) {
-        return;
-      }
-
-      const source = dialog.dataset.jsButton
-        ? document.getElementById(dialog.dataset.jsButton)
-        : null;
-
-      if (!(source instanceof HTMLButtonElement)) {
+      if (!isPopoverElement(popover) || !popover.matches(":popover-open")) {
         return;
       }
 
       event.preventDefault();
-      animateDialogClose(dialog, source);
+      startViewTransition(() => {
+        popover.hidePopover();
+      });
     }
-  });
-
-  document.addEventListener("cancel", (event) => {
-    event.preventDefault();
   });
 </script>
 
