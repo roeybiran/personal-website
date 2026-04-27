@@ -79,81 +79,6 @@ const content: {
 </SiteLayout>
 
 <script>
-  const resetDialogStyles = (dialog: HTMLDialogElement) => {
-    dialog.style.removeProperty("filter");
-    dialog.style.removeProperty("opacity");
-    dialog.style.removeProperty("transform");
-    dialog.style.removeProperty("transform-origin");
-  };
-
-  const animateBackdrop = (
-    dialog: HTMLDialogElement,
-    keyframes: Keyframe[],
-    options: KeyframeAnimationOptions,
-  ) =>
-    dialog.animate(keyframes, {
-      ...options,
-      pseudoElement: "::backdrop",
-    });
-
-  const getMiniTransform = (
-    dialog: HTMLDialogElement,
-    button: HTMLButtonElement,
-  ) => {
-    const buttonRect = button.getBoundingClientRect();
-    const dialogRect = dialog.getBoundingClientRect();
-
-    return `
-      translate(-50%, -50%)
-      translate(${buttonRect.left - dialogRect.left}px, ${buttonRect.top - dialogRect.top}px)
-      scale(${Math.max(0.1, buttonRect.width / dialogRect.width)}, ${Math.max(0.1, buttonRect.height / dialogRect.height)})
-    `;
-  };
-
-  const animateDialogClose = (
-    dialog: HTMLDialogElement,
-    button: HTMLButtonElement,
-  ) => {
-    dialog.getAnimations().forEach((animation) => animation.cancel());
-    resetDialogStyles(dialog);
-
-    const options = {
-      duration: 120,
-      easing: "cubic-bezier(0.55, 0, 1, 0.45)",
-    };
-    const dialogAnimation = dialog.animate(
-      [
-        {
-          filter: "blur(0)",
-          opacity: 1,
-          transform: "translate(-50%, -50%)",
-          transformOrigin: "0 0",
-        },
-        {
-          filter: "blur(8px)",
-          opacity: 0,
-          transform: getMiniTransform(dialog, button),
-          transformOrigin: "0 0",
-        },
-      ],
-      options,
-    );
-    const backdropAnimation = animateBackdrop(
-      dialog,
-      [
-        { backdropFilter: "blur(var(--size-px-2))" },
-        { backdropFilter: "blur(0)" },
-      ],
-      options,
-    );
-
-    Promise.allSettled([dialogAnimation.finished, backdropAnimation.finished])
-      .then(() => {
-        dialog.close();
-        resetDialogStyles(dialog);
-      });
-  };
-
   document.addEventListener("click", (event) => {
     const target = event.target;
 
@@ -161,86 +86,42 @@ const content: {
       return;
     }
 
-    const openButton = target.closest("[data-js-dialog]");
+    const button = target.closest("[data-js-expand-card]");
 
-    if (openButton instanceof HTMLButtonElement) {
-      const dialogId = openButton.dataset.jsDialog;
-      const dialog = dialogId ? document.getElementById(dialogId) : null;
-
-      if (!(dialog instanceof HTMLDialogElement)) {
-        return;
-      }
-
-      dialog.getAnimations().forEach((animation) => animation.cancel());
-      resetDialogStyles(dialog);
-      dialog.showModal();
-
-      const miniTransform = getMiniTransform(dialog, openButton);
-
-      dialog.style.opacity = "1";
-      dialog.style.transform = miniTransform;
-      dialog.style.transformOrigin = "0 0";
-
-      const options = {
-        duration: 280,
-        easing: "cubic-bezier(0.2, 1.45, 0.35, 1)",
-      };
-      const dialogAnimation = dialog.animate(
-        [
-          {
-            filter: "blur(8px)",
-            opacity: 0,
-            transform: miniTransform,
-            transformOrigin: "0 0",
-          },
-          {
-            filter: "blur(0)",
-            opacity: 1,
-            transform: "translate(-50%, -50%)",
-            transformOrigin: "0 0",
-          },
-        ],
-        options,
-      );
-      const backdropAnimation = animateBackdrop(
-        dialog,
-        [
-          { backdropFilter: "blur(0)" },
-          { backdropFilter: "blur(var(--size-px-2))" },
-        ],
-        options,
-      );
-
-      Promise.allSettled([dialogAnimation.finished, backdropAnimation.finished])
-        .then(() => resetDialogStyles(dialog));
-
+    if (!(button instanceof HTMLButtonElement)) {
       return;
     }
 
-    const closeButton = target.closest("[data-js-dialog-close]");
+    const card = button.closest(".card");
+    const info = button.getAttribute("aria-controls")
+      ? document.getElementById(button.getAttribute("aria-controls") ?? "")
+      : null;
 
-    if (closeButton instanceof HTMLButtonElement) {
-      const dialog = closeButton.closest("dialog");
-
-      if (!(dialog instanceof HTMLDialogElement) || !dialog.open) {
-        return;
-      }
-
-      const source = dialog.dataset.jsButton
-        ? document.getElementById(dialog.dataset.jsButton)
-        : null;
-
-      if (!(source instanceof HTMLButtonElement)) {
-        return;
-      }
-
-      event.preventDefault();
-      animateDialogClose(dialog, source);
+    if (!(card instanceof HTMLElement) || !(info instanceof HTMLElement)) {
+      return;
     }
-  });
 
-  document.addEventListener("cancel", (event) => {
-    event.preventDefault();
+    const expand = () => {
+      const isExpanded = card.toggleAttribute("data-expanded");
+      const title = button.dataset.cardTitle ?? "card";
+
+      button.setAttribute("aria-expanded", String(isExpanded));
+      button.setAttribute(
+        "aria-label",
+        `${isExpanded ? "Collapse" : "Expand"} ${title}`,
+      );
+      info.hidden = !isExpanded;
+    };
+    const transitionDocument = document as Document & {
+      startViewTransition?: (updateCallback: () => void) => void;
+    };
+
+    if (transitionDocument.startViewTransition) {
+      transitionDocument.startViewTransition(expand);
+      return;
+    }
+
+    expand();
   });
 </script>
 
@@ -264,6 +145,7 @@ const content: {
       --grid-fit: auto-fit;
       gap: var(--bleed);
       grid-auto-rows: var(--size-12);
+      grid-auto-flow: dense;
     }
 
     .card {
@@ -289,13 +171,18 @@ const content: {
       font-size: var(--font-size-1);
     }
 
-    .card {
+    .card:not(.card--header) {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      min-inline-size: 0;
+      overflow: hidden;
     }
 
     .card__media {
       position: relative;
-      block-size: 100%;
+      flex: 1 1 auto;
+      min-block-size: 0;
     }
 
     .card__surface {
@@ -335,6 +222,40 @@ const content: {
 
     .card__button:hover svg {
       rotate: 18deg;
+    }
+
+    .card[data-expanded] {
+      grid-row: span 2;
+    }
+
+    @media (width >= 48rem) {
+      .card[data-expanded] {
+        grid-column: span 2;
+      }
+    }
+
+    .card[data-expanded] .card__button svg {
+      rotate: 45deg;
+    }
+
+    .card__info {
+      padding: var(--bleed);
+      border-inline: var(--border);
+      border-block-end: var(--border);
+      border-end-start-radius: var(--card-radius);
+      border-end-end-radius: var(--card-radius);
+      background: var(--app-bg);
+    }
+
+    .card__info > * + * {
+      border-block-start: var(--border-dashed);
+      padding-block-start: var(--size-2);
+      margin-block-start: var(--size-2);
+    }
+
+    .card[data-expanded] .card__surface {
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
     }
 
     .card__video {

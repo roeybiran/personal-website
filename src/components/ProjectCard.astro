@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getImage, Image } from "astro:assets";
-import ProjectPopup from "./ProjectPopup.astro";
+import GitHubButton from "./GitHubButton.astro";
+import ExternalLinkIcon from "../assets/external-link.svg";
 import PlusIcon from "../assets/plus.svg";
 
 export interface Props {
@@ -11,23 +12,33 @@ export interface Props {
 
 const { item, sectionKey } = Astro.props;
 const { id, data } = item;
-const { title, kind, media } = data;
+const { title, kind, tagline, date, status, media, stack, press, links } = data;
 
-const popupId = `${id}-popup`;
-const buttonId = `${id}-popup-button`;
-const poster = media.type === "video"
-  ? await getImage({
-      src: media.poster,
-      width: 960,
-      format: "webp",
-    })
-  : undefined;
+const infoId = `${id}-info`;
+const buttonId = `${id}-expand-button`;
+const hasMeta = stack.length > 0 || Boolean(press?.length);
+const isoDate = date?.toISOString();
+const dateString = date?.toLocaleDateString("en-US", {
+  month: "short",
+  year: "numeric",
+});
+const badgeLabel = status === "discontinued" ? "Discontinued" : undefined;
+const badgeTone = status === "discontinued" ? "yellow" : "gray";
+const poster =
+  media.type === "video"
+    ? await getImage({
+        src: media.poster,
+        width: 960,
+        format: "webp",
+      })
+    : undefined;
 ---
 
 <article
   id={id}
   class={`card card--${kind} | cardlike`}
   data-section={sectionKey}
+  style={`view-transition-name: project-card-${id};`}
 >
   <div class="card__media">
     <div class="card__surface" data-card-surface>
@@ -45,22 +56,96 @@ const poster = media.type === "video"
         )
       }
 
-      {media.type === "image" && (
-        <Image class="card__image" src={media.image} alt={title} />
-      )}
+      {
+        media.type === "image" && (
+          <Image class="card__image" src={media.image} alt={title} />
+        )
+      }
     </div>
 
     <button
       id={buttonId}
       type="button"
       class="card__button | button button--image button--rounded"
-      data-js-dialog={popupId}
-      aria-controls={popupId}
-      aria-haspopup="dialog"
+      data-js-expand-card
+      data-card-title={title}
+      aria-controls={infoId}
+      aria-expanded="false"
+      aria-label={`Expand ${title}`}
     >
       <PlusIcon />
     </button>
   </div>
 
-  <ProjectPopup item={item} buttonId={buttonId} />
+  <div id={infoId} class="card__info" hidden>
+    <header class="card__header">
+      <p class="card__title">{title}</p>
+      {
+        isoDate && dateString && (
+          <time class="card__date" datetime={isoDate}>
+            {dateString}
+          </time>
+        )
+      }
+      {
+        badgeLabel && (
+          <p
+            class={`card__status | badge text-xs uppercased theme-${badgeTone}`}
+          >
+            {badgeLabel}
+          </p>
+        )
+      }
+      {tagline && <p class="card__subtitle">{tagline}</p>}
+    </header>
+
+    {
+      hasMeta && (
+        <dl class="card__meta | stack-s">
+          {stack.length > 0 && (
+            <div class="card__meta-entry card__meta-entry--tools">
+              <dt>Tools</dt>
+              <div class="card__tools-list | reel">
+                {stack.map((tech) => (
+                  <dd class="card__badge | badge text-sm theme-plum">{tech}</dd>
+                ))}
+              </div>
+            </div>
+          )}
+          {press && press.length > 0 && (
+            <div class="card__meta-entry card__meta-entry--press">
+              <dt>Press</dt>
+              {press.map(({ name, url }) => (
+                <dd>
+                  <a target="_blank" class="card__link" href={url}>
+                    {name}
+                  </a>
+                </dd>
+              ))}
+            </div>
+          )}
+        </dl>
+      )
+    }
+
+    {
+      links.length > 0 && (
+        <dl class="card__links | stack-s">
+          <dt class="sr-only">Links</dt>
+          {links.map(({ label, url, kind }) => (
+            <dd>
+              {kind === "github" || url.includes("github") ? (
+                <GitHubButton url={url} />
+              ) : (
+                <a class="button button--image" target="_blank" href={url}>
+                  {label}
+                  <ExternalLinkIcon />
+                </a>
+              )}
+            </dd>
+          ))}
+        </dl>
+      )
+    }
+  </div>
 </article>
