@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/vercel": "^10.0.4",
     "astro": "^6.1.8",
+    "gsap": "^3.15.0",
     "lightningcss": "^1.32.0",
     "open-props": "^1.7.23"
   },

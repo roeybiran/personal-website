@@ -79,31 +79,50 @@ const content: {
 </SiteLayout>
 
 <script>
-  const startViewTransition = (update: () => void) => {
-    const transitionDocument = document as Document & {
-      startViewTransition?: (updateCallback: () => void) => {
-        finished: Promise<void>;
-      };
-    };
+  import gsap from "gsap";
+  import { Flip } from "gsap/Flip";
 
-    if (transitionDocument.startViewTransition) {
-      return transitionDocument.startViewTransition(update).finished;
-    }
-
-    update();
-    return Promise.resolve();
-  };
+  gsap.registerPlugin(Flip);
 
   let activeCard: HTMLElement | null = null;
+  let activeFlip: gsap.core.Tween | null = null;
+  let elevatedCard: HTMLElement | null = null;
+
+  const animateFlip = (
+    card: HTMLElement,
+    inner: HTMLElement,
+    update: () => void,
+    onComplete?: () => void,
+  ) => {
+    activeFlip?.progress(1).kill();
+    elevatedCard?.removeAttribute("data-js-card-elevated");
+    elevatedCard = card;
+    card.setAttribute("data-js-card-elevated", "");
+
+    const state = Flip.getState(inner);
+
+    update();
+
+    activeFlip = Flip.from(state, {
+      duration: 0.35,
+      ease: "power2.inOut",
+      nested: true,
+      scale: true,
+      onComplete: () => {
+        onComplete?.();
+        activeFlip = null;
+      },
+    });
+  };
 
   const activeCardInner = () => {
-    const inner = activeCard?.querySelector(".card__inner");
+    const inner = activeCard?.querySelector("[data-js-card-inner]");
 
     return inner instanceof HTMLElement ? inner : null;
   };
 
   const openCard = (card: HTMLElement) => {
-    const inner = card.querySelector(".card__inner");
+    const inner = card.querySelector("[data-js-card-inner]");
     const openButton = card.querySelector("[data-js-card-open]");
     const closeButton = card.querySelector("[data-js-card-close]");
 
@@ -111,14 +130,14 @@ const content: {
       return;
     }
 
-    inner.style.viewTransitionName = "active-card";
     const previousCard = activeCard;
     const previousOpenButton = previousCard?.querySelector("[data-js-card-open]");
 
-    startViewTransition(() => {
-      previousCard?.classList.remove("card--active");
+    animateFlip(card, inner, () => {
+      previousCard?.removeAttribute("data-js-card-active");
       activeCard = card;
-      card.classList.add("card--active");
+      card.setAttribute("data-js-card-opened", "");
+      card.setAttribute("data-js-card-active", "");
 
       if (openButton instanceof HTMLButtonElement) {
         openButton.setAttribute("aria-expanded", "true");
@@ -130,7 +149,7 @@ const content: {
       ) {
         previousOpenButton.setAttribute("aria-expanded", "false");
       }
-    }).finally(() => inner.style.removeProperty("view-transition-name"));
+    });
 
     if (closeButton instanceof HTMLButtonElement) {
       closeButton.focus();
@@ -145,25 +164,33 @@ const content: {
     }
 
     const card = activeCard;
-    const inner = card.querySelector(".card__inner");
+    const inner = card.querySelector("[data-js-card-inner]");
     const openButton = card.querySelector("[data-js-card-open]");
 
-    if (inner instanceof HTMLElement) {
-      inner.style.viewTransitionName = "active-card";
+    if (!(inner instanceof HTMLElement)) {
+      card.removeAttribute("data-js-card-active");
+      card.removeAttribute("data-js-card-elevated");
+      elevatedCard = null;
+      activeCard = null;
+      return;
     }
 
-    startViewTransition(() => {
-      card.classList.remove("card--active");
-      activeCard = null;
+    animateFlip(
+      card,
+      inner,
+      () => {
+        card.removeAttribute("data-js-card-active");
+        activeCard = null;
 
-      if (openButton instanceof HTMLButtonElement) {
-        openButton.setAttribute("aria-expanded", "false");
-      }
-    }).finally(() => {
-      if (inner instanceof HTMLElement) {
-        inner.style.removeProperty("view-transition-name");
-      }
-    });
+        if (openButton instanceof HTMLButtonElement) {
+          openButton.setAttribute("aria-expanded", "false");
+        }
+      },
+      () => {
+        card.removeAttribute("data-js-card-elevated");
+        elevatedCard = null;
+      },
+    );
   };
 
   document.addEventListener("click", (event) => {
@@ -277,13 +304,17 @@ const content: {
       outline: 0;
     }
 
-    .card--active {
+    [data-js-card-opened],
+    [data-js-card-active] {
       animation: none;
       transform: none;
-      z-index: 10;
     }
 
-    .card--active .card__inner {
+    [data-js-card-elevated] {
+      z-index: 2147483647;
+    }
+
+    [data-js-card-active] .card__inner {
       position: fixed;
       inset-block-start: 50%;
       inset-inline-start: 50%;
@@ -300,7 +331,7 @@ const content: {
       block-size: 100%;
     }
 
-    .card--active .card__media {
+    [data-js-card-active] .card__media {
       block-size: auto;
       border-block-end: var(--border);
       background: var(--ui-bg);
@@ -325,7 +356,7 @@ const content: {
       }
     }
 
-    .card--active .card__surface > :first-child {
+    [data-js-card-active] .card__surface > :first-child {
       inline-size: 100%;
       block-size: auto;
       max-inline-size: 100%;
@@ -351,11 +382,11 @@ const content: {
       }
     }
 
-    .card--active .card__button--open {
+    [data-js-card-active] .card__button--open {
       display: none;
     }
 
-    .card--active .card__button--close {
+    [data-js-card-active] .card__button--close {
       display: inline-grid;
     }
 
@@ -378,7 +409,7 @@ const content: {
       }
     }
 
-    .card--active .card__details {
+    [data-js-card-active] .card__details {
       display: block;
     }
 
@@ -439,6 +470,16 @@ const content: {
     .card__link {
       color: var(--text-secondary);
     }
+  }
+
+  .body--home .site-header,
+  .main--home .card {
+    transition: filter 0.35s var(--ease-3);
+  }
+
+  .body--home:has([data-js-card-elevated]) .site-header,
+  .main--home:has([data-js-card-elevated]) .card:not([data-js-card-elevated]) {
+    filter: blur(var(--size-px-2));
   }
 
   @keyframes card-appear-opacity {
