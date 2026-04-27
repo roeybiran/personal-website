@@ -88,6 +88,7 @@ const content: {
   let activeFlip: gsap.core.Tween | null = null;
   let backgroundTween: gsap.core.Tween | null = null;
   let elevatedCard: HTMLElement | null = null;
+  let ignoreNextClick = false;
 
   const backgroundElements = (card: HTMLElement) => [
     ...document.querySelectorAll<HTMLElement>(".site-header, .card"),
@@ -139,6 +140,7 @@ const content: {
     inner: HTMLElement,
     update: () => void,
     onComplete?: () => void,
+    ease = "back.out(1.2)",
   ) => {
     activeFlip?.progress(1).kill();
     elevatedCard?.removeAttribute("data-js-card-elevated");
@@ -151,7 +153,7 @@ const content: {
 
     activeFlip = Flip.from(state, {
       duration: 0.35,
-      ease: "back.out(1.2)",
+      ease,
       nested: true,
       scale: true,
       onComplete: () => {
@@ -169,40 +171,24 @@ const content: {
 
   const openCard = (card: HTMLElement) => {
     const inner = card.querySelector("[data-js-card-inner]");
-    const openButton = card.querySelector("[data-js-card-open]");
-    const closeButton = card.querySelector("[data-js-card-close]");
 
     if (!(inner instanceof HTMLElement)) {
       return;
     }
 
     const previousCard = activeCard;
-    const previousOpenButton = previousCard?.querySelector("[data-js-card-open]");
 
     animateFlip(card, inner, () => {
       previousCard?.removeAttribute("data-js-card-active");
+      previousCard?.setAttribute("aria-expanded", "false");
       activeCard = card;
       card.setAttribute("data-js-card-opened", "");
       card.setAttribute("data-js-card-active", "");
+      card.setAttribute("aria-expanded", "true");
       blurBackground(card);
-
-      if (openButton instanceof HTMLButtonElement) {
-        openButton.setAttribute("aria-expanded", "true");
-      }
-
-      if (
-        previousOpenButton instanceof HTMLButtonElement &&
-        previousOpenButton !== openButton
-      ) {
-        previousOpenButton.setAttribute("aria-expanded", "false");
-      }
     });
 
-    if (closeButton instanceof HTMLButtonElement) {
-      closeButton.focus();
-    } else {
-      inner.focus();
-    }
+    inner.focus();
   };
 
   const closeCard = () => {
@@ -212,11 +198,11 @@ const content: {
 
     const card = activeCard;
     const inner = card.querySelector("[data-js-card-inner]");
-    const openButton = card.querySelector("[data-js-card-open]");
 
     if (!(inner instanceof HTMLElement)) {
       card.removeAttribute("data-js-card-active");
       card.removeAttribute("data-js-card-elevated");
+      card.setAttribute("aria-expanded", "false");
       clearBackgroundBlur(card);
       elevatedCard = null;
       activeCard = null;
@@ -228,11 +214,8 @@ const content: {
       inner,
       () => {
         card.removeAttribute("data-js-card-active");
+        card.setAttribute("aria-expanded", "false");
         activeCard = null;
-
-        if (openButton instanceof HTMLButtonElement) {
-          openButton.setAttribute("aria-expanded", "false");
-        }
 
         clearBackgroundBlur(card);
       },
@@ -240,44 +223,76 @@ const content: {
         card.removeAttribute("data-js-card-elevated");
         elevatedCard = null;
       },
+      "power2.inOut",
     );
   };
 
+  const closeFromOutsidePress = (event: MouseEvent | PointerEvent) => {
+    const target = event.target;
+    const inner = activeCardInner();
+
+    if (inner && target instanceof Node && !inner.contains(target)) {
+      ignoreNextClick = true;
+      event.preventDefault();
+      event.stopPropagation();
+      closeCard();
+    }
+  };
+
+  const closeFromOutsideClick = (event: MouseEvent) => {
+    const target = event.target;
+    const inner = activeCardInner();
+
+    if (inner && target instanceof Node && !inner.contains(target)) {
+      ignoreNextClick = false;
+      event.preventDefault();
+      event.stopPropagation();
+      closeCard();
+    }
+  };
+
+  document.addEventListener("pointerdown", closeFromOutsidePress, {
+    capture: true,
+  });
+  document.addEventListener("mousedown", closeFromOutsidePress, {
+    capture: true,
+  });
+  document.addEventListener("click", closeFromOutsideClick, {
+    capture: true,
+  });
+
   document.addEventListener("click", (event) => {
+    if (ignoreNextClick) {
+      ignoreNextClick = false;
+      return;
+    }
+
     const target = event.target;
 
     if (!(target instanceof Element)) {
       return;
     }
 
-    const closeButton = target.closest("[data-js-card-close]");
+    if (activeCard) {
+      const inner = activeCardInner();
 
-    if (closeButton instanceof HTMLButtonElement) {
-      event.preventDefault();
-      closeCard();
-
-      return;
-    }
-
-    const openButton = target.closest("[data-js-card-open]");
-
-    if (openButton instanceof HTMLButtonElement) {
-      const card = openButton.closest("[data-js-card]");
-
-      if (!(card instanceof HTMLElement)) {
-        return;
+      if (inner && !inner.contains(target)) {
+        event.preventDefault();
+        closeCard();
       }
 
-      event.preventDefault();
-      openCard(card);
-
       return;
     }
 
-    const inner = activeCardInner();
+    const card = target.closest("[data-js-card]");
 
-    if (inner && !inner.contains(target)) {
-      closeCard();
+    if (card instanceof HTMLElement && !card.hasAttribute("data-js-card-active")) {
+      const interactiveTarget = target.closest("a, button");
+
+      if (!interactiveTarget) {
+        event.preventDefault();
+        openCard(card);
+      }
     }
   });
 
@@ -422,42 +437,6 @@ const content: {
       inline-size: 100%;
       block-size: auto;
       max-inline-size: 100%;
-    }
-
-    .card__button {
-      position: absolute;
-      inset-inline-end: var(--size-1);
-      inset-block-end: var(--size-1);
-      z-index: 1;
-      background: var(--sand-3a);
-      backdrop-filter: blur(var(--size-3));
-      box-shadow: var(--shadow-5);
-    }
-
-    .card__button--close {
-      inset-block-start: var(--size-1);
-      inset-block-end: auto;
-      display: none;
-
-      svg {
-        rotate: 45deg;
-      }
-    }
-
-    [data-js-card-active] .card__button--open {
-      display: none;
-    }
-
-    [data-js-card-active] .card__button--close {
-      display: inline-grid;
-    }
-
-    .card__button:hover {
-      background: var(--sand-3a);
-    }
-
-    .card__button:hover svg {
-      rotate: 18deg;
     }
 
     .card__details {

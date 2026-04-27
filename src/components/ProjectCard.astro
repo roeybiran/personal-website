@@ -3,7 +3,6 @@ import type { CollectionEntry } from "astro:content";
 import { getImage, Image } from "astro:assets";
 import GitHubButton from "./GitHubButton.astro";
 import ExternalLinkIcon from "../assets/external-link.svg";
-import PlusIcon from "../assets/plus.svg";
 
 export interface Props {
   item: CollectionEntry<"items">;
@@ -14,7 +13,6 @@ const { item, sectionKey } = Astro.props;
 const { id, data } = item;
 const { title, kind, tagline, date, status, media, stack, press, links } = data;
 
-const buttonId = `${id}-card-button`;
 const hasMeta = stack.length > 0 || Boolean(press?.length);
 const isoDate = date?.toISOString();
 const dateString = date?.toLocaleDateString("en-US", {
@@ -37,28 +35,10 @@ const poster = media.type === "video"
   class={`card card--${kind} | cardlike`}
   data-section={sectionKey}
   data-js-card
+  aria-label={`Open ${title}`}
+  tabindex="0"
 >
   <div class="card__inner card-inner" data-js-card-inner tabindex="-1">
-    <button
-      id={buttonId}
-      type="button"
-      class="card__button card__button--open | button button--image button--rounded"
-      data-js-card-open
-      aria-expanded="false"
-      aria-label={`Open ${title}`}
-    >
-      <PlusIcon />
-    </button>
-
-    <button
-      type="button"
-      class="card__button card__button--close | button button--image button--rounded"
-      data-js-card-close
-      aria-label="Close"
-    >
-      <PlusIcon />
-    </button>
-
     <div class="card__media">
       <div class="card__surface" data-card-surface>
         {
