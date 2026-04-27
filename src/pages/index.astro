@@ -79,28 +79,86 @@ const content: {
 </SiteLayout>
 
 <script>
-  type PopoverElement = HTMLElement & {
-    hidePopover: () => void;
-    showPopover: () => void;
-  };
-
   const startViewTransition = (update: () => void) => {
     const transitionDocument = document as Document & {
-      startViewTransition?: (updateCallback: () => void) => void;
+      startViewTransition?: (updateCallback: () => void) => {
+        finished: Promise<void>;
+      };
     };
 
     if (transitionDocument.startViewTransition) {
-      transitionDocument.startViewTransition(update);
-      return;
+      return transitionDocument.startViewTransition(update).finished;
     }
 
     update();
+    return Promise.resolve();
   };
 
-  const isPopoverElement = (element: Element | null): element is PopoverElement =>
-    element instanceof HTMLElement &&
-    "showPopover" in element &&
-    "hidePopover" in element;
+  let activeCard: HTMLElement | null = null;
+  let ignoreNextFocusOut = false;
+
+  const openCard = (card: HTMLElement) => {
+    const inner = card.querySelector(".card__inner");
+    const openButton = card.querySelector("[data-js-card-open]");
+
+    if (!(inner instanceof HTMLElement)) {
+      return;
+    }
+
+    inner.style.viewTransitionName = "active-card";
+    const previousCard = activeCard;
+    const previousOpenButton = previousCard?.querySelector("[data-js-card-open]");
+
+    startViewTransition(() => {
+      previousCard?.classList.remove("card--active");
+      activeCard = card;
+      card.classList.add("card--active");
+
+      if (openButton instanceof HTMLButtonElement) {
+        openButton.setAttribute("aria-expanded", "true");
+      }
+
+      if (
+        previousOpenButton instanceof HTMLButtonElement &&
+        previousOpenButton !== openButton
+      ) {
+        previousOpenButton.setAttribute("aria-expanded", "false");
+      }
+    }).finally(() => inner.style.removeProperty("view-transition-name"));
+
+    ignoreNextFocusOut = true;
+    inner.focus();
+    queueMicrotask(() => {
+      ignoreNextFocusOut = false;
+    });
+  };
+
+  const closeCard = () => {
+    if (!activeCard) {
+      return;
+    }
+
+    const card = activeCard;
+    const inner = card.querySelector(".card__inner");
+    const openButton = card.querySelector("[data-js-card-open]");
+
+    if (inner instanceof HTMLElement) {
+      inner.style.viewTransitionName = "active-card";
+    }
+
+    startViewTransition(() => {
+      card.classList.remove("card--active");
+      activeCard = null;
+
+      if (openButton instanceof HTMLButtonElement) {
+        openButton.setAttribute("aria-expanded", "false");
+      }
+    }).finally(() => {
+      if (inner instanceof HTMLElement) {
+        inner.style.removeProperty("view-transition-name");
+      }
+    });
+  };
 
   document.addEventListener("click", (event) => {
     const target = event.target;
@@ -109,37 +167,45 @@ const content: {
       return;
     }
 
-    const openButton = target.closest("[data-js-dialog]");
+    const closeButton = target.closest("[data-js-card-close]");
 
-    if (openButton instanceof HTMLButtonElement) {
-      const popoverId = openButton.dataset.jsDialog;
-      const popover = popoverId ? document.getElementById(popoverId) : null;
-
-      if (!isPopoverElement(popover)) {
-        return;
-      }
-
-      startViewTransition(() => {
-        popover.showPopover();
-      });
+    if (closeButton instanceof HTMLButtonElement) {
+      event.preventDefault();
+      closeCard();
 
       return;
     }
 
-    const closeButton = target.closest("[data-js-dialog-close]");
+    const openButton = target.closest("[data-js-card-open]");
 
-    if (closeButton instanceof HTMLButtonElement) {
-      const popover = closeButton.closest(".card__popup");
+    if (openButton instanceof HTMLButtonElement) {
+      const card = openButton.closest("[data-js-card]");
 
-      if (!isPopoverElement(popover) || !popover.matches(":popover-open")) {
+      if (!(card instanceof HTMLElement)) {
         return;
       }
 
       event.preventDefault();
-      startViewTransition(() => {
-        popover.hidePopover();
-      });
+      openCard(card);
+
+      return;
     }
+
+    if (activeCard && !activeCard.contains(target)) {
+      closeCard();
+    }
+  });
+
+  document.addEventListener("focusout", () => {
+    if (ignoreNextFocusOut) {
+      return;
+    }
+
+    queueMicrotask(() => {
+      if (activeCard && !activeCard.contains(document.activeElement)) {
+        closeCard();
+      }
+    });
   });
 </script>
 
@@ -192,17 +258,49 @@ const content: {
       position: relative;
     }
 
+    .card__inner {
+      block-size: 100%;
+      overflow: clip;
+      border: var(--border);
+      border-radius: var(--card-radius);
+      background: var(--app-bg);
+      color: inherit;
+      outline: 0;
+    }
+
+    .card--active {
+      animation: none;
+      transform: none;
+      z-index: 10;
+    }
+
+    .card--active .card__inner {
+      position: fixed;
+      inset-block-start: 50%;
+      inset-inline-start: 50%;
+      transform: translate(-50%, -50%);
+      inline-size: min(var(--size-content-3), calc(100% - (2 * var(--bleed))));
+      block-size: auto;
+      max-block-size: calc(100dvb - (2 * var(--bleed)));
+      overflow: auto;
+      box-shadow: var(--shadow-5);
+    }
+
     .card__media {
       position: relative;
       block-size: 100%;
+    }
+
+    .card--active .card__media {
+      block-size: auto;
+      border-block-end: var(--border);
+      background: var(--ui-bg);
     }
 
     .card__surface {
       block-size: 100%;
       overflow: hidden;
       display: grid;
-      border: var(--border);
-      border-radius: var(--card-radius);
       background: var(--ui-bg);
 
       > * {
@@ -218,6 +316,12 @@ const content: {
       }
     }
 
+    .card--active .card__surface > :first-child {
+      inline-size: 100%;
+      block-size: auto;
+      max-inline-size: 100%;
+    }
+
     .card__button {
       position: absolute;
       inset-inline-end: var(--size-1);
@@ -228,12 +332,45 @@ const content: {
       box-shadow: var(--shadow-5);
     }
 
+    .card__button--close {
+      inset-block-start: var(--size-1);
+      inset-block-end: auto;
+      display: none;
+
+      svg {
+        rotate: 45deg;
+      }
+    }
+
+    .card--active .card__button--open {
+      display: none;
+    }
+
+    .card--active .card__button--close {
+      display: inline-grid;
+    }
+
     .card__button:hover {
       background: var(--sand-3a);
     }
 
     .card__button:hover svg {
       rotate: 18deg;
+    }
+
+    .card__details {
+      display: none;
+      padding: var(--bleed);
+
+      > * + * {
+        border-block-start: var(--border-dashed);
+        padding-block-start: var(--size-2);
+        margin-block-start: var(--size-2);
+      }
+    }
+
+    .card--active .card__details {
+      display: block;
     }
 
     .card__video {
