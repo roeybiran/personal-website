@@ -95,11 +95,17 @@ const content: {
   };
 
   let activeCard: HTMLElement | null = null;
-  let ignoreNextFocusOut = false;
+
+  const activeCardInner = () => {
+    const inner = activeCard?.querySelector(".card__inner");
+
+    return inner instanceof HTMLElement ? inner : null;
+  };
 
   const openCard = (card: HTMLElement) => {
     const inner = card.querySelector(".card__inner");
     const openButton = card.querySelector("[data-js-card-open]");
+    const closeButton = card.querySelector("[data-js-card-close]");
 
     if (!(inner instanceof HTMLElement)) {
       return;
@@ -126,11 +132,11 @@ const content: {
       }
     }).finally(() => inner.style.removeProperty("view-transition-name"));
 
-    ignoreNextFocusOut = true;
-    inner.focus();
-    queueMicrotask(() => {
-      ignoreNextFocusOut = false;
-    });
+    if (closeButton instanceof HTMLButtonElement) {
+      closeButton.focus();
+    } else {
+      inner.focus();
+    }
   };
 
   const closeCard = () => {
@@ -191,21 +197,24 @@ const content: {
       return;
     }
 
-    if (activeCard && !activeCard.contains(target)) {
+    const inner = activeCardInner();
+
+    if (inner && !inner.contains(target)) {
       closeCard();
     }
   });
 
-  document.addEventListener("focusout", () => {
-    if (ignoreNextFocusOut) {
-      return;
+  document.addEventListener("focusin", () => {
+    if (activeCard && !activeCard.contains(document.activeElement)) {
+      closeCard();
     }
+  });
 
-    queueMicrotask(() => {
-      if (activeCard && !activeCard.contains(document.activeElement)) {
-        closeCard();
-      }
-    });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && activeCard) {
+      event.preventDefault();
+      closeCard();
+    }
   });
 </script>
 
