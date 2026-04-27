@@ -147,21 +147,14 @@ const content: {
     elevatedCard = card;
     card.setAttribute("data-js-card-elevated", "");
 
-    const state = Flip.getState([
-      inner,
-      ...inner.querySelectorAll<HTMLElement>(
-        "[data-js-card-media], [data-js-card-surface], [data-js-card-media-content]",
-      ),
-    ]);
+    const state = Flip.getState(inner);
 
     update();
 
     activeFlip = Flip.from(state, {
-      absolute: true,
       duration: 0.35,
       ease,
       nested: true,
-      props: "maxInlineSize",
       scale: true,
       onComplete: () => {
         onComplete?.();
