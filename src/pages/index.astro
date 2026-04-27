@@ -86,7 +86,53 @@ const content: {
 
   let activeCard: HTMLElement | null = null;
   let activeFlip: gsap.core.Tween | null = null;
+  let backgroundTween: gsap.core.Tween | null = null;
   let elevatedCard: HTMLElement | null = null;
+
+  const backgroundElements = (card: HTMLElement) => [
+    ...document.querySelectorAll<HTMLElement>(".site-header, .card"),
+  ].filter((element) => element !== card);
+
+  const backgroundBlur = () =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--size-px-2")
+      .trim() || "2px";
+
+  const blurBackground = (card: HTMLElement) => {
+    const elements = backgroundElements(card);
+
+    backgroundTween?.kill();
+    backgroundTween = gsap.fromTo(
+      elements,
+      { filter: "blur(0px)" },
+      {
+        filter: `blur(${backgroundBlur()})`,
+        duration: 0.35,
+        ease: "power2.inOut",
+        overwrite: "auto",
+      },
+    );
+  };
+
+  const clearBackgroundBlur = (card: HTMLElement) => {
+    const elements = backgroundElements(card);
+
+    backgroundTween?.kill();
+    backgroundTween = gsap.fromTo(
+      elements,
+      { filter: `blur(${backgroundBlur()})` },
+      {
+        filter: "blur(0px)",
+        duration: 0.35,
+        ease: "power2.inOut",
+        overwrite: "auto",
+        onComplete: () => {
+          gsap.set(elements, { clearProps: "filter" });
+          backgroundTween = null;
+        },
+      },
+    );
+  };
 
   const animateFlip = (
     card: HTMLElement,
@@ -138,6 +184,7 @@ const content: {
       activeCard = card;
       card.setAttribute("data-js-card-opened", "");
       card.setAttribute("data-js-card-active", "");
+      blurBackground(card);
 
       if (openButton instanceof HTMLButtonElement) {
         openButton.setAttribute("aria-expanded", "true");
@@ -170,6 +217,7 @@ const content: {
     if (!(inner instanceof HTMLElement)) {
       card.removeAttribute("data-js-card-active");
       card.removeAttribute("data-js-card-elevated");
+      clearBackgroundBlur(card);
       elevatedCard = null;
       activeCard = null;
       return;
@@ -185,6 +233,8 @@ const content: {
         if (openButton instanceof HTMLButtonElement) {
           openButton.setAttribute("aria-expanded", "false");
         }
+
+        clearBackgroundBlur(card);
       },
       () => {
         card.removeAttribute("data-js-card-elevated");
@@ -314,10 +364,22 @@ const content: {
       z-index: 2147483647;
     }
 
+    [data-js-card-elevated]::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      border: var(--border-dashed);
+      border-radius: var(--card-radius);
+      background: var(--ui-bg);
+    }
+
     [data-js-card-active] .card__inner {
       position: fixed;
       inset-block-start: 50%;
       inset-inline-start: 50%;
+      z-index: 1;
       transform: translate(-50%, -50%);
       inline-size: min(var(--size-content-3), calc(100% - (2 * var(--bleed))));
       block-size: auto;
@@ -470,16 +532,6 @@ const content: {
     .card__link {
       color: var(--text-secondary);
     }
-  }
-
-  .body--home .site-header,
-  .main--home .card {
-    transition: filter 0.35s var(--ease-3);
-  }
-
-  .body--home:has([data-js-card-elevated]) .site-header,
-  .main--home:has([data-js-card-elevated]) .card:not([data-js-card-elevated]) {
-    filter: blur(var(--size-px-2));
   }
 
   @keyframes card-appear-opacity {
