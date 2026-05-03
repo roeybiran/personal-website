@@ -110,14 +110,16 @@ if (media.type === "video" && !videoSrc) {
           popover
           style={`position-anchor: ${popoverAnchor}`}
         >
-          <p class="card__popover-title">{title}</p>
-          {stack.length > 0 && (
-            <ul class="card__popover-stack">
-              {stack.map((tech) => (
-                <li class="card__badge | badge text-sm theme-plum">{tech}</li>
-              ))}
-            </ul>
-          )}
+          <div class="card__popover-inner">
+            <p class="card__popover-title">{title}</p>
+            {stack.length > 0 && (
+              <ul class="card__popover-stack">
+                {stack.map((tech) => (
+                  <li class="card__badge | badge text-sm theme-plum">{tech}</li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       )
     }
