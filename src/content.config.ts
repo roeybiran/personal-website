@@ -29,7 +29,7 @@ const stack = z.array(
   ])
 );
 const responsibilities = z.array(z.enum(["Art", "Code", "Design"]));
-const itemKind = z.enum(["app", "utility", "project", "interaction", "icon"]);
+const itemKind = z.enum(["app", "utility", "project", "interaction"]);
 const itemStatus = z.enum(["active", "discontinued", "archived"]);
 const linkKind = z.enum(["site", "github", "download", "article"]);
 
@@ -78,6 +78,21 @@ const items = defineCollection({
     }),
 });
 
+const iconography = defineCollection({
+  loader: glob({
+    pattern: "src/content/iconography/*.md",
+    generateId: ({ entry }) => extractSlug(entry),
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      type: z.enum(["App Icon"]),
+      date: z.date(),
+      variants: z.array(image()).min(1),
+    }),
+});
+
 export const collections = {
+  iconography,
   items,
 };

@@ -6,7 +6,7 @@ tagline: A ski lover's experiment in creative coding and big data parsing.
 media:
   type: video
   poster: ../item-media/lets-ski-poster.jpg
-  video: /projects/lets-ski.mp4
+  video: ../item-media/lets-ski.mp4
 responsibilities:
   - Code
   - Design

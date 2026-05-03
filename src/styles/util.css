@@ -1,0 +1,312 @@
+.sr-only:not(:focus, :active) {
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.center {
+  margin-inline: auto;
+}
+
+.center.intrinsic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center.text {
+  text-align: center;
+}
+
+.uppercased {
+  text-transform: uppercase;
+  letter-spacing: var(--font-letterspacing-3);
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-space, 1rem);
+  justify-content: var(--cluster-justify, flex-start);
+  align-items: var(--cluster-align, center);
+  list-style: none;
+}
+
+.grid {
+  --_space: var(--grid-space, 1rem);
+  --_minimum: var(--grid-item-min, 250px);
+  --_fit: var(--grid-fit, auto-fill);
+
+  display: grid;
+  grid-template-columns: repeat(var(--_fit), minmax(min(var(--_minimum), 100%), 1fr));
+  gap: var(--_space);
+}
+
+.reel {
+  display: grid;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  grid-auto-flow: column;
+  grid-auto-columns: min(100%, var(--reel-item-size, auto));
+  gap: var(--reel-gap, var(--space));
+  justify-content: flex-start;
+}
+
+.reel > * {
+  min-inline-size: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+:where(.stack, .stack-s) > * {
+  margin-block: 0;
+}
+
+.stack > * + * {
+  margin-block-start: var(--space);
+}
+
+.stack-s > * + * {
+  margin-block-start: var(--size-1);
+}
+
+.stack-recursive * + * {
+  margin-block-start: var(--space);
+}
+
+.stack.split-after:only-child {
+  block-size: 100%;
+}
+
+.stack.split-after > .splitter {
+  margin-block-end: auto;
+}
+
+.cardlike {
+  position: relative;
+}
+
+.cardlike > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardlike > a:visited {
+  color: inherit;
+}
+
+.cardlike > a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.cardlike a {
+  color: var(--text-primary);
+}
+
+.cardlike a:visited {
+  color: var(--text-primary);
+}
+
+.cardlike a:hover {
+  text-decoration: none;
+}
+
+.cardlike--styled {
+  box-shadow: var(--shadow-1);
+  outline: 1px solid transparent;
+  outline-offset: 8px;
+  transition: outline-color 0.3s ease 0s, outline-offset 0.3s ease 0s;
+}
+
+.cardlike--styled:focus-within {
+  outline-color: var(--outline-color);
+  outline-offset: 0;
+}
+
+.cardlike--styled a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+.prose > * + * {
+  margin-block-start: var(--space);
+}
+
+.prose > * + :where(h1, h2, h3, h4, h5, h6) {
+  margin-block-start: calc(2 * var(--space));
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6) + * {
+  margin-block-start: var(--size-2);
+}
+
+.prose :where(table, pre) {
+  margin-block-start: var(--space);
+}
+
+.prose ul,
+.prose ol {
+  padding-inline-start: var(--size-5);
+  list-style-position: outside;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  text-wrap: pretty;
+}
+
+.prose :where(h1) {
+  font-size: var(--font-size-4);
+}
+
+.prose :where(h2) {
+  font-size: var(--font-size-5);
+}
+
+.prose :where(h3) {
+  font-size: var(--font-size-3);
+}
+
+.prose table {
+  border-collapse: collapse;
+}
+
+.prose th {
+  background-color: var(--ui-bg);
+}
+
+.prose th,
+.prose td {
+  border: var(--border);
+  padding: var(--size-2);
+  vertical-align: baseline;
+}
+
+.prose code {
+  font-family: var(--font-monospace-code);
+  overflow-wrap: normal;
+}
+
+.prose.layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, min(var(--size-content-3), 100%)) 1fr;
+}
+
+.prose.layout > * {
+  grid-column: 2;
+}
+
+.prose.layout > :where(
+  img,
+  figure,
+  iframe,
+  .full,
+  .wp-video,
+  .paragraph-img-wrapper,
+  .full-width
+) {
+  inline-size: 100%;
+  grid-column: 1/-1;
+}
+
+.prose.layout .paragraph-img-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prose.layout .paragraph-img-wrapper img {
+  inline-size: 100%;
+  object-fit: contain;
+  max-block-size: 50vh;
+}
+
+.prose.layout .wp-video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prose.layout .wp-video video {
+  max-block-size: 50vh;
+}
+
+.glass {
+  border: var(--border);
+  border-color: rgb(255 255 255 / 20%);
+  background:
+    linear-gradient(
+      rgb(255 255 255 / 0%),
+      rgb(255 255 255 / 38%) 49%,
+      rgb(255 255 255 / 0%) 51%
+    ),
+    linear-gradient(rgb(255 255 255 / 24%), rgb(255 255 255 / 10%)),
+    rgb(30 30 35 / 22%);
+  box-shadow:
+    inset 0 0.5px 1px rgb(255 255 255 / 80%),
+    inset 0 -0.5px 1px rgb(255 255 255 / 22%),
+    inset 0 0 0 1px rgb(255 255 255 / 14%),
+    0 0 1px rgb(0 0 0 / 42%),
+    0 1px 1px rgb(0 0 0 / 22%),
+    0 4px 6px rgb(0 0 0 / 22%);
+  color: white;
+  backdrop-filter: blur(6px);
+}
+
+.glass:hover {
+  border-color: rgb(255 255 255 / 32%);
+  background:
+    linear-gradient(
+      rgb(255 255 255 / 0%),
+      rgb(255 255 255 / 52%) 49%,
+      rgb(255 255 255 / 0%) 51%
+    ),
+    linear-gradient(rgb(255 255 255 / 34%), rgb(255 255 255 / 16%)),
+    rgb(30 30 35 / 18%);
+  box-shadow:
+    inset 0 0.5px 1px rgb(255 255 255 / 90%),
+    inset 0 -0.5px 1px rgb(255 255 255 / 34%),
+    inset 0 0 0 1px rgb(255 255 255 / 22%),
+    0 0 1px rgb(0 0 0 / 42%),
+    0 2px 2px rgb(0 0 0 / 24%),
+    0 6px 10px rgb(0 0 0 / 28%);
+}
+
+.glass:active {
+  background:
+    linear-gradient(
+      rgb(255 255 255 / 0%),
+      rgb(255 255 255 / 16%) 49%,
+      rgb(255 255 255 / 0%) 51%
+    ),
+    linear-gradient(rgb(0 0 0 / 10%), rgb(255 255 255 / 10%)),
+    rgb(30 30 35 / 26%);
+  box-shadow:
+    inset 0 1px 1px rgb(0 0 0 / 28%),
+    inset 0 -0.5px 1px rgb(255 255 255 / 18%),
+    inset 0 0 0 1px rgb(255 255 255 / 12%),
+    0 0 1px rgb(0 0 0 / 42%),
+    0 1px 3px rgb(0 0 0 / 22%);
+}
+
+.glass:focus-visible {
+  outline: var(--border-width) solid currentcolor;
+  outline-offset: var(--size-px-2);
+}
+
+.padded {
+  padding: var(--space);
+}

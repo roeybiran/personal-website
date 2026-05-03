@@ -6,7 +6,7 @@ tagline: Battle prolonged seating with the help of a friendly potato.
 media:
   type: video
   poster: ../item-media/potatoclock-poster.jpg
-  video: /projects/potatoclock.mp4
+  video: ../item-media/potatoclock.mp4
 responsibilities:
   - Code
   - Design

@@ -6,7 +6,7 @@ tagline: The official website of my school’s department graduation exhibition.
 media:
   type: video
   poster: ../item-media/graduates-exhibition-poster.jpg
-  video: /projects/graduates-exhibition.mp4
+  video: ../item-media/graduates-exhibition.mp4
 responsibilities:
   - Code
   - Design

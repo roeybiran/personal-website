@@ -6,7 +6,7 @@ tagline: Online shop, blog and recipe archive for a pottery studio.
 media:
   type: video
   poster: ../item-media/studio-now-poster.jpg
-  video: /projects/studio-now.mp4
+  video: ../item-media/studio-now.mp4
 responsibilities:
   - Code
   - Design

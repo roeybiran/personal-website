@@ -6,7 +6,7 @@ tagline: VR reincarnation of the escape scene from Miloš Forman's 1975 film, "O
 media:
   type: video
   poster: ../item-media/cuckoos-nest-poster.jpg
-  video: /projects/cuckoos-nest.mp4
+  video: ../item-media/cuckoos-nest.mp4
 responsibilities:
   - Code
   - Design

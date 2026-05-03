@@ -4,21 +4,10 @@
 @import url(./reset.css);
 @import url(./theme.css);
 
-@import url(./util/sr-only.css);
-@import url(./util/center.css);
-@import url(./util/uppercased.css);
-@import url(./util/cluster.css);
-@import url(./util/grid.css);
-@import url(./util/reel.css);
-@import url(./util/stack.css);
-@import url(./util/cardlike.css);
-@import url(./util/prose.css);
-
-@import url(./util/padded.css);
+@import url(./util.css);
 
 @import url(./components/button.css);
 
-/* TEMPORARY -- REMOVE TO UTIL */
 @view-transition {
   navigation: auto;
 }

@@ -6,7 +6,7 @@ tagline: A digital archive of mid-century design masterpieces from Denmark (B. D
 media:
   type: video
   poster: ../item-media/great-danes-poster.jpg
-  video: /projects/great-danes.mp4
+  video: ../item-media/great-danes.mp4
 responsibilities:
   - Code
   - Design

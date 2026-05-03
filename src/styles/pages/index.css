@@ -15,20 +15,11 @@
   .projects-section {
     display: grid;
     gap: var(--space);
-    --section-enter-delay: calc(sibling-index() * var(--card-enter-stagger));
   }
 
   .projects-section__header {
     border-block-start: var(--border-subtle);
     padding-block-start: var(--size-3);
-    opacity: 1;
-    transform: translateY(0);
-    animation:
-      list-item-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
-        both,
-      list-item-appear-transform var(--card-enter-transform-duration) var(--ease-4)
-        both;
-    animation-delay: var(--section-enter-delay);
   }
 
   .projects-section:first-child .projects-section__header {
@@ -59,16 +50,6 @@
     border-radius: var(--card-radius);
     background: var(--app-bg-subtle);
     text-align: center;
-    opacity: 1;
-    transform: translateY(0);
-    animation:
-      list-item-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
-        both,
-      list-item-appear-transform var(--card-enter-transform-duration) var(--ease-4)
-        both;
-    animation-delay: calc(
-      var(--section-enter-delay) + ((sibling-index() + 1) * var(--card-enter-stagger))
-    );
   }
 
   .app-listing__content {
@@ -128,15 +109,6 @@
   .projects-grid__item {
     min-inline-size: 0;
     position: relative;
-    opacity: 1;
-    animation:
-      list-item-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
-        both,
-      list-item-appear-transform var(--card-enter-transform-duration) var(--ease-4)
-        backwards;
-    animation-delay: calc(
-      var(--section-enter-delay) + ((sibling-index() + 1) * var(--card-enter-stagger))
-    );
   }
 
   [data-js-card-item-elevated] {
@@ -146,6 +118,27 @@
   .projects-grid__item > .card {
     block-size: 100%;
     animation: none;
+  }
+
+  [data-js-section-pending] :where(.projects-section__header, .app-listing, .projects-grid__item) {
+    opacity: 0;
+  }
+
+  [data-js-section-visible] .projects-section__header {
+    animation:
+      list-item-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
+        both,
+      list-item-appear-transform var(--card-enter-transform-duration) var(--ease-4)
+        backwards;
+  }
+
+  [data-js-section-visible] :where(.app-listing, .projects-grid__item) {
+    animation:
+      list-item-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
+        both,
+      list-item-appear-transform var(--card-enter-transform-duration) var(--ease-4)
+        backwards;
+    animation-delay: calc(sibling-index() * var(--card-enter-stagger));
   }
 }
 

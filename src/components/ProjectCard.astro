@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { getImage, Image } from "astro:assets";
 import GitHubButton from "./GitHubButton.astro";
 import ExternalLinkIcon from "../assets/external-link.svg";
+import PlusIcon from "../assets/plus.svg";
 import "./ProjectCard.css";
 
 export interface Props {
@@ -15,6 +16,9 @@ const { id, data } = item;
 const { title, kind, tagline, date, status, media, stack, press, links } = data;
 
 const hasMeta = stack.length > 0 || Boolean(press?.length);
+const isInteraction = kind === "interaction";
+const popoverId = `${id}-popover`;
+const popoverAnchor = `--${id}-popover-anchor`;
 const isoDate = date?.toISOString();
 const dateString = date?.toLocaleDateString("en-US", {
   month: "short",
@@ -22,6 +26,11 @@ const dateString = date?.toLocaleDateString("en-US", {
 });
 const badgeLabel = status === "discontinued" ? "Discontinued" : undefined;
 const badgeTone = status === "discontinued" ? "yellow" : "gray";
+const videos = import.meta.glob<string>("../content/item-media/*.mp4", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
 const poster = media.type === "video"
   ? await getImage({
       src: media.poster,
@@ -29,6 +38,13 @@ const poster = media.type === "video"
       format: "webp",
     })
   : undefined;
+const videoSrc = media.type === "video"
+  ? videos[`../content/item-media/${media.video.split("/").at(-1)}`]
+  : undefined;
+
+if (media.type === "video" && !videoSrc) {
+  throw new Error(`Missing video asset for ${title}: ${media.video}`);
+}
 ---
 
 <article
@@ -36,17 +52,19 @@ const poster = media.type === "video"
   class={`card card--${kind} | cardlike`}
   data-section={sectionKey}
   data-js-card
-  aria-label={`Open ${title}`}
-  tabindex="0"
 >
-  <div class="card__inner card-inner" data-js-card-inner tabindex="-1">
+  <div
+    class:list={["card-inner", { card__inner: !isInteraction }]}
+    data-js-card-inner
+    tabindex="-1"
+  >
     <div class="card__media">
       <div class="card__surface" data-card-surface>
         {
           media.type === "video" && (
             <video
               class="card__video"
-              src={media.video}
+              src={videoSrc}
               poster={poster?.src}
               loop
               autoplay
@@ -59,23 +77,50 @@ const poster = media.type === "video"
         {media.type === "image" && (
           <Image class="card__image" src={media.image} alt={title} />
         )}
-
-        {
-          kind === "icon" && (
-            <div class="card__icon-plaque" aria-hidden="true">
-              <div class="card__icon-spec">
-                <p class="card__icon-title">{title}</p>
-                <p class="card__icon-category">App Icon</p>
-              </div>
-              <div class="card__icon-footer">
-                <p>{stack.at(0) ?? "Icon Design"}</p>
-                <p>Copyright &copy; 2026 Roey Biran</p>
-              </div>
-            </div>
-          )
-        }
       </div>
+
+      {
+        isInteraction ? (
+          <button
+            class="card__open-button glass"
+            popovertarget={popoverId}
+            style={`anchor-name: ${popoverAnchor}`}
+          >
+            <span class="sr-only">Open {title}</span>
+            <PlusIcon />
+          </button>
+        ) : (
+          <button
+            class="card__open-button glass"
+            data-js-card-trigger
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open {title}</span>
+            <PlusIcon />
+          </button>
+        )
+      }
     </div>
+
+    {
+      isInteraction && (
+        <div
+          id={popoverId}
+          class="card__popover"
+          popover
+          style={`position-anchor: ${popoverAnchor}`}
+        >
+          <p class="card__popover-title">{title}</p>
+          {stack.length > 0 && (
+            <ul class="card__popover-stack">
+              {stack.map((tech) => (
+                <li class="card__badge | badge text-sm theme-plum">{tech}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )
+    }
 
     <div class="card__details">
       <header class="card__header">

@@ -1,5 +1,6 @@
 ---
 import avatar from "../assets/memoji.png";
+import defaultOgImage from "../assets/og.jpg";
 
 interface Props {
   pageDescription: string;
@@ -7,13 +8,17 @@ interface Props {
   currentURL: string;
 }
 
-const { pageDescription, ogImage = "/og.jpg", currentURL }: Props = Astro.props;
+const { pageDescription, ogImage = defaultOgImage.src, currentURL }: Props =
+  Astro.props;
 const name = "Roey Biran";
 const tagline = "Design Engineer";
 const siteTitle = `${name} — ${tagline}`;
 
 const { protocol, hostname, port } = new URL(currentURL);
-const ogImageUrl = `${protocol}//${hostname}${port ? `:${port}` : ""}${ogImage}`;
+const ogImageUrl = new URL(
+  ogImage,
+  `${protocol}//${hostname}${port ? `:${port}` : ""}`,
+);
 ---
 
 <head>
@@ -33,7 +38,7 @@ const ogImageUrl = `${protocol}//${hostname}${port ? `:${port}` : ""}${ogImage}`
 
   <meta property="og:title" content={siteTitle} />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image" content={ogImageUrl.toString()} />
   <meta property="og:image:alt" content={pageDescription} />
   <meta property="og:description" content={pageDescription} />
   <meta property="og:url" content={currentURL} />

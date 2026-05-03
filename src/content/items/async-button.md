@@ -5,7 +5,7 @@ date: 2024-11-29
 media:
   type: video
   poster: ../item-media/async-button-poster.jpg
-  video: /interactions/async-button.mp4
+  video: ../item-media/async-button.mp4
 responsibilities:
   - Code
 stack:

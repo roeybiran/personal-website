@@ -11,7 +11,7 @@ interface Props {
   currentURL: string;
 }
 
-const { pageDescription, ogImage = "/og.jpg", currentURL }: Props = Astro.props;
+const { pageDescription, ogImage, currentURL }: Props = Astro.props;
 const slug = extractSlug(currentURL) || "home";
 const bodyClass = `body--${slug}`;
 const mainClass = `main--${slug}`;

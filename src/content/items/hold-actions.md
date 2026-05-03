@@ -5,7 +5,7 @@ date: 2024-12-01
 media:
   type: video
   poster: ../item-media/hold-actions-poster.jpg
-  video: /interactions/hold-actions.mp4
+  video: ../item-media/hold-actions.mp4
 responsibilities:
   - Code
 stack:
