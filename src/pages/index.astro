@@ -150,7 +150,7 @@ const content: {
                           {primaryLink && (
                             <div class="app-listing__actions">
                               {isGitHubLink ? (
-                                <GitHubButton url={primaryLink.url} />
+                                <GitHubButton url={primaryLink.url} small />
                               ) : (
                                 <a
                                   class="button button--image"
@@ -201,6 +201,7 @@ const content: {
   let activeFlip: gsap.core.Tween | null = null;
   let backgroundTween: gsap.core.Tween | null = null;
   let elevatedCard: HTMLElement | null = null;
+  let elevatedCardItem: HTMLElement | null = null;
   let ignoreNextClick = false;
 
   const backgroundElements = (card: HTMLElement) =>
@@ -258,8 +259,11 @@ const content: {
   ) => {
     activeFlip?.progress(1).kill();
     elevatedCard?.removeAttribute("data-js-card-elevated");
+    elevatedCardItem?.removeAttribute("data-js-card-item-elevated");
     elevatedCard = card;
+    elevatedCardItem = card.closest(".projects-grid__item");
     card.setAttribute("data-js-card-elevated", "");
+    elevatedCardItem?.setAttribute("data-js-card-item-elevated", "");
 
     const state = Flip.getState(inner);
 
@@ -316,9 +320,11 @@ const content: {
     if (!(inner instanceof HTMLElement)) {
       card.removeAttribute("data-js-card-active");
       card.removeAttribute("data-js-card-elevated");
+      elevatedCardItem?.removeAttribute("data-js-card-item-elevated");
       card.setAttribute("aria-expanded", "false");
       clearBackgroundBlur(card);
       elevatedCard = null;
+      elevatedCardItem = null;
       activeCard = null;
       return;
     }
@@ -335,7 +341,9 @@ const content: {
       },
       () => {
         card.removeAttribute("data-js-card-elevated");
+        elevatedCardItem?.removeAttribute("data-js-card-item-elevated");
         elevatedCard = null;
+        elevatedCardItem = null;
       },
       "power2.inOut",
     );

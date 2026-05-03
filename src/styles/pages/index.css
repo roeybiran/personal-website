@@ -127,16 +127,20 @@
 
   .projects-grid__item {
     min-inline-size: 0;
+    position: relative;
     opacity: 1;
-    transform: translateY(0);
     animation:
       list-item-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
         both,
       list-item-appear-transform var(--card-enter-transform-duration) var(--ease-4)
-        both;
+        backwards;
     animation-delay: calc(
       var(--section-enter-delay) + ((sibling-index() + 1) * var(--card-enter-stagger))
     );
+  }
+
+  [data-js-card-item-elevated] {
+    z-index: 2147483647;
   }
 
   .projects-grid__item > .card {
