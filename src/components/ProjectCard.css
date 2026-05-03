@@ -83,7 +83,6 @@
   inset: auto;
   position-area: block-end span-all;
   margin: var(--size-1);
-  border: none;
   background: transparent;
   opacity: 0;
   overflow: visible;
@@ -173,6 +172,11 @@
   grid-template-rows: 1fr auto;
 }
 
+.card--icon .card__media {
+  block-size: auto;
+  min-block-size: 0;
+}
+
 .card--icon .card__surface {
   place-items: center;
   padding: var(--size-3);
@@ -198,6 +202,10 @@
       var(--app-bg-subtle) 75%,
       var(--app-bg-subtle)
     );
+}
+
+.card--icon .card__surface > :first-child {
+  block-size: auto;
 }
 
 .card__icon-variants {

@@ -48,3 +48,7 @@
 :where(button) {
   touch-action: manipulation;
 }
+
+[popover] {
+  border: none;
+}
