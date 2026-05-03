@@ -2,11 +2,11 @@
   /* spacing */
 
   > * + * {
-    margin-block-start: var(--bleed);
+    margin-block-start: var(--space);
   }
 
   > * + :where(h1, h2, h3, h4, h5, h6) {
-    margin-block-start: calc(2 * var(--bleed));
+    margin-block-start: calc(2 * var(--space));
   }
 
   :where(h1, h2, h3, h4, h5, h6) + * {
@@ -14,7 +14,7 @@
   }
 
   :where(table, pre) {
-    margin-block-start: var(--bleed);
+    margin-block-start: var(--space);
   }
 
   /* lists */
@@ -84,7 +84,15 @@
     grid-column: 2;
   }
 
-  > :where(img, figure, iframe, .full, .wp-video, .paragraph-img-wrapper, .full-width) {
+  > :where(
+    img,
+    figure,
+    iframe,
+    .full,
+    .wp-video,
+    .paragraph-img-wrapper,
+    .full-width
+  ) {
     inline-size: 100%;
     grid-column: 1/-1;
   }

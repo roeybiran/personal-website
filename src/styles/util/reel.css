@@ -5,7 +5,7 @@
   overscroll-behavior-x: contain;
   grid-auto-flow: column;
   grid-auto-columns: min(100%, var(--reel-item-size, auto));
-  gap: var(--reel-gap, var(--bleed));
+  gap: var(--reel-gap, var(--space));
   justify-content: flex-start;
 }
 

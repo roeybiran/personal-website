@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { getImage, Image } from "astro:assets";
 import GitHubButton from "./GitHubButton.astro";
 import ExternalLinkIcon from "../assets/external-link.svg";
+import "./ProjectCard.css";
 
 export interface Props {
   item: CollectionEntry<"items">;
@@ -58,6 +59,21 @@ const poster = media.type === "video"
         {media.type === "image" && (
           <Image class="card__image" src={media.image} alt={title} />
         )}
+
+        {
+          kind === "icon" && (
+            <div class="card__icon-plaque" aria-hidden="true">
+              <div class="card__icon-spec">
+                <p class="card__icon-title">{title}</p>
+                <p class="card__icon-category">App Icon</p>
+              </div>
+              <div class="card__icon-footer">
+                <p>{stack.at(0) ?? "Icon Design"}</p>
+                <p>Copyright &copy; 2026 Roey Biran</p>
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
 

@@ -2,14 +2,18 @@
 import SiteLayout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 import ProjectCard from "../components/ProjectCard.astro";
+import GitHubButton from "../components/GitHubButton.astro";
+import ExternalLinkIcon from "../assets/external-link.svg";
+import "../styles/pages/index.css";
 
 const name = "Roey Biran";
 const itemEntries = await getCollection("items");
 
 const apps = itemEntries
   .filter(({ data }) => data.kind === "app")
-  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+  .sort((a, b) => b.data.title.localeCompare(a.data.title));
 
 const utilities = itemEntries
   .filter(({ data }) => data.kind === "utility")
@@ -57,23 +61,132 @@ const content: {
 >
   <h1 class="sr-only">{name}</h1>
   <div class="page-front__content">
-    <div class="constrained padded">
-      <div class="projects-grid | grid">
-        {
-          content.map(({ title, key, items }) => (
-            <>
-              <div class="card card--header | cardlike" data-section={key}>
-                <h2 class="projects-grid__section-title | text-secondary">
-                  {title}
-                </h2>
-              </div>
-              {items.map((item) => (
-                <ProjectCard item={item} sectionKey={key} />
-              ))}
-            </>
-          ))
-        }
-      </div>
+    <div class="projects-sections | constrained padded">
+      {
+        content.map(({ title, key, items }) => (
+          <section
+            class="projects-section"
+            data-section={key}
+            aria-labelledby={`${key}-title`}
+          >
+            <header class="projects-section__header">
+              <h2
+                id={`${key}-title`}
+                class="projects-section__title | text-secondary"
+              >
+                {title}
+              </h2>
+            </header>
+            {key === "apps" ? (
+              <ul class="apps-list">
+                {items
+                  .filter(({ data }) => data.kind === "app")
+                  .map(({ data }) => {
+                    const primaryLink = data.links.at(0);
+                    const isGitHubLink =
+                      primaryLink?.kind === "github" ||
+                      primaryLink?.url.includes("github");
+
+                    return (
+                      <li class="app-listing">
+                        <div class="app-listing__content">
+                          {data.status === "discontinued" && (
+                            <p class="app-listing__status | badge text-xs uppercased theme-gray">
+                              Discontinued
+                            </p>
+                          )}
+                          <h3 class="app-listing__title">{data.title}</h3>
+                          {data.tagline && (
+                            <p class="app-listing__tagline">{data.tagline}</p>
+                          )}
+                          {primaryLink && (
+                            <div class="app-listing__actions">
+                              {isGitHubLink ? (
+                                <GitHubButton url={primaryLink.url} />
+                              ) : (
+                                <a
+                                  class="button button--image"
+                                  target="_blank"
+                                  href={primaryLink.url}
+                                >
+                                  Learn More
+                                  <ExternalLinkIcon />
+                                </a>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        {data.media.type === "image" && (
+                          <Image
+                            class="app-listing__image"
+                            src={data.media.image}
+                            alt={data.title}
+                          />
+                        )}
+                      </li>
+                    );
+                  })}
+
+                {items
+                  .filter(({ data }) => data.kind === "utility")
+                  .map(({ data }) => {
+                    const primaryLink = data.links.at(0);
+                    const isGitHubLink =
+                      primaryLink?.kind === "github" ||
+                      primaryLink?.url.includes("github");
+
+                    return (
+                      <li class="app-listing app-listing--utility">
+                        <div class="app-listing__content">
+                          {data.status === "discontinued" && (
+                            <p class="app-listing__status | badge text-xs uppercased theme-gray">
+                              Discontinued
+                            </p>
+                          )}
+                          <h3 class="app-listing__title">{data.title}</h3>
+                          {data.tagline && (
+                            <p class="app-listing__tagline">{data.tagline}</p>
+                          )}
+                          {primaryLink && (
+                            <div class="app-listing__actions">
+                              {isGitHubLink ? (
+                                <GitHubButton url={primaryLink.url} />
+                              ) : (
+                                <a
+                                  class="button button--image"
+                                  target="_blank"
+                                  href={primaryLink.url}
+                                >
+                                  Learn More
+                                  <ExternalLinkIcon />
+                                </a>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        {data.media.type === "image" && (
+                          <Image
+                            class="app-listing__image"
+                            src={data.media.image}
+                            alt={data.title}
+                          />
+                        )}
+                      </li>
+                    );
+                  })}
+              </ul>
+            ) : (
+              <ul class="projects-grid | grid">
+                {items.map((item) => (
+                  <li class="projects-grid__item">
+                    <ProjectCard item={item} sectionKey={key} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))
+      }
     </div>
   </div>
 </SiteLayout>
@@ -90,9 +203,10 @@ const content: {
   let elevatedCard: HTMLElement | null = null;
   let ignoreNextClick = false;
 
-  const backgroundElements = (card: HTMLElement) => [
-    ...document.querySelectorAll<HTMLElement>(".site-header, .card"),
-  ].filter((element) => element !== card);
+  const backgroundElements = (card: HTMLElement) =>
+    [...document.querySelectorAll<HTMLElement>(".site-header, .card")].filter(
+      (element) => element !== card,
+    );
 
   const backgroundBlur = () =>
     getComputedStyle(document.documentElement)
@@ -286,7 +400,10 @@ const content: {
 
     const card = target.closest("[data-js-card]");
 
-    if (card instanceof HTMLElement && !card.hasAttribute("data-js-card-active")) {
+    if (
+      card instanceof HTMLElement &&
+      !card.hasAttribute("data-js-card-active")
+    ) {
       const interactiveTarget = target.closest("a, button");
 
       if (!interactiveTarget) {
@@ -309,219 +426,3 @@ const content: {
     }
   });
 </script>
-
-<style is:global>
-  .page-front__content {
-    padding-block: var(--size-4) var(--size-8);
-  }
-
-  .main--home {
-    --card-enter-opacity-duration: calc(
-      var(--sneeze) + var(--duration-quick-2) + var(--duration-quick-2)
-    );
-    --card-enter-transform-duration: calc(
-      var(--sneeze) + var(--duration-gentle-2) + var(--duration-moderate-1)
-    );
-    --card-enter-stagger: calc(var(--duration-quick-1) + var(--jiffy));
-
-    .projects-grid {
-      list-style: none;
-      --grid-item-min: var(--size-fluid-8);
-      --grid-fit: auto-fit;
-      gap: var(--bleed);
-      grid-auto-rows: var(--size-12);
-    }
-
-    .card {
-      opacity: 1;
-      transform: translateY(0);
-      animation:
-        card-appear-opacity var(--card-enter-opacity-duration) var(--ease-2)
-          both,
-        card-appear-transform var(--card-enter-transform-duration) var(--ease-4)
-          both;
-      animation-delay: calc(sibling-index() * var(--card-enter-stagger));
-    }
-
-    .card--header {
-      display: grid;
-      place-content: center;
-      min-block-size: var(--size-12);
-      padding: var(--bleed);
-      text-align: center;
-    }
-
-    .card--header .projects-grid__section-title {
-      font-size: var(--font-size-1);
-    }
-
-    .card {
-      position: relative;
-    }
-
-    .card__inner {
-      block-size: 100%;
-      overflow: clip;
-      border: var(--border);
-      border-radius: var(--card-radius);
-      background: var(--app-bg);
-      color: inherit;
-      outline: 0;
-    }
-
-    [data-js-card-opened],
-    [data-js-card-active] {
-      animation: none;
-      transform: none;
-    }
-
-    [data-js-card-elevated] {
-      z-index: 2147483647;
-    }
-
-    [data-js-card-elevated]::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      border: var(--border-dashed);
-      border-radius: var(--card-radius);
-      background: var(--ui-bg);
-    }
-
-    [data-js-card-active] .card__inner {
-      position: fixed;
-      inset-block-start: 50%;
-      inset-inline-start: 50%;
-      z-index: 1;
-      transform: translate(-50%, -50%);
-      inline-size: min(var(--size-content-3), calc(100% - (2 * var(--bleed))));
-      block-size: auto;
-      max-block-size: calc(100dvb - (2 * var(--bleed)));
-      overflow: auto;
-      box-shadow: var(--shadow-5);
-    }
-
-    .card__media {
-      position: relative;
-      block-size: 100%;
-    }
-
-    [data-js-card-active] .card__media {
-      block-size: auto;
-      border-block-end: var(--border);
-      background: var(--ui-bg);
-    }
-
-    .card__surface {
-      block-size: 100%;
-      overflow: hidden;
-      display: grid;
-      background: var(--ui-bg);
-
-      > * {
-        grid-area: 1/1;
-      }
-
-      > :first-child {
-        inline-size: 100%;
-        block-size: 100%;
-        min-inline-size: 0;
-        min-block-size: 0;
-        place-self: center;
-      }
-    }
-
-    [data-js-card-active] .card__surface > :first-child {
-      inline-size: 100%;
-      block-size: auto;
-      max-inline-size: 100%;
-    }
-
-    .card__details {
-      display: none;
-      padding: var(--bleed);
-
-      > * + * {
-        border-block-start: var(--border-dashed);
-        padding-block-start: var(--size-2);
-        margin-block-start: var(--size-2);
-      }
-    }
-
-    [data-js-card-active] .card__details {
-      display: block;
-    }
-
-    .card__video {
-      object-fit: cover;
-    }
-
-    .card__image {
-      object-fit: contain;
-      max-inline-size: var(--size-10);
-    }
-
-    .card--app .card__image {
-      max-inline-size: var(--size-8);
-    }
-
-    .card--utility .card__image {
-      max-inline-size: var(--size-7);
-    }
-
-    .card__subtitle {
-      color: var(--text-secondary);
-    }
-
-    .card__date {
-      font-size: var(--font-size-0);
-      color: var(--text-secondary);
-    }
-
-    .card__meta {
-      font-size: var(--font-size-0);
-    }
-
-    .card__meta-entry {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card__tools-list {
-      gap: var(--size-1);
-    }
-
-    :where(.card--interaction, .card--icon) .card__date {
-      display: none;
-    }
-
-    .card__meta-entry--press {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card__meta-entry--press dd {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .card__link {
-      color: var(--text-secondary);
-    }
-  }
-
-  @keyframes card-appear-opacity {
-    from {
-      opacity: 0;
-    }
-  }
-
-  @keyframes card-appear-transform {
-    from {
-      transform: translateY(var(--size-4));
-    }
-  }
-</style>

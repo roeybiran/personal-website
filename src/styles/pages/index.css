@@ -1,0 +1,120 @@
+.page-front__content {
+  padding-block: var(--size-4) var(--size-8);
+}
+
+.main--home {
+  --card-enter-opacity-duration: calc(
+    var(--sneeze) + var(--duration-quick-2) + var(--duration-quick-2)
+  );
+  --card-enter-transform-duration: calc(
+    var(--sneeze) + var(--duration-gentle-2) + var(--duration-moderate-1)
+  );
+  --card-enter-stagger: calc(var(--duration-quick-1) + var(--jiffy));
+
+  .projects-sections {
+    display: grid;
+    gap: var(--size-8);
+  }
+
+  .projects-section {
+    display: grid;
+    gap: var(--space);
+  }
+
+  .projects-section__header {
+    border-block-start: var(--border-subtle);
+    padding-block-start: var(--size-3);
+  }
+
+  .projects-section:first-child .projects-section__header {
+    border-block-start: 0;
+    padding-block-start: 0;
+  }
+
+  .projects-section__title {
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-5);
+  }
+
+  .apps-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space);
+    list-style: none;
+  }
+
+  .app-listing {
+    flex-basis: 100%;
+    flex-grow: 1;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    justify-items: center;
+    gap: var(--size-6);
+    padding: var(--size-5);
+    border-radius: var(--card-radius);
+    background: var(--app-bg-subtle);
+    text-align: center;
+  }
+
+  .app-listing__content {
+    display: grid;
+    justify-items: center;
+    gap: var(--size-2);
+    align-content: flex-end;
+  }
+
+  .app-listing__title {
+    font-size: var(--font-size-4);
+    font-weight: var(--font-weight-5);
+    line-height: var(--font-lineheight-0);
+  }
+
+  .app-listing__tagline {
+    color: var(--text-secondary);
+    font-size: var(--font-size-1);
+    line-height: var(--font-lineheight-2);
+  }
+
+  .app-listing__actions {
+    margin-block-start: var(--size-1);
+  }
+
+  .app-listing__image {
+    max-inline-size: var(--size-content-1);
+    object-fit: contain;
+  }
+
+  .app-listing--utility {
+    flex-basis: var(--size-content-1);
+    padding: var(--size-4);
+  }
+
+  .app-listing--utility .app-listing__title {
+    font-size: var(--font-size-3);
+  }
+
+  .app-listing--utility .app-listing__tagline {
+    max-inline-size: 24ch;
+    font-size: var(--font-size-0);
+  }
+
+  .app-listing--utility .app-listing__image {
+    inline-size: min(100%, var(--size-10));
+  }
+
+  .projects-grid {
+    list-style: none;
+    --grid-item-min: var(--size-fluid-8);
+    --grid-fit: auto-fit;
+    gap: var(--space);
+    grid-auto-rows: var(--size-12);
+  }
+
+  .projects-grid__item {
+    min-inline-size: 0;
+  }
+
+  .projects-grid__item > .card {
+    block-size: 100%;
+  }
+}
