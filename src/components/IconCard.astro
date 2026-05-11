@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 import "./ProjectCard.css";
 
 export interface Props {
@@ -15,19 +16,18 @@ const { title, type, variants } = data;
   <div class="card__media">
     <div class="card__surface">
       <ul class="card__icon-variants" aria-label={`${title} variants`}>
-        {variants.map((variant) => (
-          <li class="card__icon-variant">
-            <img
-              class="card__image"
-              src={variant.src}
-              width={variant.width}
-              height={variant.height}
-              alt={title}
-              loading="lazy"
-              decoding="async"
-            />
-          </li>
-        ))}
+        {
+          variants.map((variant) => (
+            <li class="card__icon-variant">
+              <Image
+                class="card__image"
+                src={variant}
+                alt={title}
+                loading="lazy"
+              />
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>

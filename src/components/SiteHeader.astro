@@ -10,7 +10,12 @@ const tagline = "Design Engineer";
 <header class="site-header">
   <div class="site-header__inner | constrained">
     <div class="site-header__leading">
-      <Image src={avatar} alt={name} class="site-header__avatar" />
+      <Image
+        src={avatar}
+        alt={name}
+        class="site-header__avatar"
+        loading="eager"
+      />
       <div class="site-header__text">
         <a class="site-header__name" href="/">{name}</a>
         <small class="site-header__subtitle">{tagline}</small>

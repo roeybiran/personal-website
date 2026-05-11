@@ -1,0 +1,46 @@
+<script>
+  const sections = [
+    ...document.querySelectorAll<HTMLElement>(".projects-section"),
+  ];
+
+  sections.forEach((section) => {
+    section.setAttribute("data-js-section-pending", "");
+  });
+
+  if (
+    !("IntersectionObserver" in window) ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    sections.forEach((section) => {
+      section.removeAttribute("data-js-section-pending");
+    });
+  } else {
+    const sectionObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const section = entry.target;
+
+          if (!(section instanceof HTMLElement)) {
+            return;
+          }
+
+          section.removeAttribute("data-js-section-pending");
+          section.setAttribute("data-js-section-visible", "");
+          observer.unobserve(section);
+        });
+      },
+      {
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.12,
+      },
+    );
+
+    sections.forEach((section) => {
+      sectionObserver.observe(section);
+    });
+  }
+</script>

@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import GitHubButton from "./GitHubButton.astro";
+import ExternalLinkIcon from "../assets/external-link.svg";
+
+export interface Props {
+  item: CollectionEntry<"items">;
+}
+
+const { item } = Astro.props;
+const { data } = item;
+const primaryLink = data.links.at(0);
+const isGitHubLink =
+  primaryLink?.kind === "github" || primaryLink?.url.includes("github");
+---
+
+<li class="app-listing app-listing--utility">
+  <div class="app-listing__content">
+    {
+      data.status === "discontinued" && (
+        <p class="app-listing__status | badge text-xs uppercased theme-gray">
+          Discontinued
+        </p>
+      )
+    }
+    <h3 class="app-listing__title">{data.title}</h3>
+    {data.tagline && <p class="app-listing__tagline">{data.tagline}</p>}
+    {
+      primaryLink && (
+        <div class="app-listing__actions">
+          {isGitHubLink ? (
+            <GitHubButton url={primaryLink.url} small />
+          ) : (
+            <a class="button button--image" target="_blank" href={primaryLink.url}>
+              Learn More
+              <ExternalLinkIcon />
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
+  {
+    data.media.type === "image" && (
+      <Image
+        class="app-listing__image"
+        src={data.media.image}
+        alt={data.title}
+        loading="eager"
+      />
+    )
+  }
+</li>

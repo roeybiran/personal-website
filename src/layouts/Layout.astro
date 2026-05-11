@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import LazyImageSkeletons from "../components/LazyImageSkeletons.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteHead from "../components/SiteHead.astro";
@@ -30,5 +31,6 @@ const mainClass = `main--${slug}`;
       <slot />
     </main>
     <SiteFooter />
+    <LazyImageSkeletons />
   </body>
 </html>

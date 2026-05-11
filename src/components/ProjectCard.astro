@@ -75,7 +75,12 @@ if (media.type === "video" && !videoSrc) {
         }
 
         {media.type === "image" && (
-          <Image class="card__image" src={media.image} alt={title} />
+          <Image
+            class="card__image"
+            src={media.image}
+            alt={title}
+            loading="lazy"
+          />
         )}
       </div>
 

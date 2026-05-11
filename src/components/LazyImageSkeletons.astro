@@ -1,0 +1,15 @@
+<script>
+  for (const image of document.querySelectorAll<HTMLImageElement>(
+    'img[loading="lazy"]',
+  )) {
+    if (image.complete) {
+      image.classList.add("image-skeleton--loaded");
+    } else {
+      image.addEventListener(
+        "load",
+        () => image.classList.add("image-skeleton--loaded"),
+        { once: true },
+      );
+    }
+  }
+</script>

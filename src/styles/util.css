@@ -7,6 +7,32 @@
   width: 1px;
 }
 
+img[loading="lazy"]:not(.image-skeleton--loaded) {
+  background:
+    linear-gradient(
+        110deg,
+        transparent 30%,
+        var(--ui-bg-hover) 45%,
+        transparent 60%
+      )
+      -200% 0 / 200% 100% no-repeat,
+    var(--ui-bg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  img[loading="lazy"]:not(.image-skeleton--loaded) {
+    animation: image-skeleton-shimmer 1.4s var(--ease-1) infinite;
+  }
+}
+
+@keyframes image-skeleton-shimmer {
+  to {
+    background-position:
+      200% 0,
+      0 0;
+  }
+}
+
 .center {
   margin-inline: auto;
 }

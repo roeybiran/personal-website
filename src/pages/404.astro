@@ -12,7 +12,11 @@ import "../styles/pages/404.css";
   <div class="page-404 | padded constrained">
     <h1 class="sr-only">404: Page not found</h1>
     <p class="page-404__title | theme-red bordered">404: Page not found</p>
-    <Image class="page-404__image" src={Image404} alt="404" />
+    <Image
+      class="page-404__image"
+      src={Image404}
+      alt="404"
+      loading="eager"
+    />
   </div>
 </SiteLayout>
-
